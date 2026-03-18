@@ -1,0 +1,362 @@
+\babel@toc {brazilian}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {brazilian}{}\relax 
+\contentsline {chapter}{\numberline {1}Introdução}{22}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Contextualização do problema}{22}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Relevância do câncer de mama como problema de saúde pública}{22}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Importância do diagnóstico por imagem}{23}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Crescente uso de Inteligência Artificial na área médica}{24}{subsection.1.1.3}%
+\contentsline {section}{\numberline {1.2}Motivação}{25}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Desafios do diagnóstico em imagens de ultrassom mamário}{25}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Potencial das técnicas de Deep Learning como apoio ao diagnóstico}{26}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Justificativa para o uso do dataset BUSI}{27}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}Problema de pesquisa}{28}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Limitações de abordagens convencionais}{28}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Necessidade de comparação entre arquiteturas distintas por tarefa}{30}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Definição do problema investigado}{31}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Hipótese ou pressupostos}{32}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Hipótese para classificação}{32}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Hipótese para segmentação}{33}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Relação entre desempenho e custo computacional}{34}{subsection.1.4.3}%
+\contentsline {section}{\numberline {1.5}Objetivos}{35}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Objetivo geral}{35}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Objetivos específicos}{35}{subsection.1.5.2}%
+\contentsline {section}{\numberline {1.6}Delimitação do estudo}{37}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Foco em imagens de ultrassom mamário}{37}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Restrição ao dataset BUSI}{38}{subsection.1.6.2}%
+\contentsline {subsection}{\numberline {1.6.3}Separação entre classificação e segmentação}{39}{subsection.1.6.3}%
+\contentsline {section}{\numberline {1.7}Metodologia resumida}{39}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Estrutura geral do pipeline experimental}{39}{subsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.7.2}Modelos considerados}{41}{subsection.1.7.2}%
+\contentsline {subsection}{\numberline {1.7.3}Métricas adotadas}{42}{subsection.1.7.3}%
+\contentsline {section}{\numberline {1.8}Organização do trabalho}{43}{section.1.8}%
+\contentsline {subsection}{\numberline {1.8.1}Descrição dos capítulos}{43}{subsection.1.8.1}%
+\contentsline {subsection}{\numberline {1.8.2}Encadeamento lógico da monografia}{45}{subsection.1.8.2}%
+\contentsline {chapter}{\numberline {2}Fundamentação Teórica}{47}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Câncer de mama e diagnóstico por imagem}{47}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Conceitos básicos sobre câncer de mama}{47}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Métodos de imagem utilizados no diagnóstico}{48}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Ultrassonografia mamária: características e limitações}{49}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Inteligência Artificial aplicada à saúde}{51}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Conceitos de IA, Machine Learning e Deep Learning}{51}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Aplicações de IA em imagens médicas}{52}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Benefícios, limitações e desafios clínicos}{53}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Visão computacional em imagens médicas}{54}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Representação digital de imagens}{54}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Pré-processamento de imagens médicas}{55}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Extração e aprendizado de características}{56}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Redes neurais convolucionais}{57}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Conceitos fundamentais de CNNs}{57}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Camadas convolucionais, pooling e funções de ativação}{59}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Regularização, batch normalization e dropout}{61}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Transfer learning e fine-tuning}{63}{subsection.2.4.4}%
+\contentsline {section}{\numberline {2.5}Classificação de imagens com Deep Learning}{65}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Formulação da tarefa de classificação}{65}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Desafios em classificação de imagens médicas}{68}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Métricas de avaliação para classificação}{70}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Arquiteturas para classificação}{75}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}VGG16}{75}{subsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.1.1}Estrutura da arquitetura}{75}{subsubsection.2.6.1.1}%
+\contentsline {subsubsection}{\numberline {2.6.1.2}Vantagens e limitações}{75}{subsubsection.2.6.1.2}%
+\contentsline {subsection}{\numberline {2.6.2}ResNet50}{75}{subsection.2.6.2}%
+\contentsline {subsubsection}{\numberline {2.6.2.1}Skip connections e treinamento profundo}{75}{subsubsection.2.6.2.1}%
+\contentsline {subsubsection}{\numberline {2.6.2.2}Aplicações em imagens médicas}{75}{subsubsection.2.6.2.2}%
+\contentsline {subsection}{\numberline {2.6.3}EfficientNet}{75}{subsection.2.6.3}%
+\contentsline {subsubsection}{\numberline {2.6.3.1}Compound scaling}{75}{subsubsection.2.6.3.1}%
+\contentsline {subsubsection}{\numberline {2.6.3.2}Eficiência computacional}{75}{subsubsection.2.6.3.2}%
+\contentsline {subsection}{\numberline {2.6.4}ConvNeXt}{75}{subsection.2.6.4}%
+\contentsline {subsubsection}{\numberline {2.6.4.1}Motivação e modernização de CNNs}{75}{subsubsection.2.6.4.1}%
+\contentsline {subsubsection}{\numberline {2.6.4.2}Potencial em tarefas médicas}{75}{subsubsection.2.6.4.2}%
+\contentsline {section}{\numberline {2.7}Segmentação de imagens médicas}{75}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Conceito de segmentação semântica}{75}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Importância da segmentação no contexto clínico}{75}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Métricas de avaliação para segmentação}{75}{subsection.2.7.3}%
+\contentsline {section}{\numberline {2.8}Arquiteturas para segmentação}{75}{section.2.8}%
+\contentsline {subsection}{\numberline {2.8.1}U-Net}{75}{subsection.2.8.1}%
+\contentsline {subsubsection}{\numberline {2.8.1.1}Estrutura encoder-decoder}{75}{subsubsection.2.8.1.1}%
+\contentsline {subsubsection}{\numberline {2.8.1.2}Skip connections e uso em medicina}{75}{subsubsection.2.8.1.2}%
+\contentsline {subsection}{\numberline {2.8.2}Attention U-Net}{75}{subsection.2.8.2}%
+\contentsline {subsubsection}{\numberline {2.8.2.1}Mecanismos de atenção}{75}{subsubsection.2.8.2.1}%
+\contentsline {subsubsection}{\numberline {2.8.2.2}Vantagens na delimitação de regiões relevantes}{75}{subsubsection.2.8.2.2}%
+\contentsline {subsection}{\numberline {2.8.3}U-Net++}{75}{subsection.2.8.3}%
+\contentsline {subsubsection}{\numberline {2.8.3.1}Nested skip connections}{75}{subsubsection.2.8.3.1}%
+\contentsline {subsubsection}{\numberline {2.8.3.2}Comparação conceitual com U-Net}{75}{subsubsection.2.8.3.2}%
+\contentsline {subsection}{\numberline {2.8.4}DeepLabV3+}{75}{subsection.2.8.4}%
+\contentsline {subsubsection}{\numberline {2.8.4.1}Atrous convolution}{75}{subsubsection.2.8.4.1}%
+\contentsline {subsubsection}{\numberline {2.8.4.2}Captura de contexto global}{75}{subsubsection.2.8.4.2}%
+\contentsline {section}{\numberline {2.9}Técnicas complementares}{75}{section.2.9}%
+\contentsline {subsection}{\numberline {2.9.1}Data augmentation}{75}{subsection.2.9.1}%
+\contentsline {subsection}{\numberline {2.9.2}Balanceamento de classes}{75}{subsection.2.9.2}%
+\contentsline {subsection}{\numberline {2.9.3}Funções de perda para classificação}{75}{subsection.2.9.3}%
+\contentsline {subsection}{\numberline {2.9.4}Funções de perda para segmentação}{75}{subsection.2.9.4}%
+\contentsline {section}{\numberline {2.10}Trabalhos relacionados}{75}{section.2.10}%
+\contentsline {subsection}{\numberline {2.10.1}Estudos sobre classificação em ultrassom mamário}{75}{subsection.2.10.1}%
+\contentsline {subsection}{\numberline {2.10.2}Estudos sobre segmentação em ultrassom mamário}{75}{subsection.2.10.2}%
+\contentsline {subsection}{\numberline {2.10.3}Comparação entre literatura e proposta do trabalho}{75}{subsection.2.10.3}%
+\contentsline {subsection}{\numberline {2.10.4}Lacunas identificadas}{75}{subsection.2.10.4}%
+\contentsline {chapter}{\numberline {3}Materiais e Métodos}{76}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Caracterização da pesquisa}{76}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Natureza da pesquisa}{76}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Abordagem metodológica}{76}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Estratégia experimental}{76}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Ambiente computacional}{76}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Linguagens, bibliotecas e frameworks}{76}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Ambiente de execução}{76}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Limitações de hardware}{76}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Base de dados}{76}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Descrição do BUSI Dataset}{76}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Distribuição das classes}{77}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Estrutura dos arquivos e máscaras}{78}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Critérios de inclusão e exclusão}{79}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Preparação dos dados}{82}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Organização dos conjuntos de treino, validação e teste}{82}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Estratégia de split estratificado}{82}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Prevenção de vazamento de dados}{82}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Padronização dos dados}{82}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Pré-processamento}{82}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Redimensionamento das imagens}{82}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Normalização}{82}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Tratamento das máscaras}{82}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Verificação visual do pré-processamento}{82}{subsection.3.5.4}%
+\contentsline {section}{\numberline {3.6}Aumento de dados}{82}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Técnicas aplicadas à classificação}{82}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Técnicas aplicadas à segmentação}{82}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Restrições clínicas das transformações}{82}{subsection.3.6.3}%
+\contentsline {section}{\numberline {3.7}Modelagem experimental --- classificação}{82}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Definição da tarefa}{82}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Arquiteturas selecionadas}{82}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}Cabeças de classificação}{82}{subsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.7.4}Estratégias de transfer learning}{82}{subsection.3.7.4}%
+\contentsline {subsection}{\numberline {3.7.5}Configuração de treino}{82}{subsection.3.7.5}%
+\contentsline {section}{\numberline {3.8}Modelagem experimental --- segmentação}{82}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Definição da tarefa}{82}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Arquiteturas selecionadas}{82}{subsection.3.8.2}%
+\contentsline {subsection}{\numberline {3.8.3}Estratégias de treinamento}{82}{subsection.3.8.3}%
+\contentsline {subsection}{\numberline {3.8.4}Funções de perda}{82}{subsection.3.8.4}%
+\contentsline {subsection}{\numberline {3.8.5}Configuração de treino}{82}{subsection.3.8.5}%
+\contentsline {section}{\numberline {3.9}Hiperparâmetros e critérios de ajuste}{82}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Taxa de aprendizado}{82}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}Batch size}{82}{subsection.3.9.2}%
+\contentsline {subsection}{\numberline {3.9.3}Número de épocas}{82}{subsection.3.9.3}%
+\contentsline {subsection}{\numberline {3.9.4}Early stopping e checkpointing}{82}{subsection.3.9.4}%
+\contentsline {subsection}{\numberline {3.9.5}Critérios de seleção dos melhores modelos}{82}{subsection.3.9.5}%
+\contentsline {section}{\numberline {3.10}Métricas de avaliação}{82}{section.3.10}%
+\contentsline {subsection}{\numberline {3.10.1}Métricas de classificação}{82}{subsection.3.10.1}%
+\contentsline {subsubsection}{\numberline {3.10.1.1}Accuracy}{82}{subsubsection.3.10.1.1}%
+\contentsline {subsubsection}{\numberline {3.10.1.2}Precision}{82}{subsubsection.3.10.1.2}%
+\contentsline {subsubsection}{\numberline {3.10.1.3}Recall / Sensibilidade}{82}{subsubsection.3.10.1.3}%
+\contentsline {subsubsection}{\numberline {3.10.1.4}F1-score}{82}{subsubsection.3.10.1.4}%
+\contentsline {subsubsection}{\numberline {3.10.1.5}AUC-ROC}{82}{subsubsection.3.10.1.5}%
+\contentsline {subsubsection}{\numberline {3.10.1.6}Especificidade}{82}{subsubsection.3.10.1.6}%
+\contentsline {subsection}{\numberline {3.10.2}Métricas de segmentação}{82}{subsection.3.10.2}%
+\contentsline {subsubsection}{\numberline {3.10.2.1}IoU}{82}{subsubsection.3.10.2.1}%
+\contentsline {subsubsection}{\numberline {3.10.2.2}Dice Score}{82}{subsubsection.3.10.2.2}%
+\contentsline {subsubsection}{\numberline {3.10.2.3}Precision}{82}{subsubsection.3.10.2.3}%
+\contentsline {subsubsection}{\numberline {3.10.2.4}Recall}{82}{subsubsection.3.10.2.4}%
+\contentsline {subsubsection}{\numberline {3.10.2.5}F1-score pixel-wise}{82}{subsubsection.3.10.2.5}%
+\contentsline {subsection}{\numberline {3.10.3}Métricas computacionais}{82}{subsection.3.10.3}%
+\contentsline {subsubsection}{\numberline {3.10.3.1}Número de parâmetros}{82}{subsubsection.3.10.3.1}%
+\contentsline {subsubsection}{\numberline {3.10.3.2}Tempo de treinamento}{82}{subsubsection.3.10.3.2}%
+\contentsline {subsubsection}{\numberline {3.10.3.3}Tempo de inferência}{82}{subsubsection.3.10.3.3}%
+\contentsline {subsubsection}{\numberline {3.10.3.4}Tamanho do modelo}{82}{subsubsection.3.10.3.4}%
+\contentsline {section}{\numberline {3.11}Procedimento experimental}{82}{section.3.11}%
+\contentsline {subsection}{\numberline {3.11.1}Etapas da experimentação}{82}{subsection.3.11.1}%
+\contentsline {subsection}{\numberline {3.11.2}Reprodutibilidade e fixação de seeds}{82}{subsection.3.11.2}%
+\contentsline {subsection}{\numberline {3.11.3}Registro e armazenamento dos resultados}{82}{subsection.3.11.3}%
+\contentsline {subsection}{\numberline {3.11.4}Fluxo geral do experimento}{82}{subsection.3.11.4}%
+\contentsline {chapter}{\numberline {4}Resultados --- Classificação}{83}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Configuração final dos experimentos de classificação}{85}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Modelos efetivamente treinados}{85}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Hiperparâmetros adotados}{85}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Critério de seleção do melhor checkpoint}{85}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Resultados quantitativos gerais}{85}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Tabela consolidada de métricas}{85}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Comparação entre arquiteturas}{85}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Melhor modelo em desempenho absoluto}{85}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Curvas de treinamento}{85}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Loss de treino e validação}{85}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Accuracy de treino e validação}{85}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Indícios de overfitting ou underfitting}{85}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Análise por classe}{85}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Desempenho na classe benign}{85}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Desempenho na classe malignant}{85}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Desempenho na classe normal}{85}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Sensibilidade clínica da classe malignant}{85}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Matrizes de confusão}{85}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Matriz de confusão do VGG16}{85}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Matriz de confusão do ResNet50}{85}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Matriz de confusão do EfficientNet}{85}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Matriz de confusão do ConvNeXt}{85}{subsection.4.5.4}%
+\contentsline {section}{\numberline {4.6}Curvas ROC}{85}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Curvas ROC por classe}{85}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Comparação das AUCs}{85}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Interpretação clínica dos resultados}{85}{subsection.4.6.3}%
+\contentsline {section}{\numberline {4.7}Análise de hiperparâmetros}{85}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Impacto da taxa de aprendizado}{85}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Impacto do batch size}{85}{subsection.4.7.2}%
+\contentsline {subsection}{\numberline {4.7.3}Impacto do fine-tuning}{85}{subsection.4.7.3}%
+\contentsline {subsection}{\numberline {4.7.4}Efeito do data augmentation}{85}{subsection.4.7.4}%
+\contentsline {section}{\numberline {4.8}Custo computacional e inferência}{85}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Número de parâmetros por modelo}{85}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Tempo de treinamento}{85}{subsection.4.8.2}%
+\contentsline {subsection}{\numberline {4.8.3}Tempo médio de inferência por imagem}{85}{subsection.4.8.3}%
+\contentsline {subsection}{\numberline {4.8.4}Trade-off entre desempenho e custo}{85}{subsection.4.8.4}%
+\contentsline {section}{\numberline {4.9}Análise qualitativa}{85}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Exemplos corretamente classificados}{85}{subsection.4.9.1}%
+\contentsline {subsection}{\numberline {4.9.2}Exemplos mal classificados}{85}{subsection.4.9.2}%
+\contentsline {subsection}{\numberline {4.9.3}Padrões de erro observados}{85}{subsection.4.9.3}%
+\contentsline {section}{\numberline {4.10}Síntese dos resultados de classificação}{85}{section.4.10}%
+\contentsline {subsection}{\numberline {4.10.1}Melhor modelo global}{85}{subsection.4.10.1}%
+\contentsline {subsection}{\numberline {4.10.2}Melhor modelo custo-benefício}{85}{subsection.4.10.2}%
+\contentsline {subsection}{\numberline {4.10.3}Limitações observadas}{85}{subsection.4.10.3}%
+\contentsline {chapter}{\numberline {5}Resultados --- Segmentação}{86}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Configuração final dos experimentos de segmentação}{88}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Modelos efetivamente treinados}{88}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Hiperparâmetros adotados}{88}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Funções de perda utilizadas}{88}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Resultados quantitativos gerais}{88}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Tabela consolidada de métricas}{88}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Comparação entre arquiteturas}{88}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Melhor modelo em desempenho absoluto}{88}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Curvas de treinamento}{88}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Loss de treino e validação}{88}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}IoU de treino e validação}{88}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Dice Score de treino e validação}{88}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Estabilidade do treinamento}{88}{subsection.5.3.4}%
+\contentsline {section}{\numberline {5.4}Comparação quantitativa dos modelos}{88}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}U-Net}{88}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Attention U-Net}{88}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}U-Net++}{88}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}DeepLabV3+}{88}{subsection.5.4.4}%
+\contentsline {section}{\numberline {5.5}Análise qualitativa da segmentação}{88}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Casos com segmentação adequada}{88}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Casos com subsegmentação}{88}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Casos com sobresegmentação}{88}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Casos difíceis e ambiguidades visuais}{88}{subsection.5.5.4}%
+\contentsline {section}{\numberline {5.6}Comparação visual entre ground truth e predição}{88}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Imagem original}{88}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Máscara de referência}{88}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Máscara predita}{88}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.4}Overlay comparativo}{88}{subsection.5.6.4}%
+\contentsline {section}{\numberline {5.7}Análise de hiperparâmetros}{88}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Impacto da taxa de aprendizado}{88}{subsection.5.7.1}%
+\contentsline {subsection}{\numberline {5.7.2}Impacto do tamanho de entrada}{88}{subsection.5.7.2}%
+\contentsline {subsection}{\numberline {5.7.3}Impacto da função de perda}{88}{subsection.5.7.3}%
+\contentsline {subsection}{\numberline {5.7.4}Efeito do data augmentation}{88}{subsection.5.7.4}%
+\contentsline {section}{\numberline {5.8}Custo computacional e inferência}{88}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Número de parâmetros por modelo}{88}{subsection.5.8.1}%
+\contentsline {subsection}{\numberline {5.8.2}Tempo de treinamento}{88}{subsection.5.8.2}%
+\contentsline {subsection}{\numberline {5.8.3}Tempo médio de inferência por imagem}{88}{subsection.5.8.3}%
+\contentsline {subsection}{\numberline {5.8.4}Comparação entre desempenho e custo}{88}{subsection.5.8.4}%
+\contentsline {section}{\numberline {5.9}Síntese dos resultados de segmentação}{88}{section.5.9}%
+\contentsline {subsection}{\numberline {5.9.1}Melhor modelo global}{88}{subsection.5.9.1}%
+\contentsline {subsection}{\numberline {5.9.2}Melhor modelo em equilíbrio desempenho/custo}{88}{subsection.5.9.2}%
+\contentsline {subsection}{\numberline {5.9.3}Principais limitações observadas}{88}{subsection.5.9.3}%
+\contentsline {chapter}{\numberline {6}Discussão}{89}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Discussão dos resultados de classificação}{90}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Interpretação dos ganhos entre arquiteturas}{90}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Sensibilidade para lesões malignas}{90}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Robustez dos modelos}{90}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Discussão dos resultados de segmentação}{90}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Impacto da atenção na segmentação}{90}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Ganhos estruturais de arquiteturas mais complexas}{90}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Limitações na delimitação das lesões}{90}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Comparação entre desempenho e custo computacional}{90}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Melhor modelo absoluto versus melhor custo-benefício}{90}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Viabilidade prática em ambientes com recursos limitados}{90}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Considerações sobre tempo de inferência}{90}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Relação com os trabalhos relacionados}{90}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Similaridades com a literatura}{90}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Diferenças em metodologia e resultados}{90}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Contribuição do trabalho frente à literatura}{90}{subsection.6.4.3}%
+\contentsline {section}{\numberline {6.5}Limitações do estudo}{90}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Uso de um único dataset}{90}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Tamanho da base de dados}{90}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Limitações de hardware}{90}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Restrições metodológicas}{90}{subsection.6.5.4}%
+\contentsline {section}{\numberline {6.6}Implicações práticas}{90}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Uso como apoio ao diagnóstico}{90}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Potencial de aplicação acadêmica e clínica}{90}{subsection.6.6.2}%
+\contentsline {subsection}{\numberline {6.6.3}Cuidados éticos e interpretativos}{90}{subsection.6.6.3}%
+\contentsline {chapter}{\numberline {7}Conclusão}{91}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Retomada do problema de pesquisa}{91}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Síntese do contexto e motivação}{91}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Resposta ao problema proposto}{91}{subsection.7.1.2}%
+\contentsline {section}{\numberline {7.2}Principais achados}{91}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Achados na classificação}{91}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Achados na segmentação}{91}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Achados sobre custo computacional}{91}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Contribuições do trabalho}{91}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Contribuições técnicas}{91}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Contribuições metodológicas}{91}{subsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.3.3}Contribuições acadêmicas}{91}{subsection.7.3.3}%
+\contentsline {section}{\numberline {7.4}Limitações finais}{91}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Limitações experimentais}{91}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Limitações de generalização}{91}{subsection.7.4.2}%
+\contentsline {section}{\numberline {7.5}Trabalhos futuros}{91}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Uso de múltiplos datasets}{91}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}Validação cruzada e análise estatística}{91}{subsection.7.5.2}%
+\contentsline {subsection}{\numberline {7.5.3}Inclusão de modelos adicionais}{91}{subsection.7.5.3}%
+\contentsline {subsection}{\numberline {7.5.4}Explicabilidade e interpretabilidade}{91}{subsection.7.5.4}%
+\contentsline {subsection}{\numberline {7.5.5}Integração entre classificação e segmentação}{91}{subsection.7.5.5}%
+\contentsline {chapter}{Refer{\^e}ncias}{92}{subsection.7.5.5}%
+\settowidth {\ei@chapnumindent }{{\sffamily \textbf {\MakeUppercase []{Ap{\^e}ndice} }}}\advance \ei@chapnumindent 1.8em\relax 
+\contentsline {chapter}{\numberline {\MakeUppercase []{Ap{\^e}ndice} A}Configurações completas dos experimentos}{96}{chapter.1}%
+\contentsline {section}{\numberline {A.1}Configurações dos experimentos de classificação}{96}{section.1.1}%
+\contentsline {subsection}{\numberline {A.1.1}Configuração do VGG16}{96}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Configuração do ResNet50}{96}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {A.1.3}Configuração do EfficientNet}{96}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {A.1.4}Configuração do ConvNeXt}{96}{subsection.1.1.4}%
+\contentsline {section}{\numberline {A.2}Configurações dos experimentos de segmentação}{96}{section.1.2}%
+\contentsline {subsection}{\numberline {A.2.1}Configuração do U-Net}{96}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {A.2.2}Configuração do Attention U-Net}{96}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {A.2.3}Configuração do U-Net++}{96}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {A.2.4}Configuração do DeepLabV3+}{96}{subsection.1.2.4}%
+\contentsline {section}{\numberline {A.3}Hiperparâmetros adicionais}{96}{section.1.3}%
+\contentsline {subsection}{\numberline {A.3.1}Taxas de aprendizado testadas}{96}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}Batch sizes avaliados}{96}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {A.3.3}Estratégias de early stopping e checkpoint}{96}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {A.3.4}Funções de perda utilizadas}{96}{subsection.1.3.4}%
+\contentsline {chapter}{\numberline {\MakeUppercase []{Ap{\^e}ndice} B}Tabelas detalhadas de resultados}{97}{chapter.2}%
+\contentsline {section}{\numberline {B.1}Resultados detalhados da classificação}{97}{section.2.1}%
+\contentsline {subsection}{\numberline {B.1.1}Métricas por modelo}{97}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}Métricas por classe}{97}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {B.1.3}Matrizes de confusão completas}{97}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {B.1.4}Valores de AUC-ROC por classe}{97}{subsection.2.1.4}%
+\contentsline {section}{\numberline {B.2}Resultados detalhados da segmentação}{97}{section.2.2}%
+\contentsline {subsection}{\numberline {B.2.1}Métricas por modelo}{97}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {B.2.2}Resultados por subconjunto de teste}{97}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {B.2.3}Valores de IoU e Dice Score}{97}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {B.2.4}Comparações quantitativas completas}{97}{subsection.2.2.4}%
+\contentsline {section}{\numberline {B.3}Métricas computacionais detalhadas}{97}{section.2.3}%
+\contentsline {subsection}{\numberline {B.3.1}Número de parâmetros}{97}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {B.3.2}Tempo de treinamento}{97}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {B.3.3}Tempo de inferência}{97}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {B.3.4}Tamanho dos modelos}{97}{subsection.2.3.4}%
+\contentsline {chapter}{\numberline {\MakeUppercase []{Ap{\^e}ndice} C}Arquiteturas dos modelos}{98}{chapter.3}%
+\contentsline {section}{\numberline {C.1}Arquiteturas de classificação}{98}{section.3.1}%
+\contentsline {subsection}{\numberline {C.1.1}Arquitetura do VGG16}{98}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {C.1.2}Arquitetura do ResNet50}{98}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {C.1.3}Arquitetura do EfficientNet}{98}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {C.1.4}Arquitetura do ConvNeXt}{98}{subsection.3.1.4}%
+\contentsline {section}{\numberline {C.2}Arquiteturas de segmentação}{98}{section.3.2}%
+\contentsline {subsection}{\numberline {C.2.1}Arquitetura do U-Net}{98}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {C.2.2}Arquitetura do Attention U-Net}{98}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {C.2.3}Arquitetura do U-Net++}{98}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {C.2.4}Arquitetura do DeepLabV3+}{98}{subsection.3.2.4}%
+\contentsline {chapter}{\numberline {\MakeUppercase []{Ap{\^e}ndice} D}Trechos de código relevantes}{99}{chapter.4}%
+\contentsline {section}{\numberline {D.1}Código de preparação dos dados}{99}{section.4.1}%
+\contentsline {subsection}{\numberline {D.1.1}Leitura e organização do dataset}{99}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {D.1.2}Split dos dados}{99}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {D.1.3}Pré-processamento}{99}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {D.1.4}Data augmentation}{99}{subsection.4.1.4}%
+\contentsline {section}{\numberline {D.2}Código de treinamento}{99}{section.4.2}%
+\contentsline {subsection}{\numberline {D.2.1}Treinamento dos modelos de classificação}{99}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {D.2.2}Treinamento dos modelos de segmentação}{99}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {D.2.3}Callbacks e checkpoints}{99}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {D.2.4}Registro das métricas}{99}{subsection.4.2.4}%
+\contentsline {section}{\numberline {D.3}Código de avaliação}{99}{section.4.3}%
+\contentsline {subsection}{\numberline {D.3.1}Cálculo das métricas de classificação}{99}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {D.3.2}Cálculo das métricas de segmentação}{99}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {D.3.3}Geração de matrizes de confusão}{99}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {D.3.4}Medição do tempo de inferência}{99}{subsection.4.3.4}%

@@ -1,0 +1,118 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: exemplo-tcc.aux
+Reallocating 'name_of_file' (item size: 1) to 5 items.
+The style file: abnt.bst
+Reallocating 'name_of_file' (item size: 1) to 13 items.
+Database file #1: bibliografia.bib
+Repeated entry---line 201 of file bibliografia.bib
+ : @article{Dan2024
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 213 of file bibliografia.bib
+ : @article{Zhou2021
+ :                  ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 225 of file bibliografia.bib
+ : @article{Bhowmik2022
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 237 of file bibliografia.bib
+ : @article{AlDhabyani2020
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 248 of file bibliografia.bib
+ : @article{Pawlowska2023
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 259 of file bibliografia.bib
+ : @misc{WHO2025BreastCancer
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 269 of file bibliografia.bib
+ : @article{INCAEstimativa2023
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 281 of file bibliografia.bib
+ : @misc{INCADiretrizesMama
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 299 of file bibliografia.bib
+ : @misc{INCADeteccaoPrecoce2022
+ :                              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 319 of file bibliografia.bib
+ : @misc{INCAParametrosMama
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 340 of file bibliografia.bib
+ : @article{Dan2024
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 376 of file bibliografia.bib
+ : @article{Afrin2023
+ :                   ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "WHO2025"
+Warning--I didn't find a database entry for "IARC2025"
+Warning--I didn't find a database entry for "INCA2023"
+Warning--I didn't find a database entry for "INCAIncidencia"
+Warning--I didn't find a database entry for "INCADeteccao"
+Warning--I didn't find a database entry for "IARCBreastAtlas"
+Warning--I didn't find a database entry for "INCAParametros"
+Warning--I didn't find a database entry for "Barragan2021"
+Warning--I didn't find a database entry for "Alhejaily2024"
+Warning--I didn't find a database entry for "Liu2025"
+Warning--I didn't find a database entry for "LeCun1998"
+Warning--I didn't find a database entry for "Goodfellow2016"
+Warning--I didn't find a database entry for "Szeliski2022"
+Warning--I didn't find a database entry for "Yamashita2018"
+Warning--I didn't find a database entry for "Nair2010"
+Warning--I didn't find a database entry for "Ioffe2015"
+Warning--I didn't find a database entry for "Srivastava2014"
+Warning--I didn't find a database entry for "Pan2010"
+Warning--I didn't find a database entry for "Yosinski2014"
+Warning--I didn't find a database entry for "Shin2016"
+Warning--I didn't find a database entry for "turn956269search3"
+You've used 20 entries,
+            2376 wiz_defined-function locations,
+            759 strings with 9774 characters,
+and the built_in function-call counts, 19635 in all, are:
+= -- 1671
+> -- 219
+< -- 465
++ -- 1274
+- -- 94
+* -- 1466
+:= -- 1669
+add.period$ -- 60
+call.type$ -- 20
+change.case$ -- 385
+chr.to.int$ -- 4
+cite$ -- 20
+duplicate$ -- 2470
+empty$ -- 1117
+format.name$ -- 511
+if$ -- 3634
+int.to.chr$ -- 4
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 43
+num.names$ -- 100
+pop$ -- 474
+preamble$ -- 1
+purify$ -- 20
+quote$ -- 0
+skip$ -- 1036
+stack$ -- 0
+substring$ -- 705
+swap$ -- 1931
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 100
+warning$ -- 0
+while$ -- 120
+width$ -- 0
+write$ -- 22
+(There were 12 error messages)

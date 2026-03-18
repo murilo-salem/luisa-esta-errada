@@ -1,0 +1,1525 @@
+\documentclass[tcc,capa]{texufpel}
+
+\usepackage[utf8]{inputenc} % acentuacao
+\usepackage{graphicx} % para inserir figuras
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\hypersetup{
+    hidelinks, % Remove coloração e caixas
+    unicode=true,   %Permite acentuação no bookmark
+    linktoc=all %Habilita link no nome e página do sumário
+}
+
+\unidade{Centro de Desenvolvimento Tecnológico}
+\curso{Ciência da Computação}
+\nomecurso{Bacharelado em Ciência da Computação}
+\titulocurso{Bacharel em Ciência da Computação}
+
+\unidadeeng{Technology Development Center}
+\cursoeng{Computer Science}
+
+
+\title{Análise Comparativa de Arquiteturas de Deep Learning para Classificação e Segmentação de Lesões Mamárias em Imagens de Ultrassom}
+
+\author{Salem}{Murilo}
+\advisor[Prof.~Dr.]{Ferrugem}{Anderson Priebe}
+\coadvisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+\collaborator[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+
+%Palavras-chave em PT_BR
+%use letras minúsculas seguidas por ;
+%a última terminada por .
+\keyword{palavrachave-um;}
+\keyword{palavrachave-dois;}
+\keyword{palavrachave-tres;}
+\keyword{palavrachave-quatro.}
+
+%Palavras-chave em EN_US
+\keywordeng{keyword-one;}
+\keywordeng{keyword-two;}
+\keywordeng{keyword-three;}
+\keywordeng{keyword-four.}
+
+\begin{document}
+
+%\renewcommand{\advisorname}{Orientadora}           %descomente caso tenhas orientadora
+%\renewcommand{\coadvisorname}{Coorientadora}      %descomente caso tenhas coorientadora
+
+\maketitle 
+
+\sloppy
+
+\fichacatalografica
+
+%\folhadeaprovacao
+
+%Composição da Banca Examinadora
+\begin{aprovacao}{30 de fevereiro de 2019} %data da banca por extenso
+\noindent Prof. Dr. Marilton Sanchotene de Aguiar (orientador)\\
+Doutor em Computação pela Universidade Federal do Rio Grande do Sul.\\[1cm]
+
+\noindent Prof. Dr. Paulo Roberto Ferreira Jr.\\
+Doutor em Computação pela Universidade Federal do Rio Grande do Sul.\\[1cm]
+
+\noindent Prof. Dr. Ricardo Matsumura Araujo\\
+Doutor em Computação pela Universidade Federal do Rio Grande do Sul.\\[1cm]
+
+\noindent Prof. Dr. Luciano da Silva Pinto\\
+Doutor em Biotecnologia pela Universidade Federal de Pelotas.
+\end{aprovacao}
+
+%Opcional
+\begin{dedicatoria}
+  Dedico\ldots 
+\end{dedicatoria}
+
+%Opcional
+\begin{agradecimentos}
+  Agradeço\ldots 
+\end{agradecimentos}
+
+%Opcional
+\begin{epigrafe}
+  Só sei que nada sei.\\
+  {\sc --- Sócrates}
+\end{epigrafe}
+
+%Resumo em Portugues (no maximo 500 palavras)
+\begin{abstract}
+O câncer de mama permanece entre os principais problemas de saúde pública no mundo, sendo a detecção precoce essencial para melhorar o prognóstico e reduzir a mortalidade. Nesse contexto, a ultrassonografia mamária destaca-se como importante método complementar de diagnóstico por imagem, devido à sua ampla disponibilidade, baixo custo relativo e ausência de radiação ionizante. Entretanto, a interpretação de imagens ultrassonográficas é desafiadora em razão de ruído speckle, baixo contraste, variações de aquisição e elevada dependência do operador. Tais características tornam a análise automatizada dessas imagens um problema relevante para a aplicação de técnicas de Inteligência Artificial.
+
+Este trabalho apresenta uma análise comparativa de arquiteturas de Deep Learning aplicadas à classificação e à segmentação de lesões mamárias em imagens de ultrassom, utilizando o dataset BUSI como ambiente experimental controlado. A pesquisa foi estruturada em dois eixos complementares. No primeiro, são avaliados modelos de classificação capazes de distinguir imagens normais, benignas e malignas. No segundo, são analisados modelos de segmentação voltados à delimitação espacial das lesões mamárias. O objetivo é investigar, de forma metodologicamente consistente, o desempenho dessas arquiteturas e sua aplicabilidade como ferramentas de apoio ao diagnóstico.
+
+A metodologia inclui curadoria do conjunto de dados, definição de critérios de inclusão e exclusão, divisão em conjuntos de treino, validação e teste, pré-processamento das imagens, aplicação de técnicas de aumento de dados, treinamento supervisionado e avaliação quantitativa e qualitativa dos modelos. Na tarefa de classificação, são empregadas métricas como acurácia, precisão, sensibilidade, especificidade, F1-score e AUC-ROC. Na segmentação, a avaliação é realizada por meio de IoU, Dice Score, precisão, sensibilidade e F1-score em nível de pixel. Além disso, são considerados indicadores computacionais, como número de parâmetros, tempo de treinamento, tempo médio de inferência e tamanho dos modelos.
+
+Espera-se que os resultados permitam identificar arquiteturas mais adequadas para cada tarefa, distinguindo o melhor desempenho absoluto do melhor equilíbrio entre desempenho e custo computacional. Como contribuição, o trabalho busca oferecer uma avaliação comparativa robusta do uso de Deep Learning em ultrassonografia mamária, discutindo potencialidades, limitações e implicações práticas do emprego de Inteligência Artificial como suporte ao diagnóstico do câncer de mama.
+\end{abstract}
+
+%Resumo em Inglês (no maximo 500 palavras)
+\begin{englishabstract}{A Comparative Analysis of Deep Learning Architectures for Classification and Segmentation of Breast Lesions in Ultrasound Images}
+Breast cancer remains one of the major public health challenges worldwide, and early detection is essential to improve prognosis and reduce mortality. In this context, breast ultrasound plays an important role as a complementary imaging modality due to its wide availability, relatively low cost, and lack of ionizing radiation. However, the interpretation of ultrasound images is challenging because of speckle noise, low contrast, acquisition variability, and strong operator dependence. These characteristics make the automated analysis of such images a relevant problem for the application of Artificial Intelligence techniques.
+
+This work presents a comparative analysis of Deep Learning architectures applied to the classification and segmentation of breast lesions in ultrasound images, using the BUSI dataset as a controlled experimental environment. The research is structured into two complementary axes. In the first, classification models are evaluated to distinguish normal, benign, and malignant images. In the second, segmentation models are analyzed to delineate the spatial extent of breast lesions. The objective is to investigate, in a methodologically consistent manner, the performance of these architectures and their applicability as diagnostic support tools.
+
+The methodology includes dataset curation, definition of inclusion and exclusion criteria, split into training, validation, and test sets, image preprocessing, application of data augmentation techniques, supervised training, and quantitative and qualitative evaluation of the models. In the classification task, the adopted metrics include accuracy, precision, sensitivity, specificity, F1-score, and AUC-ROC. In the segmentation task, evaluation is performed using IoU, Dice Score, precision, sensitivity, and pixel-wise F1-score. In addition, computational indicators are considered, such as number of parameters, training time, average inference time, and model size.
+
+The expected results are to identify the most suitable architectures for each task, distinguishing the best absolute performance from the best trade-off between predictive performance and computational cost. As a contribution, this work aims to provide a robust comparative assessment of Deep Learning in breast ultrasound, discussing strengths, limitations, and practical implications of using Artificial Intelligence as a support tool for breast cancer diagnosis
+\end{englishabstract}
+
+%Lista de Figuras
+\listoffigures
+
+%Lista de Tabelas
+\listoftables
+
+%lista de abreviaturas e siglas
+\begin{listofabbrv}{ABNT}%coloque aqui a maior sigla para ajustar a distância
+        \item[ABNT] Associação Brasileira de Normas Técnicas
+        \item[NUMA] Non-Uniform Memory Access
+        \item[SIMD] Single Instruction Multiple Data
+        \item[SMP] Symmetric Multi-Processor
+        \item[SPMD] Single Program Multiple Data
+\end{listofabbrv}
+
+%Sumario
+\tableofcontents
+
+\chapter{Introdução}
+
+\section{Contextualização do problema}
+
+\subsection{Relevância do câncer de mama como problema de saúde pública}
+
+O câncer de mama ocupa posição central entre os desafios contemporâneos da saúde pública, tanto por sua elevada incidência quanto pelo impacto clínico, social e econômico associado ao diagnóstico e ao tratamento da doença. Em escala global, a Organização Mundial da Saúde descreve o câncer de mama como o câncer mais comum entre as mulheres, com aproximadamente 2,3 milhões de novos casos e cerca de 670 mil óbitos em 2022. Além da magnitude absoluta desses números, a doença apresenta distribuição verdadeiramente global, ocorrendo em todos os países e impondo carga desproporcional a sistemas de saúde com menor capacidade de detecção precoce, confirmação diagnóstica e tratamento oportuno \cite{WHO2025,IARC2025}.
+
+No contexto brasileiro, a relevância epidemiológica do câncer de mama é igualmente expressiva. O Instituto Nacional de Câncer estimou, para cada ano do triênio 2023--2025, 73.610 novos casos de câncer de mama feminina, o que o coloca entre os tipos de câncer de maior incidência no país, desconsiderando-se o câncer de pele não melanoma \cite{INCA2023,INCAIncidencia}. Esse quadro reforça que o problema não se limita à esfera biomédica: trata-se de uma condição que mobiliza recursos assistenciais, demanda políticas permanentes de rastreamento e diagnóstico precoce e produz repercussões relevantes sobre morbidade, mortalidade e qualidade de vida das pacientes.
+
+A criticidade desse cenário se torna ainda mais evidente quando se observa a tendência de crescimento da carga global da doença. Projeções recentes da Agência Internacional de Pesquisa em Câncer indicam que, mantidas as taxas atuais, o número de casos e óbitos por câncer de mama continuará a crescer nas próximas décadas, pressionando ainda mais os sistemas de saúde e ampliando a necessidade de estratégias capazes de acelerar a detecção, reduzir atrasos diagnósticos e melhorar a estratificação clínica das pacientes \cite{IARC2025}. Nesse sentido, o câncer de mama deve ser compreendido não apenas como uma neoplasia frequente, mas como um problema estruturante para a organização do cuidado oncológico, especialmente em países de renda baixa e média, onde o acesso a serviços diagnósticos especializados ainda é heterogêneo.
+
+Sob perspectiva clínica, um dos aspectos mais determinantes para o prognóstico da doença é o momento do diagnóstico. A literatura institucional e técnica converge ao indicar que a identificação precoce de lesões suspeitas está associada a maior possibilidade de tratamento efetivo, menor morbidade terapêutica e melhores desfechos em sobrevida \cite{WHOEarlyDiagnosis,INCADeteccao}. Assim, o enfrentamento do câncer de mama exige não apenas terapias mais eficazes, mas também sistemas diagnósticos mais sensíveis, oportunos e reprodutíveis, capazes de reduzir perdas de seguimento e aumentar a precisão da tomada de decisão ao longo da linha de cuidado.
+
+\subsection{Importância do diagnóstico por imagem}
+
+O diagnóstico por imagem constitui um dos pilares da abordagem clínica do câncer de mama, desempenhando papel decisivo desde a detecção inicial de alterações suspeitas até a caracterização morfológica das lesões e o encaminhamento para investigação complementar. Em termos assistenciais, métodos de imagem não apenas aumentam a capacidade de identificar lesões em estágios mais precoces, como também contribuem para a definição do fluxo diagnóstico, para a indicação de biópsia e para o acompanhamento de achados mamários ao longo do tempo \cite{INCADeteccao,INCADiretrizesMama}. Em outras palavras, a imagem médica não é um componente periférico do cuidado em mama; ela estrutura o processo diagnóstico e condiciona decisões clínicas subsequentes.
+
+Entre as modalidades disponíveis, a mamografia mantém papel central em programas de rastreamento populacional, sobretudo por sua capacidade de detectar alterações antes da manifestação clínica evidente. Entretanto, a prática diagnóstica em câncer de mama é multimodal e frequentemente depende da integração entre diferentes exames, como mamografia diagnóstica, ultrassonografia mamária, ressonância magnética e procedimentos guiados por imagem \cite{INCADeteccao,IARCBreastAtlas}. Tal complementaridade é particularmente importante porque nenhuma modalidade, isoladamente, responde de forma plena a todas as necessidades diagnósticas; a escolha do exame depende do contexto clínico, da densidade mamária, da suspeita anatômica e da finalidade específica da investigação.
+
+A ultrassonografia mamária, foco deste trabalho, possui relevância particular por ser amplamente disponível, não utilizar radiação ionizante e atuar como método complementar importante na avaliação de achados mamográficos ou clínicos. Além disso, sua utilidade é reconhecida em contextos nos quais a densidade do tecido mamário pode reduzir a sensibilidade de outros métodos, bem como em situações em que se deseja caracterizar melhor a natureza de uma lesão detectada \cite{IARCBreastAtlas,INCAParametros}. Do ponto de vista operacional, trata-se de uma modalidade atrativa para pesquisa em Inteligência Artificial porque produz imagens com grande variabilidade de textura, contraste e contorno, reunindo ao mesmo tempo riqueza informacional e desafios computacionais relevantes.
+
+Apesar de sua importância, a interpretação de exames mamários continua sujeita a fatores como complexidade visual, qualidade da aquisição, experiência do profissional e variabilidade interobservador. Essas limitações não reduzem o valor do diagnóstico por imagem; ao contrário, reforçam sua centralidade como etapa em que ganhos de padronização, suporte computacional e auxílio à decisão podem produzir impacto clínico concreto. Quanto maior a dependência de julgamento especializado em cenários de alta variabilidade visual, maior tende a ser o valor potencial de ferramentas que contribuam para consistência analítica, priorização de casos suspeitos e redução de falsos negativos ou falsos positivos. Nessa perspectiva, o fortalecimento do diagnóstico por imagem não depende apenas de ampliar o acesso aos exames, mas também de qualificar os processos interpretativos associados a eles.
+
+\subsection{Crescente uso de Inteligência Artificial na área médica}
+
+Nas últimas décadas, a Inteligência Artificial (IA), e em especial o aprendizado de máquina e o aprendizado profundo, passou de tema emergente a componente estruturante da pesquisa em saúde digital. Esse avanço foi impulsionado pela combinação entre aumento da disponibilidade de dados, amadurecimento de arquiteturas de redes neurais e expansão da capacidade computacional para treinamento de modelos complexos. Em imagem médica, esse movimento foi particularmente intenso, pois tarefas como classificação, detecção, segmentação e quantificação morfológica se alinham diretamente ao tipo de inferência estatística que modelos baseados em dados conseguem realizar com elevada flexibilidade \cite{Barragan2021,Alhejaily2024,Zhou2021}.
+
+No campo da oncologia mamária, a adoção de IA tem se concentrado em problemas de apoio ao diagnóstico, estratificação de risco, segmentação de lesões e extração automatizada de atributos radiológicos. O uso de \textit{deep learning} em exames de mama ganhou especial tração porque imagens médicas apresentam padrões espaciais e texturais complexos, muitas vezes difíceis de formalizar manualmente por meio de regras fixas. Redes neurais convolucionais, em particular, tornaram-se a principal classe de modelos para esse tipo de aplicação, pois permitem aprender representações hierárquicas diretamente dos dados, reduzindo a dependência de engenharia manual de características e favorecendo pipelines de ponta a ponta \cite{Barragan2021,Zhou2021}.
+
+No caso específico da ultrassonografia mamária, revisões sistemáticas recentes mostram que o aprendizado profundo tem sido amplamente investigado para diferenciar massas benignas e malignas, apoiar a segmentação de lesões e aprimorar fluxos de leitura e triagem. Ao mesmo tempo, a literatura mais robusta adota postura cautelosa: embora os resultados reportados sejam promissores, a evidência disponível ainda não sustenta, de forma conclusiva, superioridade generalizável dos modelos em relação a leitores humanos em todos os cenários clínicos, especialmente em razão de limitações metodológicas recorrentes, heterogeneidade de bases de dados e risco de viés experimental \cite{Dan2024,Liu2025}. Essa constatação é importante porque posiciona a IA não como substituta automática da expertise clínica, mas como tecnologia de suporte cuja utilidade depende de validação rigorosa, desenho experimental adequado e interpretação crítica dos resultados.
+
+Assim, o crescente uso de IA na medicina deve ser compreendido sob dupla perspectiva. De um lado, trata-se de uma oportunidade concreta para ampliar sensibilidade diagnóstica, reduzir variabilidade interpretativa e tornar processos analíticos mais escaláveis. De outro, sua adoção responsável exige atenção a problemas como generalização entre bases distintas, qualidade das anotações, explicabilidade, viés algorítmico e segurança de uso em contexto clínico real \cite{Barragan2021,Alhejaily2024}. É justamente nessa tensão entre potencial tecnológico e necessidade de validação rigorosa que se insere o presente trabalho, ao investigar arquiteturas de aprendizado profundo aplicadas à classificação e à segmentação de lesões em imagens de ultrassom mamário.
+
+\section{Motivação}
+
+\subsection{Desafios do diagnóstico em imagens de ultrassom mamário}
+
+A ultrassonografia mamária ocupa posição estratégica no diagnóstico do câncer de mama por sua ampla disponibilidade, baixo custo relativo, ausência de radiação ionizante e utilidade complementar à mamografia, sobretudo em pacientes com mamas densas ou em cenários nos quais se deseja caracterizar melhor um achado suspeito. No entanto, exatamente por depender intensamente da aquisição em tempo real e da interpretação visual de padrões frequentemente sutis, essa modalidade está sujeita a elevada variabilidade técnica e interpretativa. Revisões recentes destacam que a utilidade clínica do ultrassom mamário é limitada por dependência do operador, altas taxas de reconvocação, baixo valor preditivo positivo em alguns contextos e especificidade inferior à desejável, o que torna a distinção entre lesões benignas e malignas um problema particularmente desafiador.
+
+Do ponto de vista morfológico, as imagens de ultrassom apresentam características que tornam sua análise computacional e humana mais complexa do que a simples leitura de estruturas anatômicas bem delimitadas. A presença de ruído speckle, baixo contraste local, bordas irregulares, sombreamento acústico, variações no plano de aquisição e heterogeneidade textural da lesão dificulta a delimitação de contornos e a extração consistente de sinais diagnósticos. Em consequência, pequenas mudanças no posicionamento do transdutor, na configuração do equipamento ou na experiência do examinador podem alterar a aparência visual da mesma categoria patológica, aumentando a variabilidade intra e interobservador e reduzindo a reprodutibilidade do processo diagnóstico. Essa combinação entre alta relevância clínica e elevada complexidade visual torna o ultrassom mamário um campo particularmente sensível à introdução de métodos quantitativos de apoio à decisão.
+
+Além disso, o desafio não se limita à tarefa de classificar uma imagem como normal, benigna ou maligna. Em muitos cenários, é igualmente importante localizar e delimitar a lesão, seja para fins de documentação, monitoramento, planejamento de procedimentos guiados por imagem ou extração de características morfológicas mais finas. Assim, o ultrassom mamário impõe duas demandas analíticas complementares: uma demanda global, associada à classificação do exame ou da lesão, e uma demanda espacial, associada à segmentação da região suspeita. Esse duplo requisito justifica a formulação de estudos que tratem classificação e segmentação como tarefas distintas, porém clinicamente relacionadas, em vez de reduzi-las a um único problema genérico de reconhecimento visual.
+
+Sob perspectiva metodológica, outro desafio importante é a distância entre desempenho experimental e utilidade clínica real. A literatura recente mostra que, embora sistemas baseados em aprendizado profundo tenham apresentado resultados promissores na interpretação de ultrassom mamário, a robustez externa desses achados ainda depende de melhor padronização de protocolos, validação em contextos clínicos mais realistas e controle rigoroso de vieses de base de dados. Em outras palavras, o problema não é apenas construir modelos com alto desempenho em conjuntos públicos, mas avaliar se tais modelos aprendem padrões biologicamente plausíveis e generalizáveis, e não artefatos específicos de aquisição, anotação ou amostragem.
+
+\subsection{Potencial das técnicas de Deep Learning como apoio ao diagnóstico}
+
+O avanço das técnicas de \textit{Deep Learning} abriu novas possibilidades para o processamento de imagens médicas ao permitir o aprendizado automático de representações hierárquicas diretamente dos dados. Em vez de depender exclusivamente de atributos manuais projetados por especialistas, redes neurais profundas, especialmente redes convolucionais, conseguem extrair padrões locais e globais associados a textura, forma, contorno e contexto anatômico, características centrais na interpretação de lesões mamárias em ultrassom. Essa capacidade é particularmente relevante em imagens ultrassonográficas, nas quais os marcadores diagnósticos raramente se apresentam de forma linear ou facilmente parametrizável por regras fixas.
+
+No contexto do câncer de mama, o aprendizado profundo tem sido investigado em múltiplas frentes: classificação de lesões benignas e malignas, segmentação automática de regiões suspeitas, análise de linfonodos axilares, apoio à triagem e até inferência de informações prognósticas ou de resposta terapêutica a partir de padrões imagiológicos. Revisões recentes apontam que tais modelos podem funcionar como ferramentas de suporte ao radiologista, melhorando a consistência interpretativa e potencialmente mitigando limitações inerentes ao ultrassom, como dependência do operador e variabilidade visual elevada. Ao mesmo tempo, essas revisões também mostram que os melhores resultados tendem a emergir quando a IA é concebida como apoio à decisão e não como substituição acrítica da leitura especializada.
+
+Em termos metodológicos, o potencial do \textit{Deep Learning} se manifesta de forma distinta nas tarefas de classificação e segmentação. Na classificação, arquiteturas profundas podem aprender representações discriminativas capazes de separar padrões normais, benignos e malignos mesmo diante de alta heterogeneidade visual. Na segmentação, modelos do tipo \textit{encoder-decoder}, como a família U-Net, oferecem a possibilidade de identificar a localização espacial da lesão em nível de pixel, o que amplia a interpretabilidade do sistema e permite análises mais ricas do que a simples atribuição de uma classe global. Trabalhos recentes em ultrassom mamário têm inclusive explorado estruturas multitarefa, combinando classificação e segmentação em um mesmo arcabouço, o que reforça a complementaridade entre essas duas dimensões do problema.
+
+Apesar desse potencial, a literatura mais qualificada adota postura prudente quanto à maturidade clínica da área. Revisões sistemáticas destacam heterogeneidade de desenho experimental, diferenças nas bases de dados, risco de viés de seleção, inconsistências na validação externa e dificuldades de comparação entre estudos. Assim, o valor científico de um trabalho nessa área não está apenas em obter métricas elevadas, mas em construir um protocolo reprodutível, com comparação justa entre arquiteturas, separação clara entre tarefas, escolha coerente de métricas e atenção explícita a limitações de generalização. É precisamente nessa perspectiva que o presente estudo se insere: utilizar \textit{Deep Learning} não como fim em si mesmo, mas como instrumento para investigar, de forma metodologicamente controlada, seu potencial de apoio ao diagnóstico em ultrassom mamário.
+
+\subsection{Justificativa para o uso do dataset BUSI}
+
+A escolha do \textit{Breast Ultrasound Images Dataset} (BUSI) justifica-se, em primeiro lugar, por sua adequação direta ao problema investigado. Trata-se de uma base pública de ultrassonografia mamária amplamente utilizada na literatura de visão computacional aplicada ao câncer de mama, composta por imagens rotuladas nas classes normal, benigna e maligna, além de máscaras de referência associadas às lesões. Essa estrutura torna o BUSI particularmente apropriado para estudos que desejam tratar, dentro de um mesmo domínio imagiológico, tanto a tarefa de classificação quanto a de segmentação. Em outras palavras, o dataset oferece um ambiente experimental unificado no qual é possível comparar arquiteturas distintas sem introduzir, desde o início, a variabilidade adicional decorrente do uso de múltiplas bases heterogêneas.
+
+Outro aspecto importante é o caráter público e amplamente reutilizado do BUSI, o que favorece reprodutibilidade e comparabilidade com trabalhos prévios. Como a base já foi empregada em diversos estudos de classificação, segmentação e aprendizado multitarefa em ultrassom mamário, sua adoção permite posicionar os resultados deste trabalho em relação a uma literatura já consolidada, facilitando a discussão crítica sobre ganhos, limitações e custo computacional das arquiteturas avaliadas. Para um TCC com ambição de atingir padrão próximo ao de artigo, essa comparabilidade é valiosa, porque reduz arbitrariedade experimental e fortalece a interpretabilidade dos achados.
+
+A escolha do BUSI, contudo, não se sustenta apenas por conveniência ou popularidade. Ela também é metodologicamente coerente com a delimitação do estudo. Como o objetivo é comparar modelos de classificação e segmentação em imagens de ultrassom mamário, a adoção de uma única base, com mesma origem modal e mesma semântica clínica, reduz fatores de confusão relacionados a \textit{domain shift} entre instituições, equipamentos e protocolos de aquisição. Essa restrição melhora a validade interna do experimento, permitindo que as diferenças observadas entre modelos sejam interpretadas com maior segurança como efeito da arquitetura e do protocolo de treinamento, e não como consequência predominante de heterogeneidade de base.
+
+Ainda assim, a literatura recente mostra que o uso do BUSI exige cautela. Uma carta técnica publicada em 2023 apontou problemas relevantes na base, incluindo duplicatas, quase duplicatas e discrepâncias em máscaras de referência, evidenciando que seu uso acrítico pode levar a vazamento de informação e a estimativas infladas de desempenho. Esse ponto, longe de invalidar a base, reforça a necessidade de curadoria explícita, inspeção das amostras e definição rigorosa de critérios de inclusão e exclusão. Portanto, a justificativa para utilizar o BUSI não é a suposição de perfeição do conjunto, mas o fato de que ele combina relevância prática, ampla adoção e potencial multitarefa, desde que tratado com o rigor metodológico exigido por estudos reprodutíveis em imagem médica.
+
+\section{Problema de pesquisa}
+
+\subsection{Limitações de abordagens convencionais}
+
+A análise de lesões mamárias em ultrassonografia é historicamente marcada por duas classes principais de abordagens: a interpretação especializada conduzida pelo radiologista e os sistemas de diagnóstico auxiliado por computador baseados em regras, descritores morfológicos e atributos texturais construídos manualmente. Embora tais estratégias tenham contribuído de forma importante para a evolução do diagnóstico por imagem, ambas apresentam limitações conhecidas quando confrontadas com a elevada heterogeneidade visual do ultrassom mamário. No plano clínico, a leitura do exame permanece fortemente dependente da experiência do operador, da qualidade da aquisição e da consistência da interpretação, o que pode se traduzir em variabilidade interobservador, aumento de falsos positivos e sensibilidade inconsistente em casos visualmente ambíguos. No plano computacional, sistemas convencionais de CAD frequentemente dependem de atributos \textit{handcrafted}, definição prévia de regiões de interesse e pipelines multietapa, nos quais o erro acumulado em uma etapa compromete as subsequentes \cite{Afrin2023,Yap2018,Chan2020}.
+
+Esse conjunto de limitações é particularmente crítico em imagens de ultrassom, nas quais ruído speckle, baixo contraste local, bordas mal definidas, sombreamento acústico e variabilidade de aquisição dificultam a descrição estável da lesão. Nesses cenários, descritores manuais de forma, margem e textura podem ser insuficientes para capturar diferenças finas entre padrões benignos e malignos, sobretudo quando a fronteira tumoral é parcialmente obscurecida ou quando a imagem apresenta artefatos relevantes. Além disso, parte dos sistemas convencionais exige intervenção humana explícita na seleção da região de interesse, o que reduz automação, reprodutibilidade e escalabilidade. Em termos práticos, isso significa que abordagens tradicionais tendem a funcionar melhor em condições relativamente controladas, mas perdem robustez justamente nos casos em que o auxílio computacional seria mais necessário \cite{Yap2018,Chan2020}.
+
+Outro limite importante das abordagens convencionais é sua dificuldade em articular, de maneira integrada, duas demandas centrais do ultrassom mamário: a discriminação global entre classes diagnósticas e a delimitação espacial da lesão. Em muitos trabalhos clássicos, a classificação da imagem e a segmentação da massa foram tratadas como problemas separados, com técnicas e descritores distintos, o que fragmenta a modelagem do problema e restringe a capacidade do sistema de explorar relações entre contexto global e estrutura local. Embora essas estratégias tenham produzido resultados úteis, o avanço da literatura recente sugere que sua capacidade de generalização tende a ser inferior à de modelos capazes de aprender representações hierárquicas diretamente dos dados \cite{Chan2020,Afrin2023}.
+
+Sob essa perspectiva, o problema de pesquisa não se reduz à constatação de que métodos convencionais possuem desempenho limitado. O ponto central é que tais limitações se tornam mais evidentes justamente no ultrassom mamário, modalidade em que a informação diagnóstica é altamente dependente de padrões visuais complexos, nem sempre facilmente expressáveis por regras fixas. Isso impõe a necessidade de investigar arquiteturas capazes de operar de forma mais adaptativa, extraindo características discriminativas e espaciais de maneira menos dependente de engenharia manual de atributos \cite{Dan2024,Afrin2023}.
+
+\subsection{Necessidade de comparação entre arquiteturas distintas por tarefa}
+
+Embora o crescimento do \textit{Deep Learning} tenha ampliado consideravelmente o repertório metodológico disponível para análise de imagens mamárias, a literatura permanece marcada por heterogeneidade de protocolos, diferenças entre bases de dados, ausência de validação externa em muitos estudos e comparações nem sempre metodologicamente justas entre modelos. Revisões sistemáticas recentes mostram que, no contexto do ultrassom mamário, ainda não há evidência conclusiva de superioridade generalizável de uma família específica de modelos em todos os cenários clínicos, em parte porque muitos trabalhos utilizam amostras pequenas, desenhos retrospectivos, métricas não padronizadas ou bases públicas com problemas de curadoria \cite{Dan2024,Pawlowska2023}. Assim, o simples acúmulo de resultados isolados não resolve a questão central de quais arquiteturas são mais adequadas para cada subtarefa do problema.
+
+Essa lacuna é especialmente relevante porque classificação e segmentação, embora relacionadas, não constituem o mesmo problema computacional. Na classificação, o objetivo é atribuir um rótulo global à imagem ou à lesão, exigindo do modelo capacidade de abstração semântica e discriminação interclasse. Na segmentação, por outro lado, a exigência principal é localizar e delimitar com precisão a região tumoral em nível de pixel, o que demanda recuperação de detalhes espaciais finos, preservação de contorno e equilíbrio entre contexto global e informação local. Em consequência, arquiteturas desenhadas para classificação e arquiteturas desenhadas para segmentação respondem a exigências distintas de representação e não devem ser comparadas como se resolvessem a mesma tarefa \cite{Zhou2021,Afrin2023}.
+
+Dessa constatação decorre uma implicação metodológica importante: comparações cientificamente informativas devem ser realizadas entre modelos funcionalmente equivalentes dentro de cada tarefa. Em vez de opor, de forma genérica, uma rede classificadora a uma rede segmentadora, é mais adequado estabelecer dois eixos experimentais independentes. No primeiro, comparam-se arquiteturas de classificação capazes de modelar o compromisso entre desempenho discriminativo e custo computacional, como VGG16, ResNet50, EfficientNet e ConvNeXt. No segundo, comparam-se arquiteturas de segmentação cuja diferença estrutural incide sobre mecanismos de atenção, conexões densas ou captura ampliada de contexto, como U-Net, Attention U-Net, U-Net++ e DeepLabV3+. Essa separação não apenas aumenta a justiça experimental, como também melhora a interpretabilidade dos resultados e a consistência da discussão \cite{Bhowmik2022,Zhou2021}.
+
+Além disso, a necessidade de comparação entre arquiteturas por tarefa é reforçada pelo fato de que muitos trabalhos em ultrassom mamário priorizam o ganho de métrica final, mas dedicam menos atenção ao custo computacional, ao tempo de inferência e ao equilíbrio entre desempenho absoluto e viabilidade prática. Em contextos clínicos ou acadêmicos com recursos computacionais limitados, modelos muito pesados podem não representar a escolha mais adequada, mesmo quando apresentam ganho marginal em acurácia ou IoU. Portanto, comparar arquiteturas distintas por tarefa significa não apenas identificar o melhor desempenho bruto, mas também investigar qual estrutura oferece a combinação mais robusta entre sensibilidade diagnóstica, precisão espacial e custo operacional \cite{Dan2024,Chan2020}.
+
+\subsection{Definição do problema investigado}
+
+Diante desse contexto, o problema investigado neste trabalho pode ser formulado como segue: \textit{quais arquiteturas de aprendizado profundo apresentam melhor desempenho e melhor relação entre desempenho e custo computacional nas tarefas de classificação e segmentação de lesões em imagens de ultrassom mamário, quando avaliadas sob um protocolo experimental controlado e aplicado ao dataset BUSI?} Essa formulação parte do entendimento de que o apoio computacional ao diagnóstico em ultrassom mamário exige mais do que métricas elevadas em uma única tarefa isolada; exige também clareza sobre a adequação de diferentes famílias de modelos a objetivos distintos de análise \cite{AlDhabyani2020,Dan2024}.
+
+No eixo de classificação, busca-se investigar a capacidade de diferentes arquiteturas convolucionais e modernas de distinguir entre imagens normais, benignas e malignas, considerando não apenas acurácia global, mas também sensibilidade para a classe maligna, comportamento por classe e custo computacional. No eixo de segmentação, o foco recai sobre a habilidade dos modelos em delimitar a região tumoral com precisão, avaliando métricas espaciais como IoU e Dice Score, bem como estabilidade de treinamento e tempo de inferência. A formulação separada desses dois eixos é deliberada: ela evita conclusões equivocadas decorrentes da comparação direta entre tarefas distintas e permite que cada problema seja tratado com a métrica, a arquitetura e o critério analítico que lhe são mais apropriados.
+
+Adicionalmente, o estudo assume que a validade de seus achados depende de uma curadoria cuidadosa da base utilizada. O BUSI é amplamente empregado na literatura e oferece a vantagem de reunir imagens rotuladas para classificação e máscaras de referência para segmentação; contudo, trabalhos posteriores ao artigo original apontaram inconsistências relevantes, incluindo duplicatas e questões de integridade experimental, o que exige inspeção criteriosa antes do particionamento dos dados \cite{AlDhabyani2020,Pawlowska2023}. Assim, o problema investigado não é apenas comparar modelos sobre um conjunto público popular, mas fazê-lo sob condições metodológicas capazes de reduzir viés e preservar a interpretabilidade dos resultados.
+
+Em síntese, esta pesquisa não se propõe a demonstrar uma superioridade universal e descontextualizada de uma arquitetura sobre todas as demais. Seu objetivo é mais preciso e cientificamente defensável: comparar, em um mesmo domínio imagiológico e sob protocolo reprodutível, arquiteturas representativas de classificação e segmentação, identificando suas vantagens, limitações e compromissos práticos no apoio ao diagnóstico de câncer de mama em ultrassonografia.
+
+\section{Hipótese ou pressupostos}
+
+As hipóteses deste trabalho foram formuladas a partir de três premissas centrais. A primeira é que tarefas de classificação e segmentação, embora complementares no contexto do ultrassom mamário, impõem exigências representacionais distintas aos modelos. A segunda é que diferenças arquiteturais relevantes --- como conexões residuais, escalonamento composto, mecanismos de atenção, conexões densas e agregação multiescala de contexto --- tendem a se refletir em comportamentos distintos de generalização e sensibilidade diagnóstica. A terceira é que, em imagem médica, desempenho absoluto e viabilidade computacional não podem ser tratados como critérios independentes, pois a utilidade prática de um modelo depende simultaneamente de sua acurácia, robustez, latência e custo operacional. 
+
+\subsection{Hipótese para classificação}
+
+A hipótese central para a tarefa de classificação é que arquiteturas mais recentes e estruturalmente mais eficientes do que a VGG16 apresentarão desempenho superior na discriminação entre imagens normais, benignas e malignas, especialmente quando avaliadas por métricas mais informativas do que a acurácia global, como \textit{macro F1-score}, sensibilidade para a classe maligna e AUC-ROC por classe. Em termos formais, assume-se como hipótese de trabalho que modelos com mecanismos arquiteturais voltados à melhoria de otimização e reaproveitamento de informação --- como as conexões residuais da ResNet, o escalonamento composto da EfficientNet e a modernização do desenho convolucional proposta pela ConvNeXt --- tenderão a aprender representações mais discriminativas e mais robustas do que uma arquitetura clássica como a VGG16 sob um mesmo protocolo experimental. 
+
+Essa hipótese não pressupõe, contudo, superioridade irrestrita ou universal de modelos mais complexos. A literatura recente em ultrassom mamário mostra que os resultados de \textit{deep learning} variam substancialmente conforme o protocolo de avaliação, a curadoria da base e a forma de validação, de modo que ganhos arquiteturais nem sempre se traduzem em melhorias clinicamente relevantes ou generalizáveis. Assim, a hipótese específica desta pesquisa é mais precisa: sob um protocolo controlado e com curadoria explícita do BUSI, arquiteturas modernas de classificação tenderão a superar a VGG16 em desempenho discriminativo, mas a magnitude desse ganho será limitada pelo tamanho moderado da base, pela heterogeneidade intrínseca do ultrassom mamário e pelo risco de sobreajuste em modelos de maior capacidade.
+
+Sob perspectiva clínica, assume-se ainda que a principal diferença entre os modelos deverá emergir na sensibilidade para a classe maligna. Essa formulação é metodologicamente relevante porque, no contexto de apoio ao diagnóstico, o benefício de uma arquitetura não deve ser avaliado apenas por sua taxa média de acertos, mas por sua capacidade de reduzir erros potencialmente mais críticos. Portanto, a hipótese operacional para a classificação pode ser sintetizada da seguinte forma: \textit{arquiteturas convolucionais mais modernas e eficientes tenderão a apresentar melhor equilíbrio entre sensibilidade diagnóstica e robustez discriminativa do que a VGG16, com ganhos mais visíveis na identificação de casos malignos}.
+
+\subsection{Hipótese para segmentação}
+
+Para a tarefa de segmentação, a hipótese de trabalho é que variantes estruturalmente enriquecidas da U-Net apresentarão desempenho superior ao da U-Net padrão na delimitação espacial das lesões, particularmente em métricas orientadas à sobreposição e recuperação de contorno, como IoU e Dice Score. Essa expectativa decorre do fato de que a U-Net original foi concebida para combinar contexto global e localização precisa por meio de uma arquitetura \textit{encoder-decoder} com \textit{skip connections}, sendo reconhecida como referência em segmentação biomédica. Entretanto, desenvolvimentos posteriores introduziram mecanismos explicitamente voltados à redução do hiato semântico entre codificador e decodificador, ao realce de regiões relevantes e à incorporação de contexto multiescala, o que sugere potencial de ganho em cenários nos quais as lesões apresentam margens irregulares, baixo contraste local e variabilidade morfológica elevada, como ocorre em ultrassom mamário. 
+
+Mais especificamente, assume-se que a Attention U-Net poderá melhorar a recuperação da região tumoral ao atenuar a influência de áreas irrelevantes e reforçar regiões salientes com sobrecusto computacional relativamente baixo; que a U-Net++ poderá beneficiar a qualidade da segmentação por meio de conexões densas e intermediárias que reduzem o descompasso semântico entre mapas de características; e que a DeepLabV3+ poderá capturar melhor contexto global e refinar contornos por combinar \textit{atrous convolution}, agregação multiescala e decodificação explícita de fronteiras. Em consequência, a hipótese formal da segmentação é que \textit{pelo menos uma das arquiteturas enriquecidas --- Attention U-Net, U-Net++ ou DeepLabV3+ --- superará a U-Net padrão nas métricas espaciais principais do estudo}. 
+
+Ao mesmo tempo, esta hipótese é formulada com uma ressalva metodológica importante: maior sofisticação arquitetural não implica necessariamente superioridade estável em bases de escala moderada. Como o BUSI é um conjunto relativamente pequeno e sujeito a curadoria rigorosa, também se admite como pressuposto secundário que a U-Net padrão poderá permanecer competitiva em termos de estabilidade de treinamento e generalização, mesmo que não atinja o melhor desempenho absoluto. Assim, o foco da hipótese não é demonstrar superioridade automática de modelos mais complexos, mas testar se os mecanismos adicionais de atenção, conexões aninhadas ou contexto multiescala produzem ganho mensurável e consistente em um cenário controlado de segmentação de lesões mamárias. 
+
+\subsection{Relação entre desempenho e custo computacional}
+
+A terceira hipótese do trabalho estabelece que o modelo com melhor desempenho absoluto não será, necessariamente, o modelo com melhor relação entre desempenho e custo computacional. Essa hipótese é especialmente relevante em aplicações médicas baseadas em imagem, nas quais critérios como número de parâmetros, tempo de treinamento, latência de inferência e demanda por memória podem influenciar diretamente a viabilidade de uso em ambientes acadêmicos, hospitalares ou embarcados. Em termos conceituais, essa formulação é coerente com a própria evolução das arquiteturas avaliadas: a EfficientNet foi proposta com ênfase explícita em eficiência de escalonamento, a ResNet com foco em otimização de redes profundas, enquanto a ConvNeXt foi concebida para recuperar competitividade de ConvNets modernas em acurácia e escalabilidade, ainda que isso possa vir acompanhado de maior custo computacional em variantes mais robustas. 
+
+No eixo de classificação, a hipótese operacional é que arquiteturas como EfficientNet e ResNet tenderão a oferecer melhor compromisso entre desempenho discriminativo e custo computacional do que modelos mais pesados, enquanto a ConvNeXt poderá alcançar desempenho elevado às custas de maior latência e maior demanda de recursos. No eixo de segmentação, assume-se que variantes como Attention U-Net poderão oferecer ganhos relevantes com acréscimo moderado de complexidade, ao passo que arquiteturas mais sofisticadas, como U-Net++ e DeepLabV3+, poderão apresentar melhor desempenho absoluto em alguns cenários, porém com custo superior de treinamento e inferência. 
+
+Essa hipótese é reforçada por comparações recentes que mostram que modelos com acurácia semelhante podem diferir substancialmente em parâmetros, FLOPs, throughput e tempo por época, e que a acurácia isolada é insuficiente para orientar escolhas práticas de implantação. Em consequência, este trabalho assume como hipótese final que \textit{a análise conjunta de desempenho e custo computacional identificará modelos custo-efetivos distintos dos modelos de melhor métrica absoluta}, o que torna indispensável incorporar tempo de inferência, tempo de treinamento, tamanho do modelo e número de parâmetros à avaliação comparativa.
+
+\section{Objetivos}
+
+\subsection{Objetivo geral}
+
+Avaliar o desempenho de arquiteturas de \textit{Deep Learning} aplicadas à classificação e à segmentação de lesões em imagens de ultrassom mamário, utilizando o dataset BUSI como ambiente experimental controlado, com o propósito de investigar sua aplicabilidade como ferramenta de apoio ao diagnóstico do câncer de mama. Especificamente, busca-se comparar modelos representativos de classificação e segmentação sob critérios quantitativos e computacionais, de modo a identificar não apenas o melhor desempenho absoluto, mas também o melhor compromisso entre sensibilidade diagnóstica, precisão espacial, robustez experimental e custo computacional.
+
+Em termos científicos, este objetivo geral parte do entendimento de que o problema investigado não pode ser reduzido à simples obtenção de altas métricas de acerto. Em imagem médica, e particularmente em ultrassonografia mamária, a relevância de um modelo depende simultaneamente de sua capacidade de discriminar padrões patológicos, delimitar adequadamente regiões suspeitas e operar sob restrições realistas de tempo de inferência, complexidade arquitetural e disponibilidade computacional. Assim, o objetivo central deste trabalho é produzir uma análise comparativa metodologicamente coerente entre arquiteturas distintas, respeitando a natureza específica de cada tarefa e oferecendo evidências que possam ser interpretadas tanto do ponto de vista técnico quanto do ponto de vista de apoio à decisão clínica.
+
+\subsection{Objetivos específicos}
+
+Para atender ao objetivo geral proposto, definem-se os seguintes objetivos específicos:
+
+\begin{enumerate}
+    \item Estruturar um protocolo experimental reprodutível para análise de imagens de ultrassom mamário, contemplando curadoria do dataset BUSI, definição de critérios de inclusão e exclusão, particionamento em conjuntos de treino, validação e teste, bem como estratégias de controle de vazamento de dados.
+
+    \item Investigar a tarefa de classificação multiclasse em imagens de ultrassom mamário, considerando as categorias \textit{normal}, \textit{benigna} e \textit{maligna}, com o objetivo de avaliar a capacidade discriminativa de diferentes arquiteturas profundas sob um mesmo protocolo de treinamento e validação.
+
+    \item Comparar arquiteturas de classificação representativas de diferentes paradigmas de projeto de redes neurais convolucionais, incluindo modelos clássicos, residuais, eficientes e modernos, a fim de examinar como decisões arquiteturais distintas influenciam métricas como acurácia, sensibilidade, \textit{precision}, \(F1\)-\textit{score} e AUC-ROC.
+
+    \item Investigar a tarefa de segmentação semântica de lesões mamárias em imagens de ultrassom, restringindo a análise aos casos em que há região tumoral segmentável, com o propósito de avaliar a capacidade dos modelos em recuperar com precisão a extensão espacial das lesões.
+
+    \item Comparar arquiteturas de segmentação baseadas em \textit{encoder-decoder}, mecanismos de atenção, conexões aninhadas e agregação multiescala de contexto, a fim de analisar seus efeitos sobre métricas espaciais como IoU e Dice Score, bem como sobre a estabilidade do treinamento e a qualidade qualitativa dos contornos produzidos.
+
+    \item Aplicar e documentar técnicas de pré-processamento e aumento de dados compatíveis com a natureza do ultrassom mamário, investigando seu papel na redução de sobreajuste, na ampliação da variabilidade amostral e na melhoria da robustez dos modelos avaliados.
+
+    \item Analisar o impacto de diferentes escolhas de hiperparâmetros, tais como taxa de aprendizado, tamanho de lote, estratégia de \textit{fine-tuning} e função de perda, buscando compreender como essas decisões afetam o comportamento dos modelos em cada tarefa.
+
+    \item Avaliar os modelos não apenas sob perspectiva de desempenho preditivo, mas também sob perspectiva computacional, incorporando à análise comparativa métricas como número de parâmetros, tempo de treinamento, tempo médio de inferência por imagem e tamanho final do modelo.
+
+    \item Identificar, para cada tarefa, o modelo de melhor desempenho absoluto e o modelo de melhor relação entre desempenho e custo computacional, distinguindo explicitamente critérios de excelência técnica e critérios de viabilidade prática.
+
+    \item Produzir uma análise crítica dos resultados obtidos, discutindo padrões de erro, sensibilidade para casos malignos, limitações de generalização, implicações metodológicas do uso do BUSI e potencial de aplicação dos modelos como sistemas de apoio ao diagnóstico em ultrassonografia mamária.
+
+    \item Consolidar os achados experimentais em uma estrutura científica coerente, articulando fundamentação teórica, protocolo metodológico, resultados quantitativos, análise qualitativa e discussão crítica, de modo a contribuir para a compreensão do papel de arquiteturas de \textit{Deep Learning} na classificação e segmentação de lesões mamárias.
+\end{enumerate}
+
+\section{Delimitação do estudo}
+
+\subsection{Foco em imagens de ultrassom mamário}
+
+Este trabalho foi delimitado ao domínio da ultrassonografia mamária. Essa escolha decorre de razões simultaneamente clínicas, metodológicas e computacionais. Do ponto de vista clínico, o ultrassom mamário é amplamente utilizado como exame complementar na investigação de achados suspeitos, sobretudo por sua disponibilidade, ausência de radiação ionizante e utilidade na avaliação de lesões em diferentes contextos diagnósticos. Do ponto de vista metodológico, trata-se de uma modalidade particularmente desafiadora para análise automatizada, em razão de ruído speckle, baixo contraste local, bordas frequentemente imprecisas, artefatos dependentes da aquisição e forte variabilidade inter e intraobservador. Essas características tornam o ultrassom um cenário adequado para investigar o real potencial de arquiteturas de \textit{Deep Learning} em tarefas de apoio ao diagnóstico, especialmente quando o objetivo não é apenas obter métricas elevadas, mas avaliar robustez sob alta complexidade visual. 
+
+A restrição a uma única modalidade de imagem também responde a uma exigência de rigor experimental. Estudos em imagem médica frequentemente sofrem com heterogeneidade entre modalidades, diferenças de protocolo de aquisição, variações anatômicas de representação e mudanças no tipo de informação clínica disponível em cada exame. Ao concentrar a investigação exclusivamente em imagens de ultrassom mamário, reduz-se uma fonte importante de variação não controlada, aumentando a validade interna da comparação entre modelos. Em outras palavras, essa delimitação permite que diferenças de desempenho sejam interpretadas com maior confiança como decorrentes das escolhas arquiteturais e do protocolo experimental, e não da mistura entre domínios imagiológicos com propriedades estatísticas e semânticas distintas. 
+
+Além disso, a escolha pelo ultrassom mamário está alinhada ao problema clínico específico investigado neste trabalho: a distinção entre padrões normais, benignos e malignos e a delimitação espacial de lesões suspeitas em um contexto de elevada dependência interpretativa. Revisões recentes mostram que o uso de \textit{Deep Learning} em ultrassom mamário tem se concentrado precisamente nessas tarefas, com resultados promissores, porém ainda condicionados à qualidade metodológica dos experimentos, à curadoria dos dados e à validação rigorosa. Nesse cenário, restringir o estudo à ultrassonografia mamária não representa perda de abrangência, mas ganho de coerência científica, pois concentra a análise em um problema suficientemente relevante e tecnicamente exigente para sustentar uma investigação comparativa consistente. 
+
+\subsection{Restrição ao dataset BUSI}
+
+O recorte experimental deste estudo foi ainda mais delimitado pelo uso exclusivo do \textit{Breast Ultrasound Images Dataset} (BUSI). Essa decisão foi motivada pela necessidade de estabelecer um ambiente experimental controlado, com mesma origem modal, mesma semântica clínica e mesma estrutura de anotação para todas as arquiteturas avaliadas. O BUSI é uma base pública de ultrassom mamário que reúne 780 imagens obtidas de 600 pacientes, organizadas nas classes \textit{normal}, \textit{benigna} e \textit{maligna}, além de disponibilizar máscaras de referência para as lesões, o que o torna particularmente adequado para estudos que desejam tratar, no mesmo domínio, tarefas de classificação e segmentação.
+
+A restrição ao BUSI tem implicações metodológicas importantes. Em vez de combinar múltiplos conjuntos de dados com origens institucionais, protocolos de aquisição e padrões de anotação distintos, o presente trabalho opta por preservar homogeneidade experimental e comparabilidade direta entre modelos. Essa escolha favorece a validade interna do estudo, reduz os efeitos de \textit{domain shift} e facilita a interpretação das diferenças observadas entre arquiteturas. Em especial, ao utilizar uma única base para ambas as tarefas, torna-se possível comparar classificadores e segmentadores sob um mesmo pano de fundo clínico-imagiológico, evitando que eventuais diferenças de desempenho sejam mascaradas por heterogeneidades externas ao modelo. 
+
+Entretanto, a adoção do BUSI não implica tratá-lo como uma base isenta de limitações. Pelo contrário, a literatura recente documentou problemas relevantes no conjunto, incluindo duplicatas, quase duplicatas, inconsistências em máscaras e elementos de sobreposição visual que podem induzir vazamento de informação e inflacionar artificialmente o desempenho de modelos, caso a base seja utilizada sem curadoria cuidadosa. Portanto, a restrição ao BUSI não se fundamenta na ideia de perfeição do dataset, mas no fato de que ele oferece um ambiente público, amplamente utilizado e metodologicamente útil, desde que submetido a inspeção, limpeza e critérios rigorosos de inclusão e exclusão. Essa postura fortalece a reprodutibilidade do estudo e torna mais defensável a interpretação dos resultados obtidos. 
+
+\subsection{Separação entre classificação e segmentação}
+
+Uma delimitação adicional, e central para a coerência do trabalho, consiste na separação explícita entre as tarefas de classificação e segmentação. Embora ambas operem sobre imagens de ultrassom mamário e sejam clinicamente complementares, elas impõem demandas computacionais distintas. Na classificação, o objetivo é atribuir um rótulo global à imagem ou à lesão, exigindo do modelo capacidade de abstração semântica e discriminação entre classes. Na segmentação, por outro lado, o objetivo é recuperar a extensão espacial da lesão em nível de pixel, o que requer preservação de informação local, refinamento de contorno e integração entre contexto global e detalhes estruturais. A literatura de imagem médica trata essas tarefas como categorias analíticas distintas, com arquiteturas, funções de perda e métricas de avaliação próprias. 
+
+Essa separação é particularmente importante para evitar uma comparação metodologicamente inadequada entre modelos desenhados para finalidades diferentes. Redes como VGG16, ResNet, EfficientNet e ConvNeXt são, por construção, orientadas à tarefa de classificação, ao passo que arquiteturas da família U-Net e suas variantes foram concebidas para segmentação biomédica, explorando mecanismos de decodificação espacial, \textit{skip connections} e recuperação de contexto local. Tratar esses modelos como se disputassem o mesmo problema produziria conclusões frágeis, pois confundiria desempenho em tarefas diferentes com superioridade arquitetural geral. A delimitação adotada neste trabalho busca justamente evitar esse equívoco, estruturando dois eixos experimentais 
+
+Por fim, a separação entre classificação e segmentação também favorece a interpretação clínica e computacional dos resultados. Em vez de reduzir o problema a um único indicador agregado, essa abordagem permite examinar, de forma específica, quais modelos são mais adequados para discriminar lesões suspeitas e quais são mais eficazes para delimitar sua extensão anatômica. Essa decisão amplia a qualidade analítica do estudo, melhora a justiça comparativa entre arquiteturas e aproxima a discussão de uma perspectiva mais realista de apoio ao diagnóstico, na qual diferentes subtarefas podem demandar soluções distintas. 
+
+\section{Metodologia resumida}
+
+\subsection{Estrutura geral do pipeline experimental}
+
+A metodologia deste trabalho foi concebida como um protocolo experimental supervisionado, reprodutível e orientado à comparação justa entre arquiteturas de \textit{Deep Learning} aplicadas a duas tarefas distintas, porém complementares, no contexto da ultrassonografia mamária: classificação e segmentação de lesões. Em vez de tratar essas tarefas de maneira indistinta, o estudo adota uma organização em dois eixos experimentais independentes, preservando para cada um deles arquiteturas, métricas e critérios analíticos coerentes com sua natureza computacional e clínica. Essa decisão metodológica visa evitar comparações inadequadas entre modelos desenhados para finalidades diferentes, ao mesmo tempo em que permite investigar, dentro de um mesmo domínio imagiológico, o comportamento de redes profundas sob perspectivas diagnósticas complementares.
+
+O pipeline experimental inicia-se com a curadoria do dataset BUSI, contemplando inspeção estrutural da base, verificação da correspondência entre imagens e máscaras, definição de critérios de inclusão e exclusão, e identificação de possíveis elementos que comprometam a integridade experimental, como duplicatas, quase duplicatas e anotações visuais potencialmente espúrias. Em seguida, os dados são organizados em subconjuntos de treino, validação e teste, respeitando-se estratégias de particionamento estratificado e controle de vazamento de informação. Essa etapa é crítica para assegurar que os resultados obtidos reflitam capacidade de generalização e não simples memorização de padrões redundantes da base.
+
+Após a preparação dos dados, aplica-se um conjunto de procedimentos de pré-processamento e aumento de dados adequado à natureza do ultrassom mamário. Para ambas as tarefas, incluem-se operações como redimensionamento e normalização; adicionalmente, para segmentação, as máscaras são processadas de forma consistente com as imagens correspondentes. Técnicas de \textit{data augmentation} são empregadas com o objetivo de ampliar a variabilidade amostral e reduzir sobreajuste, preservando, contudo, plausibilidade anatômica e coerência clínica das transformações. Essa etapa é particularmente relevante em bases médicas de escala moderada, nas quais o número de exemplos disponíveis é frequentemente insuficiente para treinamento robusto sem estratégias explícitas de regularização.
+
+No eixo de classificação, as imagens são tratadas como instâncias rotuladas nas classes \textit{normal}, \textit{benigna} e \textit{maligna}, e submetidas ao treinamento de arquiteturas convolucionais representativas de diferentes paradigmas de projeto. No eixo de segmentação, restringe-se a análise aos casos com lesão segmentável, utilizando máscaras de referência para treinamento de modelos voltados à recuperação da região tumoral em nível de pixel. Em ambos os casos, os modelos são treinados e avaliados sob um protocolo uniforme, com monitoramento por validação, seleção de \textit{checkpoints} e posterior teste em dados mantidos fora do processo de ajuste.
+
+Por fim, a análise experimental é conduzida em duas camadas complementares. A primeira camada é quantitativa, baseada em métricas específicas para cada tarefa e em medidas de custo computacional. A segunda camada é qualitativa, voltada à interpretação visual de erros, acertos, contornos recuperados e padrões de falha dos modelos. Essa combinação busca evitar uma leitura excessivamente reducionista baseada apenas em métricas agregadas, favorecendo uma avaliação mais completa do potencial das arquiteturas como ferramentas de apoio ao diagnóstico.
+
+\subsection{Modelos considerados}
+
+Os modelos selecionados foram organizados em dois grupos, conforme a tarefa avaliada. Para classificação, foram consideradas arquiteturas com perfis distintos de profundidade, estratégia de otimização e eficiência computacional: VGG16, ResNet50, EfficientNet e ConvNeXt. A VGG16 foi incluída como \textit{baseline} clássico, por sua relevância histórica e por oferecer uma referência arquitetural simples e amplamente conhecida. A ResNet50 foi escolhida por introduzir conexões residuais, que facilitam o treinamento de redes mais profundas e tornam possível avaliar o ganho associado à melhoria do fluxo de gradiente. A EfficientNet foi incorporada em razão de sua proposta de escalonamento composto entre profundidade, largura e resolução, constituindo uma alternativa particularmente interessante do ponto de vista de eficiência. Por fim, a ConvNeXt foi selecionada por representar uma geração mais recente de redes convolucionais, concebida para recuperar competitividade frente aos transformadores visuais por meio da modernização sistemática de componentes da CNN tradicional.
+
+Para segmentação, foram escolhidas arquiteturas consagradas no domínio de imagem biomédica e variantes estruturalmente enriquecidas da mesma família de problemas: U-Net, Attention U-Net, U-Net++ e DeepLabV3+. A U-Net foi adotada como \textit{baseline} por sua relevância seminal em segmentação biomédica e por seu desenho \textit{encoder-decoder} com \textit{skip connections}, que combina contexto global e localização precisa. A Attention U-Net foi incluída para investigar o efeito de mecanismos de atenção na supressão de regiões irrelevantes e no realce de estruturas-alvo. A U-Net++ foi selecionada por sua reformulação das conexões de atalho, com o objetivo de reduzir o hiato semântico entre codificador e decodificador. A DeepLabV3+, por sua vez, foi adotada para representar uma abordagem de segmentação com forte modelagem multiescala e recuperação refinada de contornos por meio de convoluções atrous e decodificação explícita de fronteiras.
+
+A composição desse conjunto de modelos não foi orientada apenas por popularidade na literatura, mas por sua capacidade de representar diferentes compromissos entre simplicidade, profundidade, eficiência, captura de contexto e refinamento espacial. Dessa forma, o estudo não se limita a comparar modelos arbitrários, mas procura investigar famílias arquiteturais que expressam hipóteses técnicas distintas sobre como extrair informação útil de imagens de ultrassom mamário. Essa escolha favorece uma análise mais interpretável, permitindo associar diferenças observadas no desempenho a decisões de projeto concretas, e não apenas a nomes de modelos.
+
+\subsection{Métricas adotadas}
+
+A avaliação dos modelos foi estruturada para contemplar três dimensões complementares: desempenho preditivo, qualidade espacial da segmentação e custo computacional. No eixo de classificação, foram adotadas métricas clássicas de avaliação diagnóstica, incluindo \textit{accuracy}, \textit{precision}, \textit{recall} (sensibilidade), \(F1\)-\textit{score}, especificidade e AUC-ROC. A acurácia foi mantida como medida global de acerto, mas não foi tratada como critério suficiente de comparação, dado o potencial desbalanceamento entre classes e a relevância clínica diferenciada dos erros. A sensibilidade e a especificidade foram consideradas essenciais para interpretar, respectivamente, a capacidade do modelo de recuperar corretamente casos positivos e de evitar falsos alarmes. O \(F1\)-\textit{score} foi incorporado por equilibrar \textit{precision} e \textit{recall}, enquanto a AUC-ROC foi utilizada como métrica limiar-independente, particularmente útil para avaliar capacidade discriminativa global.
+
+No eixo de segmentação, as métricas principais foram IoU (\textit{Intersection over Union}) e Dice Score, complementadas por \textit{precision}, \textit{recall} e \(F1\)-\textit{score} em nível de pixel. A escolha dessas métricas é consistente com recomendações da literatura de segmentação médica, na qual medidas de sobreposição entre máscara predita e máscara de referência são centrais para quantificar a qualidade da recuperação espacial da estrutura de interesse. O Dice Score é especialmente útil em cenários com desbalanceamento entre região de interesse e fundo, enquanto o IoU fornece uma medida intuitiva e rigorosa de interseção relativa. As métricas baseadas em \textit{precision} e \textit{recall} em nível de pixel complementam a análise ao distinguir erros de subsegmentação e sobresegmentação.
+
+Além das métricas de desempenho, foram incluídas medidas computacionais com o objetivo de avaliar a viabilidade prática dos modelos. Entre essas medidas, destacam-se número total de parâmetros, tempo de treinamento, tempo médio de inferência por imagem e tamanho final do modelo. A inclusão dessas métricas decorre do entendimento de que, em imagem médica aplicada, o melhor modelo não é necessariamente aquele com maior desempenho absoluto, mas aquele que oferece melhor relação entre acurácia diagnóstica, robustez e custo operacional. Assim, a comparação final entre arquiteturas será conduzida não apenas em termos de mérito preditivo, mas também de custo-benefício computacional, aproximando a análise de critérios mais realistas de adoção prática.
+
+\section{Organização do trabalho}
+
+\subsection{Descrição dos capítulos}
+
+Esta monografia está estruturada em seis capítulos principais, organizados de modo a conduzir o leitor desde a contextualização do problema até a consolidação crítica dos achados experimentais. A construção dessa sequência busca atender a uma exigência central de trabalhos científicos em Inteligência Artificial aplicada à saúde: articular, de maneira coerente, motivação clínica, fundamentação teórica, desenho metodológico, evidência empírica e interpretação crítica dos resultados.
+
+O Capítulo 1, \textit{Introdução}, estabelece o contexto científico e aplicado da pesquisa. Inicialmente, apresenta-se a relevância do câncer de mama como problema de saúde pública, a centralidade do diagnóstico por imagem e o crescente papel da Inteligência Artificial na medicina. Em seguida, são discutidos os desafios específicos da ultrassonografia mamária, o potencial do \textit{Deep Learning} como tecnologia de apoio ao diagnóstico e a justificativa para a adoção do dataset BUSI como ambiente experimental. O capítulo também delimita o problema de pesquisa, explicita as hipóteses e pressupostos do estudo, define os objetivos, apresenta a delimitação do escopo e sintetiza a metodologia geral adotada. Dessa forma, a introdução não apenas situa o tema, mas também estabelece o quadro conceitual e investigativo que orienta todo o desenvolvimento posterior da monografia.
+
+O Capítulo 2, \textit{Fundamentação Teórica}, reúne o arcabouço conceitual necessário para sustentar a investigação proposta. Inicialmente, são discutidos os fundamentos clínicos relacionados ao câncer de mama e ao diagnóstico por imagem, com ênfase na ultrassonografia mamária. Em seguida, o capítulo aborda os conceitos de Inteligência Artificial, aprendizado de máquina, aprendizado profundo e visão computacional em imagens médicas. Na sequência, são apresentados os fundamentos das redes neurais convolucionais e das principais arquiteturas selecionadas para o estudo, tanto para classificação quanto para segmentação. Também são discutidas técnicas complementares, como \textit{data augmentation}, balanceamento de classes e funções de perda, além de uma revisão dos trabalhos relacionados. Esse capítulo cumpre, portanto, a função de posicionar teoricamente o estudo e evidenciar como a proposta se insere no estado da arte da literatura.
+
+O Capítulo 3, \textit{Materiais e Métodos}, descreve detalhadamente o desenho experimental adotado. São apresentados a natureza da pesquisa, o ambiente computacional, a base de dados utilizada e os critérios de inclusão e exclusão empregados na curadoria do BUSI. O capítulo ainda detalha as etapas de preparação dos dados, pré-processamento, aumento de dados, definição dos conjuntos de treino, validação e teste, bem como as estratégias de modelagem experimental para classificação e segmentação. Adicionalmente, são explicitados os hiperparâmetros investigados, as métricas de avaliação e o procedimento geral de experimentação. Trata-se do capítulo metodológico central da monografia, no qual se formaliza o protocolo reprodutível que permitirá interpretar os resultados de forma robusta e cientificamente defensável.
+
+O Capítulo 4, \textit{Resultados --- Classificação}, concentra a apresentação dos achados experimentais referentes à tarefa de classificação de imagens de ultrassom mamário. Inicialmente, são descritas as configurações finais dos experimentos, incluindo os modelos efetivamente treinados e os hiperparâmetros adotados. Em seguida, são reportadas as métricas quantitativas gerais, curvas de treinamento, análises por classe, matrizes de confusão e curvas ROC. O capítulo também contempla análise de hiperparâmetros, avaliação de custo computacional e tempo de inferência, além de exemplos qualitativos de acertos e erros. Por fim, é apresentada uma síntese comparativa dos resultados, distinguindo desempenho absoluto, custo-benefício e limitações observadas. Esse capítulo tem como função oferecer uma visão completa e analítica do comportamento dos classificadores sob o protocolo experimental proposto.
+
+O Capítulo 5, \textit{Resultados --- Segmentação}, é dedicado à tarefa de segmentação de lesões mamárias. Sua estrutura espelha, em termos gerais, a lógica do capítulo anterior, mas adaptada às exigências específicas da segmentação semântica. São apresentados os modelos treinados, os hiperparâmetros utilizados, as funções de perda adotadas e os resultados quantitativos em métricas como IoU e Dice Score. O capítulo também inclui curvas de treinamento, comparação quantitativa entre arquiteturas, análise qualitativa das máscaras produzidas, comparação visual entre \textit{ground truth} e predição, bem como avaliação de custo computacional e tempo de inferência. Ao final, é realizada uma síntese dos resultados de segmentação, com ênfase na distinção entre melhor desempenho absoluto e melhor equilíbrio entre desempenho e viabilidade computacional.
+
+O Capítulo 6, \textit{Discussão}, integra e interpreta criticamente os resultados apresentados nos capítulos anteriores. Nessa etapa, os achados da classificação e da segmentação são examinados à luz das hipóteses iniciais, das características arquiteturais dos modelos avaliados e dos trabalhos relacionados revisados na literatura. Também se discute a relação entre desempenho e custo computacional, a robustez dos modelos, as limitações do estudo e as possíveis implicações práticas dos resultados para o contexto de apoio ao diagnóstico. Esse capítulo é particularmente importante porque desloca a monografia de uma simples apresentação de métricas para uma análise científica mais madura, centrada em interpretação, comparação e reflexão crítica.
+
+Por fim, o Capítulo 7, \textit{Conclusão}, retoma o problema de pesquisa e sistematiza os principais achados do estudo. São sintetizados os resultados mais relevantes nas tarefas de classificação e segmentação, bem como as contribuições técnicas, metodológicas e acadêmicas da pesquisa. O capítulo também explicita as limitações finais do trabalho e aponta direções para investigações futuras, como uso de múltiplos datasets, validação cruzada, inclusão de modelos adicionais e estudos de explicabilidade. Assim, a conclusão encerra a monografia articulando resposta ao problema proposto, contribuição científica e continuidade da agenda de pesquisa.
+
+\subsection{Encadeamento lógico da monografia}
+
+O encadeamento lógico desta monografia foi concebido de modo a refletir a progressão natural de uma investigação científica aplicada: parte-se da identificação de um problema relevante, constrói-se a base conceitual necessária à sua compreensão, define-se um protocolo metodológico apropriado, apresentam-se os resultados obtidos e, por fim, interpreta-se criticamente sua contribuição. Essa organização não é meramente formal; ela constitui parte da própria estratégia argumentativa do trabalho, pois busca assegurar que cada capítulo responda a uma etapa específica da pergunta de pesquisa e prepare o terreno para o capítulo subsequente.
+
+Nesse sentido, a \textit{Introdução} cumpre a função de justificar por que o problema investigado é relevante e por que merece ser abordado sob a ótica da Inteligência Artificial aplicada ao ultrassom mamário. Ao explicitar contexto, motivação, hipóteses, objetivos e delimitações, esse capítulo estabelece o eixo orientador de toda a monografia. A \textit{Fundamentação Teórica}, por sua vez, responde à necessidade de construir o vocabulário conceitual e técnico que permitirá compreender tanto o domínio clínico quanto as arquiteturas e métricas exploradas no estudo. Assim, o segundo capítulo atua como ponte entre a relevância do problema e a possibilidade concreta de investigá-lo com rigor metodológico.
+
+A partir dessa base, o capítulo de \textit{Materiais e Métodos} realiza a transição entre teoria e experimentação. Seu papel no encadeamento lógico é central, pois formaliza como as hipóteses levantadas anteriormente serão efetivamente testadas. A descrição detalhada da base de dados, da curadoria, das estratégias de pré-processamento, do particionamento dos dados, dos modelos avaliados e das métricas utilizadas cria as condições para que os resultados apresentados posteriormente possam ser compreendidos como consequência direta de um protocolo explícito, e não como observações isoladas ou arbitrárias. Em outras palavras, esse capítulo garante rastreabilidade metodológica entre a pergunta de pesquisa e a evidência empírica produzida.
+
+A separação entre \textit{Resultados --- Classificação} e \textit{Resultados --- Segmentação} também obedece a uma lógica científica precisa. Como as duas tarefas possuem objetivos, arquiteturas e métricas distintas, apresentá-las em capítulos independentes evita ambiguidades interpretativas e permite que cada uma seja analisada em sua própria linguagem metodológica. Esse arranjo reforça uma das decisões estruturantes do trabalho: tratar classificação e segmentação como problemas complementares, mas não equivalentes. Consequentemente, a monografia preserva clareza analítica e favorece comparações justas entre modelos funcionalmente equivalentes dentro de cada tarefa.
+
+O capítulo de \textit{Discussão} ocupa, nesse encadeamento, o papel de síntese interpretativa. Depois de apresentados os resultados de forma separada e tecnicamente detalhada, torna-se possível integrá-los em uma análise mais ampla, que considera não apenas quais modelos obtiveram melhores métricas, mas também por que esses resultados ocorreram, quais limitações se impõem à sua generalização e como eles dialogam com a literatura revisada. A discussão, portanto, funciona como momento de maturação argumentativa da monografia, no qual os dados deixam de ser apenas descritivos e passam a sustentar inferências científicas mais robustas.
+
+Por fim, a \textit{Conclusão} encerra o percurso lógico do trabalho ao retomar a pergunta de pesquisa à luz da evidência construída ao longo dos capítulos anteriores. Sua função é mostrar que a monografia não se limita a uma coleção de etapas independentes, mas constitui um argumento científico contínuo: parte-se de um problema real e relevante, seleciona-se um recorte metodológico consistente, produzem-se resultados comparativos e extrai-se deles uma contribuição inteligível para a área. Assim, o encadeamento lógico do texto foi deliberadamente estruturado para maximizar clareza, coerência interna e força argumentativa, aproximando a monografia do padrão esperado em trabalhos científicos de maior maturidade.
+
+\chapter{Fundamentação Teórica}
+
+\section{Câncer de mama e diagnóstico por imagem}
+
+\subsection{Conceitos básicos sobre câncer de mama}
+
+O câncer de mama consiste em um grupo heterogêneo de neoplasias malignas originadas, em geral, a partir do epitélio ductal ou lobular da glândula mamária. Essa heterogeneidade manifesta-se em múltiplos níveis, incluindo morfologia tumoral, perfil molecular, comportamento biológico, velocidade de progressão, resposta terapêutica e prognóstico. Em termos clínicos, essa diversidade implica que o câncer de mama não deve ser tratado como uma entidade única e uniforme, mas como um conjunto de doenças relacionadas, cuja caracterização adequada depende da integração entre achados clínicos, histopatológicos, biomarcadores e métodos de imagem \cite{WHO2025BreastCancer,INCAEstimativa2023}.
+
+Do ponto de vista epidemiológico, o câncer de mama permanece entre os principais problemas de saúde pública em escala global e nacional, não apenas por sua elevada incidência, mas também pelo impacto sobre mortalidade, morbidade, qualidade de vida e organização dos sistemas de saúde. Sua relevância sanitária decorre do fato de que o prognóstico está fortemente associado ao estágio em que a doença é detectada, de modo que estratégias de rastreamento, reconhecimento precoce de sinais suspeitos e confirmação diagnóstica oportuna ocupam papel central no controle da doença \cite{WHO2025BreastCancer,INCADiretrizesMama}.
+
+Em sua evolução clínica, o câncer de mama pode apresentar-se como lesão palpável, alteração arquitetural, microcalcificações, assimetrias, distorções ou achados subclínicos detectáveis apenas por métodos de imagem. Essa característica reforça a importância de abordagens diagnósticas capazes de identificar tanto manifestações evidentes quanto alterações iniciais ainda não perceptíveis ao exame físico. Além disso, a doença pode assumir formas invasivas ou não invasivas, com diferentes potenciais de disseminação local e sistêmica, o que torna a detecção precoce particularmente importante para ampliar as possibilidades terapêuticas e reduzir a probabilidade de desfechos desfavoráveis \cite{INCADiretrizesMama,NCIBreastDiagnosis2025}.
+
+Sob uma perspectiva conceitual mais ampla, a abordagem do câncer de mama envolve três grandes eixos complementares: rastreamento em populações assintomáticas, diagnóstico em pacientes com sinais ou sintomas suspeitos e estadiamento/monitoramento após confirmação diagnóstica. Embora esses eixos possuam objetivos distintos, todos dependem, em maior ou menor grau, da qualidade do diagnóstico por imagem. Em consequência, compreender o câncer de mama no âmbito desta pesquisa exige reconhecer que a interpretação imagiológica não é uma etapa acessória, mas parte constitutiva do processo clínico de identificação, caracterização e condução dos casos suspeitos \cite{INCADeteccaoPrecoce2022,NCIScreening2025}.
+
+\subsection{Métodos de imagem utilizados no diagnóstico}
+
+O diagnóstico por imagem no câncer de mama baseia-se em uma estratégia multimodal, na qual diferentes métodos são empregados conforme o contexto clínico, o perfil de risco da paciente, a idade, a densidade mamária e a finalidade da investigação. A mamografia ocupa papel central em programas de rastreamento, sobretudo por sua capacidade de detectar alterações suspeitas em fases precoces, inclusive antes da manifestação clínica evidente. Em razão dessa característica, ela permanece como o método de imagem de referência para rastreamento populacional em grande parte das diretrizes contemporâneas \cite{NCIScreening2025,INCADiretrizesMama}.
+
+Entretanto, a prática diagnóstica em mama não se esgota na mamografia. A ultrassonografia mamária é amplamente utilizada como exame complementar, tanto para investigação diagnóstica de sinais e sintomas quanto para melhor caracterização de achados identificados em outros métodos. Em determinados cenários, como em mulheres jovens com queixas clínicas suspeitas ou em pacientes com mamas densas, o ultrassom assume relevância ainda maior, seja como método inicial de avaliação, seja como ferramenta adicional para análise morfológica da lesão \cite{INCAParametrosMama,INCADiretrizesMama}. 
+
+A ressonância magnética das mamas, por sua vez, oferece elevada sensibilidade e é particularmente útil em situações específicas, como avaliação de pacientes de alto risco, investigação complementar de achados inconclusivos, pesquisa de extensão de doença e monitoramento em contextos selecionados. Apesar de seu valor clínico, a ressonância não substitui rotineiramente mamografia e ultrassonografia, mas integra um arsenal diagnóstico complementar, geralmente reservado a indicações mais específicas por envolver maior custo, menor disponibilidade e interpretação altamente especializada \cite{NCIScreening2025,NCIBreastDiagnosis2025}.
+
+Além desses métodos principais, o processo diagnóstico pode incluir tomossíntese mamária, procedimentos intervencionistas guiados por imagem e, em contextos de estadiamento ou avaliação complementar, outros exames de imagem sistêmica. Contudo, para fins desta pesquisa, interessa sobretudo a relação entre mamografia, ultrassonografia e ressonância magnética como modalidades mais diretamente ligadas à detecção e à caracterização inicial de lesões mamárias. O ponto central é que esses métodos não competem de maneira simples entre si; eles são, em grande medida, complementares, e sua utilidade depende da pergunta clínica formulada. Essa complementaridade ajuda a explicar por que o desenvolvimento de métodos computacionais para apoio ao diagnóstico precisa respeitar as propriedades específicas de cada modalidade imagiológica \cite{NCIScreening2025,INCADeteccaoPrecoce2022}.
+
+Nesse contexto, a escolha da ultrassonografia como foco deste estudo é metodologicamente justificável porque ela representa, simultaneamente, um exame de grande relevância prática e uma modalidade particularmente desafiadora do ponto de vista computacional. Diferentemente de métodos mais padronizados em termos de aquisição, o ultrassom impõe ao algoritmo e ao observador humano a necessidade de interpretar sinais visuais altamente dependentes de contexto, textura e contorno, o que o torna um campo fértil para investigação de arquiteturas de \textit{Deep Learning} aplicadas ao apoio diagnóstico \cite{Trepanier2023,Dan2024}.
+
+\subsection{Ultrassonografia mamária: características e limitações}
+
+A ultrassonografia mamária é um método de imagem baseado na emissão e recepção de ondas ultrassônicas, produzindo representação em tempo real das estruturas mamárias sem utilização de radiação ionizante. Essa característica lhe confere vantagens operacionais relevantes, incluindo ampla disponibilidade, menor custo relativo em comparação com métodos mais complexos e possibilidade de aplicação em diferentes contextos assistenciais. Clinicamente, o exame é valioso para caracterização de nódulos, diferenciação entre componentes císticos e sólidos, avaliação complementar de alterações suspeitas e suporte a procedimentos guiados por imagem \cite{INCAParametrosMama,INCADiretrizesMama}.
+
+Do ponto de vista diagnóstico, uma das principais virtudes do ultrassom mamário é sua utilidade como método complementar, especialmente em mamas densas, nas quais a sensibilidade da mamografia pode ser reduzida. Nesses cenários, a ultrassonografia pode contribuir para identificação de achados adicionais e para melhor definição morfológica de lesões detectadas por outros meios ou pela clínica. Em contrapartida, a literatura mostra que o ganho em detecção pode ser acompanhado por aumento de reconvocações, achados falso-positivos e biópsias desnecessárias, o que torna a interpretação do exame particularmente sensível ao equilíbrio entre sensibilidade e especificidade \cite{Hussein2023,Lobig2023}.
+
+Sob a perspectiva da análise de imagem, a ultrassonografia mamária apresenta propriedades que a tornam substancialmente mais desafiadora do que modalidades com maior padronização estrutural. Entre essas propriedades destacam-se o ruído \textit{speckle}, o baixo contraste entre tecidos adjacentes, a presença de sombras e reforços acústicos, a variabilidade de orientação do transdutor, a dependência de ganho e profundidade configurados durante a aquisição e a relativa imprecisão de contornos em algumas lesões. Em consequência, a imagem ultrassonográfica frequentemente contém padrões texturais ambíguos e bordas pouco definidas, dificultando tanto a interpretação humana quanto a modelagem computacional \cite{Trepanier2023,Afrin2023}.
+
+Outra limitação central da ultrassonografia mamária é sua forte dependência do operador. A qualidade da aquisição, a seleção do plano de corte, a pressão aplicada com o transdutor e a escolha das imagens representativas podem influenciar diretamente a aparência do exame. Esse caráter operador-dependente introduz variabilidade substancial, afetando reprodutibilidade, comparabilidade entre estudos e robustez de sistemas automatizados treinados em conjuntos de dados limitados. Revisões recentes ressaltam que, embora o ultrassom seja uma ferramenta diagnóstica extremamente útil, sua utilidade é limitada por taxas relativamente altas de reconvocação, baixo valor preditivo positivo em alguns cenários e especificidade inferior à desejável quando comparado a estratégias mais seletivas ou multimodais \cite{Trepanier2023,Hussein2023}.
+
+Essas limitações, no entanto, não diminuem a relevância da ultrassonografia mamária; ao contrário, ajudam a explicar por que ela se tornou um alvo tão importante para pesquisa em Inteligência Artificial. Justamente por combinar alta utilidade clínica com elevada complexidade visual e interpretativa, o ultrassom oferece um cenário propício para investigação de métodos capazes de reduzir variabilidade, apoiar a diferenciação entre lesões benignas e malignas e melhorar a consistência analítica do processo diagnóstico. É nesse ponto que se insere a motivação computacional desta monografia: explorar o potencial de arquiteturas profundas em um domínio em que a dificuldade do problema não decorre da ausência de informação, mas da complexidade de sua representação visual e de sua interpretação clínica \cite{Dan2024,Trepanier2023}.
+
+\section{Inteligência Artificial aplicada à saúde}
+
+\subsection{Conceitos de IA, Machine Learning e Deep Learning}
+
+A Inteligência Artificial (IA) pode ser compreendida, em sentido amplo, como o campo dedicado ao desenvolvimento de sistemas capazes de executar tarefas que, em condições usuais, exigiriam processos cognitivos associados à inteligência humana, como reconhecimento de padrões, inferência, tomada de decisão e adaptação a novos dados. No contexto da saúde, essa definição ganha contornos práticos: a IA passa a ser entendida como um conjunto de métodos computacionais capazes de apoiar atividades clínicas, diagnósticas, prognósticas, administrativas e de pesquisa, desde que operem sobre dados de maneira sistemática, verificável e alinhada ao objetivo assistencial. Documentos da Organização Mundial da Saúde ressaltam que, para além do desempenho técnico, a adoção de IA em saúde deve ser julgada também por critérios de segurança, equidade, transparência, responsabilidade e benefício público. 
+
+No interior desse campo mais amplo, o \textit{Machine Learning} (ML) corresponde ao subconjunto de técnicas que permitem a construção de modelos capazes de aprender relações estatísticas a partir de dados, sem depender exclusivamente de regras programadas manualmente para cada tarefa. Em vez de definir explicitamente todas as etapas de decisão, o ML estima padrões a partir de exemplos, ajustando parâmetros para otimizar uma função objetivo. Em aplicações médicas, isso significa que o sistema pode aprender a associar atributos de imagem, sinais fisiológicos, dados laboratoriais ou registros clínicos a desfechos de interesse, como diagnóstico, risco ou resposta terapêutica. Essa mudança de paradigma foi particularmente importante em saúde porque possibilitou tratar problemas complexos, de alta dimensionalidade e difícil formalização analítica por abordagens convencionais. 
+
+O \textit{Deep Learning} (DL), por sua vez, constitui uma subárea do ML baseada em redes neurais profundas, ou seja, modelos compostos por múltiplas camadas sucessivas de transformação não linear. Sua principal característica é a capacidade de aprender representações hierárquicas diretamente dos dados brutos, reduzindo a dependência de engenharia manual de atributos. Em imagens médicas, esse aspecto é particularmente relevante porque estruturas anatômicas, texturas, contornos e relações espaciais podem ser inferidos em diferentes níveis de abstração pela própria rede. Como consequência, o DL tornou-se a abordagem dominante em problemas de classificação, detecção, segmentação, reconstrução e apoio à interpretação de exames, especialmente após o avanço de arquiteturas convolucionais, mecanismos de atenção e estratégias de treinamento em larga escala.
+
+A distinção entre IA, ML e DL não é meramente terminológica; ela possui implicações metodológicas diretas para pesquisa em saúde. IA designa o campo mais amplo e inclui desde sistemas baseados em regras até modelos probabilísticos e redes neurais profundas. ML refere-se à classe de métodos orientados ao aprendizado a partir de dados. DL, por fim, descreve arquiteturas profundas capazes de extrair representações complexas com elevada flexibilidade. Em pesquisas aplicadas à imagem médica, essa hierarquia conceitual é importante porque ajuda a delimitar claramente o tipo de contribuição oferecida pelo estudo: não se trata de IA em sentido genérico, mas de uma investigação específica sobre arquiteturas de aprendizado profundo em tarefas de classificação e segmentação.
+
+\subsection{Aplicações de IA em imagens médicas}
+
+A imagem médica tornou-se um dos principais campos de aplicação da IA porque reúne três características altamente compatíveis com modelos de aprendizado profundo: grande volume de dados visuais, alta complexidade estrutural e necessidade constante de interpretação especializada. Revisões amplas da área mostram que a IA vem sendo aplicada a uma variedade de modalidades, incluindo radiografia, tomografia computadorizada, ressonância magnética, ultrassonografia, mamografia, patologia digital e imagem oftalmológica, cobrindo tarefas como classificação diagnóstica, detecção de achados, segmentação anatômica e lesional, reconstrução de imagem, redução de ruído, triagem automatizada, priorização de casos e quantificação de biomarcadores de imagem.
+
+Entre essas aplicações, quatro classes de tarefa se destacam por sua relevância metodológica e clínica. A primeira é a classificação, em que o sistema atribui um rótulo global a uma imagem ou exame, como normal versus patológico, benigno versus maligno ou presença versus ausência de determinada condição. A segunda é a detecção, voltada à identificação de regiões suspeitas ou achados específicos. A terceira é a segmentação, na qual o modelo delimita estruturas anatômicas ou lesões em nível de pixel. A quarta envolve tarefas de apoio quantitativo, como extração automatizada de medidas, estimativa de volume, acompanhamento longitudinal e inferência de características prognósticas. Na prática, essas categorias frequentemente se sobrepõem, mas mantêm exigências algorítmicas distintas, o que justifica o tratamento metodológico separado de problemas como classificação e segmentação em estudos comparativos. 
+
+No contexto radiológico, a IA tem sido utilizada principalmente como ferramenta de apoio ao fluxo de trabalho, seja como segundo leitor, seja como sistema de priorização de exames ou auxílio à caracterização de achados. Revisões recentes indicam que, em ambientes reais de imagem clínica, muitas implementações concentram-se em tarefas de detecção e triagem, com potencial para reorganizar listas de trabalho, destacar casos positivos e reduzir parte da carga operacional dos especialistas. Esse cenário mostra que o valor da IA em imagens médicas não reside apenas em substituir a interpretação humana, mas em melhorar eficiência, consistência e capacidade de focalizar atenção diagnóstica em situações de maior risco. 
+
+Em imagem mamária, e particularmente em ultrassonografia mamária, as aplicações mais investigadas envolvem diferenciação entre lesões benignas e malignas, segmentação de massas, apoio à triagem e construção de sistemas multitarefa capazes de combinar informação global e espacial. A escolha dessa modalidade como foco de pesquisa é metodologicamente relevante porque o ultrassom reúne utilidade clínica elevada e alto grau de complexidade visual, o que o torna um ambiente adequado para testar a real capacidade de generalização e discriminação de arquiteturas profundas. Nesse tipo de cenário, modelos de IA não são avaliados apenas por acurácia, mas pela capacidade de aprender padrões úteis em presença de ruído, baixo contraste e variabilidade de aquisição. 
+
+\subsection{Benefícios, limitações e desafios clínicos}
+
+Os benefícios potenciais da IA em saúde são amplamente reconhecidos e incluem aumento da precisão diagnóstica, apoio à padronização interpretativa, automação de tarefas repetitivas, melhora de eficiência operacional e ampliação da capacidade analítica sobre grandes volumes de dados. Em imagem médica, revisões de implementação mostram que sistemas de IA frequentemente atuam como apoio à leitura, com indícios de melhora de eficiência em diversos estudos do mundo real. Além disso, em tarefas visuais altamente repetitivas ou suscetíveis à fadiga, a IA pode funcionar como camada adicional de vigilância diagnóstica, contribuindo para reduzir variabilidade entre leitores e acelerar processos de triagem.
+
+Entretanto, os benefícios técnicos não eliminam limitações substantivas. Uma das mais importantes é a dificuldade de generalização fora do ambiente de desenvolvimento. Trabalhos recentes destacam que modelos clínicos podem sofrer degradação relevante de desempenho quando submetidos a populações, instituições, equipamentos, protocolos de aquisição ou distribuições de dados diferentes das observadas no treinamento. Em medicina, esse problema é especialmente crítico porque um modelo aparentemente robusto em validação interna pode falhar em contextos reais, justamente onde a segurança e a confiabilidade são mais necessárias. Por isso, generalização, robustez e validade externa passaram a ser tratadas como requisitos centrais para uso responsável de IA em saúde. 
+
+Outro desafio central envolve viés algorítmico, qualidade dos dados e representatividade das populações analisadas. Sistemas treinados em bases incompletas, enviesadas ou pouco diversas podem aprender atalhos estatísticos e produzir desempenhos desiguais entre subgrupos, ampliando disparidades já existentes na assistência. A literatura recente em IA médica enfatiza que o problema não é apenas técnico, mas também ético e regulatório: um sistema com boa métrica média pode continuar sendo inadequado se falhar sistematicamente em populações sub-representadas ou se explorar correlações espúrias sem relevância clínica. Esse ponto é especialmente importante em imagem médica, onde diferenças de equipamento, instituição, protocolo e população podem ser capturadas de forma não intencional pelo modelo.
+
+Além disso, transparência, reprodutibilidade e padronização de relato continuam sendo gargalos importantes. A proliferação de estudos em IA médica levou ao surgimento de diretrizes específicas de reporte, justamente porque muitas publicações ainda apresentam descrições insuficientes de dados, validação, desfechos, calibração, manejo de viés e contexto de uso pretendido. Esse problema afeta diretamente a confiança clínica, pois dificulta avaliar se um modelo é realmente aplicável, seguro e reproduzível. Assim, a transição de bons resultados experimentais para adoção clínica responsável depende não apenas de avanço algorítmico, mas também de governança, desenho de estudo robusto e transparência metodológica. 
+
+Em síntese, a IA aplicada à saúde deve ser compreendida como tecnologia de alto potencial, mas de adoção necessariamente condicionada. Seu valor clínico emerge quando desempenho, robustez, equidade, segurança, transparência e integração ao fluxo assistencial são tratados de forma conjunta. Essa perspectiva é particularmente importante para pesquisas em imagem médica: mais do que demonstrar que um modelo alcança métricas elevadas, é preciso mostrar que ele foi desenvolvido e avaliado sob condições que sustentem confiança científica e, idealmente, utilidade translacional. É sob esse enquadramento que a presente pesquisa se insere, ao analisar arquiteturas de aprendizado profundo para classificação e segmentação em ultrassom mamário sob um protocolo comparativo e metodologicamente controlado.
+
+\section{Visão computacional em imagens médicas}
+
+\subsection{Representação digital de imagens}
+
+Na perspectiva da visão computacional, uma imagem médica pode ser entendida como uma representação digital estruturada de propriedades físicas ou fisiológicas capturadas por um sistema de aquisição e convertidas em uma matriz de intensidades. Em imagens bidimensionais, essa matriz é composta por \textit{pixels}; em exames volumétricos, como tomografia computadorizada e ressonância magnética, a representação se estende para \textit{voxels}, incorporando informação espacial tridimensional. Essa distinção não é meramente formal: ela determina o tipo de processamento aplicável, a natureza das relações espaciais modeladas e o nível de complexidade exigido dos algoritmos de análise. Além disso, a representação digital das imagens médicas depende da modalidade considerada, de modo que contraste, resolução espacial, espessura de corte, ruído, artefatos e escala de intensidade podem variar substancialmente entre radiografia, ultrassonografia, tomografia, ressonância magnética e outras técnicas.
+
+Em termos computacionais, a imagem médica não deve ser vista apenas como um arranjo visual, mas como um objeto quantitativo cuja interpretação depende da relação entre intensidade, textura, forma e contexto anatômico. Em modalidades como a ultrassonografia, essa relação é particularmente complexa, porque a intensidade registrada não corresponde simplesmente à presença ou ausência de tecido, mas ao comportamento acústico local, sujeito a efeitos de atenuação, speckle, reflexão e sombreamento. Assim, a representação digital em imagens médicas carrega simultaneamente informação anatômica, funcional e instrumental, exigindo do algoritmo a capacidade de distinguir padrões biologicamente relevantes de variações introduzidas pelo processo de aquisição. Essa característica explica por que métodos de visão computacional em medicina precisam operar com maior sensibilidade ao contexto do que em muitos problemas de imagem natural.
+
+Outro aspecto central da representação digital em imagens médicas é a necessidade de padronização. Como exames provenientes de diferentes instituições, equipamentos e protocolos podem apresentar distribuições de intensidade, resoluções e campos de visão distintos, a comparabilidade entre amostras não é garantida de forma nativa. Em consequência, qualquer pipeline de visão computacional robusto depende de uma etapa explícita de harmonização representacional, seja para reduzir variabilidade entre aquisições, seja para tornar os dados compatíveis com arquiteturas profundas ou fluxos radiômicos. Nesse sentido, a representação digital não é um dado neutro e fixo; ela constitui o primeiro nível de abstração sobre o qual o restante do pipeline analítico será construído.
+
+\subsection{Pré-processamento de imagens médicas}
+
+O pré-processamento corresponde ao conjunto de operações aplicadas às imagens antes da etapa principal de modelagem, com o objetivo de reduzir ruído, padronizar a representação dos dados, melhorar a qualidade visual ou quantitativa do sinal e tornar mais estável o processo de treinamento e inferência. Em imagem médica, essa etapa é particularmente crítica porque pequenas variações no protocolo de aquisição ou reconstrução podem produzir diferenças expressivas nas distribuições de intensidade e textura, influenciando tanto a extração de atributos manuais quanto o aprendizado de representações profundas. Revisões metodológicas em radiômica e aprendizado profundo mostram que normalização, redimensionamento, reamostragem espacial, filtragem, recorte de região de interesse, registro, padronização de contraste e tratamento de artefatos figuram entre as operações mais recorrentes nesse estágio.
+
+Em termos científicos, o valor do pré-processamento não está apenas em “melhorar visualmente” a imagem, mas em aumentar a consistência do dado para fins analíticos. Em muitos cenários, o modelo pode ser sensível a variações irrelevantes do ponto de vista clínico, como diferenças de escala, intensidade absoluta, campo de visão ou resolução. Quando não controladas, essas variações podem induzir o algoritmo a aprender correlações espúrias, reduzindo capacidade de generalização e reprodutibilidade. Por isso, trabalhos recentes destacam que o pré-processamento deve ser tratado como parte integrante do protocolo experimental, e não como etapa meramente auxiliar, especialmente em estudos que buscam comparação justa entre modelos ou extração confiável de biomarcadores de imagem.
+
+No caso específico do ultrassom mamário, o pré-processamento assume relevância ainda maior devido à presença de ruído speckle, baixo contraste local, contornos pouco definidos e grande variabilidade de aquisição. Operações como normalização, redimensionamento e preparação consistente das máscaras podem influenciar diretamente a estabilidade do treinamento e a qualidade da segmentação ou da classificação subsequente. Entretanto, a literatura também alerta que o pré-processamento excessivo ou inadequado pode modificar padrões clinicamente relevantes e comprometer a validade do experimento. Em consequência, o desenho dessa etapa deve buscar equilíbrio entre padronização e preservação da informação diagnóstica, respeitando as propriedades físicas da modalidade de imagem analisada.
+
+\subsection{Extração e aprendizado de características}
+
+Historicamente, a análise computacional de imagens médicas foi fortemente baseada na extração manual ou semiautomática de características (\textit{features}) projetadas por especialistas. Nesse paradigma, atributos como intensidade, histograma, textura, forma, borda, relações espaciais e descritores estatísticos eram calculados a partir da imagem ou da região de interesse e, em seguida, utilizados por classificadores tradicionais. Esse tipo de abordagem permanece relevante, especialmente no domínio da radiômica, onde a extração sistemática de atributos quantitativos busca representar propriedades fenotípicas das lesões de maneira interpretável e reprodutível. Em geral, essas características manuais são vantajosas por sua transparência conceitual, mas sua eficácia depende da qualidade da segmentação, da estabilidade do pré-processamento e da adequação do conjunto de atributos ao problema clínico específico.
+
+Com a consolidação do \textit{Deep Learning}, passou a predominar um paradigma distinto: em vez de definir previamente quais atributos devem ser extraídos, redes neurais profundas aprendem representações hierárquicas diretamente dos dados, ajustando seus filtros e pesos durante o treinamento. Em redes convolucionais, camadas iniciais tendem a capturar padrões locais de baixa complexidade, como bordas, contrastes e texturas elementares, enquanto camadas mais profundas podem representar estruturas progressivamente mais abstratas e semanticamente relevantes. Essa capacidade de aprendizado hierárquico reduziu a dependência de engenharia manual de atributos e tornou possível construir pipelines \textit{end-to-end} para classificação, detecção e segmentação, particularmente vantajosos em problemas de alta variabilidade visual, como ocorre em imagens médicas.
+
+Ainda assim, a oposição entre atributos manuais e atributos aprendidos não deve ser tratada como absoluta. A literatura recente mostra que abordagens híbridas, combinando radiômica tradicional e representações profundas, podem ser úteis em determinados cenários, sobretudo quando se busca conciliar desempenho preditivo e interpretabilidade. Além disso, o aprendizado de características em saúde enfrenta desafios próprios, como escassez de dados rotulados, heterogeneidade entre instituições, sensibilidade a vieses de aquisição e necessidade de plausibilidade clínica. Por essa razão, a extração ou o aprendizado de características deve ser compreendido como uma etapa metodologicamente crítica, na qual a escolha entre descritores manuais, representações profundas ou estratégias híbridas precisa ser orientada não apenas por desempenho empírico, mas também por robustez, generalização e capacidade de sustentar inferências clinicamente relevantes.
+
+\section{Redes neurais convolucionais}
+
+\subsection{Conceitos fundamentais de CNNs}
+
+As Redes Neurais Convolucionais (\textit{Convolutional Neural Networks} --- CNNs) constituem uma classe de modelos de aprendizado profundo especialmente adequada para dados com estrutura espacial local, como imagens bidimensionais, volumes tridimensionais e sequências com dependência topológica. Sua formulação baseia-se na hipótese de que padrões discriminativos relevantes podem ser descritos por operadores locais compartilhados ao longo do domínio de entrada, reduzindo substancialmente o número de parâmetros em comparação com redes totalmente conectadas e permitindo o aprendizado de representações hierárquicas \cite{LeCun1998,Goodfellow2016,Szeliski2022}.
+
+Considere uma imagem de entrada representada por um tensor
+\begin{equation}
+\mathbf{X} \in \mathbb{R}^{H \times W \times C},
+\end{equation}
+em que $H$ e $W$ denotam altura e largura, respectivamente, e $C$ representa o número de canais. Em uma CNN, o objetivo é aprender uma função
+\begin{equation}
+f_{\boldsymbol{\theta}}: \mathbb{R}^{H \times W \times C} \to \mathcal{Y},
+\end{equation}
+parametrizada por $\boldsymbol{\theta}$, que mapeie a entrada para um espaço de saída $\mathcal{Y}$, o qual pode corresponder a classes, máscaras de segmentação ou representações intermediárias. O treinamento consiste em resolver um problema de otimização do tipo
+\begin{equation}
+\boldsymbol{\theta}^{\star} = \arg\min_{\boldsymbol{\theta}} \frac{1}{N}\sum_{i=1}^{N}\mathcal{L}\big(f_{\boldsymbol{\theta}}(\mathbf{X}_i), y_i\big) + \lambda \Omega(\boldsymbol{\theta}),
+\end{equation}
+em que $\mathcal{L}$ é a função de perda, $\Omega(\boldsymbol{\theta})$ é um termo de regularização e $\lambda \geq 0$ controla a penalização da complexidade do modelo.
+
+O princípio central das CNNs reside em três ideias fundamentais: \textit{conectividade local}, \textit{compartilhamento de pesos} e \textit{equivariança à translação}. A conectividade local implica que cada unidade em uma camada convolucional depende apenas de uma vizinhança espacial limitada da camada anterior. O compartilhamento de pesos significa que um mesmo filtro é aplicado em diferentes posições da imagem, produzindo detectores reutilizáveis para padrões como bordas, texturas, contornos e estruturas mais complexas. Já a equivariança à translação pode ser expressa, em termos ideais, pela relação
+\begin{equation}
+f(T_{\boldsymbol{\delta}}\mathbf{X}) = T_{\boldsymbol{\delta}}f(\mathbf{X}),
+\end{equation}
+em que $T_{\boldsymbol{\delta}}$ representa um operador de translação espacial. Em outras palavras, se a entrada é deslocada, a resposta do mapa de ativação também se desloca de forma consistente.
+
+Outro conceito essencial é o de \textit{campo receptivo}. Seja $r^{(l)}$ o tamanho efetivo do campo receptivo de uma unidade na camada $l$. Para uma pilha de camadas convolucionais com \textit{kernel} de tamanho $k_l$ e \textit{stride} $s_l$, o crescimento do campo receptivo pode ser descrito recursivamente por
+\begin{equation}
+r^{(l)} = r^{(l-1)} + (k_l - 1)\prod_{t=1}^{l-1}s_t,
+\end{equation}
+com condição inicial $r^{(1)} = k_1$. Esse formalismo ajuda a entender por que camadas profundas conseguem capturar contexto cada vez mais amplo: as primeiras camadas tendem a detectar padrões locais simples, enquanto camadas mais profundas integram informação semântica e estrutural em escalas maiores.
+
+Em termos probabilísticos, uma CNN pode ser interpretada como uma máquina de aproximação universal especializada em dados estruturados espacialmente, cujo viés indutivo é mais adequado para imagens do que arquiteturas densas. Em aplicações médicas, essa propriedade é particularmente vantajosa porque lesões, tecidos e padrões anatômicos frequentemente apresentam regularidades locais e composição hierárquica, tornando as CNNs naturalmente compatíveis com problemas de classificação, detecção e segmentação em imagem biomédica \cite{Yamashita2018,Zhou2021}.
+
+\subsection{Camadas convolucionais, pooling e funções de ativação}
+
+A camada convolucional é o bloco elementar das CNNs. Seja $\mathbf{K}^{(m)} \in \mathbb{R}^{k_h \times k_w \times C}$ o $m$-ésimo filtro convolucional e $b_m \in \mathbb{R}$ seu viés associado. O mapa de características produzido por esse filtro pode ser expresso por
+\begin{equation}
+Y_{i,j,m}
+=
+b_m + \sum_{u=0}^{k_h-1}\sum_{v=0}^{k_w-1}\sum_{c=1}^{C}
+K^{(m)}_{u,v,c}\,X_{i+u,j+v,c},
+\end{equation}
+onde, por simplicidade, assume-se indexação sem dilatação e com preenchimento apropriado. Na prática, em muitas bibliotecas, a operação denominada ``convolução'' corresponde tecnicamente a uma correlação cruzada; ainda assim, a nomenclatura convolucional permanece consagrada.
+
+Quando se utilizam \textit{padding} $p_h,p_w$ e \textit{stride} $s_h,s_w$, as dimensões de saída são dadas por
+\begin{equation}
+H_{\text{out}} = \left\lfloor \frac{H + 2p_h - k_h}{s_h} \right\rfloor + 1,
+\qquad
+W_{\text{out}} = \left\lfloor \frac{W + 2p_w - k_w}{s_w} \right\rfloor + 1.
+\end{equation}
+Se $M$ filtros são aplicados, a saída da camada terá dimensão
+\begin{equation}
+\mathbf{Y} \in \mathbb{R}^{H_{\text{out}} \times W_{\text{out}} \times M}.
+\end{equation}
+
+O número de parâmetros treináveis de uma camada convolucional é substancialmente menor do que o de uma camada densa equivalente. Para $M$ filtros, esse número é
+\begin{equation}
+P_{\text{conv}} = M\,(k_h k_w C + 1),
+\end{equation}
+enquanto uma camada totalmente conectada que mapeasse uma entrada achatada de dimensão $HWC$ para $M$ saídas exigiria
+\begin{equation}
+P_{\text{fc}} = M\,(HWC + 1).
+\end{equation}
+Essa diferença explica parte importante da eficiência paramétrica das CNNs.
+
+Além da convolução padrão, diversas variantes são relevantes. Em convoluções dilatadas, a taxa de dilatação $d$ amplia o campo receptivo sem aumento proporcional do número de parâmetros. A operação pode ser escrita como
+\begin{equation}
+Y_{i,j,m}
+=
+b_m + \sum_{u=0}^{k_h-1}\sum_{v=0}^{k_w-1}\sum_{c=1}^{C}
+K^{(m)}_{u,v,c}\,X_{i+du,j+dv,c}.
+\end{equation}
+Esse mecanismo é particularmente útil em segmentação, quando se deseja agregar contexto global preservando resolução espacial.
+
+Após a convolução, aplica-se tipicamente uma função de ativação não linear
+\begin{equation}
+\mathbf{Z} = \phi(\mathbf{Y}),
+\end{equation}
+que permite à rede modelar funções complexas e não apenas transformações lineares compostas. Entre as funções mais empregadas, destaca-se a ReLU (\textit{Rectified Linear Unit}),
+\begin{equation}
+\phi(x) = \max(0,x),
+\end{equation}
+amplamente utilizada por sua simplicidade computacional e por reduzir o problema de gradientes saturados em comparação com ativações sigmoides \cite{Nair2010}. Outras alternativas incluem a Leaky ReLU,
+\begin{equation}
+\phi(x) =
+\begin{cases}
+x, & x \geq 0,\\
+\alpha x, & x < 0,
+\end{cases}
+\qquad \alpha \in (0,1),
+\end{equation}
+a sigmoide
+\begin{equation}
+\phi(x)=\frac{1}{1+e^{-x}},
+\end{equation}
+e a tangente hiperbólica
+\begin{equation}
+\phi(x)=\tanh(x).
+\end{equation}
+Em classificação multiclasse, a camada final costuma empregar a função \textit{softmax},
+\begin{equation}
+\hat{p}_k = \frac{e^{z_k}}{\sum_{j=1}^{K} e^{z_j}},
+\qquad k=1,\dots,K,
+\end{equation}
+de modo que $\hat{p}_k$ possa ser interpretada como probabilidade estimada da classe $k$.
+
+As camadas de \textit{pooling} são usadas para reduzir dimensionalidade espacial, aumentar robustez a pequenas variações locais e controlar custo computacional. No \textit{max pooling}, para uma janela $\mathcal{W}_{i,j}$ centrada na posição $(i,j)$, a saída é
+\begin{equation}
+P_{i,j,c} = \max_{(u,v)\in\mathcal{W}_{i,j}} Z_{u,v,c},
+\end{equation}
+enquanto no \textit{average pooling},
+\begin{equation}
+P_{i,j,c} = \frac{1}{|\mathcal{W}_{i,j}|}\sum_{(u,v)\in\mathcal{W}_{i,j}} Z_{u,v,c}.
+\end{equation}
+Uma operação amplamente empregada em classificadores modernos é o \textit{global average pooling} (GAP), que resume cada canal em um único escalar:
+\begin{equation}
+g_c = \frac{1}{H W}\sum_{i=1}^{H}\sum_{j=1}^{W} Z_{i,j,c}.
+\end{equation}
+O GAP reduz drasticamente o número de parâmetros em comparação com camadas densas volumosas e preserva uma interpretação mais direta da ativação de cada canal como detector de padrão global.
+
+Em conjunto, convolução, ativação e \textit{pooling} compõem o núcleo funcional de uma CNN. O encadeamento sucessivo dessas operações produz uma transformação do tipo
+\begin{equation}
+\mathbf{X}^{(l+1)}
+=
+\mathcal{P}^{(l)}\!\left(
+\phi^{(l)}\!\left(
+\mathcal{C}^{(l)}(\mathbf{X}^{(l)};\mathbf{W}^{(l)},\mathbf{b}^{(l)})
+\right)\right),
+\end{equation}
+em que $\mathcal{C}^{(l)}$ representa a operação convolucional, $\phi^{(l)}$ a ativação e $\mathcal{P}^{(l)}$ uma eventual operação de \textit{pooling}. Essa formulação destaca o caráter modular das CNNs e sua capacidade de construir representações progressivamente mais abstratas.
+
+\subsection{Regularização, batch normalization e dropout}
+
+Modelos profundos, especialmente em contextos com dados limitados, estão sujeitos a sobreajuste (\textit{overfitting}), isto é, excelente desempenho no conjunto de treinamento e baixa capacidade de generalização. Matematicamente, pode-se dizer que o objetivo prático não é apenas minimizar o risco empírico
+\begin{equation}
+\hat{\mathcal{R}}(\boldsymbol{\theta}) = \frac{1}{N}\sum_{i=1}^{N}\mathcal{L}(f_{\boldsymbol{\theta}}(\mathbf{X}_i),y_i),
+\end{equation}
+mas aproximar o risco esperado
+\begin{equation}
+\mathcal{R}(\boldsymbol{\theta}) = \mathbb{E}_{(\mathbf{X},y)\sim p_{\text{data}}}
+\left[\mathcal{L}(f_{\boldsymbol{\theta}}(\mathbf{X}),y)\right].
+\end{equation}
+Como $p_{\text{data}}$ é desconhecida, torna-se necessário empregar estratégias de regularização que controlem a complexidade do modelo e tornem o aprendizado mais estável.
+
+Uma das formas mais clássicas de regularização é a penalização $L_2$, também conhecida como \textit{weight decay}. Nesse caso, a função objetivo torna-se
+\begin{equation}
+\mathcal{J}(\boldsymbol{\theta})
+=
+\frac{1}{N}\sum_{i=1}^{N}\mathcal{L}(f_{\boldsymbol{\theta}}(\mathbf{X}_i),y_i)
++
+\lambda \|\boldsymbol{\theta}\|_2^2,
+\end{equation}
+em que
+\begin{equation}
+\|\boldsymbol{\theta}\|_2^2 = \sum_{j}\theta_j^2.
+\end{equation}
+A penalização desencoraja pesos excessivamente grandes, induzindo soluções mais suaves e menos sensíveis a perturbações do conjunto de treinamento. Alternativamente, a regularização $L_1$
+\begin{equation}
+\mathcal{J}(\boldsymbol{\theta})
+=
+\frac{1}{N}\sum_{i=1}^{N}\mathcal{L}(f_{\boldsymbol{\theta}}(\mathbf{X}_i),y_i)
++
+\lambda \|\boldsymbol{\theta}\|_1
+\end{equation}
+favorece esparsidade,
+\begin{equation}
+\|\boldsymbol{\theta}\|_1 = \sum_j |\theta_j|,
+\end{equation}
+embora seja menos comum como primeira escolha em CNNs profundas de visão.
+
+Outro mecanismo fundamental é a \textit{Batch Normalization} (BN), proposta para reduzir a instabilidade associada às distribuições internas das ativações e permitir taxas de aprendizado mais agressivas \cite{Ioffe2015}. Dada uma ativação escalar $x$ em um mini-lote $\mathcal{B}=\{x_1,\dots,x_m\}$, definem-se a média e a variância do lote:
+\begin{equation}
+\mu_{\mathcal{B}} = \frac{1}{m}\sum_{i=1}^{m}x_i,
+\qquad
+\sigma^2_{\mathcal{B}} = \frac{1}{m}\sum_{i=1}^{m}(x_i-\mu_{\mathcal{B}})^2.
+\end{equation}
+A ativação normalizada é então dada por
+\begin{equation}
+\hat{x}_i = \frac{x_i - \mu_{\mathcal{B}}}{\sqrt{\sigma^2_{\mathcal{B}}+\varepsilon}},
+\end{equation}
+e a saída final da BN é
+\begin{equation}
+y_i = \gamma \hat{x}_i + \beta,
+\end{equation}
+onde $\gamma$ e $\beta$ são parâmetros aprendíveis que restauram capacidade representacional. Em notação vetorial para mapas de ativação, a normalização é aplicada canal a canal. Durante a inferência, utilizam-se estimativas móveis da média e variância globais.
+
+A BN exerce, ao mesmo tempo, efeito estabilizador e regularizador. Ao normalizar ativações intermediárias, reduz-se a sensibilidade do treinamento à escala dos pesos e melhora-se o fluxo de gradientes. Em termos qualitativos, isso permite redes mais profundas e convergência mais rápida. Ainda assim, seu comportamento pode degradar em lotes extremamente pequenos, situação relativamente comum em imagens médicas de alta resolução ou em modelos 3D.
+
+O \textit{dropout} é outra estratégia clássica de regularização, introduzida para evitar coadaptação excessiva entre neurônios \cite{Srivastava2014}. Durante o treinamento, cada ativação $h_j$ é multiplicada por uma variável aleatória de Bernoulli:
+\begin{equation}
+\tilde{h}_j = m_j h_j,
+\qquad
+m_j \sim \text{Bernoulli}(p),
+\end{equation}
+em que $p$ é a probabilidade de manter a unidade ativa. Em implementações modernas com \textit{inverted dropout}, a ativação é reescalada durante o treinamento:
+\begin{equation}
+\tilde{h}_j = \frac{m_j}{p} h_j,
+\end{equation}
+de modo que
+\begin{equation}
+\mathbb{E}[\tilde{h}_j] = h_j.
+\end{equation}
+Assim, não é necessário reescalar explicitamente na inferência. Do ponto de vista estatístico, o \textit{dropout} pode ser interpretado como uma forma aproximada de combinação de múltiplas sub-redes, o que melhora robustez e reduz variância.
+
+Outras estratégias de regularização frequentemente empregadas em CNNs incluem \textit{data augmentation}, \textit{early stopping}, suavização de rótulos (\textit{label smoothing}) e técnicas de mistura de amostras, como \textit{mixup}. Em particular, o \textit{early stopping} consiste em interromper o treinamento quando a perda de validação deixa de melhorar, o que pode ser formalizado como um critério de parada baseado em
+\begin{equation}
+\mathcal{L}_{\text{val}}^{(t+\tau)} \geq \min_{s \leq t}\mathcal{L}_{\text{val}}^{(s)}
+\quad \text{por } \tau \text{ épocas consecutivas}.
+\end{equation}
+Em conjunto, essas estratégias reduzem a discrepância entre erro de treinamento e erro de generalização, aspecto crítico em problemas médicos com bases moderadas ou pequenas.
+
+\subsection{Transfer learning e fine-tuning}
+
+Em visão computacional médica, uma limitação recorrente é a escassez de conjuntos de dados extensos e completamente anotados. O \textit{transfer learning} surge como estratégia para mitigar esse problema ao reutilizar conhecimento adquirido em um domínio-fonte para beneficiar uma tarefa-alvo relacionada \cite{Pan2010}. Formalmente, sejam um domínio-fonte
+\begin{equation}
+\mathcal{D}_S = \{\mathcal{X}_S, P_S(\mathbf{X})\}
+\end{equation}
+e uma tarefa-fonte
+\begin{equation}
+\mathcal{T}_S = \{\mathcal{Y}_S, f_S(\cdot)\},
+\end{equation}
+assim como um domínio-alvo
+\begin{equation}
+\mathcal{D}_T = \{\mathcal{X}_T, P_T(\mathbf{X})\}
+\end{equation}
+e uma tarefa-alvo
+\begin{equation}
+\mathcal{T}_T = \{\mathcal{Y}_T, f_T(\cdot)\}.
+\end{equation}
+O objetivo do \textit{transfer learning} é melhorar a função preditiva $f_T$ em $\mathcal{D}_T$ usando conhecimento proveniente de $\mathcal{D}_S$ e $\mathcal{T}_S$, mesmo quando
+\begin{equation}
+\mathcal{D}_S \neq \mathcal{D}_T
+\quad \text{ou} \quad
+\mathcal{T}_S \neq \mathcal{T}_T.
+\end{equation}
+
+Na prática, em CNNs para imagens médicas, o procedimento mais comum consiste em inicializar os pesos de uma rede com parâmetros pré-treinados em grandes bases naturais, como ImageNet, e depois adaptá-los à tarefa clínica. Seja a rede decomposta em um extrator de características $\phi(\mathbf{X};\boldsymbol{\theta}_f)$ e uma cabeça de predição $g(\cdot;\boldsymbol{\theta}_h)$. O modelo final pode ser escrito como
+\begin{equation}
+f(\mathbf{X};\boldsymbol{\theta}) = g(\phi(\mathbf{X};\boldsymbol{\theta}_f);\boldsymbol{\theta}_h),
+\qquad
+\boldsymbol{\theta} = (\boldsymbol{\theta}_f,\boldsymbol{\theta}_h).
+\end{equation}
+Em uma estratégia de extração fixa de características, mantém-se
+\begin{equation}
+\boldsymbol{\theta}_f = \boldsymbol{\theta}_f^{(0)}
+\end{equation}
+congelado, e otimiza-se apenas a cabeça:
+\begin{equation}
+\boldsymbol{\theta}_h^{\star}
+=
+\arg\min_{\boldsymbol{\theta}_h}
+\frac{1}{N}\sum_{i=1}^{N}
+\mathcal{L}\big(g(\phi(\mathbf{X}_i;\boldsymbol{\theta}_f^{(0)});\boldsymbol{\theta}_h), y_i\big).
+\end{equation}
+Essa abordagem é útil quando o conjunto-alvo é pequeno e se deseja reduzir risco de sobreajuste.
+
+No \textit{fine-tuning}, por outro lado, parte ou todos os pesos do extrator são atualizados:
+\begin{equation}
+(\boldsymbol{\theta}_f^{\star},\boldsymbol{\theta}_h^{\star})
+=
+\arg\min_{\boldsymbol{\theta}_f,\boldsymbol{\theta}_h}
+\frac{1}{N}\sum_{i=1}^{N}
+\mathcal{L}\big(g(\phi(\mathbf{X}_i;\boldsymbol{\theta}_f);\boldsymbol{\theta}_h), y_i\big).
+\end{equation}
+Frequentemente, utiliza-se uma taxa de aprendizado diferenciada para a base pré-treinada e para a nova cabeça classificadora:
+\begin{equation}
+\eta_f < \eta_h,
+\end{equation}
+refletindo o fato de que se deseja adaptar lentamente as representações gerais aprendidas no domínio-fonte e ajustar mais agressivamente as camadas recém-inicializadas.
+
+Uma prática comum consiste em descongelar apenas as últimas $L$ camadas do extrator, mantendo as anteriores fixas. Seja
+\begin{equation}
+\boldsymbol{\theta}_f =
+(\boldsymbol{\theta}_f^{(1)}, \dots, \boldsymbol{\theta}_f^{(B)}),
+\end{equation}
+com $B$ blocos. Um \textit{fine-tuning} parcial pode ser representado por
+\begin{equation}
+\boldsymbol{\theta}_f^{(b)} = \boldsymbol{\theta}_f^{(b,0)} \quad \text{para } b \leq B-L,
+\end{equation}
+e
+\begin{equation}
+\boldsymbol{\theta}_f^{(b)} \text{ livre para otimização} \quad \text{para } b > B-L.
+\end{equation}
+Esse compromisso busca preservar atributos genéricos de baixo nível, como detectores de borda e textura, ao mesmo tempo em que adapta representações de alto nível às especificidades do domínio médico.
+
+O sucesso do \textit{transfer learning} depende da proximidade entre os domínios-fonte e alvo, do tamanho da base-alvo, da profundidade da rede e da estratégia de adaptação adotada. Embora imagens naturais e imagens médicas pertençam a domínios distintos, diversos estudos mostram que filtros iniciais aprendidos em grandes bases podem permanecer úteis por capturarem estruturas elementares relativamente universais, como gradientes, contornos e texturas locais \cite{Yosinski2014}. Em aplicações médicas, isso é particularmente valioso porque reduz custo de treinamento, acelera convergência e melhora estabilidade em bases limitadas.
+
+Do ponto de vista da otimização, o \textit{fine-tuning} pode ser interpretado como um problema de adaptação de parâmetros com condição inicial informativa:
+\begin{equation}
+\boldsymbol{\theta}^{(0)} = \boldsymbol{\theta}_{\text{pretrained}},
+\end{equation}
+em contraste com a inicialização aleatória
+\begin{equation}
+\boldsymbol{\theta}^{(0)} \sim \mathcal{P}_{\text{init}}.
+\end{equation}
+Essa mudança altera significativamente a paisagem de treinamento explorada pelo algoritmo, geralmente levando a mínimos mais úteis sob escassez de dados. Por essa razão, \textit{transfer learning} e \textit{fine-tuning} tornaram-se práticas quase padrão em tarefas de classificação e segmentação em imagem médica, especialmente quando o objetivo é combinar desempenho, estabilidade e viabilidade computacional \cite{Pan2010,Shin2016}.
+
+\section{Classificação de imagens com Deep Learning}
+
+\subsection{Formulação da tarefa de classificação}
+
+A classificação de imagens com \textit{Deep Learning} pode ser formalizada como um problema de aprendizado supervisionado no qual se deseja aprender uma função
+\begin{equation}
+f_{\boldsymbol{\theta}} : \mathcal{X} \rightarrow \mathcal{Y},
+\end{equation}
+em que $\mathcal{X}$ denota o espaço de imagens e $\mathcal{Y}$ o espaço de rótulos. Em um problema multiclasse com $K$ categorias, como no caso de imagens de ultrassom mamário rotuladas como \textit{normal}, \textit{benigna} e \textit{maligna}, tem-se
+\begin{equation}
+\mathcal{Y} = \{1,2,\dots,K\}.
+\end{equation}
+Dado um conjunto de treinamento
+\begin{equation}
+\mathcal{D}_{\text{train}}=\{(\mathbf{X}_i,y_i)\}_{i=1}^{N},
+\qquad
+\mathbf{X}_i \in \mathbb{R}^{H \times W \times C}, \quad y_i \in \mathcal{Y},
+\end{equation}
+o objetivo consiste em estimar os parâmetros $\boldsymbol{\theta}$ de forma que $f_{\boldsymbol{\theta}}$ generalize bem para novas amostras extraídas da mesma distribuição populacional.
+
+Em uma rede neural profunda para classificação, a imagem de entrada $\mathbf{X}$ é transformada em uma representação latente $\mathbf{h}$ por um extrator de características
+\begin{equation}
+\mathbf{h} = \phi(\mathbf{X}; \boldsymbol{\theta}_{f}),
+\end{equation}
+seguido de uma cabeça classificadora
+\begin{equation}
+\mathbf{z} = g(\mathbf{h}; \boldsymbol{\theta}_{c}),
+\end{equation}
+onde
+\begin{equation}
+\mathbf{z} = (z_1,z_2,\dots,z_K) \in \mathbb{R}^{K}
+\end{equation}
+corresponde aos \textit{logits} do modelo. A probabilidade predita para a classe $k$ é tipicamente obtida pela função \textit{softmax}:
+\begin{equation}
+\hat{p}_k
+=
+\frac{\exp(z_k)}
+{\sum_{j=1}^{K}\exp(z_j)},
+\qquad k=1,\dots,K,
+\end{equation}
+satisfazendo
+\begin{equation}
+\hat{p}_k \in [0,1],
+\qquad
+\sum_{k=1}^{K}\hat{p}_k = 1.
+\end{equation}
+
+A classe predita é então definida por
+\begin{equation}
+\hat{y} = \arg\max_{k \in \{1,\dots,K\}} \hat{p}_k.
+\end{equation}
+Em notação vetorial, se o rótulo verdadeiro for representado por um vetor \textit{one-hot}
+\begin{equation}
+\mathbf{y} = (y_1,\dots,y_K),
+\qquad
+y_k \in \{0,1\},
+\qquad
+\sum_{k=1}^{K} y_k = 1,
+\end{equation}
+a função de perda mais usual para classificação multiclasse é a entropia cruzada categórica:
+\begin{equation}
+\mathcal{L}_{\text{CE}}(\mathbf{y},\hat{\mathbf{p}})
+=
+-\sum_{k=1}^{K} y_k \log(\hat{p}_k).
+\end{equation}
+Para um conjunto com $N$ amostras, o problema de otimização pode ser escrito como
+\begin{equation}
+\boldsymbol{\theta}^{\star}
+=
+\arg\min_{\boldsymbol{\theta}}
+\frac{1}{N}\sum_{i=1}^{N}
+\mathcal{L}_{\text{CE}}(\mathbf{y}_i,\hat{\mathbf{p}}_i)
++
+\lambda \Omega(\boldsymbol{\theta}),
+\end{equation}
+onde $\Omega(\boldsymbol{\theta})$ representa um termo de regularização, como penalização $L_2$, e $\lambda \ge 0$ controla sua intensidade.
+
+Em problemas binários, com $\mathcal{Y}=\{0,1\}$, a formulação pode ser simplificada por meio da função sigmoide
+\begin{equation}
+\hat{p}
+=
+\sigma(z)
+=
+\frac{1}{1+\exp(-z)},
+\end{equation}
+e da entropia cruzada binária
+\begin{equation}
+\mathcal{L}_{\text{BCE}}(y,\hat{p})
+=
+-y \log(\hat{p}) - (1-y)\log(1-\hat{p}).
+\end{equation}
+No presente contexto, contudo, a formulação multiclasse é mais adequada para a tarefa de classificação de imagens de ultrassom mamário quando se consideram simultaneamente as classes normal, benigna e maligna.
+
+Do ponto de vista probabilístico, a classificação supervisionada pode ser interpretada como a estimação de
+\begin{equation}
+P(Y=k \mid \mathbf{X}),
+\end{equation}
+de forma que o classificador aproximado produza
+\begin{equation}
+\hat{p}_k \approx P(Y=k \mid \mathbf{X}).
+\end{equation}
+A qualidade dessa aproximação depende não apenas da arquitetura, mas também da distribuição dos dados, da qualidade dos rótulos, do balanceamento entre classes, do protocolo de validação e da compatibilidade entre o domínio de treinamento e o domínio de aplicação.
+
+Outro aspecto importante é a distinção entre classificação em nível de imagem, em nível de lesão e em nível de paciente. Seja $\mathbf{X}_{ij}$ a $j$-ésima imagem do paciente $i$. Um modelo treinado em nível de imagem estima
+\begin{equation}
+\hat{y}_{ij} = f_{\boldsymbol{\theta}}(\mathbf{X}_{ij}),
+\end{equation}
+enquanto uma inferência em nível de paciente pode exigir uma função de agregação
+\begin{equation}
+\hat{y}_{i}
+=
+A\big(
+\hat{y}_{i1},\hat{y}_{i2},\dots,\hat{y}_{in_i}
+\big),
+\end{equation}
+onde $A(\cdot)$ pode corresponder, por exemplo, a votação majoritária, média de probabilidades ou regra clínica específica. Essa distinção é relevante em imagem médica porque diferentes níveis de granularidade alteram a interpretação do erro e a validade clínica da decisão automatizada.
+
+\subsection{Desafios em classificação de imagens médicas}
+
+A classificação de imagens médicas impõe desafios substancialmente mais complexos do que muitos problemas clássicos de visão computacional em imagens naturais. Um primeiro desafio decorre da própria natureza do sinal médico: a diferença entre classes pode ser sutil, localizada e fortemente dependente de contexto anatômico. Em termos matemáticos, isso significa que a distribuição condicional
+\begin{equation}
+P(\mathbf{X}\mid Y=k)
+\end{equation}
+de diferentes classes pode apresentar alta sobreposição em regiões relevantes do espaço de atributos, dificultando a separação por fronteiras de decisão simples. Em um cenário ideal, o classificador busca uma regra
+\begin{equation}
+\delta(\mathbf{X}) = \arg\max_{k} P(Y=k\mid \mathbf{X}),
+\end{equation}
+mas, em presença de ruído, ambiguidades visuais e amostras limitadas, a estimação dessa regra torna-se instável.
+
+Outro desafio central é o desbalanceamento de classes. Seja $N_k$ o número de amostras da classe $k$. Em muitos conjuntos de imagem médica, ocorre
+\begin{equation}
+N_a \neq N_b \neq \dots \neq N_K,
+\end{equation}
+e frequentemente
+\begin{equation}
+N_{\text{maligna}} \ll N_{\text{benigna}}
+\quad \text{ou} \quad
+N_{\text{positiva}} \ll N_{\text{negativa}}.
+\end{equation}
+Nessas condições, a minimização da perda média não ponderada pode induzir o modelo a privilegiar a classe majoritária. Uma forma de corrigir esse efeito é utilizar pesos de classe:
+\begin{equation}
+\mathcal{L}_{\text{WCE}}
+=
+-\sum_{k=1}^{K} w_k y_k \log(\hat{p}_k),
+\end{equation}
+onde $w_k$ é um peso associado à classe $k$, frequentemente escolhido como função inversa de sua frequência, por exemplo
+\begin{equation}
+w_k \propto \frac{1}{N_k}.
+\end{equation}
+
+A escassez de dados rotulados também representa uma limitação severa. Em termos estatísticos, quando o número de parâmetros do modelo, denotado por $P$, é muito grande em relação ao número de amostras $N$, isto é,
+\begin{equation}
+P \gg N,
+\end{equation}
+o risco de sobreajuste cresce substancialmente. Embora redes profundas modernas apresentem bom comportamento mesmo em regimes superparametrizados, o problema permanece crítico em saúde devido ao alto custo de anotação especializada e à frequência limitada de certas condições clínicas. Isso explica a ampla adoção de \textit{transfer learning}, \textit{fine-tuning}, \textit{data augmentation} e regularização explícita em pipelines de classificação médica.
+
+Outro problema recorrente é a variabilidade entre domínios, frequentemente descrita como \textit{domain shift}. Seja $P_{\text{train}}(\mathbf{X},Y)$ a distribuição do conjunto de treinamento e $P_{\text{test}}(\mathbf{X},Y)$ a distribuição do conjunto de teste ou de implantação real. Em muitos cenários clínicos,
+\begin{equation}
+P_{\text{train}}(\mathbf{X},Y) \neq P_{\text{test}}(\mathbf{X},Y),
+\end{equation}
+devido a diferenças de equipamento, protocolo de aquisição, população, instituição, qualidade de imagem ou anotação. Isso afeta diretamente a generalização do classificador, pois o modelo pode aprender correlações específicas do ambiente de treinamento em vez de padrões anatomicamente relevantes.
+
+Em ultrassonografia mamária, esses problemas se intensificam. Além da variabilidade entre equipamentos e operadores, há ruído speckle, baixo contraste, contornos imprecisos, sombreamento acústico e alta dependência do plano de aquisição. Assim, a imagem observada pode ser modelada, de forma abstrata, como
+\begin{equation}
+\mathbf{X} = \mathcal{A}(\mathbf{S},\boldsymbol{\eta},\boldsymbol{\psi}),
+\end{equation}
+onde $\mathbf{S}$ representa a estrutura anatômica subjacente, $\boldsymbol{\eta}$ representa ruído e artefatos, e $\boldsymbol{\psi}$ representa parâmetros de aquisição e operador. O classificador ideal deveria ser sensível às variações de $\mathbf{S}$ relevantes ao diagnóstico e robusto às perturbações em $\boldsymbol{\eta}$ e $\boldsymbol{\psi}$. Na prática, alcançar essa invariância parcial é um dos principais desafios do aprendizado profundo em ultrassom médico.
+
+Há ainda o problema da qualidade e confiabilidade dos rótulos. Em classificação médica, o rótulo $y_i$ pode derivar de laudo radiológico, consenso clínico, achado histopatológico ou protocolo institucional. Em algumas situações, os rótulos observados $\tilde{y}_i$ não coincidem perfeitamente com os rótulos verdadeiros $y_i$, podendo-se modelar ruído de anotação como
+\begin{equation}
+P(\tilde{Y} \neq Y) > 0.
+\end{equation}
+Esse ruído pode degradar o aprendizado, especialmente quando incide em classes raras ou visualmente ambíguas.
+
+Por fim, um desafio adicional reside no fato de que boa performance numérica nem sempre implica utilidade clínica. Um classificador pode maximizar uma métrica global e, ainda assim, falhar nos casos de maior relevância assistencial. Assim, o problema de classificação em imagens médicas deve ser concebido como uma tarefa de otimização multicritério, na qual se busca simultaneamente desempenho discriminativo, robustez, calibração, interpretabilidade e viabilidade operacional.
+
+\subsection{Métricas de avaliação para classificação}
+
+A avaliação de classificadores em imagem médica exige um conjunto de métricas capaz de refletir não apenas desempenho global, mas também comportamento por classe, custos assimétricos de erro e capacidade discriminativa em diferentes limiares de decisão. Para uma tarefa binária, define-se a matriz de confusão por meio das quantidades:
+\begin{itemize}
+    \item Verdadeiros Positivos (\textit{True Positives}, $TP$),
+    \item Verdadeiros Negativos (\textit{True Negatives}, $TN$),
+    \item Falsos Positivos (\textit{False Positives}, $FP$),
+    \item Falsos Negativos (\textit{False Negatives}, $FN$).
+\end{itemize}
+Essas quantidades satisfazem
+\begin{equation}
+N = TP + TN + FP + FN.
+\end{equation}
+
+A \textit{accuracy} é definida por
+\begin{equation}
+\mathrm{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN},
+\end{equation}
+e representa a proporção global de acertos. Embora amplamente utilizada, essa métrica pode ser enganosa em cenários desbalanceados. Por exemplo, se a prevalência da classe positiva for muito baixa, um modelo trivial que sempre prediz a classe negativa pode obter alta acurácia sem qualquer utilidade clínica.
+
+A \textit{precision}, também chamada de valor preditivo positivo, é dada por
+\begin{equation}
+\mathrm{Precision} = \frac{TP}{TP + FP},
+\end{equation}
+e mede a proporção de predições positivas que estão corretas. Já o \textit{recall}, ou sensibilidade, é definido por
+\begin{equation}
+\mathrm{Recall} = \mathrm{Sensitivity} = \frac{TP}{TP + FN},
+\end{equation}
+quantificando a capacidade de recuperar corretamente os casos positivos. Em contextos oncológicos, essa métrica é particularmente importante, pois falsos negativos podem estar associados a atraso diagnóstico.
+
+A especificidade, por sua vez, mede a capacidade de reconhecer corretamente os negativos:
+\begin{equation}
+\mathrm{Specificity} = \frac{TN}{TN + FP}.
+\end{equation}
+Enquanto a sensibilidade responde à pergunta “quantos casos positivos foram detectados?”, a especificidade responde a “quantos casos negativos foram corretamente descartados?”. Em aplicações clínicas, ambas são essenciais e geralmente apresentam relação de compromisso.
+
+O $F1$-\textit{score} é a média harmônica entre \textit{precision} e \textit{recall}:
+\begin{equation}
+F_1 = 2 \cdot \frac{\mathrm{Precision}\cdot \mathrm{Recall}}
+{\mathrm{Precision} + \mathrm{Recall}}.
+\end{equation}
+Essa métrica é útil quando se deseja equilíbrio entre evitar falsos positivos e evitar falsos negativos. De forma mais geral, define-se o $F_{\beta}$-\textit{score} por
+\begin{equation}
+F_{\beta}
+=
+(1+\beta^2)\cdot
+\frac{\mathrm{Precision}\cdot \mathrm{Recall}}
+{\beta^2 \cdot \mathrm{Precision} + \mathrm{Recall}},
+\end{equation}
+onde $\beta>1$ atribui maior peso ao \textit{recall}, e $\beta<1$ maior peso à \textit{precision}.
+
+Quando o classificador produz probabilidades $\hat{p}$ e não apenas rótulos, pode-se variar um limiar $\tau \in [0,1]$ e construir a curva ROC (\textit{Receiver Operating Characteristic}), que relaciona
+\begin{equation}
+\mathrm{TPR}(\tau) = \frac{TP(\tau)}{TP(\tau)+FN(\tau)}
+\end{equation}
+e
+\begin{equation}
+\mathrm{FPR}(\tau) = \frac{FP(\tau)}{FP(\tau)+TN(\tau)} = 1-\mathrm{Specificity}(\tau).
+\end{equation}
+A área sob a curva ROC (AUC-ROC) é dada, em termos contínuos, por
+\begin{equation}
+\mathrm{AUC}
+=
+\int_{0}^{1} \mathrm{TPR}(u)\,du,
+\end{equation}
+onde $u=\mathrm{FPR}$. Equivalentemente, a AUC pode ser interpretada como a probabilidade de o classificador atribuir escore maior a uma amostra positiva do que a uma negativa:
+\begin{equation}
+\mathrm{AUC} = P(s(\mathbf{X}^{+}) > s(\mathbf{X}^{-})).
+\end{equation}
+Essa métrica é particularmente útil por ser independente de limiar e refletir separabilidade global.
+
+Em problemas multiclasse, a matriz de confusão generaliza-se para
+\begin{equation}
+\mathbf{M} \in \mathbb{N}^{K \times K},
+\end{equation}
+onde $M_{ij}$ representa o número de amostras da classe verdadeira $i$ preditas como classe $j$. Para cada classe $k$, pode-se adotar um esquema \textit{one-vs-rest}, definindo:
+\begin{equation}
+TP_k = M_{kk},
+\end{equation}
+\begin{equation}
+FN_k = \sum_{j\neq k} M_{kj},
+\end{equation}
+\begin{equation}
+FP_k = \sum_{i\neq k} M_{ik},
+\end{equation}
+\begin{equation}
+TN_k = \sum_{i\neq k}\sum_{j\neq k} M_{ij}.
+\end{equation}
+A partir disso, calculam-se métricas por classe:
+\begin{equation}
+\mathrm{Precision}_k = \frac{TP_k}{TP_k + FP_k},
+\qquad
+\mathrm{Recall}_k = \frac{TP_k}{TP_k + FN_k},
+\end{equation}
+\begin{equation}
+F_{1,k}
+=
+2\cdot
+\frac{\mathrm{Precision}_k \cdot \mathrm{Recall}_k}
+{\mathrm{Precision}_k + \mathrm{Recall}_k}.
+\end{equation}
+
+Para consolidar as métricas em um único escalar, são comuns três estratégias de agregação. A média macro:
+\begin{equation}
+\mathrm{Macro}\text{-}F_1
+=
+\frac{1}{K}\sum_{k=1}^{K} F_{1,k},
+\end{equation}
+atribui o mesmo peso a todas as classes. A média ponderada:
+\begin{equation}
+\mathrm{Weighted}\text{-}F_1
+=
+\sum_{k=1}^{K} \frac{N_k}{N} F_{1,k},
+\end{equation}
+pesa cada classe por sua frequência. Já a média micro agrega as contagens globais antes do cálculo:
+\begin{equation}
+\mathrm{Micro}\text{-}\mathrm{Precision}
+=
+\frac{\sum_{k} TP_k}{\sum_{k}(TP_k+FP_k)},
+\end{equation}
+\begin{equation}
+\mathrm{Micro}\text{-}\mathrm{Recall}
+=
+\frac{\sum_{k} TP_k}{\sum_{k}(TP_k+FN_k)}.
+\end{equation}
+Em cenários desbalanceados, a média macro costuma ser mais informativa, pois não permite que a classe majoritária domine a avaliação.
+
+Outro aspecto relevante é a calibração probabilística. Um classificador está bem calibrado se, aproximadamente,
+\begin{equation}
+P(Y=1 \mid \hat{p}=p) = p.
+\end{equation}
+Embora nem sempre reportada, a calibração é importante em sistemas clínicos porque decisões podem depender não apenas da classe predita, mas do grau de confiança estimado. Medidas como o \textit{Brier score}
+\begin{equation}
+\mathrm{BS} = \frac{1}{N}\sum_{i=1}^{N}(\hat{p}_i - y_i)^2
+\end{equation}
+ou o \textit{Expected Calibration Error} (ECE) podem complementar a avaliação quando o uso clínico das probabilidades é relevante.
+
+Em síntese, a avaliação de classificadores em imagem médica deve ser multilateral. A acurácia fornece um retrato global, mas sensibilidade, especificidade, \textit{precision}, $F1$-\textit{score}, AUC-ROC, análise por classe e, quando pertinente, calibração probabilística oferecem uma visão mais fiel do comportamento do modelo. Em problemas como classificação de lesões mamárias, nos quais diferentes tipos de erro possuem custos clínicos distintos, a interpretação cuidadosa dessas métricas é tão importante quanto o próprio treinamento do classificador.
+
+\section{Arquiteturas para classificação}
+\subsection{VGG16}
+\subsubsection{Estrutura da arquitetura}
+\subsubsection{Vantagens e limitações}
+
+\subsection{ResNet50}
+\subsubsection{Skip connections e treinamento profundo}
+\subsubsection{Aplicações em imagens médicas}
+
+\subsection{EfficientNet}
+\subsubsection{Compound scaling}
+\subsubsection{Eficiência computacional}
+
+\subsection{ConvNeXt}
+\subsubsection{Motivação e modernização de CNNs}
+\subsubsection{Potencial em tarefas médicas}
+
+\section{Segmentação de imagens médicas}
+\subsection{Conceito de segmentação semântica}
+\subsection{Importância da segmentação no contexto clínico}
+\subsection{Métricas de avaliação para segmentação}
+
+\section{Arquiteturas para segmentação}
+\subsection{U-Net}
+\subsubsection{Estrutura encoder-decoder}
+\subsubsection{Skip connections e uso em medicina}
+
+\subsection{Attention U-Net}
+\subsubsection{Mecanismos de atenção}
+\subsubsection{Vantagens na delimitação de regiões relevantes}
+
+\subsection{U-Net++}
+\subsubsection{Nested skip connections}
+\subsubsection{Comparação conceitual com U-Net}
+
+\subsection{DeepLabV3+}
+\subsubsection{Atrous convolution}
+\subsubsection{Captura de contexto global}
+
+\section{Técnicas complementares}
+\subsection{Data augmentation}
+\subsection{Balanceamento de classes}
+\subsection{Funções de perda para classificação}
+\subsection{Funções de perda para segmentação}
+
+\section{Trabalhos relacionados}
+\subsection{Estudos sobre classificação em ultrassom mamário}
+\subsection{Estudos sobre segmentação em ultrassom mamário}
+\subsection{Comparação entre literatura e proposta do trabalho}
+\subsection{Lacunas identificadas}
+
+\chapter{Materiais e Métodos}
+
+\section{Caracterização da pesquisa}
+\subsection{Natureza da pesquisa}
+\subsection{Abordagem metodológica}
+\subsection{Estratégia experimental}
+
+\section{Ambiente computacional}
+\subsection{Linguagens, bibliotecas e frameworks}
+\subsection{Ambiente de execução}
+\subsection{Limitações de hardware}
+
+\section{Base de dados}
+
+\subsection{Descrição do BUSI Dataset}
+
+A base de dados adotada neste trabalho foi o \textit{Breast Ultrasound Images Dataset} (BUSI), uma coleção pública de imagens de ultrassonografia mamária amplamente utilizada em tarefas de classificação, detecção e segmentação assistidas por aprendizado de máquina \cite{AlDhabyani2020}. A escolha dessa base decorre de três fatores centrais: sua ampla adoção na literatura recente, a disponibilidade simultânea de imagens e máscaras de referência, e a adequação da modalidade de ultrassom ao problema de apoio ao diagnóstico de lesões mamárias, especialmente em cenários nos quais baixo custo, acessibilidade e ausência de radiação ionizante são aspectos relevantes.
+
+O BUSI foi construído a partir de exames obtidos em 2018 no \textit{Baheya Hospital for Early Detection \& Treatment of Women’s Cancer}, no Cairo, Egito, e compreende imagens provenientes de 600 pacientes do sexo feminino, com idades entre 25 e 75 anos \cite{AlDhabyani2020}. As aquisições foram realizadas com equipamentos LOGIQ E9 e LOGIQ E9 Agile, e o conjunto disponibilizado ao público contém 780 imagens em formato PNG, com dimensão média aproximada de \(500 \times 500\) pixels \cite{AlDhabyani2020}. Trata-se, portanto, de uma base de escala moderada, suficientemente grande para viabilizar experimentos comparativos reprodutíveis, mas ainda pequena o bastante para exigir cautela metodológica quanto a sobreajuste, sensibilidade à divisão amostral e viés de avaliação.
+
+Do ponto de vista semântico, o BUSI é particularmente valioso por reunir, em um mesmo repositório, imagens compatíveis com diferentes paradigmas de modelagem. Em tarefas de classificação, a base contempla três categorias clinicamente relevantes: imagens normais, imagens com lesões benignas e imagens com lesões malignas. Em tarefas de segmentação, o conjunto fornece máscaras de referência associadas às imagens, permitindo a formulação do problema como segmentação semântica da região de interesse. Essa dupla vocação --- classificação e segmentação --- torna o BUSI especialmente apropriado para trabalhos que buscam comparar arquiteturas em tarefas complementares, como é o caso desta pesquisa.
+
+Entretanto, embora o BUSI seja uma referência consolidada na literatura, sua utilização não deve ser tratada como trivial. Análises posteriores mostraram que o conjunto contém irregularidades relevantes do ponto de vista experimental, incluindo imagens duplicadas ou quase duplicadas, presença de anotações gráficas e textuais sobre a imagem, casos contendo estruturas extra-mamárias e exemplos cuja rotulação demanda cautela interpretativa \cite{Pawlowska2023,AumenteMaestro2025}. Em consequência, o uso rigoroso do BUSI exige uma etapa explícita de curadoria antes da definição dos subconjuntos de treino, validação e teste, sob pena de inflacionar artificialmente o desempenho dos modelos por vazamento de informação.
+
+Assim, neste trabalho, o BUSI não é tratado apenas como uma fonte de dados, mas como um objeto experimental que demanda preparação criteriosa. Essa postura é particularmente importante em estudos com imagens médicas, nos quais pequenas inconsistências de anotação, duplicidade ou sobreposição de metadados visuais podem induzir o modelo a aprender artefatos do processo de aquisição em vez de padrões efetivamente associados à morfologia da lesão.
+
+\subsection{Distribuição das classes}
+
+A distribuição original do BUSI compreende três classes: 133 imagens normais, 437 imagens benignas e 210 imagens malignas, totalizando 780 imagens \cite{AlDhabyani2020,turn956269search3}. Essa distribuição revela um desequilíbrio de classes moderado, com predominância de casos benignos e menor representação da classe maligna. Tal característica é metodologicamente importante, pois afeta diretamente o treinamento de classificadores supervisionados, a interpretação de métricas agregadas e o risco de modelos tendenciosos para a classe majoritária.
+
+Do ponto de vista estatístico, esse desbalanceamento implica que a acurácia, isoladamente, não constitui métrica suficiente para caracterizar o desempenho de um modelo. Em contextos clínicos, a capacidade de recuperar corretamente casos malignos é mais crítica do que o acerto médio global, de modo que métricas como \textit{recall} (sensibilidade), \textit{precision}, \(F1\)-\textit{score}, especificidade e AUC-ROC tornam-se essenciais para uma análise mais fiel do comportamento do classificador. Em outras palavras, um modelo com acurácia elevada, mas baixa sensibilidade para a classe maligna, seria pouco defensável sob a perspectiva de apoio ao diagnóstico.
+
+Além do desbalanceamento global entre classes, há uma assimetria funcional entre as tarefas do presente trabalho. Na classificação, as três classes são mantidas, pois a distinção entre imagens normais, benignas e malignas representa precisamente o cenário de decisão clínica que se deseja aproximar. Já na segmentação, o interesse recai sobre a delimitação espacial da lesão; por isso, apenas imagens com massa identificável são elegíveis para treinamento e avaliação da rede segmentadora. Dessa forma, a classe normal não participa da segmentação como classe-alvo, uma vez que não há região tumoral a ser contornada sob a mesma lógica anatômica das classes benigna e maligna. Essa decisão não constitui perda de informação, mas adequação da base à natureza da tarefa proposta.
+
+Outro ponto relevante é que a distribuição nominal da base não deve ser confundida com a distribuição efetivamente utilizada após a curadoria. Estudos de revisão do próprio BUSI indicam que parte das imagens apresenta duplicidades, anotações sobrepostas ou problemas de consistência que podem justificar exclusão ou tratamento especial \cite{Pawlowska2023}. Consequentemente, a distribuição final empregada no experimento deve ser reportada após o processo de filtragem, e não apenas herdada da descrição original da base. Esse cuidado melhora a transparência metodológica e permite que a avaliação dos resultados seja interpretada à luz do conjunto realmente utilizado.
+
+\subsection{Estrutura dos arquivos e máscaras}
+
+O BUSI é disponibilizado em formato PNG e organizado de maneira compatível com fluxos de trabalho em visão computacional, contendo imagens de ultrassom e suas respectivas máscaras de referência \cite{AlDhabyani2020}. Em termos práticos, a estrutura do conjunto favorece dois tipos de uso. No primeiro, as imagens podem ser tratadas como amostras rotuladas para classificação multiclasse. No segundo, os pares imagem--máscara podem ser explorados em tarefas de segmentação semântica, nas quais o objetivo é estimar, em nível de pixel, a região correspondente à lesão.
+
+As máscaras desempenham papel central na formulação da tarefa de segmentação. Elas funcionam como \textit{ground truth} e permitem quantificar a qualidade do contorno produzido pelos modelos por meio de métricas como IoU (\textit{Intersection over Union}) e Dice Score. Em aplicações de imagem médica, esse tipo de anotação é particularmente valioso porque desloca a análise do nível apenas categórico para o nível espacial, aproximando o experimento de cenários em que a localização e a extensão da lesão são clinicamente relevantes.
+
+Contudo, a existência de máscaras não implica, por si só, uniformidade perfeita do conjunto. Trabalhos posteriores observaram que parte das imagens apresenta elementos sobrepostos, como textos, marcações de medição, \textit{overlays}, pictogramas e até instrumentos visíveis em alguns casos, o que pode interferir tanto no treinamento quanto na avaliação dos modelos \cite{Pawlowska2023}. Tais elementos podem funcionar como pistas espúrias, induzindo o algoritmo a explorar artefatos visuais alheios ao tecido mamário. Em experimentos de alta sensibilidade, esse problema é especialmente grave, pois compromete a validade externa dos resultados.
+
+Outro aspecto estrutural importante diz respeito à relação entre imagens aparentemente distintas, mas geometricamente equivalentes ou quase equivalentes. A literatura recente identificou no BUSI um número não desprezível de duplicatas e quase duplicatas, o que reforça a necessidade de controle rigoroso no particionamento do conjunto \cite{Pawlowska2023,AumenteMaestro2025}. Caso imagens fortemente semelhantes sejam distribuídas entre treino e teste, o modelo pode ser avaliado sobre padrões que já viu sob outra forma, produzindo estimativas superotimistas de desempenho.
+
+Por essa razão, a estrutura dos arquivos foi tratada, neste trabalho, não apenas em termos de leitura e associação entre imagens e máscaras, mas também em termos de integridade experimental. Antes do treinamento, procedeu-se à inspeção da consistência entre rótulos, imagens e máscaras, bem como à identificação de casos potencialmente inadequados para avaliação imparcial. Essa etapa é indispensável em estudos que pretendem sustentar conclusões robustas, sobretudo quando o objetivo é comparar arquiteturas distintas sob critérios de justiça experimental.
+
+\subsection{Critérios de inclusão e exclusão}
+
+A definição de critérios de inclusão e exclusão foi orientada por dois princípios: validade metodológica e adequação ao objetivo de cada tarefa. Em primeiro lugar, foram incluídas apenas imagens que preservassem correspondência inequívoca entre arquivo de imagem, rótulo clínico e máscara de referência, quando aplicável. Em segundo lugar, foram excluídos casos cuja presença pudesse comprometer a avaliação do modelo por introduzir vieses não relacionados ao padrão morfológico da lesão.
+
+Para a tarefa de classificação, foram consideradas elegíveis imagens pertencentes às três classes do BUSI --- normal, benigna e maligna --- desde que estivessem livres de inconsistências estruturais graves. Foram excluídas imagens duplicadas ou quase duplicadas, a fim de evitar vazamento de informação entre os subconjuntos de treino, validação e teste \cite{Pawlowska2023,AumenteMaestro2025}. Também foram marcadas para exclusão ou inspeção manual imagens com anotações gráficas invasivas, textos sobrepostos na região de interesse, medições que atravessassem diretamente a lesão, artefatos de Doppler, pictogramas e casos contendo estruturas anatômicas não correspondentes ao campo mamário principal, uma vez que esses elementos podem enviesar a aprendizagem do modelo \cite{Pawlowska2023}.
+
+Para a tarefa de segmentação, adotou-se critério mais restritivo. Foram incluídas somente imagens com lesão claramente representada e com máscara de referência utilizável, correspondentes às classes benigna e maligna. A classe normal foi excluída dessa etapa por não representar um alvo segmentável sob a mesma definição operacional da lesão tumoral. Adicionalmente, casos com máscaras inconsistentes, desalinhadas, ambíguas ou significativamente comprometidas por artefatos visuais foram considerados inadequados para a avaliação da qualidade segmentadora.
+
+Em ambas as tarefas, o processo de curadoria precedeu o particionamento em treino, validação e teste. Essa ordem é essencial: filtrar a base apenas após o \textit{split} poderia manter, em subconjuntos distintos, amostras correlacionadas ou inadequadas, contaminando a estimativa de generalização. Após a curadoria, o particionamento foi conduzido de forma estratificada, preservando, na medida do possível, a proporção entre classes e reduzindo a variabilidade introduzida pela distribuição desigual do conjunto.
+
+Por fim, cabe destacar que os critérios de exclusão não foram adotados para ``embelezar'' o dataset ou artificialmente facilitar os resultados. Ao contrário, sua finalidade foi reduzir fontes de viés conhecidas e alinhar a base a um protocolo experimental reprodutível e defensável. Em bases médicas públicas de escala moderada, a robustez de um experimento depende tanto da arquitetura escolhida quanto da qualidade da curadoria anterior ao treinamento. Nesse sentido, a seleção criteriosa dos dados constitui parte integrante da metodologia, e não mera etapa auxiliar.
+
+\section{Preparação dos dados}
+\subsection{Organização dos conjuntos de treino, validação e teste}
+\subsection{Estratégia de split estratificado}
+\subsection{Prevenção de vazamento de dados}
+\subsection{Padronização dos dados}
+
+\section{Pré-processamento}
+\subsection{Redimensionamento das imagens}
+\subsection{Normalização}
+\subsection{Tratamento das máscaras}
+\subsection{Verificação visual do pré-processamento}
+
+\section{Aumento de dados}
+\subsection{Técnicas aplicadas à classificação}
+\subsection{Técnicas aplicadas à segmentação}
+\subsection{Restrições clínicas das transformações}
+
+\section{Modelagem experimental --- classificação}
+\subsection{Definição da tarefa}
+\subsection{Arquiteturas selecionadas}
+\subsection{Cabeças de classificação}
+\subsection{Estratégias de transfer learning}
+\subsection{Configuração de treino}
+
+\section{Modelagem experimental --- segmentação}
+\subsection{Definição da tarefa}
+\subsection{Arquiteturas selecionadas}
+\subsection{Estratégias de treinamento}
+\subsection{Funções de perda}
+\subsection{Configuração de treino}
+
+\section{Hiperparâmetros e critérios de ajuste}
+\subsection{Taxa de aprendizado}
+\subsection{Batch size}
+\subsection{Número de épocas}
+\subsection{Early stopping e checkpointing}
+\subsection{Critérios de seleção dos melhores modelos}
+
+\section{Métricas de avaliação}
+\subsection{Métricas de classificação}
+\subsubsection{Accuracy}
+\subsubsection{Precision}
+\subsubsection{Recall / Sensibilidade}
+\subsubsection{F1-score}
+\subsubsection{AUC-ROC}
+\subsubsection{Especificidade}
+
+\subsection{Métricas de segmentação}
+\subsubsection{IoU}
+\subsubsection{Dice Score}
+\subsubsection{Precision}
+\subsubsection{Recall}
+\subsubsection{F1-score pixel-wise}
+
+\subsection{Métricas computacionais}
+\subsubsection{Número de parâmetros}
+\subsubsection{Tempo de treinamento}
+\subsubsection{Tempo de inferência}
+\subsubsection{Tamanho do modelo}
+
+\section{Procedimento experimental}
+\subsection{Etapas da experimentação}
+\subsection{Reprodutibilidade e fixação de seeds}
+\subsection{Registro e armazenamento dos resultados}
+\subsection{Fluxo geral do experimento}
+
+\chapter{Resultados --- Classificação}
+
+\section{Configuração final dos experimentos de classificação}
+\subsection{Modelos efetivamente treinados}
+\subsection{Hiperparâmetros adotados}
+\subsection{Critério de seleção do melhor checkpoint}
+
+\section{Resultados quantitativos gerais}
+\subsection{Tabela consolidada de métricas}
+\subsection{Comparação entre arquiteturas}
+\subsection{Melhor modelo em desempenho absoluto}
+
+\section{Curvas de treinamento}
+\subsection{Loss de treino e validação}
+\subsection{Accuracy de treino e validação}
+\subsection{Indícios de overfitting ou underfitting}
+
+\section{Análise por classe}
+\subsection{Desempenho na classe benign}
+\subsection{Desempenho na classe malignant}
+\subsection{Desempenho na classe normal}
+\subsection{Sensibilidade clínica da classe malignant}
+
+\section{Matrizes de confusão}
+\subsection{Matriz de confusão do VGG16}
+\subsection{Matriz de confusão do ResNet50}
+\subsection{Matriz de confusão do EfficientNet}
+\subsection{Matriz de confusão do ConvNeXt}
+
+\section{Curvas ROC}
+\subsection{Curvas ROC por classe}
+\subsection{Comparação das AUCs}
+\subsection{Interpretação clínica dos resultados}
+
+\section{Análise de hiperparâmetros}
+\subsection{Impacto da taxa de aprendizado}
+\subsection{Impacto do batch size}
+\subsection{Impacto do fine-tuning}
+\subsection{Efeito do data augmentation}
+
+\section{Custo computacional e inferência}
+\subsection{Número de parâmetros por modelo}
+\subsection{Tempo de treinamento}
+\subsection{Tempo médio de inferência por imagem}
+\subsection{Trade-off entre desempenho e custo}
+
+\section{Análise qualitativa}
+\subsection{Exemplos corretamente classificados}
+\subsection{Exemplos mal classificados}
+\subsection{Padrões de erro observados}
+
+\section{Síntese dos resultados de classificação}
+\subsection{Melhor modelo global}
+\subsection{Melhor modelo custo-benefício}
+\subsection{Limitações observadas}
+
+\chapter{Resultados --- Segmentação}
+
+\section{Configuração final dos experimentos de segmentação}
+\subsection{Modelos efetivamente treinados}
+\subsection{Hiperparâmetros adotados}
+\subsection{Funções de perda utilizadas}
+
+\section{Resultados quantitativos gerais}
+\subsection{Tabela consolidada de métricas}
+\subsection{Comparação entre arquiteturas}
+\subsection{Melhor modelo em desempenho absoluto}
+
+\section{Curvas de treinamento}
+\subsection{Loss de treino e validação}
+\subsection{IoU de treino e validação}
+\subsection{Dice Score de treino e validação}
+\subsection{Estabilidade do treinamento}
+
+\section{Comparação quantitativa dos modelos}
+\subsection{U-Net}
+\subsection{Attention U-Net}
+\subsection{U-Net++}
+\subsection{DeepLabV3+}
+
+\section{Análise qualitativa da segmentação}
+\subsection{Casos com segmentação adequada}
+\subsection{Casos com subsegmentação}
+\subsection{Casos com sobresegmentação}
+\subsection{Casos difíceis e ambiguidades visuais}
+
+\section{Comparação visual entre ground truth e predição}
+\subsection{Imagem original}
+\subsection{Máscara de referência}
+\subsection{Máscara predita}
+\subsection{Overlay comparativo}
+
+\section{Análise de hiperparâmetros}
+\subsection{Impacto da taxa de aprendizado}
+\subsection{Impacto do tamanho de entrada}
+\subsection{Impacto da função de perda}
+\subsection{Efeito do data augmentation}
+
+\section{Custo computacional e inferência}
+\subsection{Número de parâmetros por modelo}
+\subsection{Tempo de treinamento}
+\subsection{Tempo médio de inferência por imagem}
+\subsection{Comparação entre desempenho e custo}
+
+\section{Síntese dos resultados de segmentação}
+\subsection{Melhor modelo global}
+\subsection{Melhor modelo em equilíbrio desempenho/custo}
+\subsection{Principais limitações observadas}
+
+\chapter{Discussão}
+
+\section{Discussão dos resultados de classificação}
+\subsection{Interpretação dos ganhos entre arquiteturas}
+\subsection{Sensibilidade para lesões malignas}
+\subsection{Robustez dos modelos}
+
+\section{Discussão dos resultados de segmentação}
+\subsection{Impacto da atenção na segmentação}
+\subsection{Ganhos estruturais de arquiteturas mais complexas}
+\subsection{Limitações na delimitação das lesões}
+
+\section{Comparação entre desempenho e custo computacional}
+\subsection{Melhor modelo absoluto versus melhor custo-benefício}
+\subsection{Viabilidade prática em ambientes com recursos limitados}
+\subsection{Considerações sobre tempo de inferência}
+
+\section{Relação com os trabalhos relacionados}
+\subsection{Similaridades com a literatura}
+\subsection{Diferenças em metodologia e resultados}
+\subsection{Contribuição do trabalho frente à literatura}
+
+\section{Limitações do estudo}
+\subsection{Uso de um único dataset}
+\subsection{Tamanho da base de dados}
+\subsection{Limitações de hardware}
+\subsection{Restrições metodológicas}
+
+\section{Implicações práticas}
+\subsection{Uso como apoio ao diagnóstico}
+\subsection{Potencial de aplicação acadêmica e clínica}
+\subsection{Cuidados éticos e interpretativos}
+
+\chapter{Conclusão}
+
+\section{Retomada do problema de pesquisa}
+\subsection{Síntese do contexto e motivação}
+\subsection{Resposta ao problema proposto}
+
+\section{Principais achados}
+\subsection{Achados na classificação}
+\subsection{Achados na segmentação}
+\subsection{Achados sobre custo computacional}
+
+\section{Contribuições do trabalho}
+\subsection{Contribuições técnicas}
+\subsection{Contribuições metodológicas}
+\subsection{Contribuições acadêmicas}
+
+\section{Limitações finais}
+\subsection{Limitações experimentais}
+\subsection{Limitações de generalização}
+
+\section{Trabalhos futuros}
+\subsection{Uso de múltiplos datasets}
+\subsection{Validação cruzada e análise estatística}
+\subsection{Inclusão de modelos adicionais}
+\subsection{Explicabilidade e interpretabilidade}
+\subsection{Integração entre classificação e segmentação}
+
+% Bibliografia http://liinwww.ira.uka.de/bibliography/index.html um
+% site que cataloga no formato bibtex a bibliografia em computacao
+% \bibliography{nomedoarquivo.bib} (sem extensao)
+% \bibliographystyle{formato.bst} (sem extensao)
+
+\bibliographystyle{abnt}
+\bibliography{bibliografia} 
+
+% Apêndices (Opcional) - Material produzido pelo autor
+\apendices
+
+\chapter{Configurações completas dos experimentos}
+
+\section{Configurações dos experimentos de classificação}
+\subsection{Configuração do VGG16}
+\subsection{Configuração do ResNet50}
+\subsection{Configuração do EfficientNet}
+\subsection{Configuração do ConvNeXt}
+
+\section{Configurações dos experimentos de segmentação}
+\subsection{Configuração do U-Net}
+\subsection{Configuração do Attention U-Net}
+\subsection{Configuração do U-Net++}
+\subsection{Configuração do DeepLabV3+}
+
+\section{Hiperparâmetros adicionais}
+\subsection{Taxas de aprendizado testadas}
+\subsection{Batch sizes avaliados}
+\subsection{Estratégias de early stopping e checkpoint}
+\subsection{Funções de perda utilizadas}
+
+\chapter{Tabelas detalhadas de resultados}
+
+\section{Resultados detalhados da classificação}
+\subsection{Métricas por modelo}
+\subsection{Métricas por classe}
+\subsection{Matrizes de confusão completas}
+\subsection{Valores de AUC-ROC por classe}
+
+\section{Resultados detalhados da segmentação}
+\subsection{Métricas por modelo}
+\subsection{Resultados por subconjunto de teste}
+\subsection{Valores de IoU e Dice Score}
+\subsection{Comparações quantitativas completas}
+
+\section{Métricas computacionais detalhadas}
+\subsection{Número de parâmetros}
+\subsection{Tempo de treinamento}
+\subsection{Tempo de inferência}
+\subsection{Tamanho dos modelos}
+
+\chapter{Arquiteturas dos modelos}
+
+\section{Arquiteturas de classificação}
+\subsection{Arquitetura do VGG16}
+\subsection{Arquitetura do ResNet50}
+\subsection{Arquitetura do EfficientNet}
+\subsection{Arquitetura do ConvNeXt}
+
+\section{Arquiteturas de segmentação}
+\subsection{Arquitetura do U-Net}
+\subsection{Arquitetura do Attention U-Net}
+\subsection{Arquitetura do U-Net++}
+\subsection{Arquitetura do DeepLabV3+}
+
+\chapter{Trechos de código relevantes}
+
+\section{Código de preparação dos dados}
+\subsection{Leitura e organização do dataset}
+\subsection{Split dos dados}
+\subsection{Pré-processamento}
+\subsection{Data augmentation}
+
+\section{Código de treinamento}
+\subsection{Treinamento dos modelos de classificação}
+\subsection{Treinamento dos modelos de segmentação}
+\subsection{Callbacks e checkpoints}
+\subsection{Registro das métricas}
+
+\section{Código de avaliação}
+\subsection{Cálculo das métricas de classificação}
+\subsection{Cálculo das métricas de segmentação}
+\subsection{Geração de matrizes de confusão}
+\subsection{Medição do tempo de inferência}
+
+\end{document}
+
