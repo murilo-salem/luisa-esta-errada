@@ -1091,55 +1091,1993 @@ ou o \textit{Expected Calibration Error} (ECE) podem complementar a avaliação 
 Em síntese, a avaliação de classificadores em imagem médica deve ser multilateral. A acurácia fornece um retrato global, mas sensibilidade, especificidade, \textit{precision}, $F1$-\textit{score}, AUC-ROC, análise por classe e, quando pertinente, calibração probabilística oferecem uma visão mais fiel do comportamento do modelo. Em problemas como classificação de lesões mamárias, nos quais diferentes tipos de erro possuem custos clínicos distintos, a interpretação cuidadosa dessas métricas é tão importante quanto o próprio treinamento do classificador.
 
 \section{Arquiteturas para classificação}
+
 \subsection{VGG16}
+
+A VGG16 é uma arquitetura convolucional profunda proposta por Simonyan e Zisserman com o objetivo de investigar, de forma sistemática, o efeito do aumento da profundidade sobre o desempenho em reconhecimento visual. Seu desenho tornou-se particularmente influente porque demonstrou que redes mais profundas, construídas a partir de blocos simples e homogêneos, poderiam alcançar desempenho expressivo sem recorrer a componentes arquiteturais excessivamente complexos. Em termos conceituais, a VGG16 consolidou uma ideia central da visão computacional moderna: o aprofundamento progressivo da rede, quando aliado a filtros pequenos e composição hierárquica de operações convolucionais, é capaz de produzir representações visuais altamente discriminativas.
+
+Do ponto de vista funcional, a VGG16 pode ser interpretada como um mapeamento
+\begin{equation}
+	f_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow \mathbb{R}^{K},
+\end{equation}
+em que a imagem de entrada é transformada sucessivamente por blocos convolucionais e camadas densas até a produção de logits para \(K\) classes. Seja
+\begin{equation}
+	\mathbf{X}^{(0)} = \mathbf{X}
+\end{equation}
+a entrada da rede. Cada bloco convolucional pode ser descrito de forma abstrata por
+\begin{equation}
+	\mathbf{X}^{(l+1)} = \phi\!\left(\mathbf{W}^{(l)} * \mathbf{X}^{(l)} + \mathbf{b}^{(l)}\right),
+\end{equation}
+onde \(*\) denota a operação convolucional, \(\phi(\cdot)\) é tipicamente a função ReLU, \(\mathbf{W}^{(l)}\) representa os filtros aprendíveis da camada \(l\) e \(\mathbf{b}^{(l)}\) os vieses. Após certos blocos, aplica-se uma operação de \textit{max pooling},
+\begin{equation}
+	\mathbf{P}^{(l)}_{i,j,c}
+	=
+	\max_{(u,v)\in \mathcal{W}_{i,j}}
+	\mathbf{X}^{(l)}_{u,v,c},
+\end{equation}
+reduzindo a resolução espacial e ampliando o campo receptivo efetivo das camadas subsequentes.
+
+A importância histórica da VGG16 decorre, em grande medida, de sua regularidade estrutural. Em vez de combinar filtros de tamanhos muito diversos, a arquitetura adota sistematicamente filtros \(3\times 3\) com \textit{stride} unitário e \textit{padding} adequado para preservar resolução espacial dentro de cada bloco. Essa decisão possui implicações matemáticas e computacionais relevantes. Duas convoluções consecutivas \(3\times 3\) possuem campo receptivo efetivo equivalente a uma única convolução \(5\times 5\), mas com menos parâmetros e maior número de não linearidades intermediárias. De forma aproximada, uma camada \(5\times 5\) com \(C\) canais de entrada e \(M\) filtros teria
+\begin{equation}
+	P_{5\times 5} = M(25C + 1)
+\end{equation}
+parâmetros, enquanto duas camadas \(3\times 3\) em sequência teriam ordem de grandeza
+\begin{equation}
+	P_{3\times 3}^{(1)} + P_{3\times 3}^{(2)}
+	=
+	M(9C + 1) + M(9M + 1),
+\end{equation}
+o que, em muitos cenários de projeto, oferece melhor compromisso entre expressividade e estrutura hierárquica. Além disso, o empilhamento de filtros pequenos introduz mais funções de ativação ReLU ao longo do caminho,
+\begin{equation}
+	\phi\big(\mathbf{W}_2 * \phi(\mathbf{W}_1 * \mathbf{X})\big),
+\end{equation}
+aumentando a capacidade de modelar transformações não lineares complexas.
+
 \subsubsection{Estrutura da arquitetura}
+
+A VGG16 possui 16 camadas com pesos treináveis: 13 camadas convolucionais e 3 camadas totalmente conectadas. Em sua configuração clássica para classificação em larga escala, a rede recebe uma imagem de entrada de dimensão
+\begin{equation}
+	\mathbf{X} \in \mathbb{R}^{224 \times 224 \times 3},
+\end{equation}
+seguida por cinco blocos convolucionais separados por operações de \textit{max pooling}. O arranjo canônico é o seguinte:
+
+\begin{itemize}
+	\item Bloco 1: duas convoluções \(3\times 3\) com 64 filtros;
+	\item Bloco 2: duas convoluções \(3\times 3\) com 128 filtros;
+	\item Bloco 3: três convoluções \(3\times 3\) com 256 filtros;
+	\item Bloco 4: três convoluções \(3\times 3\) com 512 filtros;
+	\item Bloco 5: três convoluções \(3\times 3\) com 512 filtros;
+	\item Classificador: três camadas densas, usualmente com 4096, 4096 e \(K\) unidades.
+\end{itemize}
+
+Cada convolução é seguida de uma ativação ReLU,
+\begin{equation}
+	\phi(x)=\max(0,x),
+\end{equation}
+e cada bloco termina com \textit{max pooling} \(2\times 2\) com \textit{stride} 2. Se a entrada de um bloco possui dimensão \(H\times W\), após o \textit{pooling} a dimensão torna-se, idealmente,
+\begin{equation}
+	\left(\frac{H}{2}, \frac{W}{2}\right).
+\end{equation}
+Partindo de \(224\times 224\), a sequência de reduções espaciais é
+\begin{equation}
+	224 \rightarrow 112 \rightarrow 56 \rightarrow 28 \rightarrow 14 \rightarrow 7.
+\end{equation}
+Ao final do quinto bloco, obtém-se um tensor aproximadamente de dimensão
+\begin{equation}
+	7 \times 7 \times 512,
+\end{equation}
+que, após achatamento, gera um vetor de dimensão
+\begin{equation}
+	7 \cdot 7 \cdot 512 = 25088.
+\end{equation}
+Esse vetor alimenta a primeira camada densa do classificador.
+
+A estrutura da VGG16 pode ser representada de maneira compacta como
+\begin{equation}
+	f_{\boldsymbol{\theta}}(\mathbf{X})
+	=
+	g_{\text{FC}}
+	\circ
+	p_5 \circ c_5
+	\circ
+	p_4 \circ c_4
+	\circ
+	p_3 \circ c_3
+	\circ
+	p_2 \circ c_2
+	\circ
+	p_1 \circ c_1(\mathbf{X}),
+\end{equation}
+em que \(c_b\) representa o bloco convolucional \(b\), \(p_b\) o respectivo \textit{pooling}, e \(g_{\text{FC}}\) o classificador denso final. Essa organização evidencia o caráter modular e homogêneo da arquitetura.
+
+Em termos paramétricos, a VGG16 é uma rede de alta capacidade. Seu número total de parâmetros na configuração clássica ultrapassa \(10^8\), com forte concentração nas camadas densas finais. Se uma camada totalmente conectada recebe um vetor de dimensão \(n\) e produz uma saída de dimensão \(m\), seu número de parâmetros é
+\begin{equation}
+	P_{\text{FC}} = m(n+1).
+\end{equation}
+Aplicando essa fórmula à primeira camada densa da VGG16, com \(n=25088\) e \(m=4096\), obtém-se
+\begin{equation}
+	P_{\text{FC1}} = 4096(25088+1),
+\end{equation}
+o que explica por que uma parcela substancial do custo paramétrico da arquitetura se concentra no classificador final e não apenas nos blocos convolucionais.
+
+Do ponto de vista do aprendizado, a saída final da rede para uma tarefa multiclasse é usualmente obtida por
+\begin{equation}
+	\hat{p}_k
+	=
+	\frac{\exp(z_k)}
+	{\sum_{j=1}^{K}\exp(z_j)},
+\end{equation}
+com perda de entropia cruzada
+\begin{equation}
+	\mathcal{L}_{\text{CE}}
+	=
+	-\sum_{k=1}^{K} y_k \log(\hat{p}_k).
+\end{equation}
+Em aplicações médicas, contudo, a arquitetura raramente é utilizada exatamente em sua forma original. Em vez disso, a base convolucional pré-treinada costuma ser aproveitada como extrator de características, substituindo-se a cabeça densa por um classificador adaptado ao número de classes e ao tamanho da base-alvo.
+
 \subsubsection{Vantagens e limitações}
 
+A principal vantagem da VGG16 reside em sua simplicidade estrutural e em sua forte capacidade de generalização como extrator de características. Como a arquitetura é composta por blocos homogêneos de convoluções \(3\times 3\), sua interpretação é relativamente direta, sua implementação é estável e sua utilização como \textit{baseline} tornou-se amplamente difundida. Em contextos de \textit{transfer learning}, essa propriedade é particularmente útil: seja \(\phi_{\text{VGG}}(\mathbf{X};\boldsymbol{\theta}_0)\) a base convolucional pré-treinada, pode-se congelar \(\boldsymbol{\theta}_0\) e aprender apenas uma nova cabeça classificadora
+\begin{equation}
+	\hat{y}
+	=
+	h\!\left(\phi_{\text{VGG}}(\mathbf{X};\boldsymbol{\theta}_0);\boldsymbol{\theta}_h\right),
+\end{equation}
+ou, alternativamente, realizar \textit{fine-tuning} parcial ou total. Essa reutilização de representações aprendidas em bases extensas é uma das razões pelas quais a VGG16 continua relevante em imagem médica, mesmo após o surgimento de arquiteturas mais recentes. 
+
+Outra vantagem importante é o forte viés indutivo local da arquitetura. Como a VGG16 empilha filtros pequenos ao longo de vários níveis, ela aprende gradualmente desde padrões elementares, como bordas e texturas, até composições de alto nível mais úteis para classificação. Em bases médicas moderadas, esse comportamento pode ser vantajoso porque a rede já parte de detectores visuais gerais relativamente bem estruturados, reduzindo a dependência de engenharia manual de atributos. Além disso, por ser uma arquitetura amplamente estudada, a VGG16 serve como referência experimental estável, facilitando comparação com trabalhos prévios e interpretação de ganhos obtidos por modelos mais modernos. 
+
+Entretanto, a VGG16 apresenta limitações importantes. A primeira delas é seu custo paramétrico elevado. Como discutido anteriormente, as camadas totalmente conectadas finais concentram grande número de parâmetros, o que aumenta consumo de memória, tempo de treinamento e risco de sobreajuste. Em bases médicas com número limitado de amostras, esse problema é particularmente sensível, pois o modelo pode ajustar-se excessivamente a padrões idiossincráticos do conjunto de treinamento. Em termos estatísticos, quando o número de parâmetros \(P\) é muito superior ao número efetivo de exemplos independentes \(N\),
+\begin{equation}
+	P \gg N,
+\end{equation}
+a necessidade de regularização, congelamento de camadas ou simplificação da cabeça classificadora torna-se ainda mais pronunciada.
+
+Uma segunda limitação é a ausência de mecanismos arquiteturais que mais tarde se mostraram centrais em redes profundas mais eficientes, como conexões residuais, normalização integrada ao desenho original ou escalonamento mais racional de profundidade e largura. Em consequência, embora a VGG16 seja profunda para os padrões de sua época, ela é menos eficiente que arquiteturas posteriores em termos de relação entre desempenho e custo computacional. Em tarefas de classificação médica, isso significa que a VGG16 pode permanecer competitiva como \textit{baseline}, mas tende a ser superada por modelos que extraem representações semelhantes com menos parâmetros, menor latência ou melhor estabilidade de treinamento. 
+
+Há ainda uma limitação metodológica importante em aplicações biomédicas: a arquitetura foi originalmente otimizada para imagens naturais de larga escala, com estatísticas visuais distintas das observadas em exames médicos. Embora o \textit{transfer learning} a partir de ImageNet frequentemente produza bons resultados, a adequação do espaço de características aprendido não é garantida de forma uniforme para todos os domínios clínicos. Em imagens com baixo contraste, ruído speckle, estruturas anatômicas sutis e elevada variabilidade de aquisição, como no ultrassom mamário, parte das representações herdadas pode exigir adaptação considerável via \textit{fine-tuning}. Assim, a VGG16 deve ser compreendida menos como solução ótima universal e mais como arquitetura de referência robusta, cuja principal utilidade contemporânea em pesquisa médica reside em servir como ponto de comparação sólido para modelos mais eficientes ou mais especializados. 
+
 \subsection{ResNet50}
+
+A ResNet50 pertence à família de redes residuais profundas proposta por He et al., cujo objetivo central foi enfrentar a degradação de desempenho observada quando a profundidade de redes convolucionais aumenta sem mecanismos arquiteturais apropriados de estabilização \cite{He2016}. A ideia fundamental da arquitetura é reformular o problema de aprendizado não como a estimação direta de uma transformação desejada \(H(\mathbf{x})\), mas como a estimação de uma função residual \(F(\mathbf{x})\) em relação à entrada, de modo que
+\begin{equation}
+	H(\mathbf{x}) = F(\mathbf{x}) + \mathbf{x}.
+\end{equation}
+Essa reformulação altera profundamente a dinâmica de otimização, pois transforma o mapeamento alvo em
+\begin{equation}
+	F(\mathbf{x}) = H(\mathbf{x}) - \mathbf{x},
+\end{equation}
+o que, em muitos casos, é mais fácil de aprender do que a transformação completa \(H(\mathbf{x})\). Em termos intuitivos, se o mapeamento ótimo desejado estiver próximo da identidade, torna-se suficiente aprender uma pequena correção residual.
+
+Do ponto de vista funcional, um bloco residual recebe como entrada um tensor \(\mathbf{x}\in\mathbb{R}^{H\times W \times C}\) e produz uma saída
+\begin{equation}
+	\mathbf{y} = \mathcal{F}(\mathbf{x}, \{\mathbf{W}_i\}) + \mathcal{S}(\mathbf{x}),
+\end{equation}
+onde \(\mathcal{F}(\mathbf{x}, \{\mathbf{W}_i\})\) representa a transformação residual parametrizada por um conjunto de pesos \(\{\mathbf{W}_i\}\), e \(\mathcal{S}(\mathbf{x})\) representa a conexão de atalho (\textit{shortcut connection}). No caso mais simples, a conexão é identidade:
+\begin{equation}
+	\mathcal{S}(\mathbf{x}) = \mathbf{x},
+\end{equation}
+de modo que
+\begin{equation}
+	\mathbf{y} = \mathcal{F}(\mathbf{x}) + \mathbf{x}.
+\end{equation}
+Quando há mudança de dimensionalidade espacial ou no número de canais, utiliza-se tipicamente uma projeção linear, frequentemente implementada por convolução \(1\times1\):
+\begin{equation}
+	\mathcal{S}(\mathbf{x}) = \mathbf{W}_{s} * \mathbf{x},
+\end{equation}
+e então
+\begin{equation}
+	\mathbf{y} = \mathcal{F}(\mathbf{x}) + \mathbf{W}_{s} * \mathbf{x}.
+\end{equation}
+
+Após a soma residual, aplica-se geralmente uma não linearidade, produzindo
+\begin{equation}
+	\mathbf{z} = \phi(\mathbf{y}),
+\end{equation}
+onde \(\phi(\cdot)\) costuma ser a ReLU:
+\begin{equation}
+	\phi(t) = \max(0,t).
+\end{equation}
+Essa estrutura altera não apenas a propagação direta, mas também o fluxo de gradientes no treinamento. Seja \(\mathcal{L}\) a função de perda final e \(\mathbf{x}\) a entrada do bloco residual. Pela regra da cadeia,
+\begin{equation}
+	\frac{\partial \mathcal{L}}{\partial \mathbf{x}}
+	=
+	\frac{\partial \mathcal{L}}{\partial \mathbf{y}}
+	\left(
+	\frac{\partial \mathcal{F}(\mathbf{x})}{\partial \mathbf{x}}
+	+
+	\mathbf{I}
+	\right),
+\end{equation}
+onde \(\mathbf{I}\) é o operador identidade proveniente da conexão residual. Esse termo adicional facilita a propagação do gradiente, reduzindo o risco de degradação da otimização em redes profundas. Em linguagem prática, o \textit{skip connection} cria um caminho de menor resistência para a informação e para o gradiente, permitindo treinar arquiteturas substancialmente mais profundas com maior estabilidade \cite{He2016}.
+
 \subsubsection{Skip connections e treinamento profundo}
+
+O principal problema atacado pela ResNet não é simplesmente o desaparecimento do gradiente no sentido clássico, mas a \textit{degradação} do desempenho com o aumento da profundidade: redes mais profundas, mesmo tendo maior capacidade representacional, podem apresentar erro de treinamento maior do que versões mais rasas quando otimizadas diretamente \cite{He2016}. Em termos formais, se \(\mathcal{E}_{\text{train}}(d)\) denota o erro de treinamento de uma rede com profundidade \(d\), seria natural esperar que, ao aumentar \(d\),
+\begin{equation}
+	\mathcal{E}_{\text{train}}(d+1) \leq \mathcal{E}_{\text{train}}(d),
+\end{equation}
+pois a rede mais profunda poderia, em tese, reproduzir a solução da mais rasa por meio de identidades adicionais. No entanto, na prática, observava-se frequentemente
+\begin{equation}
+	\mathcal{E}_{\text{train}}(d+1) > \mathcal{E}_{\text{train}}(d),
+\end{equation}
+indicando dificuldade de otimização, e não mera limitação de capacidade. O aprendizado residual foi introduzido precisamente para aproximar o comportamento real daquele ideal.
+
+No caso específico da ResNet50, a arquitetura utiliza blocos residuais do tipo \textit{bottleneck}, compostos por três convoluções:
+\begin{equation}
+	1\times 1 \;\rightarrow\; 3\times 3 \;\rightarrow\; 1\times 1.
+\end{equation}
+O primeiro filtro \(1\times1\) reduz a dimensionalidade dos canais, o filtro \(3\times3\) realiza a extração espacial propriamente dita, e o último \(1\times1\) expande novamente a dimensionalidade. Se a entrada de um bloco possui \(C_{\text{in}}\) canais, uma configuração típica pode reduzir para \(C_b\), processar espacialmente em \(C_b\) e então expandir para \(C_{\text{out}}\), com
+\begin{equation}
+	C_b < C_{\text{out}}.
+\end{equation}
+O custo paramétrico aproximado do bloco residual \textit{bottleneck} é
+\begin{equation}
+	P_{\text{bottleneck}}
+	=
+	C_b(C_{\text{in}} + 9C_b + C_{\text{out}}),
+\end{equation}
+desconsiderando vieses e detalhes de normalização. Essa fatoração torna o bloco muito mais eficiente do que empilhar várias convoluções \(3\times3\) diretamente na dimensionalidade expandida.
+
+A ResNet50 segue uma estrutura inicial composta por convolução \(7\times7\), \textit{max pooling} e quatro estágios residuais. Em sua configuração canônica para entrada
+\begin{equation}
+	\mathbf{X} \in \mathbb{R}^{224\times 224 \times 3},
+\end{equation}
+o fluxo arquitetural é tipicamente descrito como:
+\begin{equation}
+	\text{conv1} \rightarrow \text{pool} \rightarrow \text{conv2\_x} \rightarrow \text{conv3\_x} \rightarrow \text{conv4\_x} \rightarrow \text{conv5\_x} \rightarrow \text{GAP} \rightarrow \text{FC}.
+\end{equation}
+Os quatro estágios residuais possuem, respectivamente, \(3\), \(4\), \(6\) e \(3\) blocos \textit{bottleneck}, somando cinquenta camadas com pesos quando se considera a convenção do artigo original \cite{He2016}. Após o último estágio, aplica-se \textit{global average pooling}:
+\begin{equation}
+	g_c = \frac{1}{HW}\sum_{i=1}^{H}\sum_{j=1}^{W} Z_{i,j,c},
+\end{equation}
+seguido de uma camada densa final.
+
+Do ponto de vista do treinamento, a ResNet50 beneficia-se também do uso sistemático de \textit{Batch Normalization}. Seja \(x\) uma ativação escalar em um mini-lote \(\mathcal{B}\). A normalização é dada por
+\begin{equation}
+	\hat{x} = \frac{x - \mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^2 + \varepsilon}},
+\end{equation}
+e a saída transformada é
+\begin{equation}
+	y = \gamma \hat{x} + \beta,
+\end{equation}
+onde \(\gamma\) e \(\beta\) são parâmetros aprendíveis \cite{Ioffe2015}. A combinação entre \textit{skip connections}, normalização e blocos \textit{bottleneck} faz da ResNet50 uma arquitetura particularmente eficiente para treinamento profundo, pois equilibra capacidade representacional, estabilidade numérica e custo computacional.
+
+Em termos de classificação multiclasse, a saída final pode ser escrita como
+\begin{equation}
+	\hat{p}_k
+	=
+	\frac{\exp(z_k)}
+	{\sum_{j=1}^{K}\exp(z_j)},
+	\qquad k=1,\dots,K,
+\end{equation}
+e o treinamento supervisionado usualmente minimiza a entropia cruzada:
+\begin{equation}
+	\mathcal{L}_{\text{CE}}
+	=
+	-\sum_{k=1}^{K} y_k \log(\hat{p}_k).
+\end{equation}
+Quando a ResNet50 é usada em \textit{transfer learning}, substitui-se a camada totalmente conectada final por um classificador compatível com a tarefa-alvo, mantendo-se a base residual como extrator de características:
+\begin{equation}
+	f(\mathbf{X}) = h\!\left(\phi_{\text{ResNet50}}(\mathbf{X};\boldsymbol{\theta}_f);\boldsymbol{\theta}_h\right).
+\end{equation}
+Essa formulação é particularmente relevante em imagem médica, onde bases moderadas favorecem estratégias com pesos pré-treinados.
+
 \subsubsection{Aplicações em imagens médicas}
 
+A ResNet50 tornou-se uma das arquiteturas mais empregadas em imagens médicas justamente por combinar profundidade substancial com treinamento estável e eficiência paramétrica razoável. Em tarefas radiológicas e biomédicas, ela é frequentemente utilizada como \textit{backbone} de classificação, detecção, segmentação ou modelos híbridos, muitas vezes em regime de \textit{transfer learning}. Revisões da área destacam que redes residuais passaram a figurar entre as escolhas mais recorrentes em problemas de classificação diagnóstica por sua capacidade de aprender representações profundas sem os custos de otimização que limitavam arquiteturas anteriores \cite{Yamashita2018,Zhou2021}.
+
+Em termos matemáticos, essa vantagem pode ser entendida pelo fato de que a ResNet50 implementa um mapeamento composicional profundo
+\begin{equation}
+	f(\mathbf{X})
+	=
+	f_L \circ f_{L-1} \circ \cdots \circ f_1 (\mathbf{X}),
+\end{equation}
+no qual cada \(f_l\) é um bloco residual. Diferentemente de uma pilha puramente sequencial de convoluções, cada bloco admite uma decomposição
+\begin{equation}
+	f_l(\mathbf{x}) = \phi\big(\mathcal{F}_l(\mathbf{x}) + \mathcal{S}_l(\mathbf{x})\big),
+\end{equation}
+o que facilita o aprendizado de representações hierárquicas complexas e mais robustas a perturbações locais. Em imagens médicas, essa propriedade é importante porque tecidos, lesões e estruturas anatômicas frequentemente apresentam regularidades multiescala e diferenças visuais sutis, exigindo simultaneamente sensibilidade a detalhes e capacidade de abstração global.
+
+Na prática, a ResNet50 tem sido aplicada a problemas de classificação em radiografia de tórax, tomografia, ressonância magnética, mamografia, histopatologia digital e ultrassonografia. Em cenários de ultrassom mamário, sua adoção é especialmente natural porque a arquitetura consegue capturar padrões de textura e contorno mesmo em presença de ruído speckle e baixa relação sinal-contraste. Além disso, por dispor de versões pré-treinadas amplamente disponíveis, a ResNet50 permite estratégias de adaptação do tipo
+\begin{equation}
+	\boldsymbol{\theta}^{(0)} = \boldsymbol{\theta}_{\text{ImageNet}},
+\end{equation}
+seguidas de congelamento parcial ou \textit{fine-tuning}, o que é valioso quando o número de amostras médicas anotadas é limitado.
+
+Outra razão para sua ampla adoção é o bom compromisso entre desempenho e custo. Em comparação com arquiteturas muito mais pesadas, a ResNet50 costuma apresentar latência e número de parâmetros moderados, mantendo ainda assim forte desempenho discriminativo. Se denotarmos por
+\begin{equation}
+	\mathcal{P}
+\end{equation}
+o número de parâmetros, por
+\begin{equation}
+	T_{\text{inf}}
+\end{equation}
+o tempo médio de inferência e por
+\begin{equation}
+	\mathcal{M}
+\end{equation}
+uma métrica de desempenho clínico, como \(F_1\) ou AUC, a utilidade prática de um modelo pode ser pensada como uma função de compromisso
+\begin{equation}
+	U = U(\mathcal{M}, \mathcal{P}, T_{\text{inf}}),
+\end{equation}
+na qual não basta maximizar \(\mathcal{M}\); é necessário considerar também viabilidade operacional. Nesse sentido, a ResNet50 frequentemente aparece como arquitetura de referência intermediária: mais moderna e estável que a VGG16, mas menos custosa que modelos muito mais robustos e recentes.
+
+Apesar dessas vantagens, a aplicação da ResNet50 em imagens médicas não está isenta de limitações. A primeira delas é que o pré-treinamento em imagens naturais pode não capturar plenamente a estatística visual de modalidades médicas específicas. Embora filtros iniciais que respondem a bordas, gradientes e texturas elementares sejam frequentemente transferíveis, camadas profundas podem requerer adaptação significativa para representar padrões clínicos relevantes. Outra limitação é que a própria capacidade do modelo pode favorecer o aprendizado de atalhos espúrios quando a base contém artefatos sistemáticos, marcações sobrepostas ou viés institucional. Em bases públicas moderadas, como as de ultrassom mamário, isso torna indispensável combinar a ResNet50 com curadoria rigorosa dos dados, validação adequada e análise crítica dos resultados.
+
+Assim, a ResNet50 pode ser entendida, no contexto desta monografia, como uma arquitetura de classificação de alto valor metodológico: suficientemente profunda para explorar o potencial do aprendizado residual, suficientemente estável para treinamento em cenários médicos e suficientemente difundida para servir como referência comparativa robusta em estudos de classificação de lesões mamárias.
+
 \subsection{EfficientNet}
+
+A família EfficientNet foi proposta por Tan e Le com o objetivo de enfrentar uma limitação recorrente no projeto de arquiteturas convolucionais: o aumento de desempenho por meio de escalonamento empírico e pouco sistemático de profundidade, largura ou resolução de entrada \cite{Tan2019EfficientNet}. Em arquiteturas anteriores, a expansão da capacidade do modelo era frequentemente realizada de forma unidimensional, por exemplo, aumentando apenas o número de camadas ou apenas o número de canais. Embora tais estratégias possam produzir ganhos de acurácia, elas tendem a ser ineficientes do ponto de vista computacional e nem sempre exploram adequadamente o balanço entre representação, custo e estabilidade de treinamento. A EfficientNet surge, portanto, como uma formulação arquitetural orientada por dois princípios complementares: a busca por uma arquitetura-base otimizada e o escalonamento composto (\textit{compound scaling}) de seus principais eixos estruturais.
+
+Do ponto de vista funcional, a EfficientNet pode ser descrita como uma rede convolucional profunda
+\begin{equation}
+	f_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow \mathbb{R}^{K},
+\end{equation}
+na qual a imagem de entrada é processada por uma sequência de blocos convolucionais móveis invertidos (\textit{mobile inverted bottleneck convolution}, MBConv), originalmente associados à família MobileNetV2 \cite{Sandler2018}. A saída final consiste em logits
+\begin{equation}
+	\mathbf{z} = (z_1,\dots,z_K),
+\end{equation}
+convertidos em probabilidades por
+\begin{equation}
+	\hat{p}_k = \frac{\exp(z_k)}{\sum_{j=1}^{K}\exp(z_j)},
+	\qquad k=1,\dots,K.
+\end{equation}
+Em tarefas de classificação multiclasse, o treinamento é usualmente conduzido pela minimização da entropia cruzada categórica
+\begin{equation}
+	\mathcal{L}_{\text{CE}}
+	=
+	-\sum_{k=1}^{K} y_k \log(\hat{p}_k),
+\end{equation}
+eventualmente combinada com regularização explícita e estratégias modernas de \textit{data augmentation}.
+
+A principal contribuição conceitual da EfficientNet não reside apenas na escolha dos blocos MBConv, mas na formalização do problema de escalonamento. Em vez de decidir heurística e independentemente como aumentar profundidade, largura ou resolução, os autores propõem uma estratégia conjunta que trata esses três fatores como variáveis acopladas. Essa ideia é particularmente relevante em visão computacional médica, onde o custo de treinamento pode ser elevado e o ganho de desempenho precisa ser cuidadosamente ponderado em relação à complexidade do modelo.
+
 \subsubsection{Compound scaling}
+
+Seja uma arquitetura-base \( \mathcal{N}_0 \) definida por profundidade \(d\), largura \(w\) e resolução de entrada \(r\). Na formulação clássica de escalonamento, poder-se-ia construir uma família de modelos alterando apenas um desses fatores:
+\begin{equation}
+	d' = \alpha d, \qquad w' = w, \qquad r' = r,
+\end{equation}
+ou
+\begin{equation}
+	d' = d, \qquad w' = \beta w, \qquad r' = r,
+\end{equation}
+ou ainda
+\begin{equation}
+	d' = d, \qquad w' = w, \qquad r' = \gamma r.
+\end{equation}
+Essas estratégias, embora simples, são estruturalmente limitadas porque modificam apenas uma dimensão da capacidade da rede. A hipótese central da EfficientNet é que o desempenho ótimo, sob uma dada restrição de recursos, depende de um crescimento balanceado desses três fatores.
+
+Para formalizar esse princípio, define-se um coeficiente global de escalonamento \(\phi \ge 0\), que controla a expansão do modelo, e três constantes \(\alpha,\beta,\gamma > 1\), responsáveis por escalar, respectivamente, profundidade, largura e resolução. O escalonamento composto é então dado por
+\begin{equation}
+	d = \alpha^{\phi}, \qquad
+	w = \beta^{\phi}, \qquad
+	r = \gamma^{\phi},
+\end{equation}
+sujeito à restrição aproximada de custo computacional
+\begin{equation}
+	\alpha \cdot \beta^{2} \cdot \gamma^{2} \approx 2,
+\end{equation}
+com
+\begin{equation}
+	\alpha \ge 1,\qquad \beta \ge 1,\qquad \gamma \ge 1.
+\end{equation}
+Essa restrição decorre do fato de que, de forma aproximada, o custo de uma CNN escala linearmente com a profundidade, quadraticamente com a largura e quadraticamente com a resolução espacial. Se denotarmos por \(\mathcal{C}\) o custo computacional, uma aproximação útil é
+\begin{equation}
+	\mathcal{C} \propto d \cdot w^2 \cdot r^2.
+\end{equation}
+Substituindo as expressões do escalonamento composto, obtém-se
+\begin{equation}
+	\mathcal{C}_{\phi}
+	\propto
+	(\alpha^{\phi})(\beta^{\phi})^2(\gamma^{\phi})^2
+	=
+	(\alpha \beta^2 \gamma^2)^{\phi}.
+\end{equation}
+Se
+\begin{equation}
+	\alpha \beta^2 \gamma^2 \approx 2,
+\end{equation}
+então o custo aproximadamente dobra a cada incremento unitário de \(\phi\):
+\begin{equation}
+	\mathcal{C}_{\phi+1} \approx 2 \mathcal{C}_{\phi}.
+\end{equation}
+
+Esse formalismo fornece uma regra clara para construir uma família inteira de modelos a partir de uma arquitetura-base. No caso da EfficientNet, a rede-base \( \text{B0} \) foi obtida por busca neural de arquitetura (\textit{Neural Architecture Search} --- NAS), e as variantes \( \text{B1}, \text{B2}, \dots \) foram geradas por escalonamento composto sistemático. Assim, se \(\mathcal{N}_0\) representa a EfficientNet-B0, uma variante escalada com coeficiente \(\phi\) pode ser vista como
+\begin{equation}
+	\mathcal{N}_{\phi} = \text{Scale}(\mathcal{N}_0; \alpha^{\phi}, \beta^{\phi}, \gamma^{\phi}).
+\end{equation}
+
+Sob uma perspectiva geométrica, o escalonamento composto procura manter um equilíbrio entre três necessidades complementares:
+\begin{itemize}
+	\item \textbf{Profundidade}: aumenta a hierarquia de abstrações e o campo receptivo efetivo;
+	\item \textbf{Largura}: amplia a capacidade de representação em cada nível;
+	\item \textbf{Resolução}: preserva detalhes espaciais úteis para discriminação fina.
+\end{itemize}
+Em bases médicas, esse equilíbrio é particularmente importante, porque imagens clínicas frequentemente exigem sensibilidade a detalhes locais sem abrir mão de contexto anatômico mais amplo. Em um problema como classificação de lesões em ultrassom mamário, aumentar apenas a profundidade pode não ser suficiente se a resolução de entrada não preservar detalhes da lesão; da mesma forma, aumentar apenas a resolução pode ser pouco eficiente se a rede não tiver largura e profundidade suficientes para explorar o sinal adicional.
+
+A formulação do \textit{compound scaling} pode ainda ser interpretada como um problema de otimização restrita. Seja \(\mathcal{A}(d,w,r)\) uma métrica de acurácia e \(\mathcal{C}(d,w,r)\) o custo computacional. O objetivo ideal seria
+\begin{equation}
+	\max_{d,w,r} \; \mathcal{A}(d,w,r)
+	\quad \text{sujeito a} \quad
+	\mathcal{C}(d,w,r) \leq \kappa,
+\end{equation}
+onde \(\kappa\) representa um orçamento de recursos. A EfficientNet aproxima essa otimização por meio de uma trajetória paramétrica controlada por \(\phi\), reduzindo a busca tridimensional \((d,w,r)\) a uma família unidimensional mais tratável.
+
 \subsubsection{Eficiência computacional}
 
+A eficiência computacional da EfficientNet decorre tanto do desenho dos blocos internos quanto da estratégia de escalonamento. Em vez de utilizar convoluções convencionais densas em todos os níveis, a arquitetura se apoia em blocos MBConv, que combinam expansão de canais, convolução separável em profundidade e projeção linear. Seja uma entrada com \(C_{\text{in}}\) canais. Um bloco MBConv com fator de expansão \(t\) pode ser esquematizado como:
+\begin{equation}
+	C_{\text{in}}
+	\;\xrightarrow{\;1\times1\;}
+	tC_{\text{in}}
+	\;\xrightarrow{\;\text{depthwise }k\times k\;}
+	tC_{\text{in}}
+	\;\xrightarrow{\;1\times1\;}
+	C_{\text{out}}.
+\end{equation}
+O custo paramétrico aproximado desse bloco é
+\begin{equation}
+	P_{\text{MBConv}}
+	=
+	tC_{\text{in}}^2
+	+
+	k^2 tC_{\text{in}}
+	+
+	tC_{\text{in}}C_{\text{out}},
+\end{equation}
+desconsiderando vieses e normalizações. Em comparação, uma convolução densa \(k\times k\) que mapeasse diretamente \(C_{\text{in}}\) para \(C_{\text{out}}\) teria
+\begin{equation}
+	P_{\text{conv}}
+	=
+	k^2 C_{\text{in}} C_{\text{out}}.
+\end{equation}
+Quando \(C_{\text{in}}\) e \(C_{\text{out}}\) são moderadamente grandes, a fatoração separável utilizada pelo MBConv reduz de forma expressiva o número de parâmetros e o custo aritmético.
+
+Além disso, muitos blocos da EfficientNet incorporam mecanismos de \textit{squeeze-and-excitation} (SE), que realizam recalibração adaptativa entre canais. Dado um mapa de ativação
+\begin{equation}
+	\mathbf{U} \in \mathbb{R}^{H \times W \times C},
+\end{equation}
+aplica-se inicialmente um \textit{global average pooling}
+\begin{equation}
+	s_c = \frac{1}{HW}\sum_{i=1}^{H}\sum_{j=1}^{W} U_{i,j,c},
+\end{equation}
+obtendo-se um vetor \(\mathbf{s}\in\mathbb{R}^{C}\). Em seguida, calcula-se um vetor de atenção por canal
+\begin{equation}
+	\mathbf{a}
+	=
+	\sigma\!\left(
+	\mathbf{W}_2 \delta(\mathbf{W}_1 \mathbf{s})
+	\right),
+\end{equation}
+onde \(\delta(\cdot)\) é uma não linearidade intermediária, tipicamente ReLU ou Swish, e \(\sigma(\cdot)\) é uma sigmoide. O mapa recalibrado é
+\begin{equation}
+	\tilde{U}_{i,j,c} = a_c \, U_{i,j,c}.
+\end{equation}
+Esse mecanismo aumenta seletividade representacional com sobrecusto relativamente pequeno.
+
+Uma forma prática de quantificar eficiência computacional é por meio de três grandezas: número de parâmetros \(\mathcal{P}\), custo em operações de ponto flutuante (\(\text{FLOPs}\)) e tempo médio de inferência \(T_{\text{inf}}\). Em termos gerais, para uma convolução densa \(k\times k\), a ordem de grandeza do custo em multiplicações é
+\begin{equation}
+	\text{FLOPs}_{\text{conv}}
+	\propto
+	H_{\text{out}}W_{\text{out}}k^2 C_{\text{in}} C_{\text{out}},
+\end{equation}
+enquanto em uma convolução separável em profundidade seguida de projeção pontual, o custo torna-se aproximadamente
+\begin{equation}
+	\text{FLOPs}_{\text{dw+pw}}
+	\propto
+	H_{\text{out}}W_{\text{out}}
+	\left(
+	k^2 C_{\text{in}} + C_{\text{in}}C_{\text{out}}
+	\right),
+\end{equation}
+o que é substancialmente menor quando \(k^2 C_{\text{out}}\) domina a primeira expressão. Essa redução torna a EfficientNet particularmente atrativa em cenários com limitação de memória, latência ou capacidade de processamento, como ambientes acadêmicos baseados em GPU compartilhada, dispositivos embarcados ou sistemas clínicos com exigência de resposta rápida.
+
+Do ponto de vista da utilidade prática, a eficiência de uma arquitetura não deve ser entendida apenas como “menos parâmetros”, mas como melhor relação entre desempenho e custo. Seja \(\mathcal{M}\) uma métrica de desempenho, como acurácia, macro-\(F_1\) ou AUC, e seja \(\mathcal{C}\) um custo agregado que combina parâmetros, tempo de inferência e memória. Pode-se pensar a eficiência relativa de um modelo como
+\begin{equation}
+	\mathcal{E} = \frac{\mathcal{M}}{\mathcal{C}},
+\end{equation}
+ou, de forma mais geral, como uma função multicritério
+\begin{equation}
+	\mathcal{U} = \mathcal{U}(\mathcal{M},\mathcal{P},\text{FLOPs},T_{\text{inf}}).
+\end{equation}
+Nesse enquadramento, a EfficientNet é particularmente relevante porque frequentemente oferece desempenho competitivo com valores relativamente baixos de \(\mathcal{P}\) e \(\text{FLOPs}\), tornando-se uma escolha natural quando o problema experimental exige não apenas alta qualidade preditiva, mas também viabilidade computacional.
+
+Em aplicações médicas, essa propriedade tem implicações ainda mais fortes. Bases de dados moderadas, como muitas coleções de imagem mamária, não favorecem necessariamente modelos extremamente grandes, pois arquiteturas excessivamente parametrizadas podem apresentar maior risco de sobreajuste sem ganho proporcional em generalização. Assim, uma arquitetura como a EfficientNet pode ocupar uma posição metodológica estratégica: suficientemente expressiva para capturar padrões discriminativos complexos e suficientemente eficiente para manter treinamento e inferência em patamares operacionais adequados. Essa combinação explica por que ela se tornou uma alternativa recorrente em estudos comparativos de classificação em imagem médica e, em particular, um candidato natural para compor o eixo classificatório desta monografia.
+
 \subsection{ConvNeXt}
+
+A arquitetura ConvNeXt foi proposta por Liu et al. com o objetivo explícito de reavaliar o potencial das redes convolucionais puras em um cenário dominado por Transformers visuais. Em vez de assumir que o ganho recente em visão computacional decorreria exclusivamente da superioridade intrínseca dos Transformers, os autores investigaram até que ponto uma CNN clássica, especialmente uma ResNet, poderia recuperar competitividade se fosse modernizada com escolhas de projeto inspiradas em modelos hierárquicos mais recentes \cite{Liu2022ConvNeXt}. O resultado desse processo foi uma família de arquiteturas convolucionais denominada \textit{ConvNeXt}, cuja proposta central consiste em preservar o viés indutivo das convoluções ao mesmo tempo em que incorpora avanços de desenho arquitetural associados à geração dos modelos da década de 2020.
+
+De forma geral, uma rede ConvNeXt implementa um mapeamento
+\begin{equation}
+	f_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow \mathbb{R}^{K},
+\end{equation}
+no qual a imagem de entrada é transformada por estágios convolucionais hierárquicos até a produção de logits
+\begin{equation}
+	\mathbf{z} = (z_1,\dots,z_K),
+\end{equation}
+convertidos em probabilidades por meio de
+\begin{equation}
+	\hat{p}_k = \frac{\exp(z_k)}{\sum_{j=1}^{K}\exp(z_j)},
+	\qquad k=1,\dots,K.
+\end{equation}
+Em tarefas de classificação multiclasse, o treinamento é usualmente conduzido pela minimização da entropia cruzada
+\begin{equation}
+	\mathcal{L}_{\text{CE}}
+	=
+	-\sum_{k=1}^{K} y_k \log(\hat{p}_k),
+\end{equation}
+eventualmente combinada com regularização, \textit{label smoothing} ou \textit{mixup}, dependendo do protocolo experimental.
+
+A relevância metodológica do ConvNeXt decorre do fato de que ele não é apenas “mais uma CNN profunda”, mas uma tentativa sistemática de responder à seguinte questão: até que ponto o desempenho de modelos visuais recentes deriva de mecanismos realmente exclusivos dos Transformers, e até que ponto decorre de decisões de engenharia que também podem ser incorporadas a arquiteturas convolucionais? Essa pergunta é particularmente importante para a área médica, pois sugere que o ganho de desempenho pode ser obtido sem abdicar totalmente das propriedades locais, hierárquicas e computacionalmente familiares das CNNs.
+
 \subsubsection{Motivação e modernização de CNNs}
+
+A motivação central do ConvNeXt pode ser entendida como um processo de transformação gradual de uma ResNet em uma arquitetura convolucional moderna. Seja \(\mathcal{R}_0\) uma ResNet de referência. O artigo original mostra que, ao introduzir progressivamente diversas modificações de desenho, é possível obter uma família de redes puramente convolucionais com desempenho comparável, e em alguns cenários superior, ao de modelos hierárquicos baseados em atenção \cite{Liu2022ConvNeXt}. Formalmente, esse processo pode ser representado como uma sequência de atualizações arquiteturais
+\begin{equation}
+	\mathcal{R}_0
+	\;\xrightarrow{\;T_1\;}\;
+	\mathcal{R}_1
+	\;\xrightarrow{\;T_2\;}\;
+	\cdots
+	\;\xrightarrow{\;T_m\;}\;
+	\mathcal{C},
+\end{equation}
+em que cada transformação \(T_i\) altera um componente estrutural específico até se chegar ao modelo final \(\mathcal{C}\), o ConvNeXt.
+
+Uma das principais mudanças introduzidas é a adoção de convoluções \textit{depthwise} com \textit{kernel} grande, tipicamente \(7\times 7\), dentro do bloco residual. Seja \(\mathbf{X}\in\mathbb{R}^{H\times W\times C}\) a entrada do bloco. Na convolução \textit{depthwise}, cada canal é processado de forma independente:
+\begin{equation}
+	Y_{i,j,c}
+	=
+	b_c + \sum_{u=0}^{k-1}\sum_{v=0}^{k-1}
+	K^{(c)}_{u,v}\,X_{i+u,j+v,c},
+\end{equation}
+com \(k=7\) no caso típico do ConvNeXt. O custo paramétrico dessa operação é
+\begin{equation}
+	P_{\text{dw}} = C(k^2 + 1),
+\end{equation}
+substancialmente menor do que o de uma convolução densa \(k\times k\),
+\begin{equation}
+	P_{\text{conv}} = M(k^2 C + 1),
+\end{equation}
+quando se deseja mapear \(C\) canais para \(M\) filtros. Essa escolha permite ampliar o campo receptivo local de forma eficiente, aproximando o efeito de janelas de atenção locais sem abandonar a natureza convolucional da rede.
+
+Outra modificação central é a reorganização interna do bloco residual. Em vez do padrão clássico de \textit{bottleneck} da ResNet, o ConvNeXt adota um bloco simplificado e mais próximo da lógica de \textit{MLP-like expansion}. Seja \(\mathbf{x}\) a entrada do bloco. Uma forma abstrata de descrevê-lo é
+\begin{equation}
+	\mathbf{y}
+	=
+	\mathbf{x}
+	+
+	\mathcal{P}_2
+	\Big(
+	\phi\big(
+	\mathcal{P}_1(
+	\mathrm{LN}(\mathrm{DWConv}(\mathbf{x}))
+	)
+	\big)
+	\Big),
+\end{equation}
+onde \(\mathrm{DWConv}\) é a convolução \textit{depthwise}, \(\mathrm{LN}\) denota \textit{Layer Normalization}, \(\mathcal{P}_1\) e \(\mathcal{P}_2\) são projeções lineares \(1\times 1\), e \(\phi(\cdot)\) é tipicamente a função GELU. A GELU é definida por
+\begin{equation}
+	\mathrm{GELU}(x) = x\,\Phi(x),
+\end{equation}
+onde \(\Phi(x)\) é a função de distribuição acumulada da normal padrão, frequentemente aproximada por
+\begin{equation}
+	\mathrm{GELU}(x)
+	\approx
+	0.5x\left(1+\tanh\left(\sqrt{\frac{2}{\pi}}\left(x+0.044715x^3\right)\right)\right).
+\end{equation}
+Essa substituição da ReLU por GELU torna a ativação mais suave e alinha a arquitetura a escolhas modernas também populares em Transformers.
+
+O uso de \textit{Layer Normalization} em lugar da \textit{Batch Normalization} em partes do pipeline é outra característica importante. Dado um vetor de ativações \(\mathbf{h}=(h_1,\dots,h_d)\), a normalização em camada é dada por
+\begin{equation}
+	\mu = \frac{1}{d}\sum_{j=1}^{d} h_j,
+	\qquad
+	\sigma^2 = \frac{1}{d}\sum_{j=1}^{d}(h_j-\mu)^2,
+\end{equation}
+e
+\begin{equation}
+	\hat{h}_j = \frac{h_j - \mu}{\sqrt{\sigma^2+\varepsilon}},
+	\qquad
+	y_j = \gamma_j \hat{h}_j + \beta_j.
+\end{equation}
+Diferentemente da \textit{Batch Normalization}, a \textit{Layer Normalization} não depende explicitamente da estatística do mini-lote, o que pode ser vantajoso em cenários de lotes pequenos, comuns em imagens médicas de alta resolução ou em treinamento com recursos limitados.
+
+Também é relevante a chamada \textit{patchify stem}, isto é, a substituição da entrada convolucional inicial clássica por uma camada de redução espacial mais agressiva, conceitualmente próxima à tokenização espacial dos Vision Transformers. Se \(\mathbf{X}\in\mathbb{R}^{H\times W\times C}\), uma camada inicial com \textit{stride} \(s\) produz dimensões
+\begin{equation}
+	H' = \left\lfloor \frac{H-k+2p}{s}\right\rfloor + 1,
+	\qquad
+	W' = \left\lfloor \frac{W-k+2p}{s}\right\rfloor + 1,
+\end{equation}
+reduzindo a resolução logo na entrada e reorganizando o custo computacional dos estágios posteriores. Em conjunto, essas escolhas tornam o ConvNeXt uma arquitetura convolucional hierárquica “modernizada”, isto é, uma CNN que preserva convoluções como operação nuclear, mas adota várias decisões de projeto associadas ao sucesso recente dos Transformers visuais.
+
+Do ponto de vista do fluxo de gradiente, o ConvNeXt mantém a lógica residual:
+\begin{equation}
+	\mathbf{y} = \mathbf{x} + \mathcal{F}(\mathbf{x}),
+\end{equation}
+de modo que
+\begin{equation}
+	\frac{\partial \mathcal{L}}{\partial \mathbf{x}}
+	=
+	\frac{\partial \mathcal{L}}{\partial \mathbf{y}}
+	\left(
+	\mathbf{I}
+	+
+	\frac{\partial \mathcal{F}(\mathbf{x})}{\partial \mathbf{x}}
+	\right).
+\end{equation}
+Assim, a arquitetura combina dois benefícios centrais: a estabilidade de otimização herdada das redes residuais e a modernização de seus blocos internos para ampliar capacidade representacional e competitividade em larga escala.
+
 \subsubsection{Potencial em tarefas médicas}
 
+O potencial do ConvNeXt em imagens médicas decorre de um conjunto de propriedades arquiteturais particularmente atraentes para esse domínio. Em primeiro lugar, a arquitetura preserva o viés indutivo local das convoluções, o que é importante em dados nos quais texturas, contornos e relações espaciais locais continuam sendo altamente informativos. Em exames médicos, como ultrassonografia, mamografia, tomografia ou ressonância magnética, padrões patológicos frequentemente se manifestam como variações locais sutis de intensidade, forma ou textura. Seja \(\mathbf{X}\) uma imagem e \(\mathcal{N}_{\delta}(i,j)\) uma vizinhança local centrada em \((i,j)\). Em muitos problemas clínicos, a decisão depende da estrutura de
+\begin{equation}
+	\mathbf{X}\vert_{\mathcal{N}_{\delta}(i,j)},
+\end{equation}
+e não apenas de dependências globais arbitrárias. Nesse aspecto, o ConvNeXt mantém uma vantagem potencial das CNNs: a capacidade de explorar localidade de forma explícita e eficiente.
+
+Em segundo lugar, o uso de \textit{large-kernel depthwise convolutions} amplia o campo receptivo sem abandonar a economia paramétrica. Se o campo receptivo efetivo de um bloco é denotado por \(r_l\), o uso de kernels maiores aumenta esse campo aproximadamente segundo
+\begin{equation}
+	r_l = r_{l-1} + (k_l - 1)\prod_{t=1}^{l-1}s_t,
+\end{equation}
+o que pode ser vantajoso em tarefas médicas nas quais sinais relevantes dependem simultaneamente de detalhe local e de contexto anatômico mais amplo. Em ultrassom mamário, por exemplo, a classificação de uma lesão não depende apenas do contorno imediato da massa, mas também da textura interna, da interface com tecidos adjacentes e, por vezes, do comportamento da região circundante.
+
+Outro ponto favorável é a compatibilidade do ConvNeXt com \textit{transfer learning}. Seja \(\phi_{\text{ConvNeXt}}(\mathbf{X};\boldsymbol{\theta}_0)\) o extrator de características pré-treinado e \(h(\cdot;\boldsymbol{\theta}_h)\) uma nova cabeça classificadora. O modelo adaptado ao domínio clínico pode ser escrito como
+\begin{equation}
+	f(\mathbf{X}) = h\!\left(\phi_{\text{ConvNeXt}}(\mathbf{X};\boldsymbol{\theta}_0);\boldsymbol{\theta}_h\right).
+\end{equation}
+Pode-se então optar por congelar parte de \(\boldsymbol{\theta}_0\) ou realizar \textit{fine-tuning} parcial/total:
+\begin{equation}
+	\boldsymbol{\theta}^{\star}
+	=
+	\arg\min_{\boldsymbol{\theta}_0,\boldsymbol{\theta}_h}
+	\frac{1}{N}\sum_{i=1}^{N}
+	\mathcal{L}\big(
+	h(\phi_{\text{ConvNeXt}}(\mathbf{X}_i;\boldsymbol{\theta}_0);\boldsymbol{\theta}_h),
+	y_i
+	\big).
+\end{equation}
+Em bases médicas moderadas, essa estratégia é especialmente valiosa porque reduz custo de treinamento do zero e aproveita representações visuais robustas aprendidas em grandes coleções naturais.
+
+Do ponto de vista comparativo, o ConvNeXt ocupa uma posição metodológica interessante entre CNNs clássicas e Transformers visuais. Ele busca capturar parte do ganho recente associado à modernização arquitetural sem abrir mão da simplicidade operacional das convoluções. Em aplicações médicas, isso pode se traduzir em uma combinação atraente de bom desempenho discriminativo, estrutura hierárquica familiar, compatibilidade com bibliotecas consolidadas e boa escalabilidade para diferentes tamanhos de modelo. Em termos de compromisso entre desempenho \(\mathcal{M}\) e custo \(\mathcal{C}\), pode-se pensar sua utilidade como
+\begin{equation}
+	\mathcal{U}_{\text{ConvNeXt}} = \mathcal{U}(\mathcal{M}, \mathcal{P}, T_{\text{inf}}, \text{FLOPs}),
+\end{equation}
+onde \(\mathcal{P}\) é o número de parâmetros e \(T_{\text{inf}}\) o tempo médio de inferência. Em muitos cenários, o ConvNeXt tende a ocupar uma faixa de alto desempenho, embora frequentemente com custo superior ao de arquiteturas mais leves, como EfficientNet de menor porte.
+
+Essa observação leva diretamente às limitações potenciais de seu uso em medicina. Embora a arquitetura seja promissora como \textit{backbone} de classificação, seu tamanho e custo computacional podem ser excessivos em bases pequenas, aumentando risco de sobreajuste e demanda por regularização agressiva. Em cenários nos quais
+\begin{equation}
+	P \gg N,
+\end{equation}
+onde \(P\) é o número de parâmetros do modelo e \(N\) o número de amostras independentes disponíveis, o ganho teórico de capacidade representacional pode não se converter em melhor generalização. Ademais, como em outras arquiteturas pré-treinadas em imagens naturais, a transferência para domínios médicos continua dependente da compatibilidade entre o espaço de características aprendido e os padrões realmente relevantes do ponto de vista clínico.
+
+Ainda assim, o ConvNeXt apresenta grande interesse em tarefas médicas justamente por representar uma CNN de “nova geração”: suficientemente moderna para competir com famílias arquiteturais recentes e suficientemente fiel ao paradigma convolucional para manter vantagens operacionais, interpretativas e de implantação. No contexto desta monografia, ele é particularmente relevante como arquitetura de comparação de alto desempenho no eixo classificatório, permitindo examinar até que ponto a modernização das CNNs se traduz em ganho real em imagens de ultrassom mamário.
+
 \section{Segmentação de imagens médicas}
+
 \subsection{Conceito de segmentação semântica}
+
+A segmentação de imagens médicas consiste no particionamento de uma imagem em regiões semanticamente significativas, de modo que estruturas anatômicas, tecidos, órgãos ou lesões possam ser identificados e delimitados de forma explícita. Em sua formulação mais geral, seja
+\begin{equation}
+	\mathbf{X} \in \mathbb{R}^{H \times W \times C}
+\end{equation}
+uma imagem bidimensional com \(H\) linhas, \(W\) colunas e \(C\) canais, definida sobre um domínio discreto de pixels
+\begin{equation}
+	\Omega = \{1,\dots,H\} \times \{1,\dots,W\}.
+\end{equation}
+A segmentação semântica busca aprender uma função
+\begin{equation}
+	f_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow \{0,1,\dots,K-1\}^{H \times W},
+\end{equation}
+que associe a cada pixel \(p \in \Omega\) um rótulo semântico \(y_p\) pertencente a um conjunto finito de \(K\) classes.
+
+De forma equivalente, pode-se representar o problema como a estimação de um campo de probabilidades por pixel:
+\begin{equation}
+	f_{\boldsymbol{\theta}}(\mathbf{X}) = \hat{\mathbf{P}} \in [0,1]^{H \times W \times K},
+\end{equation}
+onde
+\begin{equation}
+	\hat{P}_{p,k} \approx P(Y_p = k \mid \mathbf{X}),
+	\qquad
+	\sum_{k=1}^{K}\hat{P}_{p,k}=1,
+	\qquad \forall p \in \Omega.
+\end{equation}
+O rótulo predito em cada pixel é então obtido por
+\begin{equation}
+	\hat{y}_p = \arg\max_{k \in \{0,\dots,K-1\}} \hat{P}_{p,k}.
+\end{equation}
+
+Em termos geométricos, a segmentação semântica induz uma partição do domínio \(\Omega\) em subconjuntos
+\begin{equation}
+	\Omega = \bigcup_{k=0}^{K-1} \Omega_k,
+	\qquad
+	\Omega_i \cap \Omega_j = \varnothing \;\; \text{para } i\neq j,
+\end{equation}
+onde
+\begin{equation}
+	\Omega_k = \{ p \in \Omega \mid y_p = k \}.
+\end{equation}
+No caso binário, particularmente comum em segmentação de lesões, tem-se \(K=2\), com uma classe associada ao fundo e outra à região de interesse. Nesse cenário, a máscara de referência pode ser representada por
+\begin{equation}
+	\mathbf{Y} \in \{0,1\}^{H \times W},
+\end{equation}
+em que
+\begin{equation}
+	Y_p =
+	\begin{cases}
+		1, & \text{se } p \text{ pertence à lesão},\\
+		0, & \text{caso contrário}.
+	\end{cases}
+\end{equation}
+
+Diferentemente da classificação global, na qual se estima um único rótulo para toda a imagem, a segmentação semântica exige consistência espacial e detalhamento local, uma vez que a saída preserva a topologia do domínio de entrada. Assim, o problema não se resume a inferir se uma lesão está presente, mas a determinar \emph{onde} ela está e \emph{qual é sua extensão}. Em notação funcional, enquanto um classificador implementa
+\begin{equation}
+	g_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow \{0,\dots,K-1\},
+\end{equation}
+um segmentador implementa
+\begin{equation}
+	f_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow \{0,\dots,K-1\}^{H \times W},
+\end{equation}
+o que representa uma exigência significativamente mais forte do ponto de vista computacional.
+
+Em redes neurais profundas, a segmentação semântica é frequentemente formulada como um problema de classificação densa. Seja \(\mathbf{z}_{p} \in \mathbb{R}^{K}\) o vetor de logits associado ao pixel \(p\). A probabilidade predita por pixel é obtida via \textit{softmax}:
+\begin{equation}
+	\hat{P}_{p,k} = \frac{\exp(z_{p,k})}{\sum_{j=0}^{K-1}\exp(z_{p,j})}.
+\end{equation}
+A função de perda pixel-wise de entropia cruzada pode então ser escrita como
+\begin{equation}
+	\mathcal{L}_{\text{CE}}
+	=
+	-\frac{1}{|\Omega|}
+	\sum_{p \in \Omega}
+	\sum_{k=0}^{K-1}
+	Y_{p,k}\log(\hat{P}_{p,k}),
+\end{equation}
+onde \(Y_{p,k}\) é a codificação \textit{one-hot} do rótulo verdadeiro. Em tarefas médicas, entretanto, o forte desbalanceamento entre fundo e estrutura-alvo frequentemente torna insuficiente a utilização isolada da entropia cruzada, motivando o uso de perdas orientadas a sobreposição, como Dice Loss e IoU Loss.
+
+Sob uma perspectiva semântica, é importante distinguir a segmentação semântica de outros paradigmas próximos. Na segmentação por instâncias, objetos pertencentes à mesma classe recebem rótulos distintos; na segmentação panóptica, combinam-se componentes semânticos e de instância. No presente trabalho, o interesse recai sobre a segmentação semântica de lesões mamárias, na qual o objetivo é recuperar a região correspondente à massa tumoral como uma única classe-alvo em contraste com o fundo.
+
 \subsection{Importância da segmentação no contexto clínico}
+
+A relevância clínica da segmentação decorre do fato de que muitas decisões médicas dependem não apenas da detecção de uma anormalidade, mas da sua localização precisa, contorno, área, volume e relação espacial com tecidos adjacentes. Em oncologia por imagem, por exemplo, a segmentação da lesão permite estimar quantitativamente sua extensão anatômica, avaliar mudanças longitudinais sob tratamento e extrair descritores morfológicos ou radiômicos que podem complementar a interpretação diagnóstica. Em termos formais, se \(\mathbf{Y}\) representa a máscara da lesão, sua área bidimensional pode ser estimada por
+\begin{equation}
+	A(\mathbf{Y}) = \sum_{p \in \Omega} Y_p \, \Delta a,
+\end{equation}
+onde \(\Delta a\) é a área física correspondente a cada pixel. Em exames tridimensionais, o volume pode ser representado por
+\begin{equation}
+	V(\mathbf{Y}) = \sum_{v \in \mathcal{V}} Y_v \, \Delta v,
+\end{equation}
+com \(\mathcal{V}\) denotando o conjunto de voxels e \(\Delta v\) o volume físico por voxel.
+
+A partir da segmentação, torna-se também possível estimar medidas de forma e geometria. Seja \(S\) a região segmentada. Pode-se definir, por exemplo, o perímetro \(P(S)\), a circularidade
+\begin{equation}
+	\mathrm{Circ}(S) = \frac{4\pi A(S)}{P(S)^2},
+\end{equation}
+ou eixos principais obtidos a partir de momentos centrais da região. Em contexto clínico, essas medidas podem auxiliar a caracterizar margens irregulares, espiculações, assimetrias e outras propriedades associadas à suspeita de malignidade. Em lesões mamárias, a definição espacial da massa possui importância não apenas visual, mas quantitativa, pois sua forma e seus contornos podem carregar informação diagnóstica adicional.
+
+A segmentação também é crucial em fluxos de trabalho que precedem ou complementam etapas posteriores de análise computacional. Em radiômica, por exemplo, a qualidade dos atributos extraídos depende diretamente da máscara utilizada para definir a região de interesse. Se \(\mathcal{R}\subset\Omega\) é a região segmentada, um descritor estatístico simples, como a intensidade média, é calculado como
+\begin{equation}
+	\mu_{\mathcal{R}} = \frac{1}{|\mathcal{R}|}\sum_{p \in \mathcal{R}} X_p,
+\end{equation}
+e sua validade depende fortemente da fidelidade espacial da segmentação. Pequenos erros de contorno podem contaminar a região de interesse com fundo, tecido adjacente ou ruído, afetando a interpretação clínica e a robustez dos atributos derivados.
+
+Em cenários longitudinais, a segmentação permite quantificar resposta terapêutica ou progressão da doença. Se \(V_t\) e \(V_{t+\Delta}\) representam o volume segmentado da lesão em dois momentos, a variação relativa pode ser estimada por
+\begin{equation}
+	\Delta_{\%} = 100 \cdot \frac{V_{t+\Delta} - V_t}{V_t}.
+\end{equation}
+Esse tipo de medida é particularmente relevante em acompanhamento oncológico, planejamento terapêutico e estudos de evolução tumoral. Em suma, a utilidade clínica da segmentação reside no fato de que ela transforma uma imagem em uma estrutura quantitativa espacialmente explícita, permitindo que diferentes dimensões da doença sejam analisadas de forma mais objetiva.
+
+Além disso, a segmentação aumenta a interpretabilidade de sistemas baseados em Inteligência Artificial. Em classificação pura, a saída do modelo é frequentemente um escore ou rótulo global, cujo significado anatômico pode ser difícil de inspecionar diretamente. Já um modelo segmentador produz uma predição espacial
+\begin{equation}
+	\hat{\mathbf{Y}} \in \{0,1,\dots,K-1\}^{H \times W},
+\end{equation}
+que pode ser visualmente comparada à anotação de referência. Essa característica é particularmente importante em medicina, onde a confiança em sistemas automatizados depende, em parte, da capacidade de verificar se a predição coincide com regiões clinicamente plausíveis.
+
+No caso específico do ultrassom mamário, a segmentação possui valor adicional porque a lesão frequentemente apresenta contornos imprecisos, ruído e forte dependência do plano de aquisição. Assim, a tarefa de segmentar não é apenas uma operação auxiliar, mas um problema clinicamente e computacionalmente relevante em si. Uma arquitetura capaz de recuperar adequadamente a região tumoral em presença de ruído speckle, baixo contraste e margens ambíguas demonstra não apenas capacidade de ajuste estatístico, mas potencial de apoio real em tarefas como delimitação de massas, análise morfológica e monitoramento de lesões.
+
 \subsection{Métricas de avaliação para segmentação}
 
+A avaliação de modelos de segmentação médica requer métricas capazes de capturar concordância espacial entre a máscara predita \(\hat{\mathbf{Y}}\) e a máscara de referência \(\mathbf{Y}\). Em termos binários, definem-se os conjuntos
+\begin{equation}
+	A = \{p \in \Omega \mid \hat{Y}_p = 1\},
+	\qquad
+	B = \{p \in \Omega \mid Y_p = 1\},
+\end{equation}
+onde \(A\) representa a região predita e \(B\) a região verdadeira. A partir desses conjuntos, pode-se definir a interseção
+\begin{equation}
+	A \cap B
+\end{equation}
+e a união
+\begin{equation}
+	A \cup B.
+\end{equation}
+Essas operações fundamentam as métricas de sobreposição mais utilizadas em segmentação médica.
+
+A métrica de Jaccard, também conhecida como \textit{Intersection over Union} (IoU), é dada por
+\begin{equation}
+	\mathrm{IoU}(A,B)
+	=
+	\frac{|A \cap B|}{|A \cup B|}
+	=
+	\frac{TP}{TP + FP + FN},
+\end{equation}
+em que \(TP\), \(FP\) e \(FN\) são definidos em nível de pixel ou voxel. A IoU assume valores em \([0,1]\), sendo
+\begin{equation}
+	\mathrm{IoU}(A,B)=1
+\end{equation}
+quando há concordância perfeita entre predição e referência, e
+\begin{equation}
+	\mathrm{IoU}(A,B)=0
+\end{equation}
+quando não há interseção entre as regiões. Em termos geométricos, a IoU penaliza simultaneamente subsegmentação e sobresegmentação.
+
+Outra métrica central é o coeficiente de Dice, ou \textit{Dice Similarity Coefficient} (DSC),
+\begin{equation}
+	\mathrm{Dice}(A,B)
+	=
+	\frac{2|A \cap B|}{|A| + |B|}
+	=
+	\frac{2TP}{2TP + FP + FN}.
+\end{equation}
+A relação entre Dice e IoU pode ser escrita como
+\begin{equation}
+	\mathrm{Dice}
+	=
+	\frac{2\mathrm{IoU}}{1+\mathrm{IoU}},
+\end{equation}
+e, inversamente,
+\begin{equation}
+	\mathrm{IoU}
+	=
+	\frac{\mathrm{Dice}}{2-\mathrm{Dice}}.
+\end{equation}
+Em aplicações médicas, o Dice é particularmente popular porque lida melhor com desbalanceamento severo entre a região de interesse e o fundo, situação comum em tarefas de segmentação de pequenas lesões.
+
+A precisão em nível de pixel é definida por
+\begin{equation}
+	\mathrm{Precision}
+	=
+	\frac{TP}{TP+FP},
+\end{equation}
+indicando a fração dos pixels preditos como pertencentes à lesão que realmente pertencem à lesão. Já a sensibilidade, ou \textit{recall}, é dada por
+\begin{equation}
+	\mathrm{Recall}
+	=
+	\frac{TP}{TP+FN},
+\end{equation}
+quantificando a capacidade do modelo de recuperar a extensão verdadeira da estrutura-alvo. A especificidade pode ser escrita como
+\begin{equation}
+	\mathrm{Specificity}
+	=
+	\frac{TN}{TN+FP},
+\end{equation}
+embora, em segmentação médica, essa métrica isoladamente possa ser pouco informativa quando o fundo domina a imagem.
+
+A acurácia pixel-wise é definida por
+\begin{equation}
+	\mathrm{Accuracy}
+	=
+	\frac{TP+TN}{TP+TN+FP+FN}.
+\end{equation}
+No entanto, em segmentação biomédica essa métrica deve ser interpretada com cautela. Em problemas onde a lesão ocupa pequena fração da imagem, pode ocorrer
+\begin{equation}
+	TN \gg TP,FP,FN,
+\end{equation}
+o que faz com que um modelo ruim ainda obtenha alta acurácia apenas por classificar corretamente o fundo. Por isso, recomenda-se que métricas de sobreposição, como Dice e IoU, tenham prioridade na análise.
+
+Quando o interesse clínico inclui fidelidade de contorno, métricas baseadas apenas em volume podem ser insuficientes. Nesse caso, métricas de distância entre superfícies tornam-se relevantes. Seja \(\partial A\) a fronteira da máscara predita e \(\partial B\) a fronteira da referência. A distância de Hausdorff é definida por
+\begin{equation}
+	d_H(\partial A,\partial B)
+	=
+	\max\left\{
+	\sup_{a\in \partial A}\inf_{b\in \partial B} \|a-b\|,
+	\;
+	\sup_{b\in \partial B}\inf_{a\in \partial A} \|b-a\|
+	\right\}.
+\end{equation}
+Essa métrica captura o pior erro de fronteira, sendo sensível a discrepâncias localizadas. Já a distância média de superfície pode ser escrita, em forma simplificada, como
+\begin{equation}
+	d_{\text{ASD}}(\partial A,\partial B)
+	=
+	\frac{1}{|\partial A| + |\partial B|}
+	\left(
+	\sum_{a\in \partial A}\min_{b\in \partial B}\|a-b\|
+	+
+	\sum_{b\in \partial B}\min_{a\in \partial A}\|b-a\|
+	\right).
+\end{equation}
+Enquanto Dice e IoU medem concordância volumétrica, métricas de superfície avaliam precisão geométrica de contorno, o que pode ser clinicamente importante em estruturas pequenas ou com margens irregulares.
+
+Em problemas multiclasse, as métricas podem ser generalizadas por classe. Seja \(A_k\) a região predita da classe \(k\) e \(B_k\) a região de referência. O Dice por classe é
+\begin{equation}
+	\mathrm{Dice}_k
+	=
+	\frac{2|A_k \cap B_k|}{|A_k| + |B_k|},
+\end{equation}
+e a média macro pode ser calculada por
+\begin{equation}
+	\mathrm{MacroDice}
+	=
+	\frac{1}{K}\sum_{k=1}^{K}\mathrm{Dice}_k.
+\end{equation}
+De forma análoga,
+\begin{equation}
+	\mathrm{MacroIoU}
+	=
+	\frac{1}{K}\sum_{k=1}^{K}\mathrm{IoU}_k.
+\end{equation}
+Em cenários com classes muito desbalanceadas, pode-se também empregar médias ponderadas pela frequência.
+
+Além da avaliação pontual das máscaras, muitas arquiteturas são treinadas com funções de perda alinhadas às métricas finais. A chamada \textit{Dice Loss} é tipicamente definida por
+\begin{equation}
+	\mathcal{L}_{\text{Dice}}
+	=
+	1 - \frac{2\sum_{p} \hat{Y}_p Y_p + \epsilon}
+	{\sum_{p}\hat{Y}_p + \sum_{p}Y_p + \epsilon},
+\end{equation}
+onde \(\epsilon>0\) evita divisão por zero. De modo semelhante, a \textit{IoU Loss} pode ser escrita como
+\begin{equation}
+	\mathcal{L}_{\text{IoU}}
+	=
+	1 - \frac{\sum_{p}\hat{Y}_p Y_p + \epsilon}
+	{\sum_{p}\hat{Y}_p + \sum_{p}Y_p - \sum_{p}\hat{Y}_p Y_p + \epsilon}.
+\end{equation}
+Essas formulações são particularmente úteis porque incorporam, já no treinamento, uma penalização consistente com a sobreposição geométrica de interesse clínico.
+
+Em síntese, a avaliação em segmentação médica deve ser multilateral. Métricas de sobreposição, como Dice e IoU, são essenciais para capturar concordância global entre máscara predita e referência. Métricas como precisão, sensibilidade e especificidade ajudam a decompor os tipos de erro em nível de pixel. Já métricas de superfície, como Hausdorff e distância média, são indispensáveis quando a qualidade do contorno possui relevância clínica direta. Em conjunto, essas medidas oferecem uma visão mais completa da qualidade segmentadora do modelo do que qualquer métrica isolada. 
+
 \section{Arquiteturas para segmentação}
+
 \subsection{U-Net}
+
+A U-Net é uma arquitetura convolucional proposta por Ronneberger, Fischer e Brox para segmentação biomédica, concebida explicitamente para produzir predições densas em nível de pixel a partir de conjuntos de dados relativamente pequenos, desde que combinados com estratégias adequadas de aumento de dados. Sua relevância histórica decorre do fato de ter consolidado, em um único arcabouço, dois requisitos centrais da segmentação médica: incorporação de contexto global suficiente para inferência semântica e preservação de detalhe espacial suficiente para localização precisa de estruturas de interesse. Desde sua introdução, a U-Net tornou-se uma das arquiteturas mais influentes em imagem biomédica, servindo tanto como modelo de referência quanto como ponto de partida para numerosas extensões e variantes. 
+
+Formalmente, seja uma imagem de entrada
+\begin{equation}
+	\mathbf{X} \in \mathbb{R}^{H \times W \times C},
+\end{equation}
+definida sobre um domínio discreto
+\begin{equation}
+	\Omega = \{1,\dots,H\}\times\{1,\dots,W\}.
+\end{equation}
+A U-Net implementa uma função
+\begin{equation}
+	f_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow [0,1]^{H \times W \times K},
+\end{equation}
+que associa a cada pixel \(p \in \Omega\) uma distribuição de probabilidade sobre \(K\) classes semânticas. Em segmentação binária, tipicamente \(K=1\) para uma saída sigmoidal, ou \(K=2\) em formulações com \textit{softmax}. No caso sigmoidal, a predição por pixel pode ser escrita como
+\begin{equation}
+	\hat{Y}_{p} = \sigma(z_p) = \frac{1}{1 + e^{-z_p}},
+\end{equation}
+enquanto, para o caso multiclasse,
+\begin{equation}
+	\hat{P}_{p,k} = \frac{\exp(z_{p,k})}{\sum_{j=1}^{K}\exp(z_{p,j})},
+	\qquad k=1,\dots,K.
+\end{equation}
+A máscara final é obtida por limiarização ou maximização:
+\begin{equation}
+	\hat{y}_p =
+	\begin{cases}
+		1, & \text{se } \hat{Y}_p \ge \tau,\\
+		0, & \text{caso contrário},
+	\end{cases}
+	\qquad \text{ou} \qquad
+	\hat{y}_p = \arg\max_k \hat{P}_{p,k}.
+\end{equation}
+
+A característica definidora da U-Net é sua organização em forma de ``U'', na qual uma trajetória contratante (\textit{contracting path}) reduz progressivamente a resolução espacial e amplia a dimensionalidade semântica, enquanto uma trajetória expansiva (\textit{expanding path}) recompõe a resolução por meio de operações de \textit{upsampling}, integrando informação contextual profunda com detalhes locais preservados em níveis anteriores da rede. Essa topologia permite construir mapas de segmentação densos sem abandonar a riqueza espacial necessária à delimitação precisa de lesões e estruturas anatômicas. 
+
 \subsubsection{Estrutura encoder-decoder}
+
+Do ponto de vista arquitetural, a U-Net pode ser compreendida como uma composição entre um codificador (\textit{encoder}) e um decodificador (\textit{decoder}). Seja
+\begin{equation}
+	\mathbf{X}^{(0)} = \mathbf{X}
+\end{equation}
+a entrada da rede. No caminho contratante, cada bloco \(l\) aplica tipicamente duas convoluções \(3\times3\), seguidas de ativações não lineares, e depois uma operação de redução espacial. Em forma abstrata,
+\begin{equation}
+	\mathbf{E}^{(l)} = \phi\!\left(\mathbf{W}^{(l,2)} * \phi\!\left(\mathbf{W}^{(l,1)} * \mathbf{X}^{(l)} + \mathbf{b}^{(l,1)}\right) + \mathbf{b}^{(l,2)}\right),
+\end{equation}
+seguida por
+\begin{equation}
+	\mathbf{X}^{(l+1)} = \mathcal{P}\big(\mathbf{E}^{(l)}\big),
+\end{equation}
+onde \(\mathcal{P}(\cdot)\) denota, no desenho clássico, \textit{max pooling} \(2\times2\) com \textit{stride} 2, e \(\phi(\cdot)\) é tipicamente a ReLU:
+\begin{equation}
+	\phi(t) = \max(0,t).
+\end{equation}
+Se a entrada de um bloco possui dimensão \(H_l \times W_l \times C_l\), após o \textit{pooling} obtém-se aproximadamente
+\begin{equation}
+	H_{l+1} = \frac{H_l}{2}, \qquad
+	W_{l+1} = \frac{W_l}{2},
+\end{equation}
+enquanto o número de canais costuma dobrar:
+\begin{equation}
+	C_{l+1} \approx 2C_l.
+\end{equation}
+
+No ponto mais profundo da rede, frequentemente chamado \textit{bottleneck}, a U-Net produz representações altamente abstratas e com grande campo receptivo efetivo. Se o campo receptivo após \(L\) estágios é denotado por \(r_L\), então, para convoluções \(3\times3\) e \textit{strides} unitários, seu crescimento é aproximadamente recursivo:
+\begin{equation}
+	r^{(l)} = r^{(l-1)} + (k_l - 1)\prod_{t=1}^{l-1}s_t,
+\end{equation}
+de modo que representações profundas agregam contexto espacial amplo, crucial para segmentar estruturas ambíguas em imagens médicas. Essa acumulação de contexto é uma das razões pelas quais a U-Net supera arquiteturas rasas em tarefas biomédicas complexas. 
+
+No caminho expansivo, a resolução espacial é gradualmente restaurada. Seja \(\mathbf{D}^{(l)}\) a representação no nível \(l\) do decodificador. Cada estágio aplica uma operação de \textit{upsampling}, que pode ser realizada por convolução transposta ou por interpolação seguida de convolução:
+\begin{equation}
+	\tilde{\mathbf{D}}^{(l)} = \mathcal{U}\big(\mathbf{D}^{(l+1)}\big),
+\end{equation}
+com
+\begin{equation}
+	H_l = 2H_{l+1}, \qquad
+	W_l = 2W_{l+1}.
+\end{equation}
+Em seguida, concatena-se a representação expandida com o mapa de ativação do nível correspondente no codificador:
+\begin{equation}
+	\mathbf{C}^{(l)} = \mathrm{Concat}\big(\tilde{\mathbf{D}}^{(l)}, \mathbf{E}^{(l)}\big),
+\end{equation}
+e aplica-se novamente um bloco convolucional:
+\begin{equation}
+	\mathbf{D}^{(l)} = \phi\!\left(\mathbf{V}^{(l,2)} * \phi\!\left(\mathbf{V}^{(l,1)} * \mathbf{C}^{(l)} + \mathbf{c}^{(l,1)}\right) + \mathbf{c}^{(l,2)}\right).
+\end{equation}
+Essa simetria entre redução e expansão define a geometria em ``U'' da arquitetura. :contentReference[oaicite:3]{index=3}
+
+Na configuração clássica do artigo original, cada convolução é \emph{válida} (\textit{valid convolution}), o que reduz ligeiramente as dimensões espaciais após cada operação. Por essa razão, os mapas provenientes do codificador precisam ser recortados antes da concatenação com os mapas do decodificador. Seja \(\mathbf{E}^{(l)} \in \mathbb{R}^{h_e \times w_e \times c_e}\) e \(\tilde{\mathbf{D}}^{(l)} \in \mathbb{R}^{h_d \times w_d \times c_d}\), com \(h_e > h_d\) e \(w_e > w_d\). Define-se então um operador de recorte \(\mathcal{T}\) tal que
+\begin{equation}
+	\mathbf{E}_{\text{crop}}^{(l)} = \mathcal{T}\big(\mathbf{E}^{(l)}\big) \in \mathbb{R}^{h_d \times w_d \times c_e},
+\end{equation}
+permitindo a concatenação:
+\begin{equation}
+	\mathbf{C}^{(l)} = \mathrm{Concat}\big(\tilde{\mathbf{D}}^{(l)}, \mathbf{E}_{\text{crop}}^{(l)}\big).
+\end{equation}
+Em implementações modernas, frequentemente utiliza-se \textit{padding} para evitar esse descompasso dimensional, mas a lógica estrutural da arquitetura permanece a mesma.
+
+Ao final do decodificador, aplica-se uma convolução \(1\times1\) para mapear os canais internos para o número de classes de saída:
+\begin{equation}
+	\mathbf{Z} = \mathbf{W}_{\text{out}} * \mathbf{D}^{(0)} + \mathbf{b}_{\text{out}},
+\end{equation}
+com
+\begin{equation}
+	\mathbf{Z} \in \mathbb{R}^{H \times W \times K}.
+\end{equation}
+A segmentação final é então produzida por
+\begin{equation}
+	\hat{\mathbf{Y}} = \sigma(\mathbf{Z})
+	\quad \text{ou} \quad
+	\hat{\mathbf{P}} = \mathrm{softmax}(\mathbf{Z}),
+\end{equation}
+dependendo da formulação binária ou multiclasse adotada. O treinamento é conduzido, em geral, por perdas como entropia cruzada, Dice Loss ou combinações entre ambas:
+\begin{equation}
+	\mathcal{L} = \lambda_1 \mathcal{L}_{\text{CE}} + \lambda_2 \mathcal{L}_{\text{Dice}},
+	\qquad
+	\lambda_1,\lambda_2 \ge 0.
+\end{equation}
+
 \subsubsection{Skip connections e uso em medicina}
 
+As \textit{skip connections} da U-Net diferem conceitualmente das conexões residuais típicas da família ResNet. Enquanto, em redes residuais, a conexão de atalho é somada ao mapeamento transformado,
+\begin{equation}
+	\mathbf{y} = \mathcal{F}(\mathbf{x}) + \mathbf{x},
+\end{equation}
+na U-Net o mecanismo predominante é a concatenação de características:
+\begin{equation}
+	\mathbf{C}^{(l)} = \mathrm{Concat}\big(\tilde{\mathbf{D}}^{(l)}, \mathbf{E}^{(l)}\big).
+\end{equation}
+Essa diferença é decisiva do ponto de vista funcional. Em vez de apenas facilitar o fluxo do gradiente, a concatenação permite transportar explicitamente mapas de características de alta resolução espacial do codificador para o decodificador, preservando detalhes finos que seriam perdidos caso a reconstrução dependesse apenas das representações profundas comprimidas no gargalo da rede. Isso é particularmente importante em segmentação médica, onde fronteiras anatômicas, pequenos contornos lesionais e transições sutis de textura possuem relevância clínica direta. :contentReference[oaicite:4]{index=4}
+
+De forma mais analítica, se o codificador produz um mapa \(\mathbf{E}^{(l)}\) com rica informação local e o decodificador produz \(\tilde{\mathbf{D}}^{(l)}\) com forte conteúdo semântico global, a concatenação
+\begin{equation}
+	\mathbf{C}^{(l)} = [\tilde{\mathbf{D}}^{(l)};\mathbf{E}^{(l)}]
+\end{equation}
+gera uma representação conjunta cuja dimensionalidade em canais é
+\begin{equation}
+	C_{\mathbf{C}^{(l)}} = C_{\tilde{\mathbf{D}}^{(l)}} + C_{\mathbf{E}^{(l)}}.
+\end{equation}
+As convoluções subsequentes podem então aprender funções que combinam seletivamente contexto e detalhe:
+\begin{equation}
+	\mathbf{D}^{(l)} = \Psi\big(\tilde{\mathbf{D}}^{(l)}, \mathbf{E}^{(l)}\big),
+\end{equation}
+onde \(\Psi\) representa o bloco convolucional posterior à concatenação. Em termos de capacidade representacional, isso equivale a oferecer ao decodificador acesso direto a bases de características de múltiplas escalas, aspecto fundamental para segmentação precisa.
+
+No contexto biomédico, essa propriedade explica boa parte do sucesso da U-Net. Estruturas médicas frequentemente apresentam dimensões reduzidas, bordas irregulares e contraste limitado em relação ao fundo. Seja \(B\) a fronteira da estrutura de interesse. Um modelo que comprime excessivamente a representação sem preservar informação de alta resolução pode produzir uma aproximação \(\hat{B}\) com erro espacial elevado:
+\begin{equation}
+	d(\hat{B}, B) \gg 0,
+\end{equation}
+onde \(d(\cdot,\cdot)\) pode representar uma medida de distância de contorno. As \textit{skip connections} da U-Net reduzem esse problema ao reinserir no decodificador informação detalhada das camadas iniciais, permitindo recuperar melhor topologia e geometria da estrutura segmentada. 
+
+Outra razão para o uso disseminado da U-Net em medicina é sua adequação a regimes de dados limitados. O artigo original já enfatizava que a arquitetura, combinada com forte \textit{data augmentation}, poderia ser treinada end-to-end a partir de poucas imagens anotadas, superando métodos anteriores em tarefas biomédicas de referência. Essa característica é altamente relevante em medicina, onde a anotação pixel-wise por especialistas é cara, demorada e, por vezes, difícil de padronizar. O sucesso posterior do \textit{nnU-Net} reforçou esse ponto ao mostrar que variantes relativamente ``simples'' da U-Net, quando acompanhadas de escolhas bem ajustadas de pré-processamento, treinamento e inferência, permanecem extremamente competitivas em múltiplos domínios de segmentação médica.
+
+Do ponto de vista metodológico, a U-Net consolidou-se como arquitetura de referência justamente por oferecer um compromisso notável entre simplicidade estrutural, desempenho segmentador e capacidade de adaptação a modalidades médicas muito diferentes, incluindo microscopia, tomografia, ressonância magnética e ultrassonografia. Revisões recentes a descrevem como a arquitetura mais difundida em segmentação médica, em parte por seu desenho modular e por sua flexibilidade para extensões com atenção, conexões densas, aprendizado multitarefa, variantes 3D e mecanismos automáticos de adaptação. Esse status de \textit{baseline} forte é particularmente importante em trabalhos comparativos, porque a U-Net fornece um ponto de partida metodologicamente robusto para avaliar ganhos efetivos introduzidos por variantes arquiteturais mais sofisticadas. 
+
+Em síntese, a U-Net tornou-se central na segmentação médica porque responde de forma particularmente adequada às exigências do problema: incorpora contexto global por meio do \textit{encoder}, recupera resolução espacial por meio do \textit{decoder}, preserva detalhes relevantes por meio de \textit{skip connections} e mantém uma estrutura suficientemente simples para ser treinada, adaptada e interpretada em diferentes modalidades de imagem. No contexto desta monografia, ela ocupa, portanto, o papel natural de arquitetura de referência para o eixo segmentador, tanto por sua relevância histórica quanto por sua comprovada eficácia prática em imagem biomédica.
+
 \subsection{Attention U-Net}
+
+A Attention U-Net foi proposta por Oktay et al. como uma extensão da U-Net clássica voltada a aumentar a seletividade espacial da rede durante a segmentação biomédica. A ideia central é incorporar \textit{attention gates} (AGs) nas conexões entre codificador e decodificador, permitindo que a arquitetura suprima respostas irrelevantes do fundo e reforce regiões semanticamente mais compatíveis com a estrutura-alvo. No trabalho original, os autores mostraram que esses mecanismos podem ser acoplados a CNNs segmentadoras com sobrecusto computacional relativamente pequeno, ao mesmo tempo em que aumentam sensibilidade e acurácia de predição em tarefas médicas desafiadoras. :contentReference[oaicite:0]{index=0}
+
+Do ponto de vista funcional, a Attention U-Net preserva a topologia \textit{encoder-decoder} da U-Net, mas modifica a forma como os mapas de características de alta resolução são transferidos ao caminho expansivo. Em vez de concatenar integralmente as ativações do codificador ao decodificador, a arquitetura aprende uma máscara de atenção que pondera essas ativações antes da fusão. Assim, se \(\mathbf{x}^{(l)} \in \mathbb{R}^{H_l \times W_l \times C_l}\) representa o mapa de características do nível \(l\) do codificador e \(\mathbf{g}^{(l)}\) representa um sinal de \textit{gating} proveniente de uma representação mais profunda do decodificador, o bloco de atenção aprende uma transformação
+\begin{equation}
+	\mathcal{A}^{(l)} : \big(\mathbf{x}^{(l)}, \mathbf{g}^{(l)}\big) \mapsto \hat{\mathbf{x}}^{(l)},
+\end{equation}
+onde \(\hat{\mathbf{x}}^{(l)}\) corresponde ao mapa filtrado que será encaminhado ao estágio expansivo correspondente. Essa operação altera qualitativamente o papel da conexão de atalho: ela deixa de ser apenas um mecanismo de preservação de detalhe espacial e passa a atuar também como um mecanismo de seleção espacial condicionada ao contexto global. :contentReference[oaicite:1]{index=1}
+
 \subsubsection{Mecanismos de atenção}
+
+Em termos matemáticos, o \textit{attention gate} da Attention U-Net segue uma formulação aditiva. Seja \(x_i^{(l)} \in \mathbb{R}^{F_l}\) o vetor de características associado à posição espacial \(i\) do mapa \(\mathbf{x}^{(l)}\), e seja \(g_i^{(l)} \in \mathbb{R}^{F_g}\) o vetor de \textit{gating} oriundo de uma escala mais profunda. O escore intermediário de atenção pode ser expresso por
+\begin{equation}
+	q_i^{(l)}
+	=
+	\boldsymbol{\psi}^{\top}
+	\,
+	\delta
+	\!\left(
+	\mathbf{W}_x^{(l)} x_i^{(l)}
+	+
+	\mathbf{W}_g^{(l)} g_i^{(l)}
+	+
+	\mathbf{b}_g^{(l)}
+	\right)
+	+
+	b_{\psi}^{(l)},
+\end{equation}
+onde \(\mathbf{W}_x^{(l)}\) e \(\mathbf{W}_g^{(l)}\) são transformações lineares aprendíveis, \(\delta(\cdot)\) é uma não linearidade, usualmente ReLU, \(\boldsymbol{\psi}\) é um vetor de projeção e \(b_{\psi}^{(l)}\) é um viés escalar. O coeficiente de atenção escalar associado à posição \(i\) é então obtido por uma função sigmoide
+\begin{equation}
+	\alpha_i^{(l)}
+	=
+	\sigma\!\left(q_i^{(l)}\right),
+	\qquad
+	\alpha_i^{(l)} \in (0,1).
+\end{equation}
+Finalmente, o mapa filtrado é produzido por
+\begin{equation}
+	\hat{x}_i^{(l)} = \alpha_i^{(l)}\,x_i^{(l)}.
+\end{equation}
+Essa formulação é importante porque explicita que o mecanismo de atenção não cria novas características do zero; ele recalibra as ativações existentes, amplificando regiões mais compatíveis com o alvo e atenuando regiões menos informativas. :contentReference[oaicite:2]{index=2}
+
+Em notação tensorial, se \(\boldsymbol{\alpha}^{(l)} \in [0,1]^{H_l \times W_l \times 1}\) é o mapa de coeficientes de atenção expandido espacialmente, então a operação de filtragem pode ser representada como
+\begin{equation}
+	\hat{\mathbf{x}}^{(l)} = \boldsymbol{\alpha}^{(l)} \odot \mathbf{x}^{(l)},
+\end{equation}
+onde \(\odot\) denota multiplicação elemento a elemento com \textit{broadcasting} ao longo dos canais. Após essa filtragem, a saída \(\hat{\mathbf{x}}^{(l)}\) é concatenada ao mapa do decodificador:
+\begin{equation}
+	\mathbf{C}^{(l)}
+	=
+	\mathrm{Concat}\big(\tilde{\mathbf{D}}^{(l)}, \hat{\mathbf{x}}^{(l)}\big),
+\end{equation}
+e então processada por convoluções subsequentes. Comparada à U-Net clássica, essa modificação introduz um mecanismo explícito de seleção espacial dependente de contexto multiescala. Em vez de passar toda a informação do codificador, a rede aprende \emph{onde olhar} em cada nível da hierarquia, propriedade que motivou o próprio nome da arquitetura. :contentReference[oaicite:3]{index=3}
+
+Outro aspecto relevante é que o sinal de \textit{gating} \(\mathbf{g}^{(l)}\) provém de camadas mais profundas, portanto mais semânticas. Isso significa que a atenção é condicionada por contexto global e não apenas por informação local. Em termos intuitivos, o mecanismo responde à pergunta: “dadas as evidências de alto nível já disponíveis no decodificador, quais regiões do mapa de alta resolução do codificador devem ser privilegiadas?”. Essa dependência contextual é especialmente importante em segmentação médica, onde estruturas anatomicamente semelhantes podem coexistir no campo de visão e onde o fundo pode conter texturas ou padrões que confundem modelos puramente locais. Revisões recentes da literatura sobre atenção em segmentação médica mostram que esse tipo de mecanismo se tornou uma das extensões mais influentes da U-Net justamente por melhorar o foco da rede em estruturas relevantes sem exigir módulos externos de localização. :contentReference[oaicite:4]{index=4}
+
+Do ponto de vista da otimização, a presença dos AGs também pode ser interpretada como uma forma de modulação dinâmica do fluxo de informação. Se \(\mathbf{x}^{(l)}\) contém uma mistura de sinais úteis e ruído estrutural, a multiplicação por \(\boldsymbol{\alpha}^{(l)}\) atua como um filtro aprendível dependente de contexto:
+\begin{equation}
+	\mathbf{x}^{(l)} = \mathbf{s}^{(l)} + \mathbf{n}^{(l)}
+	\quad \Longrightarrow \quad
+	\hat{\mathbf{x}}^{(l)} \approx \boldsymbol{\alpha}^{(l)} \odot \mathbf{s}^{(l)} + \boldsymbol{\alpha}^{(l)} \odot \mathbf{n}^{(l)},
+\end{equation}
+com a expectativa de que, em regiões irrelevantes, \(\alpha_i^{(l)}\) tenda a valores menores, reduzindo a propagação de componentes espúrias. Embora essa decomposição em sinal e ruído seja conceitual, ela ajuda a compreender por que o mecanismo de atenção pode melhorar a seletividade espacial em cenários de forte heterogeneidade visual. :contentReference[oaicite:5]{index=5}
+
 \subsubsection{Vantagens na delimitação de regiões relevantes}
 
+A principal vantagem da Attention U-Net reside na sua capacidade de aumentar a precisão espacial da segmentação em cenários nos quais a estrutura-alvo é pequena, apresenta limites imprecisos ou está imersa em fundo altamente heterogêneo. Em imagens médicas, e particularmente em ultrassonografia, o modelo frequentemente precisa distinguir lesões com margens pouco definidas de padrões texturais de fundo, artefatos de aquisição e estruturas adjacentes. Nesses casos, a concatenação irrestrita de todos os mapas do codificador, como ocorre na U-Net clássica, pode introduzir ao decodificador uma quantidade excessiva de resposta irrelevante. O mecanismo de atenção procura corrigir precisamente esse problema ao privilegiar regiões espacialmente mais compatíveis com a hipótese anatômica que emerge dos níveis mais profundos da rede. :contentReference[oaicite:6]{index=6}
+
+Seja \(R \subset \Omega\) a região verdadeira da lesão e \(\hat{R}\subset\Omega\) a região segmentada. A qualidade da delimitação pode ser avaliada por métricas de sobreposição como Dice e IoU:
+\begin{equation}
+	\mathrm{Dice}(R,\hat{R}) = \frac{2|R \cap \hat{R}|}{|R| + |\hat{R}|},
+	\qquad
+	\mathrm{IoU}(R,\hat{R}) = \frac{|R \cap \hat{R}|}{|R \cup \hat{R}|}.
+\end{equation}
+Mecanismos de atenção tendem a melhorar essas métricas quando reduzem falsos positivos em regiões de fundo e preservam, ao mesmo tempo, os pixels realmente pertencentes à lesão. Em termos de contagem de pixels,
+\begin{equation}
+	\mathrm{Precision} = \frac{TP}{TP+FP},
+	\qquad
+	\mathrm{Recall} = \frac{TP}{TP+FN}.
+\end{equation}
+A Attention U-Net é particularmente interessante porque, em muitos cenários, busca aumentar \(\mathrm{Precision}\) sem degradar excessivamente \(\mathrm{Recall}\), ao reduzir ativações espúrias fora da estrutura-alvo. O trabalho original reporta justamente ganhos consistentes de sensibilidade e qualidade preditiva ao introduzir AGs em arquiteturas do tipo U-Net. :contentReference[oaicite:7]{index=7}
+
+Outra vantagem importante é a eliminação da necessidade de módulos explícitos de localização grosseira. Em pipelines anteriores de segmentação médica, era relativamente comum empregar cascatas com uma etapa inicial de detecção ou localização aproximada da estrutura, seguida de segmentação refinada. A Attention U-Net busca internalizar parte dessa lógica no próprio modelo, fazendo com que os AGs atuem como mecanismos de \textit{soft localization}. Se denotarmos por \(\boldsymbol{\alpha}^{(l)}\) um mapa de atenção, ele pode ser interpretado como uma função de relevância espacial
+\begin{equation}
+	\boldsymbol{\alpha}^{(l)} : \Omega_l \rightarrow (0,1),
+\end{equation}
+que atribui maior peso a regiões candidatas a conter a estrutura de interesse. Isso reduz a dependência de etapas externas e torna o pipeline mais integrado e potencialmente mais eficiente. :contentReference[oaicite:8]{index=8}
+
+No contexto de segmentação médica, essa propriedade tem implicações práticas importantes. Estruturas pequenas, formas variáveis e margens anatômicas irregulares são problemas frequentes em diferentes modalidades, incluindo ultrassom, tomografia e ressonância magnética. Revisões recentes sobre mecanismos de atenção em segmentação médica destacam que Attention U-Net e variantes correlatas ganharam relevância precisamente por sua habilidade de tornar a seleção espacial mais específica, reduzindo interferência do fundo e melhorando a focalização da rede em regiões clinicamente relevantes. Em modalidades com ruído elevado e contraste limitado, como a ultrassonografia mamária, esse comportamento é particularmente valioso. :contentReference[oaicite:9]{index=9}
+
+Do ponto de vista computacional, uma vantagem frequentemente ressaltada é que os AGs introduzem aumento de complexidade relativamente moderado quando comparado ao ganho potencial de segmentação. Se \(\mathcal{C}_{\text{U-Net}}\) denota o custo da U-Net clássica e \(\mathcal{C}_{\text{AG}}\) o custo adicional dos blocos de atenção, então a Attention U-Net pode ser vista como
+\begin{equation}
+	\mathcal{C}_{\text{AttU-Net}} = \mathcal{C}_{\text{U-Net}} + \mathcal{C}_{\text{AG}},
+\end{equation}
+com \(\mathcal{C}_{\text{AG}}\) pequeno em relação ao custo total da arquitetura em muitos cenários práticos. Isso torna a proposta metodologicamente atraente: ela adiciona seletividade espacial sem exigir uma reformulação completa da arquitetura-base ou um salto drástico de custo computacional. :contentReference[oaicite:10]{index=10}
+
+Em síntese, a Attention U-Net pode ser entendida como uma evolução natural da U-Net para cenários em que a simples fusão simétrica entre codificador e decodificador não é suficiente para suprimir ambiguidades espaciais. Seus mecanismos de atenção permitem condicionar o fluxo de informação local ao contexto semântico global, melhorando a delimitação de regiões relevantes e tornando a arquitetura particularmente adequada para segmentação médica em ambientes ruidosos, heterogêneos e de elevada complexidade visual. :contentReference[oaicite:11]{index=11}
+
 \subsection{U-Net++}
+
+O U-Net++ foi proposto por Zhou et al. como uma reformulação estrutural da U-Net clássica, com o objetivo explícito de reduzir o hiato semântico (\textit{semantic gap}) entre os mapas de características do codificador e do decodificador \cite{Zhou2018UNetpp}. A hipótese central da arquitetura é que a concatenação direta entre mapas de alta resolução do \textit{encoder} e mapas semanticamente mais abstratos do \textit{decoder}, embora eficaz, impõe ao otimizador uma tarefa de fusão potencialmente difícil quando esses mapas pertencem a níveis muito diferentes de abstração. O U-Net++ procura aliviar esse problema substituindo as conexões de atalho simples por caminhos aninhados e densamente conectados, nos quais os mapas intermediários são gradualmente refinados antes de serem entregues ao decodificador.
+
+Seja
+\begin{equation}
+	\mathbf{X} \in \mathbb{R}^{H \times W \times C}
+\end{equation}
+a imagem de entrada e
+\begin{equation}
+	f_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow [0,1]^{H \times W \times K}
+\end{equation}
+a função segmentadora parametrizada por \(\boldsymbol{\theta}\). Como em arquiteturas do tipo U-Net, o objetivo é estimar, para cada pixel \(p \in \Omega\), uma distribuição de probabilidade sobre \(K\) classes:
+\begin{equation}
+	\hat{P}_{p,k} \approx P(Y_p = k \mid \mathbf{X}),
+	\qquad
+	\sum_{k=1}^{K}\hat{P}_{p,k}=1.
+\end{equation}
+A diferença essencial do U-Net++ não está na natureza da saída, mas na forma como as representações internas são organizadas e fusionadas ao longo da arquitetura.
+
 \subsubsection{Nested skip connections}
+
+A principal inovação do U-Net++ consiste na introdução de \textit{nested skip connections}, isto é, caminhos de atalho aninhados e densamente conectados entre os níveis do codificador e do decodificador. Em vez de conectar diretamente um mapa do \textit{encoder} a um mapa do \textit{decoder} na mesma resolução, a arquitetura constrói uma malha de nós intermediários, de modo que a informação seja refinada progressivamente antes da concatenação final.
+
+A notação clássica do U-Net++ representa por
+\begin{equation}
+	X^{i,j}
+\end{equation}
+o nó localizado na profundidade \(i\) e no nível de refinamento \(j\), onde:
+\begin{itemize}
+	\item \(i\) indexa o estágio de resolução;
+	\item \(j\) indexa a profundidade ao longo do caminho de skip refinado.
+\end{itemize}
+Os nós com \(j=0\) pertencem ao caminho principal de codificação:
+\begin{equation}
+	X^{i,0} = \mathcal{H}^{i,0}(X^{i-1,0}),
+\end{equation}
+onde \(\mathcal{H}^{i,0}(\cdot)\) representa um bloco convolucional seguido de redução espacial, e \(X^{0,0}\) é a imagem de entrada ou a primeira transformação sobre ela.
+
+Para \(j > 0\), os nós aninhados são definidos por
+\begin{equation}
+	X^{i,j}
+	=
+	\mathcal{H}^{i,j}
+	\left(
+	\left[
+	X^{i,0},
+	X^{i,1},
+	\dots,
+	X^{i,j-1},
+	\mathcal{U}(X^{i+1,j-1})
+	\right]
+	\right),
+\end{equation}
+onde:
+\begin{itemize}
+	\item \([\cdot]\) denota concatenação ao longo dos canais;
+	\item \(\mathcal{U}(\cdot)\) representa a operação de \textit{upsampling};
+	\item \(\mathcal{H}^{i,j}(\cdot)\) é um bloco convolucional que transforma o tensor concatenado.
+\end{itemize}
+
+Essa equação explicita a natureza densa dos caminhos aninhados: cada nó \(X^{i,j}\) recebe, simultaneamente, todos os mapas refinados anteriores no mesmo nível de resolução,
+\begin{equation}
+	X^{i,0}, X^{i,1}, \dots, X^{i,j-1},
+\end{equation}
+e também a informação proveniente do nível mais profundo, reamostrada por
+\begin{equation}
+	\mathcal{U}(X^{i+1,j-1}).
+\end{equation}
+Em consequência, o processo de fusão entre contexto profundo e detalhe espacial deixa de ocorrer em um único salto e passa a ser mediado por múltiplos estágios intermediários.
+
+Do ponto de vista dimensional, se
+\begin{equation}
+	X^{i,j-1} \in \mathbb{R}^{H_i \times W_i \times C_i},
+	\qquad
+	\mathcal{U}(X^{i+1,j-1}) \in \mathbb{R}^{H_i \times W_i \times C_i'},
+\end{equation}
+então a concatenação em \(X^{i,j}\) produz um tensor com número de canais igual a
+\begin{equation}
+	C_{i,j}^{\text{in}}
+	=
+	\sum_{t=0}^{j-1} C_{i,t} + C_i'.
+\end{equation}
+Essa expansão controlada de canais permite que o bloco \(\mathcal{H}^{i,j}\) aprenda combinações progressivamente mais ricas entre contexto semântico e detalhe local, algo que a U-Net clássica realiza de maneira mais direta e menos mediada.
+
+Outro componente importante da formulação original é a \textit{deep supervision}. Em vez de produzir apenas uma saída terminal, o U-Net++ pode gerar múltiplas saídas em diferentes profundidades do decodificador:
+\begin{equation}
+	\hat{\mathbf{Y}}^{(1)}, \hat{\mathbf{Y}}^{(2)}, \dots, \hat{\mathbf{Y}}^{(m)},
+\end{equation}
+cada uma associada a um nível distinto de refinamento. A função de perda total pode então ser escrita como
+\begin{equation}
+	\mathcal{L}_{\text{total}}
+	=
+	\sum_{j=1}^{m}\lambda_j \mathcal{L}^{(j)},
+	\qquad
+	\lambda_j \ge 0,
+\end{equation}
+onde \(\mathcal{L}^{(j)}\) pode ser, por exemplo, uma combinação de entropia cruzada e Dice Loss:
+\begin{equation}
+	\mathcal{L}^{(j)}
+	=
+	\alpha \mathcal{L}^{(j)}_{\text{CE}}
+	+
+	(1-\alpha)\mathcal{L}^{(j)}_{\text{Dice}},
+	\qquad \alpha \in [0,1].
+\end{equation}
+A \textit{deep supervision} funciona como mecanismo adicional de regularização e pode facilitar o treinamento ao impor restrições úteis em diferentes níveis da malha decodificadora.
+
+Em termos conceituais, o U-Net++ pode ser visto como uma generalização da U-Net:
+\begin{equation}
+	\text{U-Net++} = \text{U-Net} + \text{nested dense skip pathways} + \text{deep supervision (opcional)}.
+\end{equation}
+Essa formulação resume bem sua proposta: preservar a lógica \textit{encoder-decoder}, mas enriquecer drasticamente a estrutura de fusão entre escalas.
+
 \subsubsection{Comparação conceitual com U-Net}
 
+A comparação entre U-Net e U-Net++ pode ser formulada, inicialmente, em termos da natureza das \textit{skip connections}. Na U-Net clássica, um mapa do codificador \(\mathbf{E}^{(l)}\) é encaminhado diretamente ao decodificador correspondente:
+\begin{equation}
+	\mathbf{C}^{(l)}
+	=
+	\mathrm{Concat}\big(\tilde{\mathbf{D}}^{(l)}, \mathbf{E}^{(l)}\big),
+\end{equation}
+onde \(\tilde{\mathbf{D}}^{(l)}\) é o mapa reamostrado do decodificador. Essa estratégia é simples e eficiente, mas implica a fusão imediata de dois tipos de representação potencialmente muito diferentes: uma mais local e de baixa abstração, proveniente do codificador, e outra mais semântica e global, proveniente do decodificador.
+
+No U-Net++, essa fusão é substituída por uma sequência de transformações intermediárias:
+\begin{equation}
+	\mathbf{E}^{(l)}
+	\;\rightarrow\;
+	X^{l,1}
+	\;\rightarrow\;
+	X^{l,2}
+	\;\rightarrow\;
+	\dots
+	\;\rightarrow\;
+	X^{l,m},
+\end{equation}
+de modo que o mapa recebido pelo decodificador em cada estágio já passou por sucessivos refinamentos e concatenações. Conceitualmente, isso significa que o U-Net++ não considera suficiente transportar detalhe espacial bruto do codificador; ele assume que esse detalhe deve ser semântica e progressivamente adaptado ao processo de reconstrução.
+
+Esse ponto pode ser formalizado pela noção de hiato semântico. Se \(\phi_E^{(l)}\) representa o espaço de características no nível \(l\) do codificador e \(\phi_D^{(l)}\) o espaço correspondente no decodificador, pode-se pensar o problema da U-Net clássica como a fusão direta de representações com distância semântica
+\begin{equation}
+	\Delta^{(l)} = d\big(\phi_E^{(l)}, \phi_D^{(l)}\big),
+\end{equation}
+onde \(d(\cdot,\cdot)\) representa, de forma abstrata, uma medida de dissimilaridade entre distribuições de características. A hipótese do U-Net++ é que as conexões aninhadas reduzem essa distância de forma progressiva:
+\begin{equation}
+	d\big(\phi_E^{(l)}, \phi_D^{(l)}\big)
+	>
+	d\big(\phi_{X^{l,1}}, \phi_D^{(l)}\big)
+	>
+	d\big(\phi_{X^{l,2}}, \phi_D^{(l)}\big)
+	>
+	\dots
+\end{equation}
+Mesmo que essa desigualdade não seja calculada explicitamente no treinamento, ela expressa a motivação conceitual do modelo: tornar a fusão entre encoder e decoder mais fácil para o otimizador.
+
+Outra diferença importante está na granularidade multiescala. A U-Net opera com uma única conexão lateral por resolução. O U-Net++, por outro lado, cria múltiplos caminhos dentro da mesma resolução, o que produz uma malha mais densa e permite maior diversidade de trajetórias para propagação de informação. Em notação simplificada, se o número de caminhos laterais da U-Net em um nível \(l\) é
+\begin{equation}
+	N_{\text{skip}}^{\text{U-Net}}(l)=1,
+\end{equation}
+no U-Net++ esse número cresce com o grau de aninhamento:
+\begin{equation}
+	N_{\text{skip}}^{\text{U-Net++}}(l)=m_l,
+	\qquad m_l > 1.
+\end{equation}
+Isso aumenta a expressividade do modelo, mas também eleva sua complexidade estrutural.
+
+Do ponto de vista computacional, essa maior expressividade implica custo adicional. Se \(\mathcal{P}_{\text{U-Net}}\) representa o número de parâmetros da U-Net e \(\mathcal{P}_{\text{U-Net++}}\) o número de parâmetros do U-Net++, em geral observa-se
+\begin{equation}
+	\mathcal{P}_{\text{U-Net++}} > \mathcal{P}_{\text{U-Net}},
+\end{equation}
+e, de forma análoga, para o custo de inferência,
+\begin{equation}
+	T_{\text{inf}}^{\text{U-Net++}} > T_{\text{inf}}^{\text{U-Net}}
+\end{equation}
+em muitos cenários práticos. Portanto, a comparação entre ambas as arquiteturas deve ser entendida como um problema de compromisso entre maior capacidade de modelagem e maior custo operacional.
+
+Em termos metodológicos, pode-se resumir a distinção conceitual entre as duas arquiteturas da seguinte maneira:
+\begin{align}
+	\text{U-Net} &: \text{fusão direta entre encoder e decoder},\\
+	\text{U-Net++} &: \text{fusão progressiva, densa e semanticamente mediada}.
+\end{align}
+A U-Net privilegia simplicidade e forte desempenho de base; o U-Net++ privilegia refinamento estrutural da comunicação entre escalas. Em problemas médicos nos quais a estrutura-alvo apresenta contornos complexos, forte variabilidade morfológica ou transições pouco definidas com o fundo, essa diferença pode ser relevante. Por outro lado, em bases moderadas ou cenários de restrição computacional, o ganho estrutural do U-Net++ nem sempre se traduzirá em superioridade prática inequívoca.
+
+Assim, o U-Net++ deve ser compreendido como uma evolução conceitual da U-Net, orientada menos a substituir a arquitetura original em caráter universal e mais a testar a hipótese de que \textit{skip connections} redesenhadas podem tornar a fusão multiescala mais rica, reduzir o hiato semântico e melhorar a segmentação em domínios biomédicos complexos.
+
 \subsection{DeepLabV3+}
+
+A arquitetura DeepLabV3+ foi proposta como uma extensão do DeepLabV3 com o objetivo de combinar, em um mesmo modelo, dois requisitos frequentemente conflitantes em segmentação semântica: ampla captura de contexto multiescala e recuperação precisa de fronteiras espaciais. Em termos conceituais, a arquitetura pode ser vista como uma composição entre um codificador (\textit{encoder}) responsável por extrair representações profundas com grande campo receptivo e um decodificador (\textit{decoder}) relativamente leve, destinado a refinar a segmentação final, sobretudo nas bordas dos objetos. Seja
+\begin{equation}
+	\mathbf{X} \in \mathbb{R}^{H \times W \times C}
+\end{equation}
+uma imagem de entrada e
+\begin{equation}
+	f_{\boldsymbol{\theta}} : \mathbb{R}^{H \times W \times C} \rightarrow [0,1]^{H \times W \times K}
+\end{equation}
+a função segmentadora parametrizada por \(\boldsymbol{\theta}\). O objetivo é estimar, para cada pixel \(p \in \Omega\), com
+\begin{equation}
+	\Omega = \{1,\dots,H\}\times\{1,\dots,W\},
+\end{equation}
+uma distribuição de probabilidade sobre \(K\) classes:
+\begin{equation}
+	\hat{P}_{p,k} \approx P(Y_p = k \mid \mathbf{X}),
+	\qquad
+	\sum_{k=1}^{K}\hat{P}_{p,k}=1.
+\end{equation}
+
+Na formulação multiclasse, a saída final é tipicamente obtida por
+\begin{equation}
+	\hat{P}_{p,k}
+	=
+	\frac{\exp(z_{p,k})}{\sum_{j=1}^{K}\exp(z_{p,j})},
+\end{equation}
+onde \(z_{p,k}\) é o logit associado ao pixel \(p\) e à classe \(k\). Em tarefas binárias, é comum utilizar uma única saída sigmoidal:
+\begin{equation}
+	\hat{Y}_{p} = \sigma(z_p)=\frac{1}{1+e^{-z_p}}.
+\end{equation}
+O treinamento pode ser realizado com perdas pixel-wise, como entropia cruzada, ou com perdas orientadas a sobreposição, como Dice Loss, frequentemente em combinação:
+\begin{equation}
+	\mathcal{L}
+	=
+	\lambda_1 \mathcal{L}_{\text{CE}}
+	+
+	\lambda_2 \mathcal{L}_{\text{Dice}},
+	\qquad
+	\lambda_1,\lambda_2 \ge 0.
+\end{equation}
+
+A especificidade do DeepLabV3+ reside no fato de que o codificador incorpora convoluções atrous e o módulo ASPP (\textit{Atrous Spatial Pyramid Pooling}), enquanto o decodificador explora mapas intermediários de baixa profundidade para recuperar detalhes espaciais perdidos no processo de extração semântica. Em termos funcionais, a arquitetura pode ser representada como
+\begin{equation}
+	f_{\boldsymbol{\theta}}(\mathbf{X})
+	=
+	\mathcal{D}
+	\Big(
+	\mathcal{E}_{\text{ASPP}}
+	(\mathbf{X})
+	,
+	\mathcal{L}_{\text{low}}(\mathbf{X})
+	\Big),
+\end{equation}
+onde \(\mathcal{E}_{\text{ASPP}}(\cdot)\) denota o codificador com agregação multiescala e \(\mathcal{L}_{\text{low}}(\cdot)\) representa a extração de características de baixo nível reutilizadas pelo decodificador.
+
 \subsubsection{Atrous convolution}
+
+A \textit{atrous convolution}, também chamada de \textit{dilated convolution}, é uma generalização da convolução discreta padrão que permite ampliar o campo receptivo sem aumentar proporcionalmente o número de parâmetros e sem reduzir a resolução dos mapas de ativação. Seja uma entrada unidimensional \(x[i]\) e um filtro \(w[k]\) de comprimento \(K\). A convolução atrous com taxa de dilatação \(r\) é dada por
+\begin{equation}
+	y[i] = \sum_{k=1}^{K} x[i + r\cdot k]\, w[k].
+\end{equation}
+No caso bidimensional, para uma imagem \(X\) e um filtro \(W\) de tamanho \(k_h \times k_w\), a operação pode ser escrita como
+\begin{equation}
+	Y_{i,j}
+	=
+	\sum_{u=0}^{k_h-1}\sum_{v=0}^{k_w-1}
+	W_{u,v}\,
+	X_{i + r u,\; j + r v}.
+\end{equation}
+Quando \(r=1\), recupera-se a convolução densa usual. Para \(r>1\), elementos do filtro passam a ``saltar'' posições intermediárias, o que aumenta o campo receptivo efetivo.
+
+Se o \textit{kernel} possui tamanho \(k \times k\), o tamanho efetivo do campo receptivo da convolução atrous é
+\begin{equation}
+	k_{\text{eff}} = k + (k-1)(r-1).
+\end{equation}
+Por exemplo, um filtro \(3\times3\) com taxa \(r=2\) possui campo receptivo efetivo
+\begin{equation}
+	k_{\text{eff}} = 3 + 2(2-1) = 5,
+\end{equation}
+e com \(r=3\),
+\begin{equation}
+	k_{\text{eff}} = 3 + 2(3-1) = 7.
+\end{equation}
+Assim, filtros pequenos podem cobrir regiões maiores sem elevar o custo paramétrico. O número de parâmetros permanece
+\begin{equation}
+	P_{\text{atrous}} = k_h k_w C_{\text{in}} C_{\text{out}},
+\end{equation}
+igual ao de uma convolução padrão com o mesmo \textit{kernel}, embora o campo receptivo seja maior.
+
+Essa propriedade é crucial em segmentação semântica, pois o modelo precisa combinar informação local detalhada com contexto mais amplo. Em arquiteturas tradicionais, esse aumento de contexto costuma ser obtido por sucessivas operações de \textit{pooling} ou por convoluções com \textit{stride} maior, o que reduz a resolução espacial dos mapas. A convolução atrous evita esse custo, preservando mapas mais densos:
+\begin{equation}
+	H_{\text{out}} \approx H_{\text{in}},
+	\qquad
+	W_{\text{out}} \approx W_{\text{in}},
+\end{equation}
+quando se usa \textit{stride} unitário e \textit{padding} adequado.
+
+No DeepLabV3+, as convoluções atrous são usadas tanto no \textit{backbone} quanto no módulo ASPP. O ASPP pode ser descrito como um conjunto de transformações paralelas com taxas de dilatação distintas:
+\begin{equation}
+	\mathbf{F}_{\text{ASPP}}
+	=
+	\mathrm{Concat}
+	\Big(
+	\mathcal{C}_{1\times1}(\mathbf{F}),
+	\mathcal{C}^{(r_1)}_{3\times3}(\mathbf{F}),
+	\mathcal{C}^{(r_2)}_{3\times3}(\mathbf{F}),
+	\mathcal{C}^{(r_3)}_{3\times3}(\mathbf{F}),
+	\mathcal{G}(\mathbf{F})
+	\Big),
+\end{equation}
+onde:
+\begin{itemize}
+	\item \(\mathbf{F}\) é o mapa profundo de entrada;
+	\item \(\mathcal{C}_{1\times1}\) é uma convolução pontual;
+	\item \(\mathcal{C}^{(r)}_{3\times3}\) é uma convolução atrous \(3\times3\) com taxa \(r\);
+	\item \(\mathcal{G}(\mathbf{F})\) representa o ramo de contexto global.
+\end{itemize}
+Após concatenação, aplica-se uma projeção linear ou convolucional:
+\begin{equation}
+	\mathbf{F}_{\text{proj}} = \mathcal{P}\big(\mathbf{F}_{\text{ASPP}}\big).
+\end{equation}
+
+Outro aspecto importante do DeepLabV3+ é o uso de \textit{atrous separable convolution}, isto é, a combinação entre convolução atrous e convolução separável em profundidade. Seja uma entrada com \(C_{\text{in}}\) canais e saída com \(C_{\text{out}}\) canais. O custo aproximado de uma convolução densa \(k\times k\) é
+\begin{equation}
+	\text{FLOPs}_{\text{conv}}
+	\propto
+	H W k^2 C_{\text{in}} C_{\text{out}},
+\end{equation}
+enquanto a versão separável em profundidade com projeção pontual tem custo aproximado
+\begin{equation}
+	\text{FLOPs}_{\text{sep}}
+	\propto
+	H W \left(k^2 C_{\text{in}} + C_{\text{in}} C_{\text{out}}\right).
+\end{equation}
+Ao combinar isso com dilatação, o DeepLabV3+ obtém grande campo receptivo e eficiência computacional relativamente melhor que variantes densas mais caras.
+
 \subsubsection{Captura de contexto global}
 
+A captura de contexto global é uma das motivações centrais do DeepLabV3+. Em segmentação semântica, especialmente em imagens médicas, a atribuição correta de um rótulo a um pixel não depende apenas da intensidade local, mas frequentemente do arranjo anatômico ao redor, da textura regional e da coerência espacial em escalas maiores. Formalmente, para um pixel \(p\), o classificador ideal estima
+\begin{equation}
+	P(Y_p = k \mid \mathbf{X}),
+\end{equation}
+mas essa probabilidade pode depender de uma vizinhança efetiva muito maior que a local:
+\begin{equation}
+	P(Y_p = k \mid \mathbf{X})
+	\approx
+	P\big(Y_p = k \mid \mathbf{X}\vert_{\mathcal{N}_R(p)}\big),
+\end{equation}
+onde \(\mathcal{N}_R(p)\) é uma região de raio \(R\) ao redor de \(p\). Quanto maior e mais informativo o contexto efetivamente acessado pela rede, mais robusta tende a ser a decisão segmentadora.
+
+No DeepLabV3+, esse contexto é capturado principalmente por dois mecanismos. O primeiro é o ASPP, que amostra o mapa profundo em múltiplas escalas simultaneamente por taxas de dilatação distintas. Se \(r_1, r_2, r_3\) representam essas taxas, então os ramos paralelos aproximam diferentes campos receptivos:
+\begin{equation}
+	k_{\text{eff}}^{(m)} = k + (k-1)(r_m-1),
+	\qquad m \in \{1,2,3\}.
+\end{equation}
+Isso permite que o modelo responda tanto a estruturas pequenas quanto a padrões mais amplos de contexto anatômico.
+
+O segundo mecanismo é o ramo de contexto global, implementado por \textit{global average pooling}. Dado um mapa profundo
+\begin{equation}
+	\mathbf{F} \in \mathbb{R}^{H' \times W' \times C},
+\end{equation}
+calcula-se, para cada canal,
+\begin{equation}
+	g_c = \frac{1}{H'W'}\sum_{i=1}^{H'}\sum_{j=1}^{W'} F_{i,j,c}.
+\end{equation}
+O vetor \(\mathbf{g} \in \mathbb{R}^{C}\) é então projetado e reamostrado para dimensão espacial compatível com os demais ramos do ASPP:
+\begin{equation}
+	\tilde{\mathbf{G}} = \mathcal{U}\big(\mathcal{T}(\mathbf{g})\big).
+\end{equation}
+Essa operação fornece uma representação de contexto global de toda a imagem, tornando o modelo sensível não apenas a padrões locais ou regionais, mas também à configuração global do campo visual.
+
+Essa combinação entre contexto multiescala e refino espacial é o que distingue o DeepLabV3+ de arquiteturas puramente encoder-decoder ou puramente baseadas em pirâmides de contexto. O codificador profundo com ASPP gera uma representação
+\begin{equation}
+	\mathbf{F}_{\text{enc}} = \mathcal{E}_{\text{ASPP}}(\mathbf{X}),
+\end{equation}
+rica em contexto semântico, enquanto o decodificador leve incorpora um mapa de baixo nível
+\begin{equation}
+	\mathbf{F}_{\text{low}} = \mathcal{L}_{\text{low}}(\mathbf{X}),
+\end{equation}
+reduzindo seu número de canais por uma projeção
+\begin{equation}
+	\mathbf{F}_{\text{low}}' = \mathcal{P}_{\text{low}}(\mathbf{F}_{\text{low}}),
+\end{equation}
+antes da concatenação com a representação profunda reamostrada:
+\begin{equation}
+	\mathbf{F}_{\text{dec}}
+	=
+	\mathrm{Concat}
+	\big(
+	\mathcal{U}(\mathbf{F}_{\text{enc}}),
+	\mathbf{F}_{\text{low}}'
+	\big).
+\end{equation}
+Convoluções subsequentes refinam essa fusão e produzem a segmentação final.
+
+Em imagens médicas, essa estratégia é particularmente relevante. Lesões, órgãos e tecidos frequentemente apresentam ambiguidade local: um mesmo padrão de intensidade pode ter significados distintos a depender do contexto anatômico. A inclusão explícita de contexto global ajuda a reduzir falsas ativações em regiões visualmente semelhantes ao alvo, enquanto o decodificador melhora a recuperação de fronteiras e detalhes finos. Em termos conceituais, o DeepLabV3+ tenta resolver simultaneamente dois problemas:
+\begin{align}
+	\text{(i)} &\quad \text{como incorporar contexto sem perder resolução espacial,}\\
+	\text{(ii)} &\quad \text{como recuperar bordas nítidas após extração semântica profunda.}
+\end{align}
+
+Pode-se, portanto, interpretar a utilidade da arquitetura como um compromisso entre desempenho espacial e custo computacional:
+\begin{equation}
+	\mathcal{U}
+	=
+	\mathcal{U}\big(
+	\mathcal{M}_{\text{seg}},
+	\mathcal{P},
+	T_{\text{inf}},
+	\text{FLOPs}
+	\big),
+\end{equation}
+onde \(\mathcal{M}_{\text{seg}}\) representa métricas como Dice ou IoU, \(\mathcal{P}\) o número de parâmetros e \(T_{\text{inf}}\) o tempo de inferência. O DeepLabV3+ torna-se especialmente atrativo quando o ganho advindo da captura multiescala de contexto e do refino de bordas compensa o aumento de complexidade em relação a segmentadores mais simples.
+
+Em síntese, o DeepLabV3+ representa uma arquitetura particularmente robusta para segmentação semântica porque combina três propriedades altamente desejáveis: uso de convoluções atrous para ampliar o campo receptivo, ASPP para agregação multiescala de contexto e um decodificador leve para refino espacial. No contexto desta monografia, ele é especialmente relevante como contraponto à família U-Net, por oferecer uma estratégia distinta de segmentação, mais orientada à modelagem explícita de contexto global do que à fusão simétrica de múltiplas escalas por conexões laterais densas.
+
 \section{Técnicas complementares}
+
 \subsection{Data augmentation}
+
+Em tarefas de aprendizado profundo aplicadas a imagens médicas, a disponibilidade de dados rotulados é frequentemente limitada, seja pelo custo de aquisição, seja pela necessidade de anotação especializada. Nesse contexto, \textit{data augmentation} constitui uma estratégia central para reduzir sobreajuste, ampliar a diversidade amostral observada durante o treinamento e induzir invariâncias úteis ao modelo \cite{Shorten2019, Yang2022AugSurvey}. Em termos probabilísticos, se o conjunto de treinamento original é
+\begin{equation}
+	\mathcal{D} = \{(\mathbf{X}_i, y_i)\}_{i=1}^{N},
+\end{equation}
+o objetivo do \textit{augmentation} é construir amostras transformadas
+\begin{equation}
+	\tilde{\mathbf{X}}_i = T_{\boldsymbol{\xi}}(\mathbf{X}_i),
+\end{equation}
+onde \(T_{\boldsymbol{\xi}}\) é uma transformação parametrizada por uma variável aleatória \(\boldsymbol{\xi}\) pertencente a um espaço de transformações admissíveis \(\Xi\). O conjunto efetivamente visto pela rede em treinamento pode ser interpretado como amostras extraídas de uma distribuição aumentada
+\begin{equation}
+	P_{\text{aug}}(\mathbf{X},y)
+	=
+	\int_{\Xi} P\!\left(T_{\boldsymbol{\xi}}(\mathbf{X}),y\right)\, p(\boldsymbol{\xi})\, d\boldsymbol{\xi},
+\end{equation}
+onde \(p(\boldsymbol{\xi})\) é a distribuição das transformações aplicadas.
+
+Em sua forma mais clássica, o \textit{augmentation} busca preservar o rótulo da amostra sob transformações que não alterem a semântica clínica do caso:
+\begin{equation}
+	y\big(T_{\boldsymbol{\xi}}(\mathbf{X})\big) = y(\mathbf{X}),
+	\qquad \forall \boldsymbol{\xi} \in \Xi_{\text{válida}}.
+\end{equation}
+No caso da ultrassonografia mamária, esse princípio impõe uma restrição metodológica importante: nem toda transformação geometricamente possível é clinicamente plausível. Transformações como rotações moderadas, espelhamento horizontal, pequenas variações de escala, deslocamento, recorte e ajustes suaves de brilho/contraste podem ser admissíveis, ao passo que deformações excessivas, reamostragem agressiva ou manipulações que alterem artificialmente a morfologia da lesão podem comprometer a validade do experimento.
+
+Seja \(\mathbf{X} \in \mathbb{R}^{H \times W \times C}\). Algumas transformações geométricas podem ser modeladas como
+\begin{equation}
+	T_{\text{aff}}(\mathbf{x}) = \mathbf{A}\mathbf{x} + \mathbf{b},
+\end{equation}
+onde \(\mathbf{x}\) representa a coordenada homogênea de um pixel, \(\mathbf{A}\) é uma transformação linear e \(\mathbf{b}\) uma translação. Casos particulares incluem:
+\begin{itemize}
+	\item rotação por ângulo \(\theta\):
+	\begin{equation}
+		\mathbf{A}_{\text{rot}}(\theta)
+		=
+		\begin{bmatrix}
+			\cos\theta & -\sin\theta \\
+			\sin\theta & \cos\theta
+		\end{bmatrix},
+	\end{equation}
+	\item escalonamento por fatores \(s_x, s_y\):
+	\begin{equation}
+		\mathbf{A}_{\text{scale}}
+		=
+		\begin{bmatrix}
+			s_x & 0\\
+			0 & s_y
+		\end{bmatrix},
+	\end{equation}
+	\item reflexão horizontal:
+	\begin{equation}
+		\mathbf{A}_{\text{flip}}
+		=
+		\begin{bmatrix}
+			-1 & 0\\
+			0 & 1
+		\end{bmatrix}.
+	\end{equation}
+\end{itemize}
+
+Transformações fotométricas, por sua vez, podem ser descritas por operações como
+\begin{equation}
+	\tilde{\mathbf{X}} = a\mathbf{X} + b,
+\end{equation}
+onde \(a>0\) controla contraste e \(b\) ajusta brilho. Em modalidades médicas, tais transformações devem ser aplicadas com cautela, pois o intervalo de intensidades pode carregar informação diagnóstica. Em ultrassom, pequenas perturbações de brilho e contraste podem aumentar robustez do modelo a variações de aquisição, desde que não modifiquem significativamente a textura e a aparência clínica da lesão.
+
+Em segmentação, o \textit{augmentation} deve ser aplicado de forma consistente à imagem e à máscara de referência. Se
+\begin{equation}
+	(\mathbf{X}, \mathbf{Y})
+\end{equation}
+representa um par imagem--máscara, então a transformação correta é
+\begin{equation}
+	(\tilde{\mathbf{X}}, \tilde{\mathbf{Y}})
+	=
+	\big(T_{\boldsymbol{\xi}}(\mathbf{X}), T_{\boldsymbol{\xi}}(\mathbf{Y})\big),
+\end{equation}
+preservando correspondência espacial entre entrada e alvo. Em máscaras binárias, essa consistência é indispensável; caso contrário, o treinamento passa a receber pares semanticamente inconsistentes.
+
+Além de transformações geométricas e fotométricas simples, a literatura recente contempla estratégias compostas e estocásticas, como \textit{mixup}, \textit{CutMix}, \textit{random erasing} e métodos gerativos \cite{Shorten2019,Yang2022AugSurvey}. No \textit{mixup}, por exemplo, duas amostras \((\mathbf{X}_i, y_i)\) e \((\mathbf{X}_j, y_j)\) são combinadas por
+\begin{equation}
+	\tilde{\mathbf{X}} = \lambda \mathbf{X}_i + (1-\lambda)\mathbf{X}_j,
+\end{equation}
+\begin{equation}
+	\tilde{y} = \lambda y_i + (1-\lambda)y_j,
+\end{equation}
+com \(\lambda \sim \mathrm{Beta}(\alpha,\alpha)\). Embora metodologicamente interessantes, tais estratégias exigem interpretação mais cuidadosa em cenários médicos, nos quais a plausibilidade anatômica das amostras sintéticas nem sempre é trivial.
+
+Do ponto de vista da generalização, o \textit{data augmentation} pode ser interpretado como uma forma de regularização implícita, pois impõe ao classificador ou segmentador a necessidade de aprender uma função aproximadamente invariante ou aproximadamente equivariante a um conjunto de transformações:
+\begin{equation}
+	f_{\boldsymbol{\theta}}(T_{\boldsymbol{\xi}}(\mathbf{X}))
+	\approx
+	f_{\boldsymbol{\theta}}(\mathbf{X})
+\end{equation}
+para classificação, ou
+\begin{equation}
+	f_{\boldsymbol{\theta}}(T_{\boldsymbol{\xi}}(\mathbf{X}))
+	\approx
+	T_{\boldsymbol{\xi}}\big(f_{\boldsymbol{\theta}}(\mathbf{X})\big)
+\end{equation}
+para segmentação. Essa distinção entre invariância e equivariância é fundamental para desenhar protocolos de \textit{augmentation} cientificamente coerentes.
+
 \subsection{Balanceamento de classes}
+
+O desbalanceamento de classes constitui um dos principais desafios em problemas de classificação e segmentação médica, sobretudo quando a condição de interesse corresponde à classe minoritária e seus erros têm custo clínico elevado \cite{He2009,Branco2016}. Seja um problema multiclasse com \(K\) classes e \(N_k\) exemplos na classe \(k\). Diz-se que o conjunto está desbalanceado quando
+\begin{equation}
+	N_i \neq N_j
+	\qquad \text{para alguns } i,j \in \{1,\dots,K\},
+\end{equation}
+e o grau de desbalanceamento pode ser expresso por razões do tipo
+\begin{equation}
+	\mathrm{IR}_{ij} = \frac{N_i}{N_j}.
+\end{equation}
+Em classificação binária, uma forma simples de quantificar o desbalanceamento é
+\begin{equation}
+	\mathrm{IR} = \frac{N_{\text{majoritária}}}{N_{\text{minoritaria}}}.
+\end{equation}
+
+Em cenários desbalanceados, a minimização ingênua da perda média pode induzir o modelo a privilegiar a classe majoritária. Para uma perda de entropia cruzada padrão,
+\begin{equation}
+	\mathcal{L}_{\text{CE}}
+	=
+	-\frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K} y_{i,k}\log(\hat{p}_{i,k}),
+\end{equation}
+a contribuição esperada de cada classe ao gradiente total é aproximadamente proporcional ao número de amostras daquela classe. Isso pode gerar soluções enviesadas, nas quais a fronteira de decisão minimiza erro global às custas de sensibilidade reduzida nas classes raras.
+
+Uma estratégia clássica para mitigar esse efeito é o \textit{reweighting} da função de perda. Introduzindo pesos \(w_k > 0\) por classe, obtém-se
+\begin{equation}
+	\mathcal{L}_{\text{WCE}}
+	=
+	-\frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K} w_k\, y_{i,k}\log(\hat{p}_{i,k}).
+\end{equation}
+Uma escolha comum é
+\begin{equation}
+	w_k \propto \frac{1}{N_k},
+\end{equation}
+ou, de forma normalizada,
+\begin{equation}
+	w_k = \frac{N}{K N_k}.
+\end{equation}
+Essas formulações buscam aumentar a penalização dos erros em classes sub-representadas. Em aplicações médicas, onde a classe positiva ou maligna pode ser a de maior interesse clínico, esse tipo de ponderação é particularmente útil.
+
+Outra abordagem envolve reamostragem do conjunto de treinamento. No \textit{oversampling} da classe minoritária, constroem-se conjuntos com multiplicação ou geração sintética de exemplos raros, enquanto no \textit{undersampling} reduz-se a presença da classe majoritária. Seja \(\mathcal{D}_k\) o subconjunto de exemplos da classe \(k\). O \textit{oversampling} pode ser interpretado como a construção de uma distribuição empírica modificada
+\begin{equation}
+	\tilde{P}(Y=k)
+	\approx
+	\frac{1}{K},
+\end{equation}
+por replicação ou geração adicional de amostras. Já o \textit{undersampling} busca reduzir \(N_{\text{majoritária}}\), mas pode desperdiçar informação valiosa se aplicado de forma agressiva.
+
+No contexto de segmentação, o desbalanceamento é ainda mais pronunciado porque a maioria dos pixels costuma pertencer ao fundo. Seja
+\begin{equation}
+	|\Omega_{\text{fg}}| \ll |\Omega_{\text{bg}}|,
+\end{equation}
+onde \(\Omega_{\text{fg}}\) representa a região de interesse e \(\Omega_{\text{bg}}\) o fundo. Nesses casos, a perda pixel-wise padrão pode induzir o modelo a prever predominantemente fundo, obtendo alta acurácia superficial, mas baixa utilidade clínica. Esse problema motiva tanto perdas ponderadas quanto perdas baseadas em sobreposição, discutidas adiante.
+
+Do ponto de vista teórico, o balanceamento de classes pode ser visto como uma tentativa de redefinir o risco empírico de forma a aproximá-lo de um objetivo clínico mais relevante:
+\begin{equation}
+	\hat{\mathcal{R}}(\boldsymbol{\theta})
+	=
+	\frac{1}{N}\sum_{i=1}^{N}\mathcal{L}(f_{\boldsymbol{\theta}}(\mathbf{X}_i), y_i)
+	\quad \longrightarrow \quad
+	\hat{\mathcal{R}}_{\text{bal}}(\boldsymbol{\theta})
+	=
+	\frac{1}{N}\sum_{i=1}^{N} w_{y_i}\,\mathcal{L}(f_{\boldsymbol{\theta}}(\mathbf{X}_i), y_i).
+\end{equation}
+Em medicina, essa reformulação é especialmente importante porque o custo dos erros é assimétrico: um falso negativo em uma classe maligna pode ser consideravelmente mais grave do que um falso positivo.
+
 \subsection{Funções de perda para classificação}
+
+A função de perda em classificação supervisionada quantifica a discrepância entre a distribuição predita pelo modelo e os rótulos observados. Em um problema multiclasse, seja
+\begin{equation}
+	\hat{\mathbf{p}}_i = (\hat{p}_{i,1},\dots,\hat{p}_{i,K}),
+	\qquad
+	\hat{p}_{i,k} = \frac{\exp(z_{i,k})}{\sum_{j=1}^{K}\exp(z_{i,j})},
+\end{equation}
+e seja \(\mathbf{y}_i = (y_{i,1},\dots,y_{i,K})\) o vetor \textit{one-hot} do rótulo verdadeiro. A perda de entropia cruzada categórica é dada por
+\begin{equation}
+	\mathcal{L}_{\text{CE}}
+	=
+	-\frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K} y_{i,k}\log(\hat{p}_{i,k}).
+\end{equation}
+No caso binário, com probabilidade escalar \(\hat{p}_i\), a versão correspondente é
+\begin{equation}
+	\mathcal{L}_{\text{BCE}}
+	=
+	-\frac{1}{N}\sum_{i=1}^{N}
+	\left[
+	y_i \log(\hat{p}_i)
+	+
+	(1-y_i)\log(1-\hat{p}_i)
+	\right].
+\end{equation}
+
+A entropia cruzada pode ser interpretada como a divergência entre a distribuição empírica dos rótulos e a distribuição predita pelo modelo. Em termos de máxima verossimilhança, sua minimização equivale a maximizar a probabilidade dos dados sob o modelo parametrizado. No entanto, em bases desbalanceadas, a entropia cruzada padrão pode ser insuficiente. Por isso, sua forma ponderada
+\begin{equation}
+	\mathcal{L}_{\text{WCE}}
+	=
+	-\frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K} w_k\, y_{i,k}\log(\hat{p}_{i,k})
+\end{equation}
+torna-se particularmente relevante, pois introduz maior penalização para erros em classes sub-representadas.
+
+Uma extensão importante nesse contexto é a \textit{Focal Loss}, proposta por Lin et al. para lidar com forte desbalanceamento e abundância de exemplos fáceis \cite{Lin2017Focal}. Para classificação binária, define-se
+\begin{equation}
+	p_t =
+	\begin{cases}
+		\hat{p}, & \text{se } y=1,\\
+		1-\hat{p}, & \text{se } y=0.
+	\end{cases}
+\end{equation}
+A \textit{Focal Loss} é então
+\begin{equation}
+	\mathcal{L}_{\text{FL}}
+	=
+	-\alpha (1-p_t)^{\gamma}\log(p_t),
+\end{equation}
+onde \(\alpha \in [0,1]\) controla o peso da classe e \(\gamma \ge 0\) é o parâmetro de focalização. Quando \(\gamma=0\), recupera-se a entropia cruzada ponderada. À medida que \(\gamma\) aumenta, a perda atribuída a exemplos bem classificados (\(p_t \approx 1\)) é reduzida:
+\begin{equation}
+	(1-p_t)^{\gamma} \to 0
+	\qquad \text{quando } p_t \to 1.
+\end{equation}
+Isso força o treinamento a concentrar-se em exemplos difíceis ou minoritários, característica especialmente valiosa em classificação médica.
+
+Outra técnica complementar é o \textit{label smoothing}, que substitui rótulos \textit{one-hot} por distribuições suavizadas:
+\begin{equation}
+	y_{i,k}^{(\epsilon)}
+	=
+	(1-\epsilon)y_{i,k} + \frac{\epsilon}{K},
+	\qquad \epsilon \in [0,1].
+\end{equation}
+A perda torna-se
+\begin{equation}
+	\mathcal{L}_{\text{LS}}
+	=
+	-\frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K}
+	y_{i,k}^{(\epsilon)}\log(\hat{p}_{i,k}),
+\end{equation}
+o que reduz excesso de confiança do classificador e pode melhorar calibração probabilística.
+
+De forma geral, a função objetivo da classificação pode ser escrita como
+\begin{equation}
+	\mathcal{J}(\boldsymbol{\theta})
+	=
+	\mathcal{L}_{\text{cls}}(\boldsymbol{\theta})
+	+
+	\lambda \Omega(\boldsymbol{\theta}),
+\end{equation}
+onde \(\mathcal{L}_{\text{cls}}\) pode ser CE, WCE, Focal Loss ou variantes, e \(\Omega(\boldsymbol{\theta})\) representa regularização explícita, como penalização \(L_2\):
+\begin{equation}
+	\Omega(\boldsymbol{\theta}) = \|\boldsymbol{\theta}\|_2^2.
+\end{equation}
+
 \subsection{Funções de perda para segmentação}
 
+Em segmentação, a função de perda deve refletir a natureza densa e espacial do problema. Para uma máscara binária \(\mathbf{Y} \in \{0,1\}^{H\times W}\) e uma predição probabilística \(\hat{\mathbf{Y}} \in [0,1]^{H\times W}\), a entropia cruzada binária pixel-wise é dada por
+\begin{equation}
+	\mathcal{L}_{\text{BCE}}
+	=
+	-\frac{1}{|\Omega|}
+	\sum_{p \in \Omega}
+	\left[
+	Y_p \log(\hat{Y}_p) + (1-Y_p)\log(1-\hat{Y}_p)
+	\right].
+\end{equation}
+Na formulação multiclasse, tem-se
+\begin{equation}
+	\mathcal{L}_{\text{CE}}
+	=
+	-\frac{1}{|\Omega|}
+	\sum_{p \in \Omega}
+	\sum_{k=1}^{K}
+	Y_{p,k}\log(\hat{P}_{p,k}).
+\end{equation}
+Embora matematicamente natural, essa perda sofre fortemente com o desbalanceamento fundo--objeto, comum em segmentação médica.
+
+Por isso, perdas baseadas em sobreposição tornaram-se amplamente adotadas. O coeficiente de Dice para segmentação binária pode ser expresso por
+\begin{equation}
+	\mathrm{Dice}(\mathbf{Y},\hat{\mathbf{Y}})
+	=
+	\frac{2\sum_{p} Y_p \hat{Y}_p + \epsilon}
+	{\sum_{p} Y_p + \sum_{p} \hat{Y}_p + \epsilon},
+\end{equation}
+onde \(\epsilon > 0\) evita instabilidade numérica. A correspondente \textit{Dice Loss} é
+\begin{equation}
+	\mathcal{L}_{\text{Dice}}
+	=
+	1 - \mathrm{Dice}(\mathbf{Y},\hat{\mathbf{Y}}).
+\end{equation}
+Essa formulação é particularmente atraente porque otimiza diretamente uma quantidade relacionada à qualidade da sobreposição entre predição e referência.
+
+Uma generalização importante é a \textit{Generalized Dice Loss}, proposta por Sudre et al. para lidar com segmentações altamente desbalanceadas \cite{Sudre2017GDL}. Para \(K\) classes, define-se
+\begin{equation}
+	\mathrm{GDL}
+	=
+	1 -
+	2
+	\frac{
+		\sum_{k=1}^{K} w_k \sum_{p} Y_{p,k}\hat{P}_{p,k}
+	}{
+		\sum_{k=1}^{K} w_k \sum_{p} \left(Y_{p,k} + \hat{P}_{p,k}\right)
+	},
+\end{equation}
+em que os pesos por classe são usualmente escolhidos como inversamente proporcionais ao quadrado do volume da classe:
+\begin{equation}
+	w_k = \frac{1}{\left(\sum_{p} Y_{p,k}\right)^2}.
+\end{equation}
+Essa escolha reduz a dominância das classes grandes, tornando a perda mais sensível às estruturas pequenas.
+
+Outra perda baseada em sobreposição é a IoU Loss, definida a partir da \textit{Intersection over Union}:
+\begin{equation}
+	\mathrm{IoU}(\mathbf{Y},\hat{\mathbf{Y}})
+	=
+	\frac{\sum_p Y_p \hat{Y}_p + \epsilon}
+	{\sum_p Y_p + \sum_p \hat{Y}_p - \sum_p Y_p \hat{Y}_p + \epsilon},
+\end{equation}
+e
+\begin{equation}
+	\mathcal{L}_{\text{IoU}} = 1 - \mathrm{IoU}(\mathbf{Y},\hat{\mathbf{Y}}).
+\end{equation}
+Enquanto Dice e IoU são correlatas,
+\begin{equation}
+	\mathrm{Dice} = \frac{2\mathrm{IoU}}{1+\mathrm{IoU}},
+\end{equation}
+cada uma pode induzir dinâmicas de otimização ligeiramente diferentes.
+
+Em muitos cenários, a melhor estratégia prática consiste em combinar perdas pixel-wise e perdas de sobreposição. Uma formulação comum é
+\begin{equation}
+	\mathcal{L}_{\text{seg}}
+	=
+	\lambda_1 \mathcal{L}_{\text{BCE}}
+	+
+	\lambda_2 \mathcal{L}_{\text{Dice}},
+	\qquad
+	\lambda_1,\lambda_2 \ge 0,
+\end{equation}
+ou, em multiclasse,
+\begin{equation}
+	\mathcal{L}_{\text{seg}}
+	=
+	\lambda_1 \mathcal{L}_{\text{CE}}
+	+
+	\lambda_2 \mathcal{L}_{\text{GDL}}.
+\end{equation}
+Essa combinação é metodologicamente útil porque a entropia cruzada fornece gradientes locais estáveis em nível de pixel, enquanto Dice/GDL alinha a otimização à métrica de sobreposição de maior interesse clínico.
+
+Em síntese, as técnicas complementares apresentadas nesta seção desempenham papel decisivo na robustez de modelos de classificação e segmentação em imagem médica. O \textit{data augmentation} atua como regularização implícita e ampliação da diversidade amostral; o balanceamento de classes corrige vieses estatísticos que tenderiam a favorecer classes majoritárias; e as funções de perda, quando adequadamente escolhidas, alinham o processo de otimização aos objetivos clínicos e geométricos da tarefa. Em bases moderadas e potencialmente desbalanceadas, como as usadas em ultrassonografia mamária, tais técnicas deixam de ser opcionais e passam a constituir parte central do protocolo metodológico.
+
 \section{Trabalhos relacionados}
+
 \subsection{Estudos sobre classificação em ultrassom mamário}
+
+A literatura recente sobre classificação de lesões em ultrassom mamário mostra uma transição relativamente clara entre duas fases metodológicas. Em uma primeira fase, predominavam abordagens baseadas em atributos manuais, seleção de características e classificadores tradicionais; em uma segunda fase, atualmente dominante, passaram a prevalecer arquiteturas de \textit{Deep Learning}, especialmente redes convolucionais profundas e, mais recentemente, modelos híbridos e transformadores visuais. Essa mudança ocorreu porque a classificação de massas em ultrassom depende fortemente de padrões locais de textura, contorno, ecogenicidade e contexto anatômico, cuja formalização manual tende a ser limitada e pouco robusta diante de ruído \textit{speckle}, baixo contraste e variabilidade de aquisição. Nesse cenário, arquiteturas profundas passaram a oferecer uma alternativa mais flexível para aprender representações discriminativas diretamente dos dados. \cite{Dan2024,Alotaibi2023USClassification}
+
+No entanto, embora o número de estudos tenha crescido substancialmente, a evidência disponível ainda é metodologicamente heterogênea. Uma revisão sistemática recente sobre desempenho diagnóstico de \textit{Deep Learning} em ultrassom mamário identificou 16 estudos envolvendo 9.238 participantes e concluiu que a evidência atual é insuficiente para afirmar, de forma conclusiva, que modelos profundos superam leitores humanos ou melhoram de forma consistente o desempenho diagnóstico em fluxos clínicos reais. O mesmo estudo destacou ausência de estudos prospectivos em ambiente de trabalho clínico, grande variabilidade metodológica e limitação de generalização como barreiras importantes à tradução clínica. Essa observação é particularmente relevante porque mostra que a área avançou rapidamente em termos algorítmicos, mas ainda convive com lacunas de padronização experimental e validação externa. \cite{Dan2024}
+
+No recorte especificamente orientado a bases públicas, o dataset BUSI tornou-se uma referência recorrente para classificação de imagens de ultrassom mamário, sobretudo por disponibilizar imagens rotuladas em três categorias --- normal, benigna e maligna --- e por conter também máscaras das lesões. Diversos estudos o utilizam para comparação entre arquiteturas \textit{off-the-shelf}, geralmente em regime de \textit{transfer learning}, com modelos como VGG, ResNet, DenseNet, EfficientNet e variantes mais recentes. Há também trabalhos que combinam pré-processamento, realce de ROI, fusão de canais e estratégias de ensemble ou meta-learning para tentar compensar o pequeno tamanho amostral da base. Em geral, esses estudos reportam desempenho promissor, mas frequentemente sob protocolos pouco uniformes de divisão treino-validação-teste, uso intensivo de aumento de dados e, em muitos casos, foco exclusivo em classificação binária benigno-versus-maligno. \cite{AlDhabyani2020,Alotaibi2023USClassification,Ali2023MetaLearning}
+
+Outro aspecto recorrente na literatura é a tentativa de ampliar desempenho por meio de modelos mais sofisticados, como ensembles, arquiteturas híbridas ou transformadores visuais. Trabalhos recentes mostram que, em BUSI, estratégias desse tipo podem produzir ganhos pontuais em acurácia, \textit{precision}, \textit{recall} e \(F_1\), mas tais avanços costumam vir acompanhados de maior complexidade computacional e, nem sempre, de protocolos suficientemente homogêneos para permitir comparação justa com arquiteturas mais clássicas. Em paralelo, parte da literatura passou a incorporar interpretabilidade visual, por exemplo via Grad-CAM, buscando responder à demanda por maior transparência em modelos de apoio ao diagnóstico. Ainda assim, permanece frequente o uso de métricas globais isoladas, especialmente acurácia, sem discussão suficiente sobre sensibilidade para malignidade, calibração, custo computacional e impacto do desbalanceamento entre classes. \cite{Latha2024EfficientNetXAI,Dan2024}
+
 \subsection{Estudos sobre segmentação em ultrassom mamário}
+
+Na tarefa de segmentação, a literatura em ultrassom mamário é dominada por arquiteturas da família U-Net e por suas numerosas variantes. Revisões recentes sobre segmentação em ultrassom médico mostram que U-Net, Attention U-Net, U-Net++, DeepLab, modelos com blocos residuais, mecanismos multi-escala e abordagens fraca ou semi-supervisionadas constituem o núcleo metodológico mais recorrente. Essa predominância não é casual: a segmentação em ultrassom é particularmente desafiadora em razão de ruído \textit{speckle}, baixo contraste, sombras acústicas, fronteiras imprecisas e elevada variabilidade entre dispositivos e operadores, o que exige modelos capazes de combinar contexto semântico e detalhe espacial com boa robustez. \cite{Xiao2025UltrasoundSegReview,Rayed2024SegSurvey}
+
+No caso específico do ultrassom de mama, a maior parte dos estudos também se apoia em BUSI, justamente por ser uma das poucas bases públicas com máscaras de lesão amplamente utilizadas. Essa disponibilidade favoreceu a proliferação de variantes da U-Net com mecanismos de atenção, blocos residuais, caminhos multi-escala e estratégias de refinamento de contorno. Como exemplo representativo, Rahmani et al. propuseram um modelo baseado em U-Net com blocos de realce de resolução e relataram melhora de segmentação sobre abordagens anteriores, reforçando a ideia de que ganhos recentes nessa tarefa derivam menos da substituição completa da família U-Net e mais da introdução de mecanismos complementares para recuperação de detalhe e focalização da região de interesse. \cite{Rahmani2024,AlDhabyani2020}
+
+Em paralelo, surgiram propostas que procuram explorar conjuntamente classificação e segmentação. Um exemplo importante é o trabalho de Aumente-Maestro et al., que propõe um arcabouço multitarefa para ultrassom mamário e, além disso, realiza curadoria explícita do BUSI, identificando irregularidades e propondo estratégia de detecção de imagens duplicadas. Os autores argumentam que a combinação entre classificação e segmentação pode explorar correlações úteis entre as tarefas e relatam ganhos relevantes em relação a abordagens estritamente \textit{single-task}. Essa linha é metodologicamente importante porque desloca a discussão de uma competição isolada entre modelos para uma visão mais integrada do problema clínico, embora ainda exija cuidado para não obscurecer a avaliação individual de cada tarefa. \cite{AumenteMaestro2025}
+
+Apesar desses avanços, a literatura de segmentação em ultrassom mamário também apresenta limitações importantes. Em muitos estudos, a comparação entre modelos é dificultada por diferenças de pré-processamento, seleção de amostras, exclusão de imagens normais, uso ou não de máscaras refinadas, métricas reportadas e critérios de curadoria da base. Além disso, como em classificação, grande parte dos resultados permanece circunscrita a validação interna em bases públicas pequenas ou moderadas, com pouca avaliação multicêntrica ou externa. Isso significa que, embora o estado da arte apresente ganhos consistentes em Dice, IoU e métricas correlatas, ainda há incerteza relevante quanto à robustez desses modelos fora do ambiente experimental em que foram treinados. \cite{Xiao2025UltrasoundSegReview,Pawlowska2023,AumenteMaestro2025}
+
 \subsection{Comparação entre literatura e proposta do trabalho}
+
+A proposta desta monografia dialoga diretamente com essa literatura, mas adota um recorte metodológico mais controlado e explicitamente comparativo. Em vez de apresentar apenas um novo classificador, apenas um novo segmentador ou um único modelo multitarefa, o trabalho organiza a investigação em dois eixos independentes: classificação e segmentação. Essa decisão responde a um problema recorrente na literatura recente: a tendência de comparar de forma indireta modelos desenhados para tarefas diferentes ou de discutir desempenho global sem separar adequadamente objetivos semânticos e espaciais. Ao estruturar um eixo classificatório e um eixo segmentador com arquiteturas representativas em cada caso, a proposta permite uma comparação mais justa e interpretável. \cite{Dan2024,AumenteMaestro2025}
+
+Outra diferença importante em relação a muitos estudos prévios é a ênfase simultânea em desempenho preditivo e custo computacional. Embora vários trabalhos recentes reportem acurácia, Dice ou IoU elevados, é menos comum encontrar análises comparativas sistemáticas que incluam, lado a lado, número de parâmetros, tempo de treinamento, latência de inferência e relação entre ganho de desempenho e custo operacional. Essa dimensão é central nesta monografia porque a utilidade prática de um modelo de apoio ao diagnóstico não depende apenas de sua métrica absoluta, mas também de sua viabilidade de treinamento, implantação e uso em ambientes com recursos computacionais limitados. \cite{Dan2024,Rayed2024SegSurvey}
+
+A proposta também se diferencia por assumir, desde o desenho metodológico, a necessidade de curadoria e leitura crítica do BUSI. Trabalhos recentes mostraram que o conjunto contém inconsistências com potencial impacto sobre os resultados, incluindo duplicatas, quase duplicatas e problemas na integridade experimental de parte das amostras. Ao incorporar essa discussão ao próprio protocolo, o presente estudo busca evitar um problema relativamente frequente na literatura: reportar desempenho alto sobre uma base pública sem discutir de forma suficiente as implicações da qualidade do dado sobre a validade da comparação entre modelos. \cite{Pawlowska2023,AumenteMaestro2025}
+
 \subsection{Lacunas identificadas}
+
+A primeira lacuna identificada na literatura diz respeito à padronização metodológica. Estudos de classificação e segmentação em ultrassom mamário frequentemente utilizam protocolos distintos de divisão dos dados, aumentos artificiais muito diferentes, critérios variados de inclusão e exclusão, e métricas nem sempre comparáveis. Como consequência, resultados reportados em artigos diferentes tornam-se difíceis de interpretar em conjunto, o que enfraquece a capacidade de inferir quais arquiteturas são realmente mais adequadas para cada tarefa. \cite{Dan2024,Xiao2025UltrasoundSegReview}
+
+A segunda lacuna refere-se à própria base empírica dos estudos. Embora o BUSI seja amplamente utilizado, sua centralidade na literatura vem acompanhada de uma dependência excessiva de um único dataset pequeno e potencialmente problemático. Parte importante dos trabalhos utiliza apenas BUSI, muitas vezes sem curadoria explícita, e vários estudos restringem-se a subconjuntos binários benigno-versus-maligno, excluindo a classe normal ou descartando imagens sem justificativa metodológica suficientemente detalhada. Isso limita tanto a validade externa quanto a comparabilidade entre trabalhos. \cite{AlDhabyani2020,Pawlowska2023,AumenteMaestro2025}
+
+A terceira lacuna é a ausência, em muitos estudos, de uma análise integrada entre desempenho, generalização e custo computacional. Ainda predomina uma lógica de maximização de métricas finais, com menos atenção à estabilidade do treinamento, à sensibilidade para casos malignos, à latência de inferência e ao impacto do tamanho do modelo. Em aplicações médicas, contudo, esses fatores são decisivos para transição entre prova de conceito experimental e uso prático. \cite{Dan2024,Rayed2024SegSurvey}
+
+Por fim, observa-se uma lacuna conceitual importante: a literatura ainda carece de estudos comparativos que tratem classificação e segmentação como tarefas complementares, mas não equivalentes, e que avaliem arquiteturas representativas de cada eixo sob um protocolo único, curado e metodologicamente coerente. É precisamente nesse espaço que esta monografia se posiciona: ao comparar modelos de classificação e segmentação em ultrassom mamário dentro de um mesmo ambiente experimental controlado, com ênfase em desempenho, custo computacional e leitura crítica da base de dados, o trabalho busca contribuir menos com a proposição de uma arquitetura inédita e mais com uma avaliação comparativa robusta, transparente e cientificamente defensável. \cite{Dan2024,AumenteMaestro2025,Pawlowska2023}
 
 \chapter{Materiais e Métodos}
 
