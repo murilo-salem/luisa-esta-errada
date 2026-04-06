@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{pgfplots}
 \usepackage{tikz}
+\usepackage{url}
 \usetikzlibrary{positioning,arrows.meta}
 \usepackage{booktabs}
 \usepackage{pgfplotstable}
@@ -4058,6 +4059,13 @@ As curvas de \textit{loss} são particularmente importantes porque permitem insp
 
 Abaixo está um bloco em \LaTeX{} para inclusão das curvas de \textit{loss} de treino e validação. O código pressupõe que os arquivos \texttt{history.csv} dos melhores \textit{trials} estejam acessíveis no mesmo ambiente de compilação da monografia. Caso os caminhos precisem ser adaptados ao projeto local, basta ajustar o campo \texttt{table=}.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.95\linewidth]{../../Documents/comparativo_train_val_loss_por_epoca_4_modelos}
+	\caption{}
+	\label{fig:comparativotrainvallossporepoca4modelos}
+\end{figure}
+
 
 Do ponto de vista interpretativo, espera-se que a ResNet50 apresente uma trajetória de convergência estável, em consonância com seu melhor desempenho final em macro-\(F_1\), macro-AUC e sensibilidade para a classe maligna. A VGG16, por outro lado, por ter encerrado o treinamento em apenas 10 épocas e por apresentar o pior desempenho final entre os quatro modelos, tende a exibir estabilização precoce e menor capacidade de refinamento ao longo do treinamento. A ConvNeXt-Large, devido à sua alta capacidade e maior custo computacional, é a arquitetura em que sinais de oscilação ou divergência entre treino e validação merecem leitura mais atenta. A EfficientNet-B0, por sua compactação paramétrica, tende a ocupar uma posição intermediária, conciliando convergência relativamente estável e boa eficiência. 
 
@@ -4066,6 +4074,13 @@ Do ponto de vista interpretativo, espera-se que a ResNet50 apresente uma trajet�
 As curvas de acurácia complementam a análise de \textit{loss} ao evidenciar a evolução da capacidade discriminativa do modelo durante o treinamento. Em uma dinâmica saudável de aprendizado, observa-se crescimento inicial rápido da \textit{train accuracy}, seguido de estabilização da \textit{validation accuracy}. Diferenças excessivas e persistentes entre ambas podem sinalizar que o modelo aprendeu padrões específicos do conjunto de treino sem preservar generalização sobre dados não vistos. No contexto deste trabalho, essa análise é importante porque os resultados finais mostram que a ResNet50 e a ConvNeXt-Large atingiram a mesma \textit{accuracy} de teste (\(0{,}8729\)), mas com perfis computacionais muito diferentes, enquanto a EfficientNet-B0 apresentou desempenho competitivo com custo muito menor. 
 
 O gráfico a seguir permite incorporar as curvas de \textit{accuracy} de treino e validação diretamente em \LaTeX{}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.95\linewidth]{../../Documents/comparativo_train_val_acuracia_por_epoca_4_modelos}
+	\caption{}
+	\label{fig:comparativotrainvalacuraciaporepoca4modelos}
+\end{figure}
 
 Em leitura esperada dessas curvas, a ResNet50 deve apresentar crescimento consistente da \textit{train accuracy} acompanhado por validação relativamente estável, coerente com seu melhor macro-\(F_1\) final. A ConvNeXt-Large, ainda que muito forte em recuperação global, tende a demandar maior cautela interpretativa, pois seu grande número de parâmetros aumenta a possibilidade de distância entre desempenho em treino e validação. A EfficientNet-B0, por ser muito mais leve, tende a revelar comportamento mais econômico, com menor risco de explosão de capacidade e maior relação entre desempenho e custo. Já a VGG16, além de inferior em métrica final, encerrou seu melhor \textit{trial} de forma mais precoce, o que pode refletir estabilização rápida ou incapacidade de avançar em generalização sem intensificar o risco de sobreajuste.
 
@@ -4089,6 +4104,22 @@ A classe \textit{benign} apresentou o melhor desempenho com a arquitetura ConvNe
 
 A VGG16 apresentou a maior \textit{precision} nessa classe, com valor de \(0{,}918\), mas com \textit{recall} inferior (\(0{,}848\)). Esse comportamento indica um classificador mais conservador: quando prediz \textit{benign}, tende a acertar com frequência relativamente alta, mas deixa de recuperar uma parcela maior de casos efetivamente benignos. Em aplicações práticas, isso pode significar menor propensão a rotular casos ambíguos como benignos, mas também maior sensibilidade a deslocar lesões benignas para classes mais preocupantes.
 
+\begin{table}[h]
+	\centering
+	\caption{Resultados da classificação para a classe \textit{normal} no conjunto de teste.}
+	\label{tab:resultados_normal}
+	\begin{tabular}{lcccc}
+		\hline
+		\textbf{Arquitetura} & \textbf{Precision} & \textbf{Recall} & \textbf{\(F_1\)} & \textbf{AUC} \\
+		\hline
+		VGG16            & 0{,}902 & 0{,}833 & 0{,}866 & 0{,}930 \\
+		ResNet50         & 0{,}932 & 0{,}833 & 0{,}880 & 0{,}968 \\
+		EfficientNet-B0  & 0{,}917 & 0{,}833 & 0{,}873 & 0{,}946 \\
+		ConvNeXt-Large   & 0{,}964 & 0{,}818 & 0{,}885 & 0{,}951 \\
+		\hline
+	\end{tabular}
+\end{table}
+
 Os erros benignos mais recorrentes concentraram-se em falsos positivos para a classe \textit{malignant}, especialmente nos casos \texttt{benign\_131}, \texttt{benign\_360}, \texttt{benign\_88} e \texttt{benign\_420}. Esse padrão é coerente com a natureza do problema: lesões benignas com heterogeneidade interna, sombra posterior ou contornos menos regulares podem compartilhar atributos com massas suspeitas, levando o modelo a assumir uma postura mais cautelosa. Sob uma perspectiva clínica, essa tendência é menos grave do que o erro inverso, mas ainda assim contribui para redução da especificidade operacional.
 
 \subsection{Desempenho na classe malignant}
@@ -4097,6 +4128,22 @@ A classe \textit{malignant} foi a mais relevante do ponto de vista clínico e ap
 
 Esse resultado é particularmente importante porque mostra que o melhor modelo global não coincide necessariamente com o melhor modelo para a classe de maior interesse clínico. Embora a ConvNeXt-Large tenha apresentado o melhor desempenho agregado em \textit{accuracy}, macro-\(F_1\) e macro-AUC, a ResNet50 foi a arquitetura mais sensível para identificar malignidade. Em cenários de triagem ou de apoio diagnóstico com prioridade em minimizar falsos negativos de câncer, essa diferença é decisiva.
 
+\begin{table}[h]
+	\centering
+	\caption{Resultados da classificação para a classe \textit{malignant} no conjunto de teste.}
+	\label{tab:resultados_malignant}
+	\begin{tabular}{lcccc}
+		\hline
+		\textbf{Arquitetura} & \textbf{Precision} & \textbf{Recall} & \textbf{$F_1$} & \textbf{AUC} \\
+		\hline
+		VGG16            & 0{,}784 & 0{,}906 & 0{,}841 & 0{,}978 \\
+		ResNet50         & 0{,}775 & 0{,}969 & 0{,}861 & 0{,}988 \\
+		EfficientNet-B0  & 0{,}775 & 0{,}969 & 0{,}861 & 0{,}971 \\
+		ConvNeXt-Large   & 0{,}816 & 0{,}969 & 0{,}886 & 0{,}970 \\
+		\hline
+	\end{tabular}
+\end{table}
+
 Em contrapartida, a maior \textit{precision} para a classe \textit{malignant} foi obtida pela EfficientNet-B0, com valor de \(0{,}844\). Isso sugere um perfil menos “alarmista”: quando o modelo prediz \textit{malignant}, tende a fazê-lo com maior parcimônia, reduzindo falsos positivos nessa classe. O custo dessa escolha, entretanto, foi a perda de sensibilidade. Em outras palavras, a EfficientNet-B0 foi mais seletiva ao sinalizar malignidade, mas também deixou escapar um número maior de casos realmente malignos.
 
 \subsection{Desempenho na classe normal}
@@ -4104,6 +4151,22 @@ Em contrapartida, a maior \textit{precision} para a classe \textit{malignant} fo
 A classe \textit{normal} foi a mais difícil no conjunto avaliado. Em média, entre os modelos, observou-se \textit{precision} de \(0{,}765\), \textit{recall} de \(0{,}738\) e \(F_1\) de \(0{,}740\). Esses valores foram inferiores aos observados para \textit{benign} e, em parte, também inferiores ao comportamento da classe \textit{malignant}, evidenciando que a distinção entre normalidade e presença de lesão não foi trivial para as arquiteturas avaliadas.
 
 O melhor \textit{recall} para a classe \textit{normal} foi obtido pela EfficientNet-B0, com \(0{,}850\), enquanto a ConvNeXt-Large apresentou a melhor combinação entre \textit{precision} e \(F_1\), com \(0{,}938\) e \(0{,}833\), respectivamente. Essa diferença de perfil revela duas estratégias distintas de decisão: a EfficientNet-B0 foi mais capaz de recuperar casos normais, enquanto a ConvNeXt-Large foi mais precisa ao rotular um exame como normal.
+
+\begin{table}[h]
+	\centering
+	\caption{Resultados da classificação para a classe \textit{normal} no conjunto de teste.}
+	\label{tab:resultados_normal}
+	\begin{tabular}{lcccc}
+		\hline
+		\textbf{Arquitetura} & \textbf{Precision} & \textbf{Recall} & \textbf{\(F_1\)} & \textbf{AUC} \\
+		\hline
+		VGG16            & 0{,}902 & 0{,}833 & 0{,}866 & 0{,}930 \\
+		ResNet50         & 0{,}932 & 0{,}833 & 0{,}880 & 0{,}968 \\
+		EfficientNet-B0  & 0{,}917 & 0{,}833 & 0{,}873 & 0{,}946 \\
+		ConvNeXt-Large   & 0{,}964 & 0{,}818 & 0{,}885 & 0{,}951 \\
+		\hline
+	\end{tabular}
+\end{table}
 
 A dificuldade dessa classe deve ser interpretada à luz de dois fatores. O primeiro é o baixo suporte no conjunto de teste, de apenas 20 casos, o que aumenta a instabilidade das métricas. O segundo é a própria natureza visual do ultrassom mamário: exames normais podem conter artefatos, regiões hipoecoicas localizadas e variações texturais que levam o modelo a superdiagnosticar lesão. Em termos práticos, isso significa que a classe \textit{normal} tende a ser “puxada” para \textit{benign} ou \textit{malignant}, refletindo uma propensão dos modelos a suspeitar de anormalidade diante de sinais ambíguos.
 
@@ -4240,12 +4303,22 @@ Além disso, a busca com Optuna para a ConvNeXt-Large mostrou que o melhor \text
 \subsection{Número de parâmetros por modelo}
 
 As diferenças de complexidade paramétrica entre os modelos foram muito grandes:
-\begin{itemize}
-	\item ConvNeXt-Large: \(196{,}2\) milhões;
-	\item VGG16: \(134{,}3\) milhões;
-	\item ResNet50: \(23{,}5\) milhões;
-	\item EfficientNet-B0: \(4{,}0\) milhões.
-\end{itemize}
+
+\begin{table}[h]
+	\centering
+	\caption{Número de parâmetros treináveis das arquiteturas avaliadas.}
+	\label{tab:parametros_modelos}
+	\begin{tabular}{lc}
+		\hline
+		\textbf{Arquitetura} & \textbf{Parâmetros (milhões)} \\
+		\hline
+		ConvNeXt-Large  & 196{,}2 \\
+		VGG16           & 134{,}3 \\
+		ResNet50        & 23{,}5 \\
+		EfficientNet-B0 & 4{,}0 \\
+		\hline
+	\end{tabular}
+\end{table}
 
 Esses números mostram que a comparação entre arquiteturas não pode ser feita apenas em termos de acurácia. A ConvNeXt-Large operou com uma escala paramétrica quase cinquenta vezes superior à EfficientNet-B0, o que altera profundamente custo de armazenamento, tempo de carregamento, demanda de memória e viabilidade de implantação.
 

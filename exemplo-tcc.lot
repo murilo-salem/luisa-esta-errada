@@ -35,11 +35,15 @@
 \contentsline {table}{\numberline {Tabela\ 21}{\ignorespaces Comparações relativas de eficiência computacional}}{170}{table.caption.25}%
 \contentsline {table}{\numberline {Tabela\ 22}{\ignorespaces Métricas destacadas da VGG16 na comparação final}}{170}{table.caption.26}%
 \contentsline {table}{\numberline {Tabela\ 23}{\ignorespaces Indicadores que sustentam a ResNet50 como melhor modelo em desempenho absoluto}}{171}{table.caption.27}%
+\contentsline {table}{\numberline {Tabela\ 24}{\ignorespaces Resultados da classificação para a classe \textit {normal} no conjunto de teste.}}{175}{table.caption.30}%
+\contentsline {table}{\numberline {Tabela\ 25}{\ignorespaces Resultados da classificação para a classe \textit {malignant} no conjunto de teste.}}{176}{table.caption.31}%
+\contentsline {table}{\numberline {Tabela\ 26}{\ignorespaces Resultados da classificação para a classe \textit {normal} no conjunto de teste.}}{177}{table.caption.32}%
+\contentsline {table}{\numberline {Tabela\ 27}{\ignorespaces Número de parâmetros treináveis das arquiteturas avaliadas.}}{182}{table.caption.33}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {Tabela\ 24}{\ignorespaces Hiperparâmetros e configurações de treinamento adotados}}{186}{table.caption.28}%
-\contentsline {table}{\numberline {Tabela\ 25}{\ignorespaces Resultados consolidados dos modelos de segmentação no conjunto de teste.}}{187}{table.caption.29}%
-\contentsline {table}{\numberline {Tabela\ 26}{\ignorespaces Número de parâmetros das arquiteturas de segmentação}}{194}{table.caption.30}%
-\contentsline {table}{\numberline {Tabela\ 27}{\ignorespaces Tempo médio de inferência por imagem das arquiteturas de segmentação}}{194}{table.caption.31}%
+\contentsline {table}{\numberline {Tabela\ 28}{\ignorespaces Hiperparâmetros e configurações de treinamento adotados}}{187}{table.caption.34}%
+\contentsline {table}{\numberline {Tabela\ 29}{\ignorespaces Resultados consolidados dos modelos de segmentação no conjunto de teste.}}{188}{table.caption.35}%
+\contentsline {table}{\numberline {Tabela\ 30}{\ignorespaces Número de parâmetros das arquiteturas de segmentação}}{195}{table.caption.36}%
+\contentsline {table}{\numberline {Tabela\ 31}{\ignorespaces Tempo médio de inferência por imagem das arquiteturas de segmentação}}{195}{table.caption.37}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
