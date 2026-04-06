@@ -3416,77 +3416,230 @@ Após a seleção por validação, o pipeline recarrega o \texttt{best\_model.pt
 
 \section{Métricas de avaliação}
 
+A avaliação do desempenho dos modelos foi concebida para capturar diferentes dimensões da tarefa de classificação: desempenho global, comportamento médio entre classes, sensibilidade à classe clinicamente mais crítica e capacidade discriminativa probabilística. Em problemas de imagem médica, especialmente sob desbalanceamento de classes, a análise por uma única métrica tende a ser insuficiente, pois diferentes indicadores enfatizam propriedades distintas do classificador. Por essa razão, o pipeline foi estruturado para produzir métricas agregadas, métricas ponderadas, métricas por classe, matriz de confusão, curvas ROC no esquema \textit{one-vs-rest} e arquivos com probabilidades preditas por imagem.
+
+Seja um problema multiclasse com conjunto de classes
+\[
+\mathcal{C} = \{1,2,\dots,K\},
+\]
+e seja \(N\) o número total de amostras do conjunto avaliado. Para cada classe \(k \in \mathcal{C}\), definem-se:
+\begin{itemize}
+	\item \(TP_k\): verdadeiros positivos da classe \(k\);
+	\item \(FP_k\): falsos positivos da classe \(k\);
+	\item \(FN_k\): falsos negativos da classe \(k\);
+	\item \(TN_k\): verdadeiros negativos da classe \(k\).
+\end{itemize}
+
+No esquema multiclasse, esses valores são obtidos por decomposição \textit{one-vs-rest}, isto é, cada classe é tratada como positiva contra a união das demais. A partir dessas quantidades, torna-se possível derivar métricas por classe e, posteriormente, resumí-las por médias macro e ponderadas.
+
 \subsection{Métricas de classificação}
 
-As métricas de classificação foram implementadas para oferecer uma avaliação global, ponderada e por classe, com ênfase especial no comportamento da classe maligna. Além das métricas agregadas, o pipeline gera matriz de confusão, curvas ROC \textit{one-vs-rest} e um arquivo de predições contendo probabilidades por classe para cada imagem.
+As métricas de classificação foram organizadas em três níveis complementares:
+\begin{enumerate}
+	\item \textbf{métricas globais}, que oferecem uma visão resumida do comportamento do modelo no conjunto completo;
+	\item \textbf{métricas macro}, que atribuem o mesmo peso a todas as classes, independentemente do suporte;
+	\item \textbf{métricas ponderadas}, que levam em conta o número de amostras por classe.
+\end{enumerate}
+
+Essa organização é particularmente importante no presente estudo, pois a tarefa envolve três classes (\textit{benign}, \textit{malignant} e \textit{normal}) com distribuição desigual no dataset. Em tal contexto, métricas baseadas apenas em frequência global poderiam superestimar o desempenho do modelo na classe majoritária e subestimar falhas nas classes de maior interesse clínico.
+
+A Tabela~\ref{tab:classification_metrics_summary} resume as principais métricas utilizadas na classificação.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Resumo das métricas adotadas na avaliação dos modelos de classificação.}
+	\label{tab:classification_metrics_summary}
+	\begin{tabular}{p{3.4cm} p{4.6cm} p{6.2cm}}
+		\hline
+		\textbf{Métrica} & \textbf{Formulação geral} & \textbf{Objetivo interpretativo} \\[0.2cm]
+		\hline
+		Accuracy & fração global de acertos & medir desempenho total do classificador \\
+		Precision & \(TP/(TP+FP)\) & quantificar confiabilidade das predições positivas \\
+		Recall / Sensibilidade & \(TP/(TP+FN)\) & medir capacidade de recuperar casos realmente positivos \\
+		F1-score & média harmônica entre \textit{precision} e \textit{recall} & equilibrar sensibilidade e precisão \\
+		AUC-ROC & área sob a curva ROC & medir separabilidade probabilística entre classes \\
+		Especificidade & \(TN/(TN+FP)\) & medir capacidade de rejeitar corretamente os negativos \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Além dessas métricas, o pipeline produz:
+\begin{itemize}
+	\item matriz de confusão;
+	\item curvas ROC no esquema \textit{one-vs-rest};
+	\item arquivo de predições contendo, para cada imagem, o rótulo previsto e as probabilidades associadas a cada classe.
+\end{itemize}
+
+Esse conjunto de saídas torna a avaliação mais robusta, pois permite analisar simultaneamente decisão discreta, separabilidade probabilística e estrutura dos erros.
 
 \subsubsection{Accuracy}
 
-A \textit{accuracy} mede a proporção global de predições corretas. Embora seja intuitiva e útil como visão geral, sua interpretação isolada é insuficiente em cenários desbalanceados, pois pode mascarar desempenho insatisfatório em classes menos frequentes.
+A \textit{accuracy} mede a proporção global de predições corretas em relação ao número total de amostras avaliadas. Seja \(\hat{y}_i\) o rótulo predito para a amostra \(i\) e \(y_i\) o rótulo verdadeiro. Então,
+\[
+\text{Accuracy}
+=
+\frac{1}{N}\sum_{i=1}^{N}\mathbf{1}(\hat{y}_i = y_i),
+\]
+onde \(\mathbf{1}(\cdot)\) é a função indicadora.
+
+Em termos de matriz de confusão multiclasse, a \textit{accuracy} também pode ser interpretada como a soma dos elementos da diagonal principal dividida pelo total de amostras:
+\[
+\text{Accuracy}
+=
+\frac{\sum_{k=1}^{K} M_{kk}}{\sum_{i=1}^{K}\sum_{j=1}^{K} M_{ij}},
+\]
+em que \(M_{ij}\) representa o número de exemplos cuja classe verdadeira é \(i\) e cuja classe predita é \(j\).
+
+Embora seja uma métrica intuitiva e útil como visão geral, sua interpretação isolada é limitada em contextos desbalanceados. Isso ocorre porque a \textit{accuracy} pode permanecer relativamente alta mesmo quando o modelo apresenta desempenho insatisfatório em classes menos frequentes, especialmente se essas classes forem clinicamente relevantes. Por essa razão, no presente trabalho a \textit{accuracy} foi interpretada sempre em conjunto com métricas mais sensíveis ao comportamento por classe.
 
 \subsubsection{Precision}
 
-A \textit{precision} quantifica a proporção de predições positivas corretas. O pipeline registra \texttt{macro precision}, \texttt{weighted precision} e \textit{precision} por classe, o que permite analisar tanto desempenho médio quanto comportamento específico de cada rótulo.
+A \textit{precision} quantifica a proporção de exemplos preditos como pertencentes a uma classe que realmente pertencem a essa classe. Para cada classe \(k\), define-se:
+\[
+\text{Precision}_k
+=
+\frac{TP_k}{TP_k + FP_k}.
+\]
+
+Essa métrica é útil para avaliar o grau de confiabilidade das predições positivas do modelo. Em termos práticos, alta \textit{precision} para uma classe indica que, quando o modelo decide por aquele rótulo, tende a cometer relativamente poucos falsos positivos.
+
+No caso multiclasse, o pipeline registra:
+\begin{itemize}
+	\item \textbf{precision por classe}, para análise individual de cada rótulo;
+	\item \textbf{macro precision}, definida por
+	\[
+	\text{Macro Precision}
+	=
+	\frac{1}{K}\sum_{k=1}^{K}\text{Precision}_k;
+	\]
+	\item \textbf{weighted precision}, definida por
+	\[
+	\text{Weighted Precision}
+	=
+	\sum_{k=1}^{K}\frac{n_k}{N}\,\text{Precision}_k,
+	\]
+	em que \(n_k\) é o número de amostras da classe \(k\).
+\end{itemize}
+
+A média macro atribui o mesmo peso a todas as classes, enquanto a média ponderada reflete a distribuição real do conjunto de dados. Em problemas médicos, essa distinção é importante porque classes menos frequentes podem ser justamente as mais críticas do ponto de vista clínico.
 
 \subsubsection{Recall / Sensibilidade}
 
-O \textit{recall}, ou sensibilidade, mede a capacidade de recuperar corretamente os exemplos positivos. No problema estudado, o \texttt{malignant\_recall} recebe atenção especial, por refletir diretamente a sensibilidade do modelo à classe clinicamente mais crítica.
+O \textit{recall}, também chamado de sensibilidade, mede a capacidade do classificador de recuperar corretamente os exemplos positivos de uma determinada classe. Para cada classe \(k\), tem-se:
+\[
+\text{Recall}_k
+=
+\frac{TP_k}{TP_k + FN_k}.
+\]
+
+Em contextos clínicos, essa métrica é particularmente relevante porque falsos negativos podem ter custo elevado. No presente estudo, isso é especialmente verdadeiro para a classe \textit{malignant}, cuja perda implica deixar de sinalizar uma lesão potencialmente cancerígena. Por essa razão, além do \textit{macro recall}, o pipeline monitora explicitamente o \texttt{malignant\_recall} como indicador de sensibilidade clínica.
+
+As médias agregadas são calculadas por:
+\[
+\text{Macro Recall}
+=
+\frac{1}{K}\sum_{k=1}^{K}\text{Recall}_k
+\]
+e
+\[
+\text{Weighted Recall}
+=
+\sum_{k=1}^{K}\frac{n_k}{N}\,\text{Recall}_k.
+\]
+
+No contexto desta pesquisa, o \textit{recall} da classe \textit{malignant} tem papel interpretativo central, pois um modelo com bom desempenho médio, mas sensibilidade insuficiente para malignidade, pode ser inadequado como ferramenta de apoio à triagem.
 
 \subsubsection{F1-score}
 
-O \(F_1\)-\textit{score} combina \textit{precision} e \textit{recall} em uma média harmônica. O pipeline utiliza o \texttt{macro\_f1} como métrica primária de seleção na classificação, justamente por reduzir o risco de favorecer artificialmente a classe majoritária.
+O \(F_1\)-\textit{score} combina \textit{precision} e \textit{recall} em uma média harmônica, sendo definido, para cada classe \(k\), por:
+\[
+F1_k
+=
+\frac{2 \cdot \text{Precision}_k \cdot \text{Recall}_k}
+{\text{Precision}_k + \text{Recall}_k}.
+\]
+
+Essa formulação penaliza situações em que uma das duas métricas é alta e a outra é baixa, o que torna o \(F_1\)-\textit{score} particularmente útil quando se deseja equilíbrio entre sensibilidade e confiabilidade das predições.
+
+As formas agregadas utilizadas no pipeline foram:
+\[
+\text{Macro F1}
+=
+\frac{1}{K}\sum_{k=1}^{K} F1_k
+\]
+e
+\[
+\text{Weighted F1}
+=
+\sum_{k=1}^{K}\frac{n_k}{N}\,F1_k.
+\]
+
+No presente trabalho, o \(\texttt{macro\_f1}\) foi adotado como métrica primária de seleção dos modelos de classificação. Essa escolha é metodologicamente apropriada porque reduz o risco de favorecer artificialmente o desempenho na classe majoritária e força o classificador a manter comportamento mais equilibrado entre as três categorias do problema.
 
 \subsubsection{AUC-ROC}
 
-A AUC-ROC é calculada em esquema \textit{one-vs-rest}, tanto em versão macro quanto ponderada. Essa métrica é importante porque avalia a separabilidade entre classes independentemente de um único limiar de decisão.
+A AUC-ROC (\textit{Area Under the Receiver Operating Characteristic Curve}) foi utilizada para medir a capacidade do modelo de separar probabilisticamente as classes, independentemente de um único limiar de decisão. Em problemas multiclasse, a avaliação foi realizada no esquema \textit{one-vs-rest}. Para cada classe \(k\), considera-se a distinção entre:
+\[
+\text{classe } k
+\quad \text{vs.} \quad
+\mathcal{C}\setminus\{k\}.
+\]
+
+A curva ROC é construída a partir da relação entre taxa de verdadeiros positivos (\textit{True Positive Rate}, TPR) e taxa de falsos positivos (\textit{False Positive Rate}, FPR):
+\[
+\text{TPR}_k
+=
+\frac{TP_k}{TP_k + FN_k},
+\qquad
+\text{FPR}_k
+=
+\frac{FP_k}{FP_k + TN_k}.
+\]
+
+A AUC corresponde à área sob essa curva:
+\[
+\text{AUC}_k
+=
+\int_0^1 \text{TPR}_k(\text{FPR}) \, d(\text{FPR}).
+\]
+
+No pipeline, foram registradas:
+\begin{itemize}
+	\item \textbf{AUC por classe}, para inspeção individual;
+	\item \textbf{macro AUC}, definida por
+	\[
+	\text{Macro AUC}
+	=
+	\frac{1}{K}\sum_{k=1}^{K}\text{AUC}_k;
+	\]
+	\item \textbf{weighted AUC}, definida por
+	\[
+	\text{Weighted AUC}
+	=
+	\sum_{k=1}^{K}\frac{n_k}{N}\,\text{AUC}_k.
+	\]
+\end{itemize}
+
+A vantagem da AUC-ROC é que ela avalia separabilidade probabilística sem depender diretamente da regra final de \textit{argmax}. Isso é particularmente útil em imagem médica, onde o modelo pode conter sinal discriminativo relevante mesmo quando sua decisão discreta final ainda é subótima.
 
 \subsubsection{Especificidade}
 
-A especificidade é registrada por classe e mede a capacidade do modelo de identificar corretamente os casos negativos em relação a um rótulo considerado. Sua presença complementa a análise de sensibilidade, especialmente em problemas médicos.
+A especificidade mede a capacidade do modelo de identificar corretamente os exemplos negativos em relação a uma classe tomada como positiva. Para a classe \(k\), define-se:
+\[
+\text{Specificity}_k
+=
+\frac{TN_k}{TN_k + FP_k}.
+\]
 
-\subsection{Métricas de segmentação}
+Essa métrica complementa o \textit{recall}. Enquanto a sensibilidade mede o quanto o modelo recupera corretamente os casos positivos, a especificidade mede o quanto ele evita alarmes indevidos sobre os casos negativos. Em aplicações médicas, ambas são necessárias para compreender o equilíbrio entre detecção e contenção de falsos positivos.
 
-As métricas de segmentação são calculadas a partir das contagens binárias por pixel: verdadeiros positivos, falsos positivos, falsos negativos e verdadeiros negativos. O pipeline registra métricas agregadas, métricas por imagem, métricas por classe e estatísticas estruturais relacionadas à quantidade de pixels positivos previstos e observados.
+No presente trabalho, a especificidade foi registrada por classe, o que permite, por exemplo, analisar se o modelo detecta bem lesões malignas à custa de exagerar excessivamente o número de exames normais ou benignos classificados como suspeitos. Assim, a inclusão da especificidade fortalece a interpretação clínica da classificação e evita análises excessivamente centradas apenas em sensibilidade.
 
-\subsubsection{IoU}
+Em síntese, o conjunto de métricas adotado nesta pesquisa foi construído para oferecer uma avaliação abrangente da classificação multiclasse em ultrassom mamário. A combinação entre \textit{accuracy}, \textit{precision}, \textit{recall}, \(F_1\)-\textit{score}, AUC-ROC e especificidade, aliada à análise por classe e à inspeção probabilística, fornece uma base mais robusta para julgar os modelos do que qualquer métrica isolada.
 
-A \textit{Intersection over Union} (IoU) mede a razão entre a interseção e a união das máscaras predita e de referência. É uma métrica de sobreposição espacial altamente informativa para qualidade segmentadora global.
+\subsection{Métricas de segmentação} Na tarefa de segmentação, a avaliação foi estruturada a partir da comparação pixel a pixel entre a máscara predita pelo modelo e a máscara de referência anotada no dataset. Diferentemente da classificação, em que a saída é um único rótulo por imagem, a segmentação exige mensurar simultaneamente qualidade de contorno, cobertura da região-alvo e tendência do modelo a subsegmentar ou sobresegmentar a lesão. Para isso, o pipeline foi construído com base em contagens binárias por pixel, a partir das quais são derivadas métricas de sobreposição, sensibilidade espacial e precisão da máscara. Seja \(\Omega\) o domínio discreto da imagem, com \(|\Omega| = H \times W\), e sejam \[ Y(p) \in \{0,1\} \qquad \text{e} \qquad \hat{Y}(p) \in \{0,1\}, \] respectivamente, a máscara de referência e a máscara predita para cada pixel \(p \in \Omega\). A partir dessas máscaras binárias, definem-se: \begin{itemize} \item \(TP\): número de pixels corretamente classificados como pertencentes à lesão; \item \(FP\): número de pixels preditos como lesão, mas pertencentes ao fundo; \item \(FN\): número de pixels da lesão não recuperados pela predição; \item \(TN\): número de pixels corretamente classificados como fundo. \end{itemize} Formalmente, essas quantidades podem ser escritas como: \[ TP = \sum_{p \in \Omega} \mathbf{1}\big(Y(p)=1 \wedge \hat{Y}(p)=1\big), \] \[ FP = \sum_{p \in \Omega} \mathbf{1}\big(Y(p)=0 \wedge \hat{Y}(p)=1\big), \] \[ FN = \sum_{p \in \Omega} \mathbf{1}\big(Y(p)=1 \wedge \hat{Y}(p)=0\big), \] \[ TN = \sum_{p \in \Omega} \mathbf{1}\big(Y(p)=0 \wedge \hat{Y}(p)=0\big). \] A partir dessas contagens, o pipeline calcula métricas agregadas, métricas por imagem, métricas por classe e estatísticas estruturais relacionadas à quantidade de pixels positivos previstos e observados. Essa estratégia é metodologicamente importante porque permite analisar a segmentação em múltiplos níveis: desempenho médio do modelo, comportamento em casos específicos e tendência estrutural à expansão ou retração da máscara. A Tabela~\ref{tab:segmentation_metrics_summary} resume as principais métricas empregadas na avaliação segmentadora. \begin{table}[htbp] \centering \caption{Resumo das métricas adotadas na avaliação dos modelos de segmentação.} \label{tab:segmentation_metrics_summary} \begin{tabular}{p{3.4cm} p{4.8cm} p{6.0cm}} \hline \textbf{Métrica} & \textbf{Formulação geral} & \textbf{Objetivo interpretativo} \\[0.2cm] \hline IoU & \(\dfrac{TP}{TP+FP+FN}\) & medir sobreposição espacial entre predição e referência \\ Dice Score & \(\dfrac{2TP}{2TP+FP+FN}\) & avaliar concordância espacial com ênfase em regiões pequenas \\ Precision & \(\dfrac{TP}{TP+FP}\) & quantificar tendência à sobresegmentação \\ Recall & \(\dfrac{TP}{TP+FN}\) & quantificar tendência à subsegmentação \\ F1-score pixel-wise & \(\dfrac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision}+\text{Recall}}\) & sintetizar equilíbrio entre cobertura e contenção da máscara \\ \hline \end{tabular} \end{table} Além dessas métricas, o pipeline registra: \begin{itemize} \item métricas médias e desvios-padrão no conjunto avaliado; \item métricas por imagem, úteis para análise de casos difíceis; \item métricas por classe (\textit{benign} e \textit{malignant}); \item estatísticas estruturais como número de pixels positivos previstos e número de pixels positivos no \textit{ground truth}. \end{itemize} Essa estrutura analítica permite não apenas comparar modelos entre si, mas também compreender a natureza dos seus erros. \subsubsection{IoU} A \textit{Intersection over Union} (IoU), também conhecida como índice de Jaccard, mede a razão entre a interseção e a união das regiões segmentadas. Em notação de conjuntos, sejam \[ A = \{p \in \Omega : Y(p)=1\} \qquad \text{e} \qquad B = \{p \in \Omega : \hat{Y}(p)=1\}, \] onde \(A\) representa a região verdadeira da lesão e \(B\) a região predita. A IoU é definida por: \[ \text{IoU} = \frac{|A \cap B|}{|A \cup B|} = \frac{TP}{TP+FP+FN}. \] Essa métrica é altamente informativa para avaliar qualidade segmentadora global, pois penaliza simultaneamente pixels indevidamente adicionados à máscara (\(FP\)) e pixels da lesão não recuperados (\(FN\)). Em outras palavras, uma IoU alta implica que a área prevista coincide de forma consistente com a área de referência, tanto em extensão quanto em localização. No contexto desta pesquisa, a IoU foi utilizada como métrica complementar ao Dice, especialmente útil para comparar modelos em termos de fidelidade espacial mais estrita. Como sua formulação não inclui \(TN\), ela é menos influenciada pela grande quantidade de pixels de fundo, o que é desejável em segmentação médica. \subsubsection{Dice Score} O coeficiente Dice foi adotado como métrica primária de seleção na segmentação. Sua formulação é: \[ \text{Dice} = \frac{2|A \cap B|}{|A| + |B|} = \frac{2TP}{2TP+FP+FN}. \] O Dice pode ser interpretado como uma medida de similaridade entre a máscara predita e a máscara de referência. Sua principal vantagem é ser particularmente adequado a cenários de desbalanceamento severo entre região-alvo e fundo, como é típico em segmentação de lesões médicas. Como a área da lesão geralmente ocupa pequena fração da imagem, métricas que incluam fortemente \(TN\) podem transmitir uma impressão artificialmente otimista do desempenho. O Dice evita esse problema ao focar explicitamente na sobreposição da região positiva. Outra propriedade importante é sua relação com a IoU: \[ \text{Dice} = \frac{2 \cdot \text{IoU}}{1 + \text{IoU}}. \] Isso mostra que ambas as métricas são correlatas, mas o Dice tende a ser numericamente mais alto e, muitas vezes, mais estável em tarefas com pequenas estruturas anatômicas. Por essa razão, foi adotado como critério principal para seleção do melhor \textit{checkpoint} e do melhor \textit{trial} por modelo. \subsubsection{Precision} Na segmentação, a \textit{precision} mede a proporção de pixels preditos como pertencentes à lesão que de fato pertencem à lesão: \[ \text{Precision} = \frac{TP}{TP+FP}. \] Essa métrica é particularmente útil para caracterizar a tendência do modelo à sobresegmentação. Quando a \textit{precision} é baixa, isso indica que a máscara predita está incluindo muitos pixels de fundo como se fossem lesão, expandindo indevidamente a região tumoral. Em termos qualitativos, modelos com \textit{precision} mais baixa tendem a produzir máscaras “mais largas” ou mais “agressivas”, cobrindo áreas além da estrutura anotada. No presente estudo, a \textit{precision} teve papel importante para distinguir modelos de comportamento mais conservador daqueles de comportamento mais expansivo. Assim, ela complementa as métricas de sobreposição ao oferecer uma leitura mais direta da contenção espacial da máscara. \subsubsection{Recall} O \textit{recall} em segmentação mede a capacidade do modelo de recuperar os pixels verdadeiramente pertencentes à lesão: \[ \text{Recall} = \frac{TP}{TP+FN}. \] Enquanto a \textit{precision} penaliza expansão indevida, o \textit{recall} penaliza omissão de área tumoral. Assim, essa métrica é especialmente importante para identificar subsegmentação. Um modelo com \textit{recall} baixo tende a produzir máscaras menores que a lesão real, deixando de cobrir partes relevantes da estrutura-alvo. Essa métrica é clinicamente relevante porque uma segmentação incompleta pode comprometer análise morfológica, cálculo de área ou volume e interpretações derivadas da extensão da lesão. Portanto, sua presença no protocolo experimental foi fundamental para distinguir modelos que recuperam bem a área total da lesão daqueles que preferem soluções mais compactas e restritivas. \subsubsection{F1-score pixel-wise} O \(F_1\)-\textit{score} pixel-wise sintetiza o equilíbrio entre \textit{precision} e \textit{recall} em nível de pixel. Sua formulação é: \[ F1_{\text{pixel}} = \frac{2 \cdot \text{Precision} \cdot \text{Recall}} {\text{Precision} + \text{Recall}}. \] Substituindo as definições de \textit{precision} e \textit{recall}, obtém-se: \[ F1_{\text{pixel}} = \frac{2TP}{2TP+FP+FN}, \] o que o torna equivalente ao coeficiente Dice em segmentação binária. Ainda assim, sua apresentação como \(F_1\)-\textit{score} pixel-wise é conceitualmente útil porque explicita sua interpretação como compromisso entre contenção da máscara (\textit{precision}) e cobertura da lesão (\textit{recall}). Essa métrica ocupa papel complementar às métricas de sobreposição porque ajuda a interpretar o comportamento do modelo em linguagem análoga à utilizada na classificação. Em outras palavras, ela permite discutir segmentação em termos de equilíbrio entre “detectar demais” e “detectar de menos”, o que é particularmente útil quando se deseja relacionar os resultados quantitativos à análise qualitativa das máscaras produzidas. Em síntese, o conjunto de métricas adotado para a segmentação foi desenhado para fornecer uma avaliação abrangente da qualidade espacial das predições. A combinação entre IoU, Dice Score, \textit{precision}, \textit{recall} e \(F_1\)-\textit{score} pixel-wise, somada à análise por imagem e por classe, permite interpretar os modelos não apenas em termos de desempenho médio, mas também em relação à forma como cometem erro, se tendem a expandir ou retrair a máscara e quão fielmente recuperam a região tumoral em diferentes cenários visuais.
 
-\subsubsection{Dice Score}
-
-O coeficiente Dice é a métrica primária de seleção na segmentação. Por ser particularmente adequado a cenários com desbalanceamento entre lesão e fundo, ele ocupa papel central no protocolo experimental.
-
-\subsubsection{Precision}
-
-A \textit{precision} em segmentação mede a proporção de pixels previstos como positivos que realmente pertencem à lesão. É útil para caracterizar tendência à sobresegmentação.
-
-\subsubsection{Recall}
-
-O \textit{recall} mede a capacidade do modelo de recuperar os pixels verdadeiramente pertencentes à lesão. É importante para identificar subsegmentação.
-
-\subsubsection{F1-score pixel-wise}
-
-O \(F_1\)-\textit{score} pixel-wise sintetiza o equilíbrio entre \textit{precision} e \textit{recall} em nível de pixel, servindo como medida complementar às métricas de sobreposição.
-
-\subsection{Métricas computacionais}
-
-As métricas computacionais foram tratadas como parte integrante da avaliação, e não como análise secundária. O pipeline registra contagens de parâmetros, tempo total de treinamento, tempo médio por época, pico de memória em GPU, latência média de inferência, desvio-padrão de latência, \textit{throughput} e tamanho final do modelo.
-
-\subsubsection{Número de parâmetros}
-
-São registrados \texttt{parameters\_total} e \texttt{parameters\_trainable}. Essa distinção é especialmente importante em cenários com \textit{transfer learning}, pois diferentes estratégias de ajuste fino alteram substancialmente a parcela efetivamente treinável da arquitetura.
-
-\subsubsection{Tempo de treinamento}
-
-O pipeline registra o tempo total por \textit{trial} e o tempo médio por época, o que permite discutir custo de treinamento em termos empíricos, e não apenas em função do tamanho da rede.
-
-\subsubsection{Tempo de inferência}
-
-A latência média e seu desvio-padrão são obtidos por \textit{benchmark} dedicado com etapas de aquecimento e medição. Isso permite avaliar viabilidade prática de cada modelo em cenários de uso real.
-
-\subsubsection{Tamanho do modelo}
-
-O tamanho final do modelo em megabytes é registrado nos resumos de arquitetura e compõe a análise de compromisso entre desempenho preditivo e viabilidade de armazenamento e implantação.
+\subsection{Métricas computacionais} As métricas computacionais foram incorporadas ao protocolo experimental como dimensão analítica de primeira ordem, e não como complemento secundário aos resultados preditivos. Essa decisão metodológica foi particularmente importante neste trabalho porque a comparação entre arquiteturas envolveu modelos com perfis muito distintos de capacidade, profundidade, latência e custo operacional. Em aplicações de apoio ao diagnóstico, desempenho preditivo e viabilidade computacional devem ser analisados conjuntamente, uma vez que a utilidade prática de um modelo depende não apenas de sua qualidade estatística, mas também de sua possibilidade de treinamento, armazenamento, carregamento e inferência em ambientes reais. Para cada \textit{trial}, o pipeline registrou um conjunto estruturado de métricas computacionais, incluindo número total de parâmetros, número de parâmetros treináveis, tempo total de treinamento, tempo médio por época, pico de memória em GPU, latência média de inferência, desvio-padrão da latência, \textit{throughput} em imagens por segundo e tamanho final do modelo em megabytes. Esse conjunto foi projetado para capturar diferentes aspectos do custo computacional: \begin{itemize} \item \textbf{complexidade estrutural}, refletida pelo número de parâmetros; \item \textbf{custo de otimização}, refletido pelo tempo de treinamento; \item \textbf{custo operacional em inferência}, refletido por latência e \textit{throughput}; \item \textbf{viabilidade de implantação}, refletida pelo tamanho final do modelo e pelo consumo de memória. \end{itemize} A Tabela~\ref{tab:computational_metrics_summary} resume as principais métricas computacionais adotadas no estudo. \begin{table}[htbp] \centering \caption{Resumo das métricas computacionais utilizadas na avaliação dos modelos.} \label{tab:computational_metrics_summary} \begin{tabular}{p{4.0cm} p{4.8cm} p{5.6cm}} \hline \textbf{Métrica} & \textbf{Unidade / Formulação} & \textbf{Objetivo interpretativo} \\[0.2cm] \hline Número total de parâmetros & \texttt{parameters\_total} & quantificar a capacidade estrutural bruta do modelo \\ Número de parâmetros treináveis & \texttt{parameters\_trainable} & medir a parcela efetivamente ajustada durante o treino \\ Tempo total de treinamento & segundos por \textit{trial} & medir custo empírico de otimização \\ Tempo médio por época & segundos/época & comparar eficiência de convergência entre modelos \\ Latência média de inferência & milissegundos/imagem & avaliar rapidez de uso em cenário operacional \\ Desvio-padrão da latência & milissegundos & medir estabilidade temporal da inferência \\ \textit{Throughput} & imagens/segundo & medir capacidade de processamento contínuo \\ Pico de memória & MB & avaliar demanda máxima de memória durante execução \\ Tamanho do modelo & MB & avaliar viabilidade de armazenamento e implantação \\ \hline \end{tabular} \end{table} Do ponto de vista metodológico, a incorporação dessas métricas permite interpretar o desempenho dos modelos por uma função utilidade mais ampla, e não apenas por uma métrica preditiva isolada. Em termos conceituais, pode-se representar a avaliação final de um modelo \(M\) como uma função multivariada: \[ \mathcal{U}(M) = f\big( \mathcal{P}(M),\, \mathcal{C}_{\text{train}}(M),\, \mathcal{C}_{\text{inf}}(M),\, \mathcal{S}(M) \big), \] em que: \begin{itemize} \item \(\mathcal{P}(M)\) representa o desempenho preditivo; \item \(\mathcal{C}_{\text{train}}(M)\) representa o custo de treinamento; \item \(\mathcal{C}_{\text{inf}}(M)\) representa o custo de inferência; \item \(\mathcal{S}(M)\) representa o custo estrutural e de armazenamento. \end{itemize} Essa formulação explicita que um modelo pode ser estatisticamente superior, mas operacionalmente menos desejável, dependendo do contexto de uso. \subsubsection{Número de parâmetros} O número de parâmetros é uma medida direta da capacidade estrutural da rede neural. No pipeline, foram registrados dois valores distintos: \begin{itemize} \item \texttt{parameters\_total}: número total de parâmetros do modelo; \item \texttt{parameters\_trainable}: número de parâmetros efetivamente atualizados durante o treinamento. \end{itemize} Formalmente, se \(\boldsymbol{\theta}\) representa o conjunto total de parâmetros de um modelo, então: \[ \texttt{parameters\_total} = |\boldsymbol{\theta}|. \] Se \(\boldsymbol{\theta}_{\text{train}}\subseteq \boldsymbol{\theta}\) denota o subconjunto de parâmetros com \texttt{requires\_grad = True}, então: \[ \texttt{parameters\_trainable} = |\boldsymbol{\theta}_{\text{train}}|. \] Essa distinção é particularmente importante em cenários com \textit{transfer learning}, pois diferentes estratégias de ajuste fino alteram substancialmente a parcela efetivamente treinável da arquitetura. Em um regime \textit{frozen}, por exemplo, espera-se que: \[ |\boldsymbol{\theta}_{\text{train}}| \ll |\boldsymbol{\theta}|, \] enquanto em \textit{deep fine-tuning} tende-se a observar: \[ |\boldsymbol{\theta}_{\text{train}}| \approx |\boldsymbol{\theta}|. \] Do ponto de vista interpretativo, o número total de parâmetros fornece uma proxy da capacidade representacional bruta do modelo, enquanto o número de parâmetros treináveis informa o custo real de adaptação ao domínio-alvo. Em problemas médicos com base moderada, essa distinção é crucial, pois arquiteturas muito grandes podem não converter sua capacidade extra em ganho prático proporcional. \subsubsection{Tempo de treinamento} O pipeline registra o tempo total de treinamento por \textit{trial} e o tempo médio por época, permitindo analisar custo de otimização em termos empíricos. Se um dado \textit{trial} executa \(E\) épocas e o tempo de cada época é \(t_e\), então o tempo total de treinamento pode ser expresso por: \[ T_{\text{train,total}} = \sum_{e=1}^{E} t_e, \] e o tempo médio por época por: \[ \overline{T}_{\text{epoch}} = \frac{1}{E} \sum_{e=1}^{E} t_e. \] Essa informação é metodologicamente mais rica do que a simples contagem de parâmetros, pois o custo real de treinamento depende também de fatores como: \begin{itemize} \item resolução da entrada; \item tamanho do lote; \item profundidade de \textit{fine-tuning}; \item comportamento do \textit{scheduler}; \item número efetivo de épocas executadas antes do \textit{early stopping}. \end{itemize} Em outras palavras, duas arquiteturas com capacidades semelhantes podem apresentar custos de treinamento bastante diferentes, caso uma convirja mais lentamente, execute mais épocas úteis ou exija operações mais pesadas por iteração. Por isso, o tempo de treinamento foi tratado como medida empírica de custo, e não como consequência trivial do porte da rede. \subsubsection{Tempo de inferência} A inferência foi avaliada por meio de \textit{benchmark} dedicado, com etapas separadas de aquecimento e medição. Essa decisão reduz o viés introduzido por sobrecusto inicial de carregamento, compilação dinâmica ou aquecimento de GPU. Sejam \(n\) execuções medidas após aquecimento e \(t_i\) o tempo observado em cada execução. A latência média de inferência é dada por: \[ \overline{T}_{\text{inf}} = \frac{1}{n}\sum_{i=1}^{n} t_i, \] e seu desvio-padrão por: \[ \sigma_{\text{inf}} = \sqrt{ \frac{1}{n-1} \sum_{i=1}^{n} \left(t_i - \overline{T}_{\text{inf}}\right)^2 }. \] Além da latência média, o pipeline registra o \textit{throughput}, definido como o número de imagens processadas por unidade de tempo: \[ \text{Throughput} = \frac{N_{\text{imgs}}}{T_{\text{total,inf}}}. \] Enquanto a latência média é mais informativa para cenários interativos ou de apoio em tempo real, o \textit{throughput} é mais relevante em cenários de processamento em lote. O registro simultâneo dessas duas quantidades permite avaliar a viabilidade prática de cada modelo em diferentes contextos de uso. Em ambientes clínicos ou acadêmicos com restrição de recursos, uma arquitetura ligeiramente inferior em desempenho preditivo pode se tornar mais atraente se sua latência for significativamente menor. \subsubsection{Tamanho do modelo} O tamanho final do modelo em megabytes foi registrado nos resumos de arquitetura como medida de viabilidade de armazenamento e implantação. Se \(B\) representa o número total de bytes necessários para armazenar os pesos serializados do modelo, então: \[ \text{Model Size (MB)} = \frac{B}{1024^2}. \] Embora fortemente correlacionado ao número de parâmetros, o tamanho final do modelo não é completamente redundante, pois pode variar com o formato de serialização, o tipo de dado armazenado e o empacotamento do estado do modelo. Em termos práticos, essa métrica é importante para avaliar: \begin{itemize} \item custo de armazenamento em disco; \item tempo de carregamento do modelo; \item facilidade de distribuição e implantação; \item adequação a dispositivos ou ambientes com memória limitada. \end{itemize} Em aplicações reais, modelos muito grandes podem impor dificuldades logísticas mesmo quando oferecem bom desempenho preditivo. Por isso, o tamanho final do modelo compõe, junto com latência e número de parâmetros, a análise de compromisso entre qualidade de previsão e viabilidade operacional. Em síntese, as métricas computacionais adotadas nesta pesquisa foram fundamentais para evitar uma leitura excessivamente centrada em desempenho estatístico. Ao integrar número de parâmetros, tempo de treinamento, latência, \textit{throughput}, memória e tamanho final do modelo, o protocolo experimental permitiu comparar arquiteturas não apenas pelo que acertam, mas também pelo custo real de fazê-lo. Essa perspectiva é especialmente relevante em problemas de saúde, nos quais a utilidade prática de um sistema depende tanto de sua qualidade preditiva quanto de sua possibilidade concreta de uso em ambientes computacionalmente restritos.
 
 \section{Procedimento experimental}
 

@@ -16,11 +16,14 @@
 \contentsline {table}{\numberline {Tabela\ 3}{\ignorespaces Regimes de \textit {transfer learning} considerados e melhores configurações finais por arquitetura na classificação.}}{136}{table.caption.5}%
 \contentsline {table}{\numberline {Tabela\ 4}{\ignorespaces Configuração operacional de treino adotada na rodada final da classificação.}}{137}{table.caption.6}%
 \contentsline {table}{\numberline {Tabela\ 5}{\ignorespaces Configuração operacional de treino adotada na rodada final da segmentação.}}{139}{table.caption.7}%
+\contentsline {table}{\numberline {Tabela\ 6}{\ignorespaces Resumo das métricas adotadas na avaliação dos modelos de classificação.}}{142}{table.caption.8}%
+\contentsline {table}{\numberline {Tabela\ 7}{\ignorespaces Resumo das métricas adotadas na avaliação dos modelos de segmentação.}}{147}{table.caption.9}%
+\contentsline {table}{\numberline {Tabela\ 8}{\ignorespaces Resumo das métricas computacionais utilizadas na avaliação dos modelos.}}{151}{table.caption.10}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {Tabela\ 6}{\ignorespaces Síntese do espaço de busca e da sensibilidade aos hiperparâmetros nos experimentos de classificação.}}{148}{table.caption.8}%
-\contentsline {table}{\numberline {Tabela\ 7}{\ignorespaces Resultados consolidados dos modelos de classificação no conjunto de teste.}}{149}{table.caption.9}%
+\contentsline {table}{\numberline {Tabela\ 9}{\ignorespaces Síntese do espaço de busca e da sensibilidade aos hiperparâmetros nos experimentos de classificação.}}{159}{table.caption.11}%
+\contentsline {table}{\numberline {Tabela\ 10}{\ignorespaces Resultados consolidados dos modelos de classificação no conjunto de teste.}}{160}{table.caption.12}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {Tabela\ 8}{\ignorespaces Resultados consolidados dos modelos de segmentação no conjunto de teste.}}{167}{table.caption.10}%
+\contentsline {table}{\numberline {Tabela\ 11}{\ignorespaces Resultados consolidados dos modelos de segmentação no conjunto de teste.}}{178}{table.caption.13}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
