@@ -11,27 +11,33 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {Tabela\ 1}{\ignorespaces Transformações de aumento de dados aplicadas ao conjunto de treino da classificação.}}{132}{table.caption.1}%
-\contentsline {table}{\numberline {Tabela\ 2}{\ignorespaces Transformações de aumento de dados aplicadas ao conjunto de treino da segmentação.}}{133}{table.caption.3}%
-\contentsline {table}{\numberline {Tabela\ 3}{\ignorespaces Regimes de \textit {transfer learning} considerados e melhores configurações finais por arquitetura na classificação.}}{136}{table.caption.5}%
-\contentsline {table}{\numberline {Tabela\ 4}{\ignorespaces Configuração operacional de treino adotada na rodada final da classificação.}}{137}{table.caption.6}%
-\contentsline {table}{\numberline {Tabela\ 5}{\ignorespaces Configuração operacional de treino adotada na rodada final da segmentação.}}{139}{table.caption.7}%
-\contentsline {table}{\numberline {Tabela\ 6}{\ignorespaces Resumo das métricas adotadas na avaliação dos modelos de classificação.}}{142}{table.caption.8}%
-\contentsline {table}{\numberline {Tabela\ 7}{\ignorespaces Resumo das métricas adotadas na avaliação dos modelos de segmentação.}}{147}{table.caption.9}%
-\contentsline {table}{\numberline {Tabela\ 8}{\ignorespaces Resumo das métricas computacionais utilizadas na avaliação dos modelos.}}{151}{table.caption.10}%
+\contentsline {table}{\numberline {Tabela\ 1}{\ignorespaces Transformações de aumento de dados aplicadas ao conjunto de treino da classificação.}}{133}{table.caption.1}%
+\contentsline {table}{\numberline {Tabela\ 2}{\ignorespaces Transformações de aumento de dados aplicadas ao conjunto de treino da segmentação.}}{134}{table.caption.3}%
+\contentsline {table}{\numberline {Tabela\ 3}{\ignorespaces Regimes de \textit {transfer learning} considerados e melhores configurações finais por arquitetura na classificação.}}{137}{table.caption.5}%
+\contentsline {table}{\numberline {Tabela\ 4}{\ignorespaces Configuração operacional de treino adotada na rodada final da classificação.}}{138}{table.caption.6}%
+\contentsline {table}{\numberline {Tabela\ 5}{\ignorespaces Configuração operacional de treino adotada na rodada final da segmentação.}}{140}{table.caption.7}%
+\contentsline {table}{\numberline {Tabela\ 6}{\ignorespaces Resumo das métricas adotadas na avaliação dos modelos de classificação.}}{143}{table.caption.8}%
+\contentsline {table}{\numberline {Tabela\ 7}{\ignorespaces Resumo das métricas adotadas na avaliação dos modelos de segmentação.}}{148}{table.caption.9}%
+\contentsline {table}{\numberline {Tabela\ 8}{\ignorespaces Resumo das métricas computacionais utilizadas na avaliação dos modelos.}}{152}{table.caption.10}%
+\contentsline {table}{\numberline {Tabela\ 9}{\ignorespaces Comandos CLI utilizados no pipeline experimental}}{156}{table.caption.11}%
+\contentsline {table}{\numberline {Tabela\ 10}{\ignorespaces Sequência das etapas da experimentação}}{157}{table.caption.12}%
+\contentsline {table}{\numberline {Tabela\ 11}{\ignorespaces Estrutura de armazenamento dos artefatos experimentais}}{158}{table.caption.13}%
+\contentsline {table}{\numberline {Tabela\ 12}{\ignorespaces Fluxo geral do experimento}}{159}{table.caption.14}%
+\contentsline {table}{\numberline {Tabela\ 13}{\ignorespaces Fluxos específicos por tarefa}}{159}{table.caption.15}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {Tabela\ 9}{\ignorespaces Melhores \textit {trials} por arquitetura no experimento final}}{158}{table.caption.11}%
-\contentsline {table}{\numberline {Tabela\ 10}{\ignorespaces Número de parâmetros por arquitetura}}{158}{table.caption.12}%
-\contentsline {table}{\numberline {Tabela\ 11}{\ignorespaces Síntese do espaço de busca e da sensibilidade aos hiperparâmetros nos experimentos de classificação.}}{159}{table.caption.13}%
-\contentsline {table}{\numberline {Tabela\ 12}{\ignorespaces Resultados consolidados dos modelos de classificação no conjunto de teste.}}{160}{table.caption.14}%
-\contentsline {table}{\numberline {Tabela\ 13}{\ignorespaces Síntese comparativa qualitativa entre as arquiteturas}}{161}{table.caption.15}%
-\contentsline {table}{\numberline {Tabela\ 14}{\ignorespaces Comparações relativas de eficiência computacional}}{162}{table.caption.16}%
-\contentsline {table}{\numberline {Tabela\ 15}{\ignorespaces Métricas destacadas da VGG16 na comparação final}}{162}{table.caption.17}%
-\contentsline {table}{\numberline {Tabela\ 16}{\ignorespaces Indicadores que sustentam a ResNet50 como melhor modelo em desempenho absoluto}}{163}{table.caption.18}%
+\contentsline {table}{\numberline {Tabela\ 14}{\ignorespaces Melhores \textit {trials} por arquitetura no experimento final}}{161}{table.caption.16}%
+\contentsline {table}{\numberline {Tabela\ 15}{\ignorespaces Número de parâmetros por arquitetura}}{161}{table.caption.17}%
+\contentsline {table}{\numberline {Tabela\ 16}{\ignorespaces Síntese do espaço de busca e da sensibilidade aos hiperparâmetros nos experimentos de classificação.}}{162}{table.caption.18}%
+\contentsline {table}{\numberline {Tabela\ 17}{\ignorespaces Resultados consolidados dos modelos de classificação no conjunto de teste.}}{163}{table.caption.19}%
+\contentsline {table}{\numberline {Tabela\ 18}{\ignorespaces Síntese comparativa qualitativa entre as arquiteturas}}{164}{table.caption.20}%
+\contentsline {table}{\numberline {Tabela\ 19}{\ignorespaces Comparações relativas de eficiência computacional}}{165}{table.caption.21}%
+\contentsline {table}{\numberline {Tabela\ 20}{\ignorespaces Métricas destacadas da VGG16 na comparação final}}{165}{table.caption.22}%
+\contentsline {table}{\numberline {Tabela\ 21}{\ignorespaces Indicadores que sustentam a ResNet50 como melhor modelo em desempenho absoluto}}{166}{table.caption.23}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {Tabela\ 17}{\ignorespaces Resultados consolidados dos modelos de segmentação no conjunto de teste.}}{179}{table.caption.19}%
-\contentsline {table}{\numberline {Tabela\ 18}{\ignorespaces Número de parâmetros das arquiteturas de segmentação}}{186}{table.caption.20}%
-\contentsline {table}{\numberline {Tabela\ 19}{\ignorespaces Tempo médio de inferência por imagem das arquiteturas de segmentação}}{186}{table.caption.21}%
+\contentsline {table}{\numberline {Tabela\ 22}{\ignorespaces Hiperparâmetros e configurações de treinamento adotados}}{181}{table.caption.24}%
+\contentsline {table}{\numberline {Tabela\ 23}{\ignorespaces Resultados consolidados dos modelos de segmentação no conjunto de teste.}}{182}{table.caption.25}%
+\contentsline {table}{\numberline {Tabela\ 24}{\ignorespaces Número de parâmetros das arquiteturas de segmentação}}{189}{table.caption.26}%
+\contentsline {table}{\numberline {Tabela\ 25}{\ignorespaces Tempo médio de inferência por imagem das arquiteturas de segmentação}}{189}{table.caption.27}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

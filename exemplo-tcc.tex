@@ -3651,18 +3651,45 @@ Em síntese, o conjunto de métricas adotado nesta pesquisa foi construído para
 
 \subsection{Etapas da experimentação}
 
-O pipeline foi organizado em comandos explícitos via CLI: \texttt{audit}, \texttt{prepare}, \texttt{classify}, \texttt{segment}, \texttt{report}, \texttt{full-run} e \texttt{smoke-test}. O fluxo completo do experimento pode ser resumido em:
-\begin{enumerate}
-	\item auditoria do dataset;
-	\item geração dos manifestos e splits;
-	\item criação dos \textit{previews} de pré-processamento e aumento de dados;
-	\item execução dos \textit{trials} de classificação;
-	\item seleção do melhor \textit{trial} por validação e avaliação em teste;
-	\item execução dos \textit{trials} de segmentação;
-	\item seleção do melhor \textit{trial} por validação e avaliação em teste;
-	\item \textit{benchmark} de inferência;
-	\item geração de tabelas, gráficos, galerias qualitativas e relatórios finais.
-\end{enumerate}
+A experimentação foi organizada por meio de comandos explícitos em interface de linha de comando (CLI), o que contribuiu para a padronização das execuções e para a reprodutibilidade do pipeline. Entre os comandos definidos no projeto, destacam-se \texttt{audit}, \texttt{prepare}, \texttt{classify}, \texttt{segment}, \texttt{report}, \texttt{full-run} e \texttt{smoke-test}, cada um associado a uma etapa funcional bem delimitada dentro do fluxo experimental.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Comandos CLI utilizados no pipeline experimental}
+	\label{tab:comandos_cli_experimento}
+	\begin{tabular}{|p{3.2cm}|p{10.2cm}|}
+		\hline
+		\textbf{Comando} & \textbf{Função no experimento} \\ \hline
+		\texttt{audit} & Realiza a auditoria inicial do conjunto de dados. \\ \hline
+		\texttt{prepare} & Gera manifestos, particionamentos e artefatos preparatórios do experimento. \\ \hline
+		\texttt{classify} & Executa os \textit{trials} relacionados à tarefa de classificação. \\ \hline
+		\texttt{segment} & Executa os \textit{trials} relacionados à tarefa de segmentação. \\ \hline
+		\texttt{report} & Consolida resultados em tabelas, figuras e relatórios finais. \\ \hline
+		\texttt{full-run} & Dispara o fluxo completo do experimento de ponta a ponta. \\ \hline
+		\texttt{smoke-test} & Executa uma verificação rápida de funcionamento do pipeline. \\ \hline
+	\end{tabular}
+\end{table}
+
+De forma sintética, o fluxo completo do experimento envolveu a auditoria do \textit{dataset}, a geração dos manifestos e dos \textit{splits}, a criação de \textit{previews} de pré-processamento e aumento de dados, a execução dos \textit{trials} de classificação e segmentação, a seleção dos melhores modelos com base no desempenho em validação, a avaliação final em teste, a realização de \textit{benchmark} de inferência e, por fim, a geração dos artefatos consolidados de análise.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Sequência das etapas da experimentação}
+	\label{tab:etapas_experimentacao}
+	\begin{tabular}{|c|p{11.2cm}|}
+		\hline
+		\textbf{Etapa} & \textbf{Descrição} \\ \hline
+		1 & Auditoria do \textit{dataset}. \\ \hline
+		2 & Geração dos manifestos e dos \textit{splits}. \\ \hline
+		3 & Criação dos \textit{previews} de pré-processamento e aumento de dados. \\ \hline
+		4 & Execução dos \textit{trials} de classificação. \\ \hline
+		5 & Seleção do melhor \textit{trial} de classificação com base na validação e posterior avaliação em teste. \\ \hline
+		6 & Execução dos \textit{trials} de segmentação. \\ \hline
+		7 & Seleção do melhor \textit{trial} de segmentação com base na validação e posterior avaliação em teste. \\ \hline
+		8 & Execução do \textit{benchmark} de inferência. \\ \hline
+		9 & Geração de tabelas, gráficos, galerias qualitativas e relatórios finais. \\ \hline
+	\end{tabular}
+\end{table}
 
 \subsection{Reprodutibilidade e fixação de seeds}
 
@@ -3672,36 +3699,68 @@ Essa combinação oferece forte controle sobre variabilidade experimental, ainda
 
 \subsection{Registro e armazenamento dos resultados}
 
-Os resultados foram organizados em uma árvore de artefatos que inclui:
-\begin{itemize}
-	\item \texttt{audit/}: relatórios de integridade, distribuição de classes, estatísticas e grades visuais;
-	\item \texttt{manifests/}: manifestos, splits e metadados associados;
-	\item \texttt{classification/}: pastas por modelo e por \textit{trial}, com \texttt{history.csv}, curvas, configurações resolvidas, métricas de validação e saídas de teste;
-	\item \texttt{segmentation/}: estrutura análoga, incluindo máscaras preditas, métricas por imagem, métricas por classe e galerias qualitativas;
-	\item \texttt{reports/}: sumários consolidados e texto base para monografia;
-	\item \texttt{logs/}: registros detalhados dos comandos executados.
-\end{itemize}
+Os resultados do experimento foram organizados em uma árvore de artefatos estruturada para favorecer rastreabilidade, inspeção manual e reaproveitamento posterior das saídas geradas. Essa organização separa, de forma clara, os elementos de auditoria, metadados, resultados de treinamento, relatórios consolidados e registros de execução, o que facilita tanto a análise técnica quanto a documentação do estudo.
 
-Os formatos utilizados incluem CSV, JSON, YAML, PNG e Markdown, favorecendo simultaneamente leitura humana, rastreabilidade e automação posterior.
+\begin{table}[htbp]
+	\centering
+	\caption{Estrutura de armazenamento dos artefatos experimentais}
+	\label{tab:estrutura_artefatos_resultados}
+	\begin{tabular}{|p{3.2cm}|p{10.2cm}|}
+		\hline
+		\textbf{Diretório} & \textbf{Conteúdo principal} \\ \hline
+		\texttt{audit/} & Relatórios de integridade, distribuição de classes, estatísticas descritivas e grades visuais. \\ \hline
+		\texttt{manifests/} & Manifestos, particionamentos (\textit{splits}) e metadados associados ao experimento. \\ \hline
+		\texttt{classification/} & Pastas organizadas por modelo e por \textit{trial}, contendo \texttt{history.csv}, curvas de treinamento, configurações resolvidas, métricas de validação e saídas de teste. \\ \hline
+		\texttt{segmentation/} & Estrutura análoga à de classificação, incluindo máscaras preditas, métricas por imagem, métricas por classe e galerias qualitativas. \\ \hline
+		\texttt{reports/} & Sumários consolidados e texto-base destinado à redação da monografia. \\ \hline
+		\texttt{logs/} & Registros detalhados dos comandos executados ao longo das etapas experimentais. \\ \hline
+	\end{tabular}
+\end{table}
+
+Os formatos empregados nesse processo incluíram CSV, JSON, YAML, PNG e Markdown. Em conjunto, esses formatos permitiram conciliar leitura humana, rastreabilidade experimental e suporte à automação posterior, preservando tanto a interpretabilidade dos resultados quanto sua reutilização em análises complementares e na etapa de escrita acadêmica.
 
 \subsection{Fluxo geral do experimento}
 
-O fluxo arquitetural geral do projeto pode ser sintetizado por:
-\[
-\text{Dataset bruto} \rightarrow \text{auditoria} \rightarrow \text{manifesto único} \rightarrow \text{split estratificado} \rightarrow \text{datasets PyTorch} \rightarrow \text{transforms} \rightarrow \text{treino por trial} \rightarrow \text{validação} \rightarrow \text{early stopping} \rightarrow \text{melhor checkpoint} \rightarrow \text{teste} \rightarrow \text{benchmark} \rightarrow \text{relatórios e figuras}.
-\]
+O fluxo arquitetural do projeto foi estruturado de modo sequencial e modular, cobrindo desde a preparação inicial dos dados até a geração dos artefatos finais de análise. Em termos gerais, o experimento partiu do conjunto bruto de imagens, passou por etapas de auditoria e padronização, seguiu para o particionamento estratificado dos dados e, em seguida, para a construção dos \textit{datasets} e transformações utilizadas no treinamento. A partir daí, cada \textit{trial} foi conduzido com validação sistemática, uso de \textit{early stopping}, seleção do melhor \textit{checkpoint}, avaliação em teste, execução de \textit{benchmark} e produção de relatórios e figuras.
 
-Separando por tarefa, o fluxo da classificação pode ser resumido como:
-\[
-\text{imagem RGB} \rightarrow \text{backbone pré-treinado} \rightarrow \text{logits multiclasse} \rightarrow \text{softmax} \rightarrow \text{métricas agregadas e por classe}.
-\]
+\begin{table}[htbp]
+	\centering
+	\caption{Fluxo geral do experimento}
+	\label{tab:fluxo_geral_experimento}
+	\begin{tabular}{|p{4.2cm}|p{9.2cm}|}
+		\hline
+		\textbf{Etapa} & \textbf{Descrição} \\ \hline
+		Dataset bruto & Conjunto inicial de dados utilizado como ponto de partida do experimento. \\ \hline
+		Auditoria & Verificação de integridade, consistência e características gerais do conjunto de dados. \\ \hline
+		Manifesto único & Consolidação padronizada das informações estruturais e metadados do experimento. \\ \hline
+		\textit{Split} estratificado & Particionamento dos dados em subconjuntos de forma controlada e proporcional às classes. \\ \hline
+		\textit{Datasets} PyTorch & Construção das estruturas de carregamento para treino, validação e teste. \\ \hline
+		\textit{Transforms} & Aplicação das transformações e preprocessamentos necessários às entradas. \\ \hline
+		Treino por \textit{trial} & Execução dos treinamentos sob diferentes configurações experimentais. \\ \hline
+		Validação & Monitoramento do desempenho durante o treinamento. \\ \hline
+		\textit{Early stopping} & Interrupção controlada do treinamento com base no comportamento da validação. \\ \hline
+		Melhor \textit{checkpoint} & Seleção do estado do modelo com melhor desempenho validado. \\ \hline
+		Teste & Avaliação final no conjunto mantido fora do processo de ajuste. \\ \hline
+		\textit{Benchmark} & Medição de desempenho operacional e custo computacional. \\ \hline
+		Relatórios e figuras & Consolidação final dos resultados em artefatos analíticos e visuais. \\ \hline
+	\end{tabular}
+\end{table}
 
-Já o fluxo da segmentação pode ser descrito por:
-\[
-\text{imagem RGB + máscara binária} \rightarrow \text{encoder-decoder} \rightarrow \text{logits binários} \rightarrow \text{sigmoid + threshold} \rightarrow \text{métricas por imagem, por classe e agregadas}.
-\]
+Quando observado por tarefa, o fluxo de classificação foi mais direto: a imagem RGB é fornecida ao \textit{backbone} pré-treinado, que produz \textit{logits} multiclasse; esses valores são então convertidos por \textit{softmax}, permitindo o cálculo de métricas agregadas e métricas por classe. Já na segmentação, o processo parte da imagem RGB associada à máscara binária de referência, percorre uma arquitetura do tipo \textit{encoder-decoder}, gera \textit{logits} binários e, após a aplicação de \textit{sigmoid} e limiarização, produz métricas por imagem, por classe e agregadas.
 
-A leitura final dessa arquitetura experimental permite concluir que o projeto é modular, reprodutível, metodologicamente consistente na separação entre validação e teste e suficientemente estruturado para discutir não apenas desempenho clínico, mas também custo computacional. Sua principal limitação remanescente é a ausência de particionamento em nível de paciente, que constitui o passo mais natural de evolução metodológica em direção a um desenho experimental ainda mais rigoroso.
+\begin{table}[htbp]
+	\centering
+	\caption{Fluxos específicos por tarefa}
+	\label{tab:fluxos_tarefas_experimento}
+	\begin{tabular}{|p{3.2cm}|p{10.2cm}|}
+		\hline
+		\textbf{Tarefa} & \textbf{Fluxo resumido} \\ \hline
+		Classificação & Imagem RGB \(\rightarrow\) \textit{backbone} pré-treinado \(\rightarrow\) \textit{logits} multiclasse \(\rightarrow\) \textit{softmax} \(\rightarrow\) métricas agregadas e por classe. \\ \hline
+		Segmentação & Imagem RGB + máscara binária \(\rightarrow\) \textit{encoder-decoder} \(\rightarrow\) \textit{logits} binários \(\rightarrow\) \textit{sigmoid + threshold} \(\rightarrow\) métricas por imagem, por classe e agregadas. \\ \hline
+	\end{tabular}
+\end{table}
+
+A leitura final dessa arquitetura experimental indica que o projeto é modular, reprodutível e metodologicamente consistente, sobretudo na separação entre validação e teste. Além disso, sua estrutura permite discutir não apenas desempenho clínico, mas também custo computacional e viabilidade operacional. A principal limitação remanescente, contudo, é a ausência de particionamento em nível de paciente, o que constitui o passo mais natural de evolução metodológica em direção a um desenho experimental ainda mais rigoroso.
 
 \chapter{Resultados --- Classificação}
 
@@ -3868,7 +3927,7 @@ A EfficientNet-B0 ocupou uma posição intermediária em desempenho, mas destaco
 	\centering
 	\caption{Comparações relativas de eficiência computacional}
 	\label{tab:comparacao_eficiencia_relativa}
-	\begin{tabular}{|l|l|}
+	\begin{tabular}{|p{5.5cm}|p{8.5cm}|}
 		\hline
 		\textbf{Comparação} & \textbf{Interpretação} \\ \hline
 		EfficientNet-B0 vs. ResNet50 & Quase 6 vezes menos parâmetros \\ \hline
@@ -3904,7 +3963,7 @@ Do ponto de vista clínico, a escolha da ResNet50 como melhor modelo absoluto ta
 	\centering
 	\caption{Indicadores que sustentam a ResNet50 como melhor modelo em desempenho absoluto}
 	\label{tab:resnet50_melhor_modelo_absoluto}
-	\begin{tabular}{|l|c|}
+	\begin{tabular}{|p{5.2cm}|p{8.8cm}|}
 		\hline
 		\textbf{Indicador} & \textbf{Valor} \\ \hline
 		Macro-\(F_1\) & \(0{,}8710\) \\ \hline
@@ -4201,17 +4260,25 @@ Essa seleção permitiu comparar, em um mesmo ambiente experimental, uma arquite
 \subsection{Hiperparâmetros adotados}
 
 Na rodada final consolidada, todos os modelos segmentadores foram treinados com a mesma configuração base de hiperparâmetros, o que reduz interferência de fatores externos na comparação entre arquiteturas. A configuração adotada foi:
-\begin{itemize}
-	\item taxa de aprendizado: \(10^{-4}\);
-	\item tamanho de entrada: \(256 \times 256\);
-	\item \textit{batch size}: 8;
-	\item otimizador: \texttt{AdamW};
-	\item \texttt{weight decay}: \(10^{-4}\);
-	\item máximo de épocas: 250;
-	\item paciência de \textit{early stopping}: 40;
-	\item limiar de binarização na inferência: \(0{,}5\);
-	\item uso de \textit{mixed precision} quando CUDA estava disponível.
-\end{itemize}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Hiperparâmetros e configurações de treinamento adotados}
+	\label{tab:hiperparametros_treinamento}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Configuração} & \textbf{Valor} \\ \hline
+		Taxa de aprendizado & \(10^{-4}\) \\ \hline
+		Tamanho de entrada & \(256 \times 256\) \\ \hline
+		\textit{Batch size} & 8 \\ \hline
+		Otimizador & \texttt{AdamW} \\ \hline
+		\texttt{Weight decay} & \(10^{-4}\) \\ \hline
+		Máximo de épocas & 250 \\ \hline
+		Paciência de \textit{early stopping} & 40 \\ \hline
+		Limiar de binarização na inferência & \(0{,}5\) \\ \hline
+		\textit{Mixed precision} & Utilizada quando CUDA estava disponível \\ \hline
+	\end{tabular}
+\end{table}
 
 A uniformização desses hiperparâmetros é metodologicamente importante porque permite atribuir as diferenças de desempenho com maior confiança ao desenho das arquiteturas e não a regimes de treinamento muito distintos. Além disso, o uso de resolução \(256 \times 256\) foi coerente com os resultados da análise de sensibilidade, que mostraram leve superioridade desse tamanho de entrada em relação a \(224 \times 224\).
 
