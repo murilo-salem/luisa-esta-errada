@@ -6,10 +6,32 @@
   Prognosis: Current Trends, Challenges, and an Analysis. \textbf{Cancers},
   [S.l.], v.15, n.12, p.3139, 2023.
 
+\bibitem[Aggarwal; Sounderajah; Martin; Ting; Karthikesalingam; King;
+  Ashrafian; Darzi(2021)Aggarwal; Sounderajah; Martin; Ting; Karthikesalingam;
+  King; Ashrafian; Darzi]{Aggarwal2021DLAccuracy} AGGARWAL, R.; SOUNDERAJAH,
+  V.; MARTIN, G.; TING, D. S.~W.; KARTHIKESALINGAM, A.; KING, D.; ASHRAFIAN,
+  H.; DARZI, A\@. Diagnostic accuracy of deep learning in medical imaging: a
+  systematic review and meta-analysis. \textbf{npj Digital Medicine}, [S.l.],
+  v.4, p.65, 2021.
+
 \bibitem[Al-dhabyani; Gomaa; Khaled; Fahmy(2020)Al-dhabyani; Gomaa; Khaled;
   Fahmy]{AlDhabyani2020} AL-DHABYANI, W.; GOMAA, M.; KHALED, H.; FAHMY, A\@.
   Dataset of breast ultrasound images. \textbf{Data in Brief}, [S.l.], v.28,
   p.104863, 2020.
+
+\bibitem[Al-karawi; Al-zaidi; Helael; Obeidat; Mouhsen; Ajam; Alshalabi;
+  Salman; Ahmed(2024)Al-karawi; Al-zaidi; Helael; Obeidat; Mouhsen; Ajam;
+  Alshalabi; Salman; Ahmed]{Alhejaily2024} AL-KARAWI, D.; AL-ZAIDI, S.; HELAEL,
+  K.~A.; OBEIDAT, N.; MOUHSEN, A.~M.; AJAM, T.; ALSHALABI, B.~A.; SALMAN, M.;
+  AHMED, M.~H\@. A Review of Artificial Intelligence in Breast Imaging.
+  \textbf{Tomography}, [S.l.], v.10, n.5, p.705--726, 2024.
+
+\bibitem[Arun \MakeLowercase{et~al.}(2025)Arun
+  \MakeLowercase{et~al.}]{Arun2025ExternalValidation} ARUN, S.
+  \MakeLowercase{et~al.} Systematic scoping review of external validation
+  studies of artificial intelligence tools in medical diagnosis. \textbf{npj
+  Precision Oncology}, [S.l.], v.9, 2025. Conferir paginação final na versão
+  publicada.
 
 \bibitem[Aumente-maestro; D{\'i}ez; Remeseiro(2025)Aumente-maestro; D{\'i}ez;
   Remeseiro]{AumenteMaestro2025} AUMENTE-MAESTRO, C.; D{\'I}EZ, J.; REMESEIRO,
@@ -17,20 +39,98 @@
   in ultrasound imaging. \textbf{Computer Methods and Programs in Biomedicine},
   [S.l.], v.260, p.108540, 2025.
 
-\bibitem[Bhowmik; Eskreis-winkler(2022)Bhowmik; Eskreis-winkler]{Bhowmik2022}
-  BHOWMIK, A.; ESKREIS-WINKLER, S\@. Deep learning in breast imaging.
-  \textbf{BJR Open}, [S.l.], v.4, n.1, p.20210060, 2022.
+\bibitem[Barrag{\'a}n-montero; Javaid; Vald{\'e}s; Nguyen; Desbordes; Macq;
+  Willems; Vandewinckele; Holmstr{\"o}m; L{\"o}fman; Michiels; Souris; Sterpin;
+  Lee(2021)Barrag{\'a}n-montero; Javaid; Vald{\'e}s; Nguyen; Desbordes; Macq;
+  Willems; Vandewinckele; Holmstr{\"o}m; L{\"o}fman; Michiels; Souris; Sterpin;
+  Lee]{Barragan2021} BARRAG{\'A}N-MONTERO, A.; JAVAID, U.; VALD{\'E}S, G.;
+  NGUYEN, D.; DESBORDES, P.; MACQ, B.; WILLEMS, S.; VANDEWINCKELE, L.;
+  HOLMSTR{\"O}M, M.; L{\"O}FMAN, F.; MICHIELS, S.; SOURIS, K.; STERPIN, E.;
+  LEE, J.~A\@. Artificial intelligence and machine learning for medical
+  imaging: A technology review. \textbf{Physica Medica}, [S.l.], v.83,
+  p.242--256, 2021.
+
+\bibitem[Boca~bene; Ciurea; Ciortea; Dudea(2021)Boca~bene; Ciurea; Ciortea;
+  Dudea]{Boca2021} BOCA~BENE, I.; CIUREA, A.~I.; CIORTEA, C.~A.; DUDEA, S.~M\@.
+  Pros and Cons for Automated Breast Ultrasound (ABUS): A Narrative Review.
+  \textbf{Journal of Personalized Medicine}, [S.l.], v.11, n.8, p.703, 2021.
+
+\bibitem[C{\`e}; Chiriac{\`o}; Della~pepa; Belfiore; Caruso; Brunese;
+  Splendiani; Cellina(2024)C{\`e}; Chiriac{\`o}; Della~pepa; Belfiore; Caruso;
+  Brunese; Splendiani; Cellina]{Ce2024} C{\`E}, M.; CHIRIAC{\`O}, G.;
+  DELLA~PEPA, G.; BELFIORE, M.~P.; CARUSO, D.; BRUNESE, L.; SPLENDIANI, A.;
+  CELLINA, M\@. Decoding Radiomics: A Step-by-Step Guide to Machine Learning
+  Workflow in Hand-Crafted and Deep Learning Radiomics Studies.
+  \textbf{Diagnostics}, [S.l.], v.14, n.22, p.2473, 2024.
 
 \bibitem[Chan; Samala; Hadjiiski(2020)Chan; Samala; Hadjiiski]{Chan2020} CHAN,
   H.-P.; SAMALA, R.~K.; HADJIISKI, L.~M\@. CAD and AI for breast
   cancer---recent development and challenges. \textbf{The British Journal of
   Radiology}, [S.l.], v.93, n.1108, p.20190580, 2020.
 
+\bibitem[Chen; Zhu; Papandreou; Schroff; Adam(2018)Chen; Zhu; Papandreou;
+  Schroff; Adam]{Chen2018DeepLabV3Plus} CHEN, L.; ZHU, Y.; PAPANDREOU, G.;
+  SCHROFF, F.; ADAM, H\@. Encoder-Decoder with Atrous Separable Convolution for
+  Semantic Image Segmentation. In: EUROPEAN CONFERENCE ON COMPUTER VISION
+  (ECCV), 2018. \textbf{Proceedings{\ldots}} [S.l.:~s.n.], 2018. p.801--818.
+
+\bibitem[Cobo; Men{\'e}ndez fern{\'a}ndez-miranda; Bastarrika; Torres; Campos;
+  Alcaide; Alejo; Ciaffaglione; Fiuza-luces; Lloret~iglesias(2023)Cobo;
+  Men{\'e}ndez fern{\'a}ndez-miranda; Bastarrika; Torres; Campos; Alcaide;
+  Alejo; Ciaffaglione; Fiuza-luces; Lloret~iglesias]{Cobo2023} COBO, M.;
+  MEN{\'E}NDEZ FERN{\'A}NDEZ-MIRANDA, P.; BASTARRIKA, G.; TORRES, J.~P.~de;
+  CAMPOS, G.; ALCAIDE, A.~B.; ALEJO, R.~P{\'e}rez~de; CIAFFAGLIONE, G.;
+  FIUZA-LUCES, C.; LLORET~IGLESIAS, L\@. Enhancing Radiomics and Deep Learning
+  Systems through the Standardization of Medical Imaging Workflows.
+  \textbf{Scientific Data}, [S.l.], v.10, p.732, 2023.
+
+\bibitem[Collins \MakeLowercase{et~al.}(2024)Collins
+  \MakeLowercase{et~al.}]{TRIPODAI2024} COLLINS, G.~S. \MakeLowercase{et~al.}
+  TRIPOD+AI statement: updated guidance for reporting clinical prediction
+  models that use regression or machine learning methods. \textbf{BMJ}, [S.l.],
+  v.385, p.e078378, 2024.
+
 \bibitem[Dan; Xu; Burrows; Bissram; Stringer; Li(2024)Dan; Xu; Burrows;
   Bissram; Stringer; Li]{Dan2024} DAN, Q.; XU, Z.; BURROWS, H.; BISSRAM, J.;
   STRINGER, J. S.~A.; LI, Y\@. Diagnostic performance of deep learning in
   ultrasound diagnosis of breast cancer: a systematic review. \textbf{npj
-  Precision Oncology}, [S.l.], v.8, n.1, p.21, 2024.
+  Precision Oncology}, [S.l.], v.8, p.21, 2024.
+
+\bibitem[Esteva; Chou; Yeung; Naik; Madani; Mottaghi; Liu; Topol(2021)Esteva;
+  Chou; Yeung; Naik; Madani; Mottaghi; Liu; Topol]{Esteva2021MedCV} ESTEVA, A.;
+  CHOU, K.; YEUNG, S.; NAIK, N.; MADANI, A.; MOTTAGHI, A.; LIU, Y.; TOPOL, E\@.
+  Deep learning-enabled medical computer vision. \textbf{npj Digital Medicine},
+  [S.l.], v.4, p.5, 2021.
+
+\bibitem[Esteva; Robicquet; Ramsundar; Kuleshov; Depristo; Chou; Cui; Corrado;
+  Thrun; Dean(2019)Esteva; Robicquet; Ramsundar; Kuleshov; Depristo; Chou; Cui;
+  Corrado; Thrun; Dean]{Esteva2019DLHealthcare} ESTEVA, A.; ROBICQUET, A.;
+  RAMSUNDAR, B.; KULESHOV, V.; DEPRISTO, M.; CHOU, K.; CUI, C.; CORRADO, G.;
+  THRUN, S.; DEAN, J\@. A guide to deep learning in healthcare. \textbf{Nature
+  Medicine}, [S.l.], v.25, n.1, p.24--29, 2019.
+
+\bibitem[Goetz \MakeLowercase{et~al.}(2024)Goetz
+  \MakeLowercase{et~al.}]{Goetz2024Generalization} GOETZ, L.
+  \MakeLowercase{et~al.} Generalization---a key challenge for responsible AI in
+  patient-facing clinical applications. \textbf{npj Digital Medicine}, [S.l.],
+  v.7, p.178, 2024.
+
+\bibitem[Gu \MakeLowercase{et~al.}(2025)Gu
+  \MakeLowercase{et~al.}]{Gu2025Workflow} GU, Z. \MakeLowercase{et~al.}
+  Radiology Workflow Assistance With Artificial Intelligence. \textbf{Journal
+  of the American College of Radiology}, [S.l.], 2025. Review article on AI
+  applications across the medical imaging workflow; conferir paginação e
+  lista final de autores na versão publicada.
+
+\bibitem[Guo; Lu; Qin; Fei(2018)Guo; Lu; Qin; Fei]{Guo2018} GUO, R.; LU, G.;
+  QIN, B.; FEI, B\@. Ultrasound Imaging Technologies for Breast Cancer
+  Detection and Management: A Review. \textbf{Ultrasound in Medicine \&
+  Biology}, [S.l.], v.44, n.1, p.37--70, 2018.
+
+\bibitem[He; Zhang; Ren; Sun(2016)He; Zhang; Ren; Sun]{He2016} HE, K.; ZHANG,
+  X.; REN, S.; SUN, J\@. Deep Residual Learning for Image Recognition. In: IEEE
+  CONFERENCE ON COMPUTER VISION AND PATTERN RECOGNITION (CVPR), 2016.
+  \textbf{Proceedings{\ldots}} [S.l.:~s.n.], 2016. p.770--778.
 
 \bibitem[Hussein; Abbas; Keshavarzi; Fazelzad; Bukhanov; Kulkarni; Freedman;
   Mesurolle; Elser; Hodgson; Crystal; Freitas(2023)Hussein; Abbas; Keshavarzi;
@@ -40,6 +140,45 @@
   HODGSON, N.; CRYSTAL, P.; FREITAS, V\@. Supplemental Breast Cancer Screening
   in Women with Dense Breasts and Negative Mammography: A Systematic Review and
   Meta-analysis. \textbf{Radiology}, [S.l.], v.306, n.3, p.e221785, 2023.
+
+\bibitem[Iacob; Iacob; Stoicescu; Ghenciu; Cocolea; Constantinescu; Ghenciu;
+  Manolescu(2024)Iacob; Iacob; Stoicescu; Ghenciu; Cocolea; Constantinescu;
+  Ghenciu; Manolescu]{Iacob2024} IACOB, R.; IACOB, E.~R.; STOICESCU, E.~R.;
+  GHENCIU, D.~M.; COCOLEA, D.~M.; CONSTANTINESCU, A.; GHENCIU, L.~A.;
+  MANOLESCU, D.~L\@. Evaluating the Role of Breast Ultrasound in Early
+  Detection of Breast Cancer in Low- and Middle-Income Countries: A
+  Comprehensive Narrative Review. \textbf{Bioengineering}, [S.l.], v.11, n.3,
+  p.262, 2024.
+
+\bibitem[{Instituto Nacional de C{\^a}ncer}(2022){Instituto Nacional de
+  C{\^a}ncer}]{INCAParametros} {Instituto Nacional de C{\^a}ncer}.
+  \textbf{Par{\^a}metros t{\'e}cnicos para detec{\c c}{\~a}o precoce do
+  c{\^a}ncer de mama}. Rio de Janeiro: INCA, 2022.
+
+\bibitem[{Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}(2015){Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}]{INCADiretrizesMama} {Instituto Nacional de C{\^a}ncer Jos{\'e}
+  Alencar Gomes da Silva}. \textbf{Diretrizes para a detec{\c c}{\~a}o precoce
+  do c{\^a}ncer de mama no Brasil}. Rio de Janeiro: INCA, 2015.
+
+\bibitem[{Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}(2021){Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}]{INCADeteccao} {Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar
+  Gomes da Silva}. \textbf{Detec{\c c}{\~a}o precoce do c{\^a}ncer}. Rio de
+  Janeiro: INCA, 2021.
+
+\bibitem[{Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}(2022a){Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}]{INCA2023} {Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}. \textbf{Estimativa 2023}: incid{\^e}ncia de c{\^a}ncer no Brasil. Rio
+  de Janeiro: INCA, 2022.
+
+\bibitem[{Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}(2022b){Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar Gomes da
+  Silva}]{INCAIncidencia} {Instituto Nacional de C{\^a}ncer Jos{\'e} Alencar
+  Gomes da Silva}. Estimativa de Incid{\^e}ncia de C{\^a}ncer no Brasil,
+  2023--2025. \textbf{Revista Brasileira de Cancerologia}, [S.l.], 2022.
+  Documento derivado da publica{\c c}{\~a}o Estimativa 2023 do INCA.
 
 \bibitem[{Instituto Nacional de C\^ancer Jos\'e Alencar Gomes da
   Silva}(2022a){Instituto Nacional de C\^ancer Jos\'e Alencar Gomes da
@@ -56,18 +195,114 @@
   \url{https://www.inca.gov.br/sites/ufu.sti.inca.local/files/media/document/parametros-tecnicos-deteccao-precoce-cancer-de-mama.pdf}.
 
 \bibitem[{Instituto Nacional de C\^ancer Jos\'e Alencar Gomes da
-  Silva}(2023a){Instituto Nacional de C\^ancer Jos\'e Alencar Gomes da
-  Silva}]{INCADiretrizesMama} {Instituto Nacional de C\^ancer Jos\'e Alencar
-  Gomes da Silva}. \textbf{Diretrizes para a detec\c{c}\~ao precoce do c\^ancer
-  de mama no Brasil}. Livro institucional. Accessed: 2026-03-18,
-  \url{https://www.inca.gov.br/publicacoes/livros/diretrizes-para-deteccao-precoce-do-cancer-de-mama-no-brasil}.
-
-\bibitem[{Instituto Nacional de C\^ancer Jos\'e Alencar Gomes da
-  Silva}(2023b){Instituto Nacional de C\^ancer Jos\'e Alencar Gomes da
+  Silva}(2023){Instituto Nacional de C\^ancer Jos\'e Alencar Gomes da
   Silva}]{INCAEstimativa2023} {Instituto Nacional de C\^ancer Jos\'e Alencar
   Gomes da Silva}. Estimativa 2023: incid\^encia de c\^ancer no Brasil.
   \textbf{Revista Brasileira de Cancerologia}, [S.l.], v.69, n.1, p.e--213700,
   2023.
+
+\bibitem[{International Agency for Research on Cancer}(2023){International
+  Agency for Research on Cancer}]{IARCBreastAtlas} {International Agency for
+  Research on Cancer}. \textbf{Atlas of Breast Cancer Early Detection}.
+  Dispon{\'\i}vel em:
+  <https://publications.iarc.who.int/Databases/Iarc-Cancerbases/Atlas-Of-Breast-Cancer-Early-Detection-2023>.
+  Acesso em: 2025-09-22.
+
+\bibitem[{International Agency for Research on Cancer}(2025){International
+  Agency for Research on Cancer}]{IARC2025} {International Agency for Research
+  on Cancer}. \textbf{Breast cancer cases and deaths are projected to rise
+  globally}. Press Release No. 361. Dispon{\'\i}vel em:
+  <https://www.iarc.who.int/wp-content/uploads/2025/02/pr361_E.pdf>. Acesso em:
+  2025-09-22.
+
+\bibitem[Ko{\c c}ak \MakeLowercase{et~al.}(2025)Ko{\c c}ak
+  \MakeLowercase{et~al.}]{Kocak2025Bias} KO{\c C}AK, B. \MakeLowercase{et~al.}
+  Bias in artificial intelligence for medical imaging. \textbf{Diagnostic and
+  Interventional Radiology}, [S.l.], v.31, 2025. Conferir paginação final na
+  versão publicada.
+
+\bibitem[Kolbinger \MakeLowercase{et~al.}(2024)Kolbinger
+  \MakeLowercase{et~al.}]{Kolbinger2024Reporting} KOLBINGER, F.~R.
+  \MakeLowercase{et~al.} Reporting guidelines in medical artificial
+  intelligence: a systematic review and comparative analysis.
+  \textbf{Communications Medicine}, [S.l.], v.4, p.179, 2024.
+
+\bibitem[Lambin; Leijenaar; Deist; Peerlings; Jong; Timmeren; Sanduleanu;
+  Larue; Even; Jochems; Wijk; Woodruff; Soest; Lustberg; Roelofs; Elmpt;
+  Dekker; Mottaghy; Wildberger; Walsh(2017)Lambin; Leijenaar; Deist; Peerlings;
+  Jong; Timmeren; Sanduleanu; Larue; Even; Jochems; Wijk; Woodruff; Soest;
+  Lustberg; Roelofs; Elmpt; Dekker; Mottaghy; Wildberger; Walsh]{Lambin2020}
+  LAMBIN, P.; LEIJENAAR, R. T.~H.; DEIST, T.~M.; PEERLINGS, J.; JONG, E.
+  E.~C.~de; TIMMEREN, J.~van; SANDULEANU, S.; LARUE, R. T. H.~M.; EVEN, A.
+  J.~G.; JOCHEMS, A.; WIJK, Y.~van; WOODRUFF, H.; SOEST, J.~van; LUSTBERG, T.;
+  ROELOFS, E.; ELMPT, W.~van; DEKKER, A.; MOTTAGHY, F.~M.; WILDBERGER, J.~E.;
+  WALSH, S\@. Radiomics: The Bridge between Medical Imaging and Personalized
+  Medicine. \textbf{Nature Reviews Clinical Oncology}, [S.l.], v.14, n.12,
+  p.749--762, 2017.
+
+\bibitem[Lawrence \MakeLowercase{et~al.}(2025)Lawrence
+  \MakeLowercase{et~al.}]{Lawrence2025RadiologyAI} LAWRENCE, R.
+  \MakeLowercase{et~al.} Artificial intelligence for diagnostics in radiology
+  practice. \textbf{Radiology: Artificial Intelligence}, [S.l.], 2025. Review
+  summarizing implementation evidence, perceptions, and evidence gaps in
+  diagnostic imaging AI; conferir dados bibliográficos finais na versão
+  publicada.
+
+\bibitem[Lee; Jun; Cho; Lee; Kim; Seo; Kim(2017a)Lee; Jun; Cho; Lee; Kim; Seo;
+  Kim]{Lee2017DLMedicalImaging} LEE, J.~G.; JUN, S.; CHO, Y.-W.; LEE, H.; KIM,
+  G.~B.; SEO, J.~B.; KIM, N\@. Deep Learning in Medical Imaging: General
+  Overview. \textbf{Korean Journal of Radiology}, [S.l.], v.18, n.4,
+  p.570--584, 2017.
+
+\bibitem[Lee; Jun; Cho; Lee; Kim; Seo; Kim(2017b)Lee; Jun; Cho; Lee; Kim; Seo;
+  Kim]{Lee2017} LEE, J.~G.; JUN, S.; CHO, Y.-W.; LEE, H.; KIM, G.~B.; SEO,
+  J.~B.; KIM, N\@. Deep Learning in Medical Imaging: General Overview.
+  \textbf{Korean Journal of Radiology}, [S.l.], v.18, n.4, p.570--584, 2017.
+
+\bibitem[Lekadir \MakeLowercase{et~al.}(2025)Lekadir
+  \MakeLowercase{et~al.}]{FUTUREAI2025} LEKADIR, K. \MakeLowercase{et~al.}
+  FUTURE-AI: international consensus guideline for trustworthy and deployable
+  artificial intelligence in healthcare. \textbf{BMJ}, [S.l.], v.388,
+  p.e081554, 2025.
+
+\bibitem[Liu; Pian; Chen; Zhao; Liu; Meng; Zeng(2025a)Liu; Pian; Chen; Zhao;
+  Liu; Meng; Zeng]{Liu2025} LIU, J.; PIAN, L.; CHEN, J.; ZHAO, J.; LIU, Y.;
+  MENG, F.; ZENG, C\@. Artificial intelligence in breast ultrasound: a
+  systematic review of research advances. \textbf{Frontiers in Oncology},
+  [S.l.], v.15, p.1619364, 2025.
+
+\bibitem[Liu; Pian; Chen; Zhao; Liu; Meng; Zeng(2025b)Liu; Pian; Chen; Zhao;
+  Liu; Meng; Zeng]{Liu2025AIBUS} LIU, J.; PIAN, L.; CHEN, J.; ZHAO, J.; LIU,
+  Y.; MENG, F.; ZENG, C\@. Artificial intelligence in breast ultrasound: a
+  systematic review of research advances. \textbf{Frontiers in Oncology},
+  [S.l.], v.15, p.1619364, 2025.
+
+\bibitem[Liu; Li; Qin; Wen; Xie; Cheng; Huang; Zhang; Ning; Wang(2018a)Liu; Li;
+  Qin; Wen; Xie; Cheng; Huang; Zhang; Ning; Wang]{Liu2018} LIU, L.; LI, K.;
+  QIN, W.; WEN, T.~X.; XIE, H.; CHENG, J.; HUANG, K.; ZHANG, B.; NING, C.;
+  WANG, Y\@. Automated Breast Tumor Detection and Segmentation with a Novel
+  Computational Framework of Whole Ultrasound Images. \textbf{Medical \&
+  Biological Engineering \& Computing}, [S.l.], v.56, n.7, p.1285--1300, 2018.
+
+\bibitem[Liu; Li; Qin; Wen; Xie; Cheng; Huang; Zhang; Ning; Wang(2018b)Liu; Li;
+  Qin; Wen; Xie; Cheng; Huang; Zhang; Ning; Wang]{Liu2018BUSSegment} LIU, L.;
+  LI, K.; QIN, W.; WEN, T.~X.; XIE, H.; CHENG, J.; HUANG, K.; ZHANG, B.; NING,
+  C.; WANG, Y\@. Automated Breast Tumor Detection and Segmentation with a Novel
+  Computational Framework of Whole Ultrasound Images. \textbf{Medical \&
+  Biological Engineering \& Computing}, [S.l.], v.56, n.7, p.1285--1300, 2018.
+
+\bibitem[Liu; Rivera; Moher; Calvert; Denniston; Spirit-ai; Group(2020)Liu;
+  Rivera; Moher; Calvert; Denniston; Spirit-ai; Group]{CONSORTAI2020} LIU, X.;
+  RIVERA, S.~C.; MOHER, D.; CALVERT, M.~J.; DENNISTON, A.~K.; SPIRIT-AI; GROUP,
+  C.-A.~W\@. Reporting guidelines for clinical trial reports for interventions
+  involving artificial intelligence: the CONSORT-AI extension. \textbf{BMJ},
+  [S.l.], v.370, p.m3164, 2020.
+
+\bibitem[Liu; Mao; Wu; Feichtenhofer; Darrell; Xie(2022)Liu; Mao; Wu;
+  Feichtenhofer; Darrell; Xie]{Liu2022ConvNeXt} LIU, Z.; MAO, H.; WU, C.;
+  FEICHTENHOFER, C.; DARRELL, T.; XIE, S\@. A ConvNet for the 2020s. In:
+  IEEE/CVF CONFERENCE ON COMPUTER VISION AND PATTERN RECOGNITION (CVPR), 2022.
+  \textbf{Proceedings{\ldots}} [S.l.:~s.n.], 2022. p.11976--11986.
 
 \bibitem[Lobig; Caleyachetty; Forrester; Morris; Newstead; Harris;
   Blankenburg(2023)Lobig; Caleyachetty; Forrester; Morris; Newstead; Harris;
@@ -76,6 +311,19 @@
   Imaging Modalities for Breast Cancer in Women With Dense Breasts: Findings
   From an Umbrella Review and Primary Studies Analysis. \textbf{Clinical Breast
   Cancer}, [S.l.], v.23, n.5, p.478--490, 2023.
+
+\bibitem[Moassefi \MakeLowercase{et~al.}(2023)Moassefi
+  \MakeLowercase{et~al.}]{Moassefi2023} MOASSEFI, M. \MakeLowercase{et~al.}
+  Reproducibility of Deep Learning Algorithms Developed for Medical Imaging
+  Analysis: A Systematic Review. \textbf{Journal of Digital Imaging}, [S.l.],
+  2023. Verificar paginação e lista final de autores conforme versão oficial
+  do periódico.
+
+\bibitem[Moons \MakeLowercase{et~al.}(2025)Moons
+  \MakeLowercase{et~al.}]{PROBASTAI2025} MOONS, K. G.~M. \MakeLowercase{et~al.}
+  PROBAST+AI: an updated quality, risk of bias, and applicability assessment
+  tool for prediction model studies that use regression or machine learning
+  methods. \textbf{BMJ}, [S.l.], v.388, p.e082505, 2025.
 
 \bibitem[{National Cancer Institute}(2025a){National Cancer
   Institute}]{NCIBreastDiagnosis2025} {National Cancer Institute}. \textbf{How
@@ -87,42 +335,162 @@
   for Breast Cancer}. Accessed: 2026-03-18,
   \url{https://www.cancer.gov/types/breast/screening}.
 
+\bibitem[Oktay; Schlemper; Le~folgoc; Lee; Heinrich; Misawa; Mori; Mcdonagh;
+  Hammerla; Kainz; Glocker; Rueckert(2018)Oktay; Schlemper; Le~folgoc; Lee;
+  Heinrich; Misawa; Mori; Mcdonagh; Hammerla; Kainz; Glocker;
+  Rueckert]{Oktay2018} OKTAY, O.; SCHLEMPER, J.; LE~FOLGOC, L.; LEE, M.;
+  HEINRICH, M.; MISAWA, K.; MORI, K.; MCDONAGH, S.; HAMMERLA, N.~Y.; KAINZ, B.;
+  GLOCKER, B.; RUECKERT, D\@. Attention U-Net: Learning Where to Look for the
+  Pancreas. \textbf{arXiv preprint arXiv:1804.03999}, [S.l.], 2018.
+
 \bibitem[Pawłowska; Karwat; Zołek(2023)Pawłowska; Karwat;
   Zołek]{Pawlowska2023} PAWłOWSKA, A.; KARWAT, P.; ZOłEK, N\@. Letter to the
   Editor. Re: ``Dataset of breast ultrasound images by W. Al-Dhabyani, M.
   Gomaa, H. Khaled \& A. Fahmy, Data in Brief, 2020, 28, 104863''. \textbf{Data
   in Brief}, [S.l.], v.48, p.109247, 2023.
 
+\bibitem[Rahmani \MakeLowercase{et~al.}(2024)Rahmani
+  \MakeLowercase{et~al.}]{Rahmani2024} RAHMANI, A.~A. \MakeLowercase{et~al.}
+  Automatic breast mass segmentation in ultrasound images using a deep learning
+  model with resolution enhancement and attention mechanisms.
+  \textbf{Biomedical Signal Processing and Control}, [S.l.], 2024. Registro
+  baseado na referência indexada em bases públicas; recomenda-se conferir a
+  lista final de autores no PDF oficial antes da submissão.
+
+\bibitem[Rajkomar; Dean; Kohane(2019)Rajkomar; Dean; Kohane]{Rajkomar2019}
+  RAJKOMAR, A.; DEAN, J.; KOHANE, I\@. Machine Learning in Medicine.
+  \textbf{New England Journal of Medicine}, [S.l.], v.380, n.14, p.1347--1358,
+  2019.
+
+\bibitem[Ren; Zhao; Zhao; Yan; Hu; Qiao; Xu; Zhao(2023)Ren; Zhao; Zhao; Yan;
+  Hu; Qiao; Xu; Zhao]{Ren2023} REN, W.; ZHAO, X.; ZHAO, X.; YAN, H.; HU, S.;
+  QIAO, Y.; XU, Z.; ZHAO, F\@. The Potential of Adding Mammography to Handheld
+  Ultrasound or Automated Breast Ultrasound to Reduce Unnecessary Biopsies in
+  BI-RADS Ultrasound Category 4a: A Multicenter Hospital-Based Study in China.
+  \textbf{Current Oncology}, [S.l.], v.30, n.3, p.3301--3314, 2023.
+
+\bibitem[Renard; Guedria; De~palma; Vuillerme(2020)Renard; Guedria; De~palma;
+  Vuillerme]{Renard2020} RENARD, F.; GUEDRIA, S.; DE~PALMA, N.; VUILLERME, N\@.
+  Variability and Reproducibility in Deep Learning for Medical Image
+  Segmentation. \textbf{Scientific Reports}, [S.l.], v.10, p.13724, 2020.
+
+\bibitem[Rivera; Liu; Chan; Denniston; Calvert; Spirit-ai; Group(2020)Rivera;
+  Liu; Chan; Denniston; Calvert; Spirit-ai; Group]{SPIRITAI2020} RIVERA, S.~C.;
+  LIU, X.; CHAN, A.-W.; DENNISTON, A.~K.; CALVERT, M.~J.; SPIRIT-AI; GROUP,
+  C.-A.~W\@. Guidelines for clinical trial protocols for interventions
+  involving artificial intelligence: the SPIRIT-AI extension. \textbf{The
+  Lancet Digital Health}, [S.l.], v.2, n.10, p.e549--e560, 2020.
+
+\bibitem[Ronneberger; Fischer; Brox(2015)Ronneberger; Fischer;
+  Brox]{Ronneberger2015} RONNEBERGER, O.; FISCHER, P.; BROX, T\@. U-Net:
+  Convolutional Networks for Biomedical Image Segmentation. In: MEDICAL IMAGE
+  COMPUTING AND COMPUTER-ASSISTED INTERVENTION -- MICCAI 2015, 2015.
+  \textbf{Anais{\ldots}} Springer, 2015. p.234--241.
+
+\bibitem[Simk{\'o} \MakeLowercase{et~al.}(2024)Simk{\'o}
+  \MakeLowercase{et~al.}]{Simko2024} SIMK{\'O}, A. \MakeLowercase{et~al.}
+  Reproducibility of the Methods in Medical Imaging with Deep Learning. In:
+  MACHINE LEARNING RESEARCH, 2024. \textbf{Proceedings{\ldots}} [S.l.:~s.n.],
+  2024. v.227, p.1--17. MIDL 2024; conferir paginação final conforme versão
+  oficial.
+
+\bibitem[Simonyan; Zisserman(2015)Simonyan; Zisserman]{Simonyan2015} SIMONYAN,
+  K.; ZISSERMAN, A\@. Very Deep Convolutional Networks for Large-Scale Image
+  Recognition. \textbf{International Conference on Learning Representations
+  (ICLR)}, [S.l.], 2015.
+
+\bibitem[Suzuki(2012)Suzuki]{Suzuki2012} SUZUKI, K\@. Pixel-Based Machine
+  Learning in Medical Imaging. \textbf{International Journal of Biomedical
+  Imaging}, [S.l.], v.2012, p.792079, 2012.
+
+\bibitem[Tan; Le(2019)Tan; Le]{Tan2019} TAN, M.; LE, Q.~V\@. EfficientNet:
+  Rethinking Model Scaling for Convolutional Neural Networks. In: INTERNATIONAL
+  CONFERENCE ON MACHINE LEARNING (ICML), 36., 2019.
+  \textbf{Proceedings{\ldots}} PMLR, 2019. v.97, p.6105--6114.
+
+\bibitem[Timmeren; Cester; Tanadini-lang; Alkadhi; Baessler(2020)Timmeren;
+  Cester; Tanadini-lang; Alkadhi; Baessler]{vanTimmeren2020} TIMMEREN,
+  J.~E.~van; CESTER, D.; TANADINI-LANG, S.; ALKADHI, H.; BAESSLER, B\@.
+  Radiomics in Medical Imaging---``How-to'' Guide and Critical Reflection.
+  \textbf{Insights into Imaging}, [S.l.], v.11, n.1, p.91, 2020.
+
 \bibitem[Trepanier; Lei; Elmore; Mcdonald(2023)Trepanier; Lei; Elmore;
   Mcdonald]{Trepanier2023} TREPANIER, C.; LEI, L.; ELMORE, J.~G.; MCDONALD,
   E.~S\@. Emerging uses of artificial intelligence in breast and axillary
   ultrasound. \textbf{Clinical Imaging}, [S.l.], v.101, p.63--70, 2023.
 
+\bibitem[Ueda \MakeLowercase{et~al.}(2024)Ueda
+  \MakeLowercase{et~al.}]{Ueda2024Fairness} UEDA, D. \MakeLowercase{et~al.}
+  Fairness of artificial intelligence in healthcare: review and
+  recommendations. \textbf{Current Treatment Options in Oncology}, [S.l.],
+  v.25, p.137--162, 2024.
+
+\bibitem[Wenderott \MakeLowercase{et~al.}(2024)Wenderott
+  \MakeLowercase{et~al.}]{Wenderott2024} WENDEROTT, K. \MakeLowercase{et~al.}
+  Effects of artificial intelligence implementation on efficiency in medical
+  imaging: a systematic literature review and meta-analysis. \textbf{npj
+  Digital Medicine}, [S.l.], v.7, p.271, 2024.
+
+\bibitem[{World Health Organization}(2017){World Health
+  Organization}]{WHOEarlyDiagnosis} {World Health Organization}. \textbf{Guide
+  to Cancer Early Diagnosis}. Geneva: World Health Organization, 2017.
+
+\bibitem[{World Health Organization}(2021){World Health
+  Organization}]{WHO2021AI} {World Health Organization}. \textbf{Ethics and
+  Governance of Artificial Intelligence for Health}: WHO Guidance. Geneva:
+  World Health Organization, 2021.
+
 \bibitem[{World Health Organization}(2025a){World Health
-  Organization}]{WHOEarlyDiagnosis} {World Health Organization}.
-  \textbf{Promoting cancer early diagnosis}. Accessed: 2026-03-18,
-  \url{https://www.who.int/activities/promoting-cancer-early-diagnosis}.
+  Organization}]{WHO2025} {World Health Organization}. \textbf{Breast cancer}.
+  Dispon{\'\i}vel em:
+  <https://www.who.int/news-room/fact-sheets/detail/breast-cancer>. Acesso em:
+  2025-09-22.
 
 \bibitem[{World Health Organization}(2025b){World Health
   Organization}]{WHO2025BreastCancer} {World Health Organization}.
   \textbf{Breast cancer}. Fact sheet. Accessed: 2026-03-18,
   \url{https://www.who.int/news-room/fact-sheets/detail/breast-cancer}.
 
-\bibitem[Yap; Pons; Mart{\'i}; Ganau; Sent{\'i}s; Zwiggelaar; Davison;
-  Mart{\'i}(2018)Yap; Pons; Mart{\'i}; Ganau; Sent{\'i}s; Zwiggelaar; Davison;
-  Mart{\'i}]{Yap2018} YAP, M.~H.; PONS, G.; MART{\'I}, J.; GANAU, S.;
-  SENT{\'I}S, M.; ZWIGGELAAR, R.; DAVISON, A.~K.; MART{\'I}, R\@. Automated
-  Breast Ultrasound Lesions Detection Using Convolutional Neural Networks.
-  \textbf{IEEE Journal of Biomedical and Health Informatics}, [S.l.], v.22,
-  n.4, p.1218--1226, 2018.
+\bibitem[Yang \MakeLowercase{et~al.}(2024)Yang
+  \MakeLowercase{et~al.}]{Yang2024FairMedicalImaging} YANG, Y.
+  \MakeLowercase{et~al.} The limits of fair medical imaging AI in real-world
+  generalization. \textbf{Nature Medicine}, [S.l.], v.30, 2024. Conferir
+  paginação final na versão publicada.
 
-\bibitem[Zhou; Greenspan; Davatzikos; Duncan; Van~ginneken; Madabhushi; Prince;
-  Rueckert; Summers(2021)Zhou; Greenspan; Davatzikos; Duncan; Van~ginneken;
-  Madabhushi; Prince; Rueckert; Summers]{Zhou2021} ZHOU, S.~K.; GREENSPAN, H.;
-  DAVATZIKOS, C.; DUNCAN, J.~S.; VAN~GINNEKEN, B.; MADABHUSHI, A.; PRINCE,
-  J.~L.; RUECKERT, D.; SUMMERS, R.~M\@. A review of deep learning in medical
-  imaging: Imaging traits, technology trends, case studies with progress
-  highlights, and future promises. \textbf{Proceedings of the IEEE}, [S.l.],
-  v.109, n.5, p.820--838, 2021.
+\bibitem[Yap; Goyal; Osman; Ahmad; Marti; Denton; Juette; Zwiggelaar(2018)Yap;
+  Goyal; Osman; Ahmad; Marti; Denton; Juette; Zwiggelaar]{Yap2018} YAP, M.~H.;
+  GOYAL, M.; OSMAN, F.; AHMAD, E.; MARTI, R.; DENTON, E. R.~E.; JUETTE, A.;
+  ZWIGGELAAR, R\@. End-to-End Breast Ultrasound Lesions Recognition with a Deep
+  Learning Approach. In: MEDICAL IMAGING 2018: BIOMEDICAL APPLICATIONS IN
+  MOLECULAR, STRUCTURAL, AND FUNCTIONAL IMAGING, 2018. \textbf{Anais{\ldots}}
+  SPIE, 2018. v.10578, p.1057819.
+
+\bibitem[Yu; Beam; Kohane(2018)Yu; Beam; Kohane]{Yu2018AIHealthcare} YU, K.-H.;
+  BEAM, A.~L.; KOHANE, I.~S\@. Artificial intelligence in healthcare.
+  \textbf{Nature Biomedical Engineering}, [S.l.], v.2, n.10, p.719--731, 2018.
+
+\bibitem[Yu; Zhou; Wang; Zhang(2022)Yu; Zhou; Wang; Zhang]{Zhou2021} YU, X.;
+  ZHOU, Q.; WANG, S.; ZHANG, Y\@. A systematic survey of deep learning in
+  breast cancer. \textbf{International Journal of Intelligent Systems}, [S.l.],
+  v.37, n.1, p.152--216, 2022. Entrada usada como correspond{\^e}ncia
+  plaus{\'\i}vel para a chave amb{\'\i}gua ``Zhou2021''.
+
+\bibitem[Zhang; Xian; Cheng; Shareef; Ding; Xu; Huang; Zhang; Ning;
+  Wang(2022)Zhang; Xian; Cheng; Shareef; Ding; Xu; Huang; Zhang; Ning;
+  Wang]{Zhang2022BUSIS} ZHANG, Y.; XIAN, M.; CHENG, H.~D.; SHAREEF, B.; DING,
+  J.; XU, F.; HUANG, K.; ZHANG, B.; NING, C.; WANG, Y\@. BUSIS: A Benchmark for
+  Breast Ultrasound Image Segmentation. \textbf{Healthcare}, [S.l.], v.10, n.4,
+  p.729, 2022.
+
+\bibitem[Zhou; Fan; Hansen; Johnson; Weiskopf(2022)Zhou; Fan; Hansen; Johnson;
+  Weiskopf]{Zhou2022} ZHOU, L.; FAN, M.; HANSEN, C.; JOHNSON, C.~R.; WEISKOPF,
+  D\@. A Review of Three-Dimensional Medical Image Visualization.
+  \textbf{Health Data Science}, [S.l.], v.2022, p.9840519, 2022.
+
+\bibitem[Zhou; Siddiquee; Tajbakhsh; Liang(2018)Zhou; Siddiquee; Tajbakhsh;
+  Liang]{Zhou2018UNetPP} ZHOU, Z.; SIDDIQUEE, M. M.~R.; TAJBAKHSH, N.; LIANG,
+  J\@. UNet++: A Nested U-Net Architecture for Medical Image Segmentation.
+  \textbf{Deep Learning in Medical Image Analysis and Multimodal Learning for
+  Clinical Decision Support}, [S.l.], p.3--11, 2018.
 
 \end{thebibliography}

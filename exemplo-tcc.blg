@@ -1,68 +1,173 @@
 This is BibTeX, Version 0.99e
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: exemplo-tcc.aux
+Case mismatch error between cite keys Zhou2018UNetpp and Zhou2018UNetPP
+---line 205 of file exemplo-tcc.aux
+ : \citation{Zhou2018UNetpp
+ :                         }
+I'm skipping whatever remains of this command
 Reallocating 'name_of_file' (item size: 1) to 5 items.
 The style file: abnt.bst
 Reallocating 'name_of_file' (item size: 1) to 13 items.
 Database file #1: bibliografia.bib
-Repeated entry---line 201 of file bibliografia.bib
+Warning--entry type for "WHO2025" isn't style-file defined
+--line 11 of file bibliografia.bib
+Warning--entry type for "IARC2025" isn't style-file defined
+--line 21 of file bibliografia.bib
+Warning--entry type for "IARCBreastAtlas" isn't style-file defined
+--line 84 of file bibliografia.bib
+Repeated entry---line 244 of file bibliografia.bib
+ : @article{Barragan2021
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 254 of file bibliografia.bib
+ : @article{Guo2018
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 265 of file bibliografia.bib
  : @article{Dan2024
  :                 ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 213 of file bibliografia.bib
- : @article{Zhou2021
- :                  ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 225 of file bibliografia.bib
- : @article{Bhowmik2022
- :                     ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 237 of file bibliografia.bib
- : @article{AlDhabyani2020
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 248 of file bibliografia.bib
- : @article{Pawlowska2023
+Repeated entry---line 275 of file bibliografia.bib
+ : @inproceedings{Yap2018
  :                       ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 259 of file bibliografia.bib
- : @misc{WHO2025BreastCancer
- :                          ,
+Repeated entry---line 286 of file bibliografia.bib
+ : @article{Zhang2022BUSIS
+ :                        ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 269 of file bibliografia.bib
- : @article{INCAEstimativa2023
+Repeated entry---line 305 of file bibliografia.bib
+ : @article{Iacob2024
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 373 of file bibliografia.bib
+ : @article{Dan2024
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 384 of file bibliografia.bib
+ : @article{Liu2025AIBUS
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 395 of file bibliografia.bib
+ : @article{Guo2018
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 445 of file bibliografia.bib
+ : @article{Zhang2022BUSIS
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 479 of file bibliografia.bib
+ : @article{Barragan2021
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 548 of file bibliografia.bib
+ : @article{Lee2017DLMedicalImaging
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 600 of file bibliografia.bib
+ : @article{Liu2025AIBUS
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 611 of file bibliografia.bib
+ : @article{Dan2024
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 622 of file bibliografia.bib
+ : @book{WHO2021AI
+ :                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 633 of file bibliografia.bib
+ : @article{Yu2018AIHealthcare
  :                            ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 281 of file bibliografia.bib
+Repeated entry---line 654 of file bibliografia.bib
+ : @article{Gu2025Workflow
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 663 of file bibliografia.bib
+ : @article{Lawrence2025RadiologyAI
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 804 of file bibliografia.bib
+ : @article{Guo2018
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 868 of file bibliografia.bib
+ : @article{Guo2018
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 879 of file bibliografia.bib
+ : @article{Esteva2021MedCV
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 890 of file bibliografia.bib
+ : @article{Renard2020
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 928 of file bibliografia.bib
+ : @misc{WHOEarlyDiagnosis
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 976 of file bibliografia.bib
  : @misc{INCADiretrizesMama
  :                         ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 299 of file bibliografia.bib
- : @misc{INCADeteccaoPrecoce2022
- :                              ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 319 of file bibliografia.bib
- : @misc{INCAParametrosMama
- :                         ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 340 of file bibliografia.bib
+Repeated entry---line 1006 of file bibliografia.bib
  : @article{Dan2024
  :                 ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 376 of file bibliografia.bib
+Repeated entry---line 1030 of file bibliografia.bib
+ : @article{Zhou2021
+ :                  ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1066 of file bibliografia.bib
+ : @article{Yap2018
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1090 of file bibliografia.bib
+ : @article{Dan2024
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1102 of file bibliografia.bib
+ : @article{Zhou2021
+ :                  ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1126 of file bibliografia.bib
+ : @article{AlDhabyani2020
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1137 of file bibliografia.bib
+ : @article{Pawlowska2023
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1148 of file bibliografia.bib
+ : @misc{WHO2025BreastCancer
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1158 of file bibliografia.bib
+ : @article{INCAEstimativa2023
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1170 of file bibliografia.bib
+ : @misc{INCADiretrizesMama
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1188 of file bibliografia.bib
+ : @misc{INCADeteccaoPrecoce2022
+ :                              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1208 of file bibliografia.bib
+ : @misc{INCAParametrosMama
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1229 of file bibliografia.bib
+ : @article{Dan2024
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1265 of file bibliografia.bib
  : @article{Afrin2023
  :                   ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "WHO2025"
-Warning--I didn't find a database entry for "IARC2025"
-Warning--I didn't find a database entry for "INCA2023"
-Warning--I didn't find a database entry for "INCAIncidencia"
-Warning--I didn't find a database entry for "INCADeteccao"
-Warning--I didn't find a database entry for "IARCBreastAtlas"
-Warning--I didn't find a database entry for "INCAParametros"
-Warning--I didn't find a database entry for "Barragan2021"
-Warning--I didn't find a database entry for "Alhejaily2024"
-Warning--I didn't find a database entry for "Liu2025"
 Warning--I didn't find a database entry for "LeCun1998"
 Warning--I didn't find a database entry for "Goodfellow2016"
 Warning--I didn't find a database entry for "Szeliski2022"
@@ -73,46 +178,59 @@ Warning--I didn't find a database entry for "Srivastava2014"
 Warning--I didn't find a database entry for "Pan2010"
 Warning--I didn't find a database entry for "Yosinski2014"
 Warning--I didn't find a database entry for "Shin2016"
+Warning--I didn't find a database entry for "Tan2019EfficientNet"
+Warning--I didn't find a database entry for "Sandler2018"
+Warning--I didn't find a database entry for "Shorten2019"
+Warning--I didn't find a database entry for "Yang2022AugSurvey"
+Warning--I didn't find a database entry for "He2009"
+Warning--I didn't find a database entry for "Branco2016"
+Warning--I didn't find a database entry for "Lin2017Focal"
+Warning--I didn't find a database entry for "Sudre2017GDL"
+Warning--I didn't find a database entry for "Alotaibi2023USClassification"
+Warning--I didn't find a database entry for "Ali2023MetaLearning"
+Warning--I didn't find a database entry for "Latha2024EfficientNetXAI"
+Warning--I didn't find a database entry for "Xiao2025UltrasoundSegReview"
+Warning--I didn't find a database entry for "Rayed2024SegSurvey"
 Warning--I didn't find a database entry for "turn956269search3"
-You've used 20 entries,
+You've used 77 entries,
             2376 wiz_defined-function locations,
-            759 strings with 9774 characters,
-and the built_in function-call counts, 19635 in all, are:
-= -- 1671
-> -- 219
-< -- 465
-+ -- 1274
-- -- 94
-* -- 1466
-:= -- 1669
-add.period$ -- 60
-call.type$ -- 20
-change.case$ -- 385
-chr.to.int$ -- 4
-cite$ -- 20
-duplicate$ -- 2470
-empty$ -- 1117
-format.name$ -- 511
-if$ -- 3634
-int.to.chr$ -- 4
+            1115 strings with 24418 characters,
+and the built_in function-call counts, 80646 in all, are:
+= -- 6461
+> -- 1126
+< -- 2203
++ -- 5198
+- -- 359
+* -- 6427
+:= -- 6953
+add.period$ -- 265
+call.type$ -- 77
+change.case$ -- 1739
+chr.to.int$ -- 183
+cite$ -- 77
+duplicate$ -- 9922
+empty$ -- 4529
+format.name$ -- 2392
+if$ -- 14386
+int.to.chr$ -- 7
 int.to.str$ -- 0
 missing$ -- 0
-newline$ -- 43
-num.names$ -- 100
-pop$ -- 474
+newline$ -- 157
+num.names$ -- 385
+pop$ -- 2123
 preamble$ -- 1
-purify$ -- 20
+purify$ -- 77
 quote$ -- 0
-skip$ -- 1036
+skip$ -- 4022
 stack$ -- 0
-substring$ -- 705
-swap$ -- 1931
+substring$ -- 2519
+swap$ -- 8082
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 100
+type$ -- 421
 warning$ -- 0
-while$ -- 120
+while$ -- 476
 width$ -- 0
-write$ -- 22
-(There were 12 error messages)
+write$ -- 79
+(There were 39 error messages)

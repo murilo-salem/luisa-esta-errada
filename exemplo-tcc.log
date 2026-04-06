@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.18)  6 APR 2026 02:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.18)  6 APR 2026 02:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1164,12 +1164,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 113--115
 
 ] (exemplo-tcc.lof
 Overfull \hbox (1.41573pt too wide) detected at line 16
- [][]\T1/phv/m/n/12 133[]
+ [][]\T1/phv/m/n/12 135[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 17
- [][]\T1/phv/m/n/12 134[]
+ [][]\T1/phv/m/n/12 136[]
  []
 
 )
@@ -1179,53 +1179,43 @@ Overfull \hbox (1.41573pt too wide) detected at line 17
  [11
 
 ] (exemplo-tcc.lot
-Overfull \hbox (1.41573pt too wide) detected at line 14
- [][]\T1/phv/m/n/12 133[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 15
- [][]\T1/phv/m/n/12 134[]
- []
-
-
 Overfull \hbox (1.41573pt too wide) detected at line 16
- [][]\T1/phv/m/n/12 137[]
+ [][]\T1/phv/m/n/12 135[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 17
- [][]\T1/phv/m/n/12 138[]
+ [][]\T1/phv/m/n/12 136[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 18
- [][]\T1/phv/m/n/12 140[]
+ [][]\T1/phv/m/n/12 139[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 19
- [][]\T1/phv/m/n/12 143[]
+ [][]\T1/phv/m/n/12 140[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 20
- [][]\T1/phv/m/n/12 148[]
+ [][]\T1/phv/m/n/12 142[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 21
- [][]\T1/phv/m/n/12 152[]
+ [][]\T1/phv/m/n/12 145[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 22
- [][]\T1/phv/m/n/12 156[]
+ [][]\T1/phv/m/n/12 150[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 23
- [][]\T1/phv/m/n/12 157[]
+ [][]\T1/phv/m/n/12 154[]
  []
 
 
@@ -1240,7 +1230,12 @@ Overfull \hbox (1.41573pt too wide) detected at line 25
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 26
- [][]\T1/phv/m/n/12 159[]
+ [][]\T1/phv/m/n/12 160[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 27
+ [][]\T1/phv/m/n/12 161[]
  []
 
 
@@ -1249,13 +1244,8 @@ Overfull \hbox (1.41573pt too wide) detected at line 28
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 29
- [][]\T1/phv/m/n/12 161[]
- []
-
-
 Overfull \hbox (1.41573pt too wide) detected at line 30
- [][]\T1/phv/m/n/12 162[]
+ [][]\T1/phv/m/n/12 163[]
  []
 
 
@@ -1275,41 +1265,51 @@ Overfull \hbox (1.41573pt too wide) detected at line 33
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 34
- [][]\T1/phv/m/n/12 165[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 35
  [][]\T1/phv/m/n/12 166[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 37
- [][]\T1/phv/m/n/12 181[]
+Overfull \hbox (1.41573pt too wide) detected at line 35
+ [][]\T1/phv/m/n/12 167[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 38
- [][]\T1/phv/m/n/12 182[]
+Overfull \hbox (1.41573pt too wide) detected at line 36
+ [][]\T1/phv/m/n/12 167[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 37
+ [][]\T1/phv/m/n/12 168[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 39
- [][]\T1/phv/m/n/12 189[]
+ [][]\T1/phv/m/n/12 183[]
+ []
+
+[12
+
+]
+Overfull \hbox (1.41573pt too wide) detected at line 40
+ [][]\T1/phv/m/n/12 184[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 40
- [][]\T1/phv/m/n/12 189[]
+Overfull \hbox (1.41573pt too wide) detected at line 41
+ [][]\T1/phv/m/n/12 191[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 42
+ [][]\T1/phv/m/n/12 191[]
  []
 
 )
 \tf@lot=\write6
 \openout6 = `exemplo-tcc.lot'.
 
- [12
-
-] [13] [14
+ [13] [14
 
 ] (exemplo-tcc.toc
 Underfull \hbox (badness 10000) in paragraph at lines 4--4
@@ -1324,43 +1324,48 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--30
 [15
 
 ]
-Overfull \hbox (1.41573pt too wide) detected at line 83
- [][]\T1/phv/m/n/12 105[]
+Overfull \hbox (1.41573pt too wide) detected at line 79
+ [][]\T1/phv/m/n/12 101[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 84
+Overfull \hbox (1.41573pt too wide) detected at line 83
  [][]\T1/phv/m/n/12 107[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 85
+Overfull \hbox (1.41573pt too wide) detected at line 84
  [][]\T1/phv/m/n/12 109[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 86
- [][]\T1/phv/m/n/12 110[]
+Overfull \hbox (1.41573pt too wide) detected at line 85
+ [][]\T1/phv/m/n/12 111[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 88
+Overfull \hbox (1.41573pt too wide) detected at line 86
  [][]\T1/phv/m/n/12 112[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 89
+Overfull \hbox (1.41573pt too wide) detected at line 88
  [][]\T1/phv/m/n/12 114[]
  []
 
 
+Overfull \hbox (1.41573pt too wide) detected at line 89
+ [][]\T1/phv/m/n/12 116[]
+ []
+
+
 Overfull \hbox (1.41573pt too wide) detected at line 90
- [][]\T1/phv/m/n/12 115[]
+ [][]\T1/phv/m/n/12 117[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 91
- [][]\T1/phv/m/n/12 116[]
+ [][]\T1/phv/m/n/12 118[]
  []
 
 
@@ -1370,222 +1375,222 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--92
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 92
- [][]\T1/phv/m/n/12 117[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 94
- [][]\T1/phv/m/n/12 117[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 95
- [][]\T1/phv/m/n/12 118[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 96
  [][]\T1/phv/m/n/12 119[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 98
+Overfull \hbox (1.41573pt too wide) detected at line 94
+ [][]\T1/phv/m/n/12 119[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 95
  [][]\T1/phv/m/n/12 120[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 99
+Overfull \hbox (1.41573pt too wide) detected at line 96
  [][]\T1/phv/m/n/12 121[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 100
+Overfull \hbox (1.41573pt too wide) detected at line 98
  [][]\T1/phv/m/n/12 122[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 102
+Overfull \hbox (1.41573pt too wide) detected at line 99
  [][]\T1/phv/m/n/12 123[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 103
+Overfull \hbox (1.41573pt too wide) detected at line 100
  [][]\T1/phv/m/n/12 124[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 104
+Overfull \hbox (1.41573pt too wide) detected at line 102
  [][]\T1/phv/m/n/12 125[]
  []
 
-[16]
-Overfull \hbox (1.41573pt too wide) detected at line 105
+
+Overfull \hbox (1.41573pt too wide) detected at line 103
  [][]\T1/phv/m/n/12 126[]
  []
 
 
+Overfull \hbox (1.41573pt too wide) detected at line 104
+ [][]\T1/phv/m/n/12 127[]
+ []
+
+[16]
+Overfull \hbox (1.41573pt too wide) detected at line 105
+ [][]\T1/phv/m/n/12 128[]
+ []
+
+
 Overfull \hbox (1.41573pt too wide) detected at line 107
- [][]\T1/phv/m/n/12 128[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 108
- [][]\T1/phv/m/n/12 128[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 109
- [][]\T1/phv/m/n/12 129[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 110
  [][]\T1/phv/m/n/12 130[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 112
+Overfull \hbox (1.41573pt too wide) detected at line 108
+ [][]\T1/phv/m/n/12 130[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 109
  [][]\T1/phv/m/n/12 131[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 113
- [][]\T1/phv/m/n/12 131[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 114
- [][]\T1/phv/m/n/12 131[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 115
+Overfull \hbox (1.41573pt too wide) detected at line 110
  [][]\T1/phv/m/n/12 132[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 117
+Overfull \hbox (1.41573pt too wide) detected at line 112
  [][]\T1/phv/m/n/12 133[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 118
+Overfull \hbox (1.41573pt too wide) detected at line 113
+ [][]\T1/phv/m/n/12 133[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 114
+ [][]\T1/phv/m/n/12 133[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 115
  [][]\T1/phv/m/n/12 134[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 119
+Overfull \hbox (1.41573pt too wide) detected at line 117
  [][]\T1/phv/m/n/12 135[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 118
+ [][]\T1/phv/m/n/12 136[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 119
+ [][]\T1/phv/m/n/12 137[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 121
- [][]\T1/phv/m/n/12 135[]
+ [][]\T1/phv/m/n/12 137[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 122
- [][]\T1/phv/m/n/12 135[]
+ [][]\T1/phv/m/n/12 137[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 123
- [][]\T1/phv/m/n/12 136[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 124
- [][]\T1/phv/m/n/12 136[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 125
- [][]\T1/phv/m/n/12 136[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 127
- [][]\T1/phv/m/n/12 137[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 128
- [][]\T1/phv/m/n/12 137[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 129
  [][]\T1/phv/m/n/12 138[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 130
+Overfull \hbox (1.41573pt too wide) detected at line 124
+ [][]\T1/phv/m/n/12 138[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 125
+ [][]\T1/phv/m/n/12 138[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 127
  [][]\T1/phv/m/n/12 139[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 131
+Overfull \hbox (1.41573pt too wide) detected at line 128
  [][]\T1/phv/m/n/12 139[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 133
+Overfull \hbox (1.41573pt too wide) detected at line 129
  [][]\T1/phv/m/n/12 140[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 134
+Overfull \hbox (1.41573pt too wide) detected at line 130
  [][]\T1/phv/m/n/12 141[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 135
+Overfull \hbox (1.41573pt too wide) detected at line 131
  [][]\T1/phv/m/n/12 141[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 136
- [][]\T1/phv/m/n/12 141[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 137
- [][]\T1/phv/m/n/12 141[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 139
+Overfull \hbox (1.41573pt too wide) detected at line 133
  [][]\T1/phv/m/n/12 142[]
  []
 
 
+Overfull \hbox (1.41573pt too wide) detected at line 134
+ [][]\T1/phv/m/n/12 143[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 135
+ [][]\T1/phv/m/n/12 143[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 136
+ [][]\T1/phv/m/n/12 143[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 137
+ [][]\T1/phv/m/n/12 143[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 139
+ [][]\T1/phv/m/n/12 144[]
+ []
+
+
 Overfull \hbox (1.41573pt too wide) detected at line 146
- [][]\T1/phv/m/n/12 147[]
+ [][]\T1/phv/m/n/12 149[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 152
- [][]\T1/phv/m/n/12 151[]
+ [][]\T1/phv/m/n/12 153[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 158
- [][]\T1/phv/m/n/12 156[]
+ [][]\T1/phv/m/n/12 158[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 159
- [][]\T1/phv/m/n/12 156[]
+ [][]\T1/phv/m/n/12 158[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 160
- [][]\T1/phv/m/n/12 157[]
+ [][]\T1/phv/m/n/12 159[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 161
- [][]\T1/phv/m/n/12 157[]
+ [][]\T1/phv/m/n/12 159[]
  []
 
 
@@ -1595,177 +1600,177 @@ Underfull \hbox (badness 10000) in paragraph at lines 162--162
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 162
- [][]\T1/phv/m/n/12 160[]
+ [][]\T1/phv/m/n/12 162[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 164
- [][]\T1/phv/m/n/12 160[]
+ [][]\T1/phv/m/n/12 162[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 165
- [][]\T1/phv/m/n/12 161[]
+ [][]\T1/phv/m/n/12 163[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 166
- [][]\T1/phv/m/n/12 163[]
+ [][]\T1/phv/m/n/12 165[]
  []
 
 [17]
 Overfull \hbox (1.41573pt too wide) detected at line 168
- [][]\T1/phv/m/n/12 163[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 169
- [][]\T1/phv/m/n/12 164[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 170
  [][]\T1/phv/m/n/12 165[]
  []
 
 
+Overfull \hbox (1.41573pt too wide) detected at line 169
+ [][]\T1/phv/m/n/12 166[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 170
+ [][]\T1/phv/m/n/12 167[]
+ []
+
+
 Overfull \hbox (1.41573pt too wide) detected at line 172
- [][]\T1/phv/m/n/12 167[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 173
- [][]\T1/phv/m/n/12 167[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 174
- [][]\T1/phv/m/n/12 168[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 176
  [][]\T1/phv/m/n/12 169[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 177
+Overfull \hbox (1.41573pt too wide) detected at line 173
+ [][]\T1/phv/m/n/12 169[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 174
  [][]\T1/phv/m/n/12 170[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 178
- [][]\T1/phv/m/n/12 170[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 179
+Overfull \hbox (1.41573pt too wide) detected at line 176
  [][]\T1/phv/m/n/12 171[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 181
+Overfull \hbox (1.41573pt too wide) detected at line 177
  [][]\T1/phv/m/n/12 172[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 178
+ [][]\T1/phv/m/n/12 172[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 179
+ [][]\T1/phv/m/n/12 173[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 181
+ [][]\T1/phv/m/n/12 174[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 182
- [][]\T1/phv/m/n/12 172[]
+ [][]\T1/phv/m/n/12 174[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 183
- [][]\T1/phv/m/n/12 172[]
+ [][]\T1/phv/m/n/12 174[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 184
- [][]\T1/phv/m/n/12 173[]
+ [][]\T1/phv/m/n/12 175[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 186
- [][]\T1/phv/m/n/12 173[]
+ [][]\T1/phv/m/n/12 175[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 187
- [][]\T1/phv/m/n/12 174[]
+ [][]\T1/phv/m/n/12 176[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 188
- [][]\T1/phv/m/n/12 174[]
+ [][]\T1/phv/m/n/12 176[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 190
- [][]\T1/phv/m/n/12 175[]
+ [][]\T1/phv/m/n/12 177[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 191
- [][]\T1/phv/m/n/12 175[]
+ [][]\T1/phv/m/n/12 177[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 192
- [][]\T1/phv/m/n/12 175[]
+ [][]\T1/phv/m/n/12 177[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 193
- [][]\T1/phv/m/n/12 175[]
+ [][]\T1/phv/m/n/12 177[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 195
- [][]\T1/phv/m/n/12 176[]
+ [][]\T1/phv/m/n/12 178[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 196
- [][]\T1/phv/m/n/12 176[]
+ [][]\T1/phv/m/n/12 178[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 197
- [][]\T1/phv/m/n/12 176[]
+ [][]\T1/phv/m/n/12 178[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 198
- [][]\T1/phv/m/n/12 177[]
+ [][]\T1/phv/m/n/12 179[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 200
- [][]\T1/phv/m/n/12 177[]
+ [][]\T1/phv/m/n/12 179[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 201
- [][]\T1/phv/m/n/12 177[]
+ [][]\T1/phv/m/n/12 179[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 202
- [][]\T1/phv/m/n/12 178[]
+ [][]\T1/phv/m/n/12 180[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 204
- [][]\T1/phv/m/n/12 178[]
+ [][]\T1/phv/m/n/12 180[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 205
- [][]\T1/phv/m/n/12 178[]
+ [][]\T1/phv/m/n/12 180[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 206
- [][]\T1/phv/m/n/12 179[]
+ [][]\T1/phv/m/n/12 181[]
  []
 
 
@@ -1775,172 +1780,172 @@ Underfull \hbox (badness 10000) in paragraph at lines 207--207
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 207
- [][]\T1/phv/m/n/12 180[]
+ [][]\T1/phv/m/n/12 182[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 209
- [][]\T1/phv/m/n/12 180[]
+ [][]\T1/phv/m/n/12 182[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 210
- [][]\T1/phv/m/n/12 181[]
+ [][]\T1/phv/m/n/12 183[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 211
- [][]\T1/phv/m/n/12 181[]
+ [][]\T1/phv/m/n/12 183[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 213
- [][]\T1/phv/m/n/12 182[]
+ [][]\T1/phv/m/n/12 184[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 214
- [][]\T1/phv/m/n/12 182[]
+ [][]\T1/phv/m/n/12 184[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 215
- [][]\T1/phv/m/n/12 183[]
+ [][]\T1/phv/m/n/12 185[]
  []
 
 [18]
 Overfull \hbox (1.41573pt too wide) detected at line 217
- [][]\T1/phv/m/n/12 183[]
+ [][]\T1/phv/m/n/12 185[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 218
- [][]\T1/phv/m/n/12 183[]
+ [][]\T1/phv/m/n/12 185[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 219
- [][]\T1/phv/m/n/12 184[]
+ [][]\T1/phv/m/n/12 186[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 220
- [][]\T1/phv/m/n/12 184[]
+ [][]\T1/phv/m/n/12 186[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 222
- [][]\T1/phv/m/n/12 184[]
+ [][]\T1/phv/m/n/12 186[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 223
- [][]\T1/phv/m/n/12 185[]
+ [][]\T1/phv/m/n/12 187[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 224
- [][]\T1/phv/m/n/12 185[]
+ [][]\T1/phv/m/n/12 187[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 225
- [][]\T1/phv/m/n/12 185[]
+ [][]\T1/phv/m/n/12 187[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 227
- [][]\T1/phv/m/n/12 186[]
+ [][]\T1/phv/m/n/12 188[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 228
- [][]\T1/phv/m/n/12 186[]
+ [][]\T1/phv/m/n/12 188[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 229
- [][]\T1/phv/m/n/12 186[]
+ [][]\T1/phv/m/n/12 188[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 230
- [][]\T1/phv/m/n/12 186[]
+ [][]\T1/phv/m/n/12 188[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 232
- [][]\T1/phv/m/n/12 187[]
+ [][]\T1/phv/m/n/12 189[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 233
- [][]\T1/phv/m/n/12 187[]
+ [][]\T1/phv/m/n/12 189[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 234
- [][]\T1/phv/m/n/12 187[]
+ [][]\T1/phv/m/n/12 189[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 235
- [][]\T1/phv/m/n/12 187[]
+ [][]\T1/phv/m/n/12 189[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 237
- [][]\T1/phv/m/n/12 187[]
+ [][]\T1/phv/m/n/12 189[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 238
- [][]\T1/phv/m/n/12 188[]
+ [][]\T1/phv/m/n/12 190[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 239
- [][]\T1/phv/m/n/12 188[]
+ [][]\T1/phv/m/n/12 190[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 240
- [][]\T1/phv/m/n/12 188[]
+ [][]\T1/phv/m/n/12 190[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 242
- [][]\T1/phv/m/n/12 188[]
+ [][]\T1/phv/m/n/12 190[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 243
- [][]\T1/phv/m/n/12 189[]
+ [][]\T1/phv/m/n/12 191[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 244
- [][]\T1/phv/m/n/12 189[]
+ [][]\T1/phv/m/n/12 191[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 245
- [][]\T1/phv/m/n/12 189[]
+ [][]\T1/phv/m/n/12 191[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 247
- [][]\T1/phv/m/n/12 190[]
+ [][]\T1/phv/m/n/12 192[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 248
- [][]\T1/phv/m/n/12 190[]
+ [][]\T1/phv/m/n/12 192[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 249
- [][]\T1/phv/m/n/12 190[]
+ [][]\T1/phv/m/n/12 192[]
  []
 
 
@@ -1950,102 +1955,102 @@ Underfull \hbox (badness 10000) in paragraph at lines 250--250
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 250
- [][]\T1/phv/m/n/12 191[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 252
- [][]\T1/phv/m/n/12 191[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 253
- [][]\T1/phv/m/n/12 192[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 254
  [][]\T1/phv/m/n/12 193[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 256
+Overfull \hbox (1.41573pt too wide) detected at line 252
+ [][]\T1/phv/m/n/12 193[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 253
  [][]\T1/phv/m/n/12 194[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 254
+ [][]\T1/phv/m/n/12 195[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 256
+ [][]\T1/phv/m/n/12 196[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 257
- [][]\T1/phv/m/n/12 194[]
+ [][]\T1/phv/m/n/12 196[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 258
- [][]\T1/phv/m/n/12 195[]
+ [][]\T1/phv/m/n/12 197[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 260
- [][]\T1/phv/m/n/12 195[]
+ [][]\T1/phv/m/n/12 197[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 261
- [][]\T1/phv/m/n/12 196[]
+ [][]\T1/phv/m/n/12 198[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 262
- [][]\T1/phv/m/n/12 196[]
+ [][]\T1/phv/m/n/12 198[]
  []
 
 [19]
 Overfull \hbox (1.41573pt too wide) detected at line 264
- [][]\T1/phv/m/n/12 197[]
+ [][]\T1/phv/m/n/12 199[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 265
- [][]\T1/phv/m/n/12 197[]
+ [][]\T1/phv/m/n/12 199[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 266
- [][]\T1/phv/m/n/12 197[]
+ [][]\T1/phv/m/n/12 199[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 268
- [][]\T1/phv/m/n/12 198[]
+ [][]\T1/phv/m/n/12 200[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 269
- [][]\T1/phv/m/n/12 198[]
+ [][]\T1/phv/m/n/12 200[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 270
- [][]\T1/phv/m/n/12 198[]
+ [][]\T1/phv/m/n/12 200[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 271
- [][]\T1/phv/m/n/12 199[]
+ [][]\T1/phv/m/n/12 201[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 273
- [][]\T1/phv/m/n/12 199[]
+ [][]\T1/phv/m/n/12 201[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 274
- [][]\T1/phv/m/n/12 199[]
+ [][]\T1/phv/m/n/12 201[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 275
- [][]\T1/phv/m/n/12 200[]
+ [][]\T1/phv/m/n/12 202[]
  []
 
 
@@ -2055,82 +2060,82 @@ Underfull \hbox (badness 10000) in paragraph at lines 276--276
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 276
- [][]\T1/phv/m/n/12 201[]
+ [][]\T1/phv/m/n/12 203[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 278
- [][]\T1/phv/m/n/12 201[]
+ [][]\T1/phv/m/n/12 203[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 279
- [][]\T1/phv/m/n/12 201[]
+ [][]\T1/phv/m/n/12 203[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 281
- [][]\T1/phv/m/n/12 202[]
+ [][]\T1/phv/m/n/12 204[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 282
- [][]\T1/phv/m/n/12 202[]
+ [][]\T1/phv/m/n/12 204[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 283
- [][]\T1/phv/m/n/12 202[]
+ [][]\T1/phv/m/n/12 204[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 285
- [][]\T1/phv/m/n/12 203[]
+ [][]\T1/phv/m/n/12 205[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 286
- [][]\T1/phv/m/n/12 203[]
+ [][]\T1/phv/m/n/12 205[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 287
- [][]\T1/phv/m/n/12 203[]
+ [][]\T1/phv/m/n/12 205[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 289
- [][]\T1/phv/m/n/12 204[]
+ [][]\T1/phv/m/n/12 206[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 290
- [][]\T1/phv/m/n/12 204[]
+ [][]\T1/phv/m/n/12 206[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 292
- [][]\T1/phv/m/n/12 204[]
+ [][]\T1/phv/m/n/12 206[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 293
- [][]\T1/phv/m/n/12 204[]
+ [][]\T1/phv/m/n/12 206[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 294
- [][]\T1/phv/m/n/12 205[]
+ [][]\T1/phv/m/n/12 207[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 295
- [][]\T1/phv/m/n/12 205[]
+ [][]\T1/phv/m/n/12 207[]
  []
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 296
- [][]\T1/phv/m/n/12 205[]
+ [][]\T1/phv/m/n/12 207[]
  []
 
 
@@ -2140,718 +2145,715 @@ Underfull \hbox (badness 10000) in paragraph at lines 297--297
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 297
- [][]\T1/phv/m/n/12 206[]
+ [][]\T1/phv/m/n/12 208[]
  []
 
 )
 \tf@toc=\write7
 \openout7 = `exemplo-tcc.toc'.
 
- [20]
+ [20] [21
 
-Package natbib Warning: Citation `WHO2025' on page 21 undefined on input line 1
-47.
-
-
-Package natbib Warning: Citation `IARC2025' on page 21 undefined on input line 
-147.
+] [22] [23]
+Underfull \hbox (badness 6188) in paragraph at lines 188--188
+[]|\T1/phv/m/n/12 Qualidade da ima-
+ []
 
 
-Package natbib Warning: Citation `INCA2023' on page 21 undefined on input line 
-149.
+Underfull \hbox (badness 1057) in paragraph at lines 188--188
+[]|\T1/phv/m/n/12 Presença de ru-ído \T1/phv/m/sl/12 spec-kle\T1/phv/m/n/12 , b
+aixo con-traste,
+ []
 
 
-Package natbib Warning: Citation `INCAIncidencia' on page 21 undefined on input
- line 149.
+Underfull \hbox (badness 5954) in paragraph at lines 190--190
+[]|\T1/phv/m/n/12 Modelagem com-pu-
+ []
 
-
-Package natbib Warning: Citation `IARC2025' on page 21 undefined on input line 
-151.
-
-
-Package natbib Warning: Citation `INCADeteccao' on page 21 undefined on input l
-ine 151.
-
-
-Package natbib Warning: Citation `INCADeteccao' on page 21 undefined on input l
-ine 155.
-
-[21
-
-]
-
-Package natbib Warning: Citation `INCADeteccao' on page 22 undefined on input l
-ine 157.
-
-
-Package natbib Warning: Citation `IARCBreastAtlas' on page 22 undefined on inpu
-t line 157.
-
-
-Package natbib Warning: Citation `IARCBreastAtlas' on page 22 undefined on inpu
-t line 159.
-
-
-Package natbib Warning: Citation `INCAParametros' on page 22 undefined on input
- line 159.
-
-
-Package natbib Warning: Citation `Barragan2021' on page 22 undefined on input l
-ine 163.
-
-
-Package natbib Warning: Citation `Alhejaily2024' on page 22 undefined on input 
-line 163.
-
-
-Package natbib Warning: Citation `Barragan2021' on page 22 undefined on input l
-ine 165.
-
-[22]
-
-Package natbib Warning: Citation `Liu2025' on page 23 undefined on input line 1
-67.
-
-[23]
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <12> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 179.
- [24] [25] [26] [27] [28] [29] [30] [31
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 194.
+[24] [25]
+Underfull \hbox (badness 2285) in paragraph at lines 215--215
+[]|\T1/phv/m/n/12 Redução de va-ri-a-bi-li-dade in-ter-pre-ta-tiva, au-
+ []
 
-] [32] [33] [34] [35] [36] [37]
-[38] [39] [40]
+[26] [27] [28] [29] [30] [31] [32] [33] [34
 
-Package natbib Warning: Citation `LeCun1998' on page 41 undefined on input line
- 393.
+] [35] [36] [37] [38] [39] [40]
+[41] [42] [43] [44]
 
-
-Package natbib Warning: Citation `Goodfellow2016' on page 41 undefined on input
- line 393.
-
-
-Package natbib Warning: Citation `Szeliski2022' on page 41 undefined on input l
-ine 393.
-
-[41]
-
-Package natbib Warning: Citation `Yamashita2018' on page 42 undefined on input 
-line 421.
-
-[42] [43]
-
-Package natbib Warning: Citation `Nair2010' on page 44 undefined on input line 
-472.
-
-[44] [45]
-
-Package natbib Warning: Citation `Ioffe2015' on page 46 undefined on input line
- 560.
+Package natbib Warning: Citation `LeCun1998' on page 45 undefined on input line
+ 436.
 
 
-Package natbib Warning: Citation `Srivastava2014' on page 46 undefined on input
- line 578.
-
-[46]
-
-Package natbib Warning: Citation `Pan2010' on page 47 undefined on input line 6
-03.
-
-[47] [48]
-
-Package natbib Warning: Citation `Yosinski2014' on page 49 undefined on input l
-ine 675.
+Package natbib Warning: Citation `Goodfellow2016' on page 45 undefined on input
+ line 436.
 
 
-Package natbib Warning: Citation `Pan2010' on page 49 undefined on input line 6
-85.
+Package natbib Warning: Citation `Szeliski2022' on page 45 undefined on input l
+ine 436.
+
+[45]
+
+Package natbib Warning: Citation `Yamashita2018' on page 46 undefined on input 
+line 464.
+
+[46] [47]
+
+Package natbib Warning: Citation `Nair2010' on page 48 undefined on input line 
+515.
+
+[48] [49]
+
+Package natbib Warning: Citation `Ioffe2015' on page 50 undefined on input line
+ 603.
+
+[50]
+
+Package natbib Warning: Citation `Srivastava2014' on page 51 undefined on input
+ line 621.
 
 
-Package natbib Warning: Citation `Shin2016' on page 49 undefined on input line 
-685.
+Package natbib Warning: Citation `Pan2010' on page 51 undefined on input line 6
+46.
 
-[49] [50] [51] [52] [53]
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 8
-67.
+[51] [52]
+
+Package natbib Warning: Citation `Yosinski2014' on page 53 undefined on input l
+ine 718.
+
+
+Package natbib Warning: Citation `Pan2010' on page 53 undefined on input line 7
+28.
+
+
+Package natbib Warning: Citation `Shin2016' on page 53 undefined on input line 
+728.
+
+[53] [54] [55] [56] [57]
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 9
+10.
 
 (C:\Users\ResTIC55\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
-[54] [55] [56] [57] [58] [59]
-<../vgg16.jpg, id=2223, 903.375pt x 508.90125pt>
+[58] [59] [60] [61] [62] [63] [64]
+<../vgg16.jpg, id=2659, 903.375pt x 508.90125pt>
 File: ../vgg16.jpg Graphic file (type jpg)
 <use ../vgg16.jpg>
-Package pdftex.def Info: ../vgg16.jpg  used on input line 1129.
+Package pdftex.def Info: ../vgg16.jpg  used on input line 1172.
 (pdftex.def)             Requested size: 318.66948pt x 179.51584pt.
- [60] [61 <../vgg16.jpg (PNG copy)>]
+ [65 <../vgg16.jpg (PNG copy)>] [66] [67]
+[68] [69]
 
-Package natbib Warning: Citation `He2016' on page 62 undefined on input line 11
-65.
+Package natbib Warning: Citation `Ioffe2015' on page 70 undefined on input line
+ 1310.
 
-[62] [63]
-
-Package natbib Warning: Citation `He2016' on page 64 undefined on input line 12
-15.
-
-
-Package natbib Warning: Citation `He2016' on page 64 undefined on input line 12
-19.
-
-[64]
-
-Package natbib Warning: Citation `He2016' on page 65 undefined on input line 12
-53.
-
-
-Package natbib Warning: Citation `Ioffe2015' on page 65 undefined on input line
- 1267.
-
-[65]
-<../resnet50.jpg, id=2282, 1369.115pt x 562.1pt>
+<../resnet50.jpg, id=2714, 1369.115pt x 562.1pt>
 File: ../resnet50.jpg Graphic file (type jpg)
 <use ../resnet50.jpg>
-Package pdftex.def Info: ../resnet50.jpg  used on input line 1291.
+Package pdftex.def Info: ../resnet50.jpg  used on input line 1334.
 (pdftex.def)             Requested size: 318.66948pt x 130.8327pt.
 
+Package natbib Warning: Citation `Yamashita2018' on page 70 undefined on input 
+line 1346.
 
-Package natbib Warning: Citation `Yamashita2018' on page 66 undefined on input 
-line 1303.
+[70 <../resnet50.jpg>] [71]
 
-[66 <../resnet50.jpg>] [67]
+Package natbib Warning: Citation `Tan2019EfficientNet' on page 72 undefined on 
+input line 1390.
 
-Package natbib Warning: Citation `Tan2019EfficientNet' on page 68 undefined on 
-input line 1347.
+[72]
 
+Package natbib Warning: Citation `Sandler2018' on page 73 undefined on input li
+ne 1396.
 
-Package natbib Warning: Citation `Sandler2018' on page 68 undefined on input li
-ne 1353.
+[73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87]
+[88] [89] [90] [91] [92] [93] [94] [95] [96] [97] [98]
 
-[68] [69] [70] [71] [72]
+Package natbib Warning: Citation `Zhou2018UNetpp' on page 99 undefined on input
+ line 2273.
 
-Package natbib Warning: Citation `Liu2022ConvNeXt' on page 73 undefined on inpu
-t line 1527.
+[99] [100] [101] [102] [103] [104] [105] [106] [107] [108]
 
-[73]
-
-Package natbib Warning: Citation `Liu2022ConvNeXt' on page 74 undefined on inpu
-t line 1554.
-
-[74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87] [88]
-[89] [90] [91] [92] [93] [94]
-
-Package natbib Warning: Citation `Zhou2018UNetpp' on page 95 undefined on input
- line 2230.
-
-[95] [96] [97] [98] [99] [100] [101] [102] [103] [104]
-
-Package natbib Warning: Citation `Shorten2019' on page 105 undefined on input l
-ine 2633.
+Package natbib Warning: Citation `Shorten2019' on page 109 undefined on input l
+ine 2676.
 
 
-Package natbib Warning: Citation `Yang2022AugSurvey' on page 105 undefined on i
-nput line 2633.
-
-[105]
-
-Package natbib Warning: Citation `Shorten2019' on page 106 undefined on input l
-ine 2709.
-
-
-Package natbib Warning: Citation `Yang2022AugSurvey' on page 106 undefined on i
-nput line 2709.
-
-[106]
-
-Package natbib Warning: Citation `He2009' on page 107 undefined on input line 2
-734.
-
-
-Package natbib Warning: Citation `Branco2016' on page 107 undefined on input li
-ne 2734.
-
-[107] [108]
-
-Package natbib Warning: Citation `Lin2017Focal' on page 109 undefined on input 
-line 2832.
+Package natbib Warning: Citation `Yang2022AugSurvey' on page 109 undefined on i
+nput line 2676.
 
 [109] [110]
 
-Package natbib Warning: Citation `Sudre2017GDL' on page 111 undefined on input 
-line 2920.
+Package natbib Warning: Citation `Shorten2019' on page 111 undefined on input l
+ine 2752.
+
+
+Package natbib Warning: Citation `Yang2022AugSurvey' on page 111 undefined on i
+nput line 2752.
 
 [111]
 
-Package natbib Warning: Citation `Alotaibi2023USClassification' on page 112 und
-efined on input line 2981.
-
-[112]
-
-Package natbib Warning: Citation `Alotaibi2023USClassification' on page 113 und
-efined on input line 2985.
+Package natbib Warning: Citation `He2009' on page 112 undefined on input line 2
+777.
 
 
-Package natbib Warning: Citation `Ali2023MetaLearning' on page 113 undefined on
- input line 2985.
+Package natbib Warning: Citation `Branco2016' on page 112 undefined on input li
+ne 2777.
+
+[112] [113]
+
+Package natbib Warning: Citation `Lin2017Focal' on page 114 undefined on input 
+line 2875.
+
+[114] [115]
+
+Package natbib Warning: Citation `Sudre2017GDL' on page 116 undefined on input 
+line 2963.
+
+[116]
+
+Package natbib Warning: Citation `Alotaibi2023USClassification' on page 117 und
+efined on input line 3024.
 
 
-Package natbib Warning: Citation `Latha2024EfficientNetXAI' on page 113 undefin
-ed on input line 2987.
-
-[113]
-
-Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 114 unde
-fined on input line 2991.
+Package natbib Warning: Citation `Alotaibi2023USClassification' on page 117 und
+efined on input line 3028.
 
 
-Package natbib Warning: Citation `Rayed2024SegSurvey' on page 114 undefined on 
-input line 2991.
+Package natbib Warning: Citation `Ali2023MetaLearning' on page 117 undefined on
+ input line 3028.
+
+[117]
+
+Package natbib Warning: Citation `Latha2024EfficientNetXAI' on page 118 undefin
+ed on input line 3030.
 
 
-Package natbib Warning: Citation `Rahmani2024' on page 114 undefined on input l
-ine 2993.
+Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 118 unde
+fined on input line 3034.
 
 
-Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 114 unde
-fined on input line 2997.
+Package natbib Warning: Citation `Rayed2024SegSurvey' on page 118 undefined on 
+input line 3034.
 
-[114]
+[118]
 
-Package natbib Warning: Citation `Rayed2024SegSurvey' on page 115 undefined on 
-input line 3003.
+Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 119 unde
+fined on input line 3040.
 
-[115]
+[119]
 
-Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 116 unde
-fined on input line 3009.
+Package natbib Warning: Citation `Rayed2024SegSurvey' on page 120 undefined on 
+input line 3046.
 
 
-Package natbib Warning: Citation `Rayed2024SegSurvey' on page 116 undefined on 
-input line 3013.
+Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 120 unde
+fined on input line 3052.
 
-[116] [117
+[120]
+
+Package natbib Warning: Citation `Rayed2024SegSurvey' on page 121 undefined on 
+input line 3056.
+
+[121] [122
 
 ]
-Overfull \hbox (130.43076pt too wide) detected at line 3040
+Overfull \hbox (130.43076pt too wide) detected at line 3083
 [][][][] \OMS/cmsy/m/n/12 ! [] ! [] ! [] ! [] ! []\OML/cmm/m/it/12 :
  []
 
-[118] [119] [120] [121] [122] [123]
+[123] [124] [125] [126] [127] [128]
 
-Package natbib Warning: Citation `turn956269search3' on page 124 undefined on i
-nput line 3110.
+Package natbib Warning: Citation `turn956269search3' on page 129 undefined on i
+nput line 3153.
 
-[124] [125] [126] [127] [128] [129] [130] [131] [132]
-Overfull \hbox (27.94081pt too wide) in paragraph at lines 3255--3255
+[129] [130] [131] [132] [133] [134] [135] [136] [137]
+Overfull \hbox (27.94081pt too wide) in paragraph at lines 3298--3298
 []|\T1/phv/m/n/12 RandomBrightnessContrast| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3255--3256
+Underfull \hbox (badness 10000) in paragraph at lines 3298--3299
 []|\T1/cmtt/m/n/12 brightness_limit = 0.10\T1/phv/m/n/12 , \T1/cmtt/m/n/12 cont
 rast_limit =
  []
 
-[133]
-Overfull \hbox (27.94081pt too wide) in paragraph at lines 3283--3283
+[138]
+Overfull \hbox (27.94081pt too wide) in paragraph at lines 3326--3326
 []|\T1/phv/m/n/12 RandomBrightnessContrast| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3283--3284
+Underfull \hbox (badness 10000) in paragraph at lines 3326--3327
 []|\T1/cmtt/m/n/12 brightness_limit = 0.08\T1/phv/m/n/12 , \T1/cmtt/m/n/12 cont
 rast_limit =
  []
 
-[134]
-Underfull \hbox (badness 1132) in paragraph at lines 3310--3311
+[139]
+Underfull \hbox (badness 1132) in paragraph at lines 3353--3354
 []\T1/phv/m/n/12 Uma de-ci-são me-to-do-lo-gi-ca-mente im-por-tante foi o ras-t
 re-a-mento ex-plí-cito de
  []
 
 
-Underfull \hbox (badness 5787) in paragraph at lines 3314--3315
+Underfull \hbox (badness 5787) in paragraph at lines 3357--3358
 []\T1/phv/m/n/12 As ar-qui-te-tu-ras de clas-si-fi-ca-ção se-le-ci-o-na-das fo-
 ram VGG16, Res-Net50,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3326--3327
+Underfull \hbox (badness 10000) in paragraph at lines 3369--3370
 []\T1/phv/m/n/12 As ca-be-ças de clas-si-fi-ca-ção fo-ram de-fi-ni-das im-pli-c
 i-ta-mente por
  []
 
 
-Underfull \hbox (badness 1009) in paragraph at lines 3326--3327
+Underfull \hbox (badness 1009) in paragraph at lines 3369--3370
 \T1/cmtt/m/n/12 timm.create_model(..., num_classes=3)\T1/phv/m/n/12 , o que sub
 s-ti-tui a ca-mada fi-nal ori-gi-
  []
 
-[135]
-Underfull \hbox (badness 10000) in paragraph at lines 3340--3340
+[140]
+Underfull \hbox (badness 10000) in paragraph at lines 3383--3383
 []|\T1/phv/b/n/12 Learning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3340--3340
+Underfull \hbox (badness 10000) in paragraph at lines 3383--3383
 []|\T1/phv/b/n/12 Batch
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3340--3340
+Underfull \hbox (badness 10000) in paragraph at lines 3383--3383
 []|\T1/phv/b/n/12 Fine-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3340--3340
+Underfull \hbox (badness 10000) in paragraph at lines 3383--3383
 \T1/phv/b/n/12 tuning
  []
 
 
-Underfull \hbox (badness 1127) in paragraph at lines 3342--3342
+Underfull \hbox (badness 1127) in paragraph at lines 3385--3385
 \T1/phv/m/n/12 clas-si-fi-ca-ção é trei-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3343--3343
+Underfull \hbox (badness 10000) in paragraph at lines 3386--3386
 []|\T1/phv/m/n/12 Cabeça e blo-cos
  []
 
 
-Underfull \hbox (badness 5245) in paragraph at lines 3343--3343
+Underfull \hbox (badness 5245) in paragraph at lines 3386--3386
 \T1/phv/m/n/12 fi-nais de-fi-ni-dos do
  []
 
 
-Underfull \hbox (badness 2894) in paragraph at lines 3343--3343
+Underfull \hbox (badness 2894) in paragraph at lines 3386--3386
 \T1/phv/m/sl/12 back-bone \T1/phv/m/n/12 são trei-
  []
 
-[136] [137]
-Underfull \hbox (badness 10000) in paragraph at lines 3374--3375
+[141] [142]
+Underfull \hbox (badness 10000) in paragraph at lines 3417--3418
 []\T1/phv/m/n/12 U-Net, U-Net++ e De-e-pLabV3+ fo-ram ins-tan-ci-a-das via
  []
 
 
-Underfull \hbox (badness 1824) in paragraph at lines 3374--3375
+Underfull \hbox (badness 1824) in paragraph at lines 3417--3418
 \T1/phv/m/n/12 por \T1/cmtt/m/n/12 get_encoder\T1/phv/m/n/12 , blo-cos \T1/cmtt
 /m/n/12 DoubleConv\T1/phv/m/n/12 , \T1/cmtt/m/n/12 AttentionGate \T1/phv/m/n/12
  nas co-ne-xões la-te-rais e
  []
 
-[138]
-Underfull \hbox (badness 1527) in paragraph at lines 3404--3404
+[143]
+Underfull \hbox (badness 1527) in paragraph at lines 3447--3447
 []|$\OML/cmm/m/it/12 lr \OT1/cmr/m/n/12 = 0[]0001$\T1/phv/m/n/12 , en-trada $\O
 T1/cmr/m/n/12 256 \OMS/cmsy/m/n/12 ^^B \OT1/cmr/m/n/12 256$\T1/phv/m/n/12 , per
 da
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3404--3404
+Underfull \hbox (badness 10000) in paragraph at lines 3447--3447
 []|\T1/phv/m/n/12 Modelos con-ver-gen-tes
  []
 
 
-Underfull \hbox (badness 1152) in paragraph at lines 3404--3404
+Underfull \hbox (badness 1152) in paragraph at lines 3447--3447
 []|\T1/phv/m/n/12 U-Net, At-ten-tion U-Net, U-Net++ e De-e-
  []
 
-[139] [140]
-Underfull \hbox (badness 1577) in paragraph at lines 3444--3445
+[144] [145]
+Underfull \hbox (badness 1577) in paragraph at lines 3487--3488
 []\T1/phv/m/n/12 comparação fi-nal en-tre ar-qui-te-tu-ras no con-junto de test
 e, re-gis-trada em
  []
 
 
-Underfull \hbox (badness 1062) in paragraph at lines 3447--3448
+Underfull \hbox (badness 1062) in paragraph at lines 3490--3491
 []\T1/phv/m/n/12 Após a se-le-ção por va-li-da-ção, o pi-pe-line re-car-rega o 
 \T1/cmtt/m/n/12 best_model.pt\T1/phv/m/n/12 , exe-
  []
 
 
-Underfull \hbox (badness 3623) in paragraph at lines 3447--3448
+Underfull \hbox (badness 3623) in paragraph at lines 3490--3491
 \T1/phv/m/n/12 cuta in-fe-rên-cia no con-junto de teste e salva mé-tri-cas fi-n
 ais, cur-vas, ma-
  []
 
 
-Underfull \hbox (badness 7981) in paragraph at lines 3447--3448
+Underfull \hbox (badness 7981) in paragraph at lines 3490--3491
 \T1/phv/m/n/12 tri-zes, ga-le-rias qua-li-ta-ti-vas, \T1/phv/m/sl/12 ben-ch-mar
 ks \T1/phv/m/n/12 e ta-be-las com-pa-ra-ti-vas. Além
  []
 
 
-Underfull \hbox (badness 5592) in paragraph at lines 3447--3448
+Underfull \hbox (badness 5592) in paragraph at lines 3490--3491
 \T1/phv/m/n/12 disso, o pro-jeto de-riva me-di-das de \T1/phv/m/sl/12 trade-off
  \T1/phv/m/n/12 en-tre de-sem-pe-nho e custo
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3447--3448
+Underfull \hbox (badness 10000) in paragraph at lines 3490--3491
 \T1/phv/m/n/12 com ra-zões como $[]\OML/cmm/m/it/12 = [][]\OT1/cmr/m/n/12 ([])$
  \T1/phv/m/n/12 para clas-si-fi-ca-ção e
  []
 
-[141] [142]
-Underfull \hbox (badness 10000) in paragraph at lines 3489--3490
+[146] [147]
+Underfull \hbox (badness 10000) in paragraph at lines 3532--3533
 []|\T1/phv/m/n/12 quantificar con-fi-a-bi-li-dade das
  []
 
-[143] [144] [145] [146] [147]
-Underfull \hbox (badness 4205) in paragraph at lines 3672--3672
+[148] [149] [150] [151] [152]
+Underfull \hbox (badness 4205) in paragraph at lines 3715--3715
 []|\T1/phv/m/n/12 avaliar con-cor-dân-cia es-pa-cial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3672--3672
+Underfull \hbox (badness 10000) in paragraph at lines 3715--3715
 []|\T1/phv/m/n/12 F1-score pixel-
  []
 
-[148] [149] [150] [151]
-Underfull \hbox (badness 10000) in paragraph at lines 3674--3674
+[153] [154] [155] [156]
+Underfull \hbox (badness 10000) in paragraph at lines 3717--3717
 []|\T1/phv/m/n/12 Tempo mé-dio por
  []
 
 
-Underfull \hbox (badness 2781) in paragraph at lines 3674--3674
+Underfull \hbox (badness 2781) in paragraph at lines 3717--3717
 []|\T1/phv/m/n/12 medir es-ta-bi-li-dade tem-po-ral
  []
 
-[152] [153] [154] [155] [156]
-Overfull \hbox (1.55367pt too wide) in paragraph at lines 3739--3739
+[157] [158] [159] [160] [161]
+Overfull \hbox (1.55367pt too wide) in paragraph at lines 3782--3782
 []|\T1/cmtt/m/n/12 classification/| 
  []
 
-[157]
-Underfull \hbox (badness 1122) in paragraph at lines 3764--3764
+[162]
+Underfull \hbox (badness 1122) in paragraph at lines 3807--3807
 []|\T1/phv/m/n/12 Aplicação das trans-for-ma-ções e pre-pro-ces-sa-
  []
 
-[158] [159] [160
+[163] [164] [165
 
 ]
-Underfull \hbox (badness 1509) in paragraph at lines 3851--3852
+Underfull \hbox (badness 1509) in paragraph at lines 3894--3895
 []|\T1/phv/m/n/12 Três di-men-sões prin-ci-pais
  []
 
 
-Underfull \hbox (badness 2197) in paragraph at lines 3855--3856
+Underfull \hbox (badness 2197) in paragraph at lines 3898--3899
 []|\T1/phv/m/n/12 Quatro ar-qui-te-tu-ras fo-ram
  []
 
 
-Underfull \hbox (badness 1655) in paragraph at lines 3855--3856
+Underfull \hbox (badness 1655) in paragraph at lines 3898--3899
 \T1/phv/m/n/12 ana-li-sa-das sob o mesmo
  []
 
 
-Underfull \hbox (badness 4531) in paragraph at lines 3859--3860
+Underfull \hbox (badness 4531) in paragraph at lines 3902--3903
 []|\T1/phv/m/n/12 Cobertura sis-te-má-tica de
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3861--3861
+Underfull \hbox (badness 10000) in paragraph at lines 3904--3904
 []|\T1/phv/m/n/12 Melhor mé-dia de
  []
 
 
-Underfull \hbox (badness 2359) in paragraph at lines 3861--3861
+Underfull \hbox (badness 2359) in paragraph at lines 3904--3904
 \T1/phv/m/n/12 macro-$\OML/cmm/m/it/12 F[]$ \T1/phv/m/n/12 em va-li-da-
  []
 
 
-Underfull \hbox (badness 6927) in paragraph at lines 3869--3870
+Underfull \hbox (badness 6927) in paragraph at lines 3912--3913
 []|\T1/phv/m/n/12 Favorece sen-si-bi-li-dade à
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3873--3874
+Underfull \hbox (badness 10000) in paragraph at lines 3916--3917
 []|\T1/phv/m/n/12 Sugere ins-ta-bi-li-dade
  []
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 3873--3874
+Underfull \hbox (badness 6364) in paragraph at lines 3916--3917
 \T1/phv/m/n/12 quando to-dos os pe-sos
  []
 
 
-Underfull \hbox (badness 4913) in paragraph at lines 3873--3874
+Underfull \hbox (badness 4913) in paragraph at lines 3916--3917
 \T1/phv/m/n/12 são ajus-ta-dos com taxa
  []
 
 
-Underfull \hbox (badness 1178) in paragraph at lines 3875--3875
+Underfull \hbox (badness 1178) in paragraph at lines 3918--3918
 []|\T1/phv/m/n/12 Melhor \T1/phv/m/sl/12 trial \T1/phv/m/n/12 da Res-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3879--3879
+Underfull \hbox (badness 10000) in paragraph at lines 3922--3922
 []|\T1/phv/m/n/12 Melhor \T1/phv/m/sl/12 trial \T1/phv/m/n/12 da
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3883--3883
+Underfull \hbox (badness 10000) in paragraph at lines 3926--3926
 []|\T1/phv/m/n/12 Melhor \T1/phv/m/sl/12 trial \T1/phv/m/n/12 da
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3885--3886
+Underfull \hbox (badness 10000) in paragraph at lines 3928--3929
 []|\T1/phv/m/n/12 Comportamento se-me-
  []
 
 
-Underfull \hbox (badness 1082) in paragraph at lines 3885--3886
+Underfull \hbox (badness 1082) in paragraph at lines 3928--3929
 \T1/phv/m/n/12 lhante ao da EfficientNet-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3889--3890
+Underfull \hbox (badness 10000) in paragraph at lines 3932--3933
 []|\T1/phv/m/n/12 Mostra pre-fe-rên-cia por
  []
 
-[161] [162] [163]
-Underfull \hbox (badness 1184) in paragraph at lines 3950--3951
+[166] [167] [168]
+Underfull \hbox (badness 1184) in paragraph at lines 3993--3994
 []\T1/phv/m/n/12 A EfficientNet-B0 ocu-pou uma po-si-ção in-ter-me-di-á-ria em 
 de-sem-pe-nho, mas
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3960--3960
+Underfull \hbox (badness 10000) in paragraph at lines 4003--4003
 []|\T1/phv/m/n/12 EfficientNet-B0 vs.
  []
 
-[164] [165]
-Underfull \hbox (badness 1448) in paragraph at lines 4002--4002
+[169] [170]
+Underfull \hbox (badness 1448) in paragraph at lines 4045--4045
 []|\T1/phv/m/n/12 Melhor equi-lí-brio en-tre de-sem-pe-nho glo-bal,
  []
 
 
-Underfull \hbox (badness 1024) in paragraph at lines 4008--4009
+Underfull \hbox (badness 1024) in paragraph at lines 4051--4052
 \T1/phv/m/n/12 a di-nâ-mica de con-ver-gên-cia dos mo-de-los de clas-si-fi-ca-ç
 ão ao longo das épo-
  []
 
 
-Underfull \hbox (badness 2941) in paragraph at lines 4008--4009
+Underfull \hbox (badness 2941) in paragraph at lines 4051--4052
 \T1/phv/m/n/12 uti-li-za-dos na com-pa-ra-ção fi-nal fo-ram: \T1/cmtt/m/n/12 tr
 ial_11_lr_0.0001_bs_32_ft_partial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4008--4009
+Underfull \hbox (badness 10000) in paragraph at lines 4051--4052
 \T1/phv/m/n/12 para VGG16, \T1/cmtt/m/n/12 trial_03_lr_0.001_bs_16_ft_deep \T1/
 phv/m/n/12 para Res-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4008--4009
+Underfull \hbox (badness 10000) in paragraph at lines 4051--4052
 \T1/phv/m/n/12 Net50, \T1/cmtt/m/n/12 trial_05_lr_0.001_bs_32_ft_partial \T1/ph
 v/m/n/12 para EfficientNet-B0 e
  []
 
 
-Underfull \hbox (badness 3407) in paragraph at lines 4008--4009
+Underfull \hbox (badness 3407) in paragraph at lines 4051--4052
 \T1/cmtt/m/n/12 trial_05_lr_0.001_bs_32_ft_partial \T1/phv/m/n/12 para ConvNeXt
 -Large. Além disso, o
  []
 
-[166] [167] [168] [169] [170]
-Underfull \hbox (badness 3068) in paragraph at lines 4077--4078
+[171] [172] [173] [174] [175]
+Underfull \hbox (badness 3068) in paragraph at lines 4120--4121
 []\T1/phv/m/n/12 As ma-tri-zes de con-fu-são per-mi-tem ob-ser-var ex-pli-ci-ta
 -mente como os er-
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 4077--4078
+Underfull \hbox (badness 2401) in paragraph at lines 4120--4121
 \T1/phv/m/n/12 ros se dis-tri-buem en-tre as clas-ses. Neste tra-ba-lho, a or-d
 em ado-tada foi
  []
 
-[171] [172] [173] [174] [175] [176]
-Underfull \hbox (badness 3179) in paragraph at lines 4231--4232
+[176] [177] [178] [179] [180] [181]
+Underfull \hbox (badness 3179) in paragraph at lines 4274--4275
 []\T1/phv/m/n/12 Entre os ca-sos cor-re-ta-mente clas-si-fi-ca-dos, destacaram-
 se ima-gens como
  []
 
 
-Underfull \hbox (badness 1616) in paragraph at lines 4231--4232
+Underfull \hbox (badness 1616) in paragraph at lines 4274--4275
 \T1/cmtt/m/n/12 benign_15\T1/phv/m/n/12 , \T1/cmtt/m/n/12 benign_33\T1/phv/m/n/
 12 , \T1/cmtt/m/n/12 benign_44\T1/phv/m/n/12 , \T1/cmtt/m/n/12 benign_152 \T1/p
 hv/m/n/12 e \T1/cmtt/m/n/12 malignant_24\T1/phv/m/n/12 , \T1/cmtt/m/n/12 malign
 ant_29\T1/phv/m/n/12 ,
  []
 
-[177] [178] [179] [180
+[182] [183] [184] [185
 
-] [181] [182] [183] [184] [185] [186] [187] [188]
-[189] [190] [191
+] [186] [187] [188] [189] [190] [191] [192] [193]
+[194] [195] [196
 
-] [192]
-Underfull \hbox (badness 1924) in paragraph at lines 4596--4597
+] [197]
+Underfull \hbox (badness 1924) in paragraph at lines 4639--4640
 []\T1/phv/m/n/12 Quando se ob-serva o pa-no-rama en-tre di-fe-ren-tes exe-cu-çõ
 es con-so-li-da-das,
  []
 
-[193] [194] [195] [196] [197] [198] [199] [200] [201
+[198] [199] [200] [201] [202] [203] [204] [205] [206
 
-] [202] [203] [204]
-(exemplo-tcc.bbl [205]
-Underfull \hbox (badness 10000) in paragraph at lines 46--50
+] [207] [208] [209]
+(exemplo-tcc.bbl [210] [211
+
+] [212]
+Underfull \hbox (badness 10000) in paragraph at lines 185--189
 \T1/cmtt/m/n/12 pt-[]br / assuntos / gestor-[]e-[]profissional-[]de-[]saude / c
 ontrole-[]do-[]cancer-[]de-[]mama /
  []
 
 
-Underfull \hbox (badness 1337) in paragraph at lines 53--57
+Underfull \hbox (badness 1337) in paragraph at lines 192--196
 []\T1/phv/m/n/12 Instituto Na-ci-o-nal de Cân-cer José Alen-car Go-mes da Silva
 . \T1/phv/b/n/12 Pa-râ-me-tros téc-
  []
 
 
-Underfull \hbox (badness 2856) in paragraph at lines 53--57
+Underfull \hbox (badness 2856) in paragraph at lines 192--196
 \T1/phv/b/n/12 ni-cos para de-tec-ção pre-coce do cân-cer de mama\T1/phv/m/n/12
  . Ac-ces-sed: 2026-03-
  []
 
-[206
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 60--64
-[]\T1/phv/m/n/12 Instituto Na-ci-o-nal de Cân-cer José Alen-car Go-mes da Silva
-. \T1/phv/b/n/12 Di-re-tri-zes
+[213]
+Underfull \hbox (badness 1389) in paragraph at lines 205--210
+[]\T1/phv/m/n/12 International Agency for Re-se-arch on Can-cer. \T1/phv/b/n/12
+ Atlas of Bre-ast Can-cer Early
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 60--64
-\T1/phv/b/n/12 para a de-tec-ção pre-coce do cân-cer de mama no Bra-sil\T1/phv/
-m/n/12 . Li-vro ins-ti-tu-ci-o-
+Underfull \hbox (badness 10000) in paragraph at lines 205--210
+\T1/phv/b/n/12 De-tec-tion\T1/phv/m/n/12 . Dis-po-ní-vel em: <https://publicati
+ons.iarc.who.int/Databases/Iarc-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--64
-\T1/phv/m/n/12 nal. Ac-ces-sed: 2026-03-18, []$\T1/cmtt/m/n/12 https : / / www 
-. inca . gov . br / publicacoes / livros /
+Underfull \hbox (badness 4556) in paragraph at lines 205--210
+\T1/phv/m/n/12 Cancerbases/Atlas-Of-Breast-Cancer-Early-Detection-2023>. Acesso
+ em: 2025-
  []
 
-[207])
+! Missing $ inserted.
+<inserted text> 
+                $
+l.215 ...who.int/wp-content/uploads/2025/02/pr361_
+                                                  E.pdf>. Acesso em:
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.217 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.217 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Underfull \hbox (badness 1314) in paragraph at lines 212--217
+[]\T1/phv/m/n/12 International Agency for Re-se-arch on Can-cer. \T1/phv/b/n/12
+ Bre-ast can-cer ca-ses and de-
+ []
+
+
+Underfull \hbox (badness 1112) in paragraph at lines 212--217
+\T1/phv/b/n/12 aths are pro-jec-ted to rise glo-bally\T1/phv/m/n/12 . Press Re-
+le-ase No. 361. Dis-po-ní-vel em:
+ []
+
+
+Underfull \hbox (badness 2781) in paragraph at lines 212--217
+\T1/phv/m/n/12 <https://www.iarc.who.int/wp-content/uploads/2025/02/pr361$[]\OM
+L/cmm/m/it/12 :pdf > :Acessoem \OT1/cmr/m/n/12 :
+ []
+
+! Extra }, or forgotten \endgroup.
+\par ...m \@noitemerr {\@@par }\fi \else {\@@par }
+                                                  \fi 
+l.217 
+      
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+[214] [215] [216]
+Underfull \hbox (badness 10000) in paragraph at lines 444--448
+[]\T1/phv/m/n/12 World He-alth Or-ga-ni-za-tion. \T1/phv/b/n/12 Bre-ast can-cer
+\T1/phv/m/n/12 . Dis-po-ní-vel em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 444--448
+\T1/phv/m/n/12 <https://www.who.int/news-room/fact-sheets/detail/breast-cancer>
+. Acesso em:
+ []
+
+[217])
 
 Package natbib Warning: There were undefined citations.
 
-[208] 
+[218] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (exemplo-tcc.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `exemplo-tcc.out' has not changed.
 (rerunfilecheck)             Checksum: E393A62A90EAA426B139A9C02EDB52E1;57799.
  ) 
 Here is how much of TeX's memory you used:
- 36920 strings out of 467871
- 845924 string characters out of 5416924
- 1357919 words of memory out of 5000000
- 64221 multiletter control sequences out of 15000+600000
+ 37162 strings out of 467871
+ 850733 string characters out of 5416924
+ 1363906 words of memory out of 5000000
+ 64394 multiletter control sequences out of 15000+600000
  686900 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,17n,118p,10116b,618s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,17n,118p,10116b,703s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ResTIC55\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\e
 ctt1095.pk> <C:\Users\ResTIC55\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\ectt1000.pk> <C:\Users\ResTIC55\AppData\Local\MiKTeX\fonts/pk/ljfour/jk
@@ -2877,9 +2879,9 @@ Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/ResTIC55/Ap
 pData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/Users/ResT
 IC55/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/User
 s/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on exemplo-tcc.pdf (208 pages, 1726184 bytes).
+Output written on exemplo-tcc.pdf (218 pages, 1834525 bytes).
 PDF statistics:
- 3680 PDF objects out of 4296 (max. 8388607)
- 959 named destinations out of 1000 (max. 500000)
+ 4158 PDF objects out of 4296 (max. 8388607)
+ 1028 named destinations out of 1200 (max. 500000)
  2132 words of extra memory for PDF output out of 10000 (max. 10000000)
 
