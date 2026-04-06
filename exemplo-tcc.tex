@@ -1124,6 +1124,20 @@ com perda de entropia cruzada
 \end{equation}
 Em aplicações médicas, contudo, a arquitetura raramente é utilizada exatamente em sua forma original. Em vez disso, a base convolucional pré-treinada costuma ser aproveitada como extrator de características, substituindo-se a cabeça densa por um classificador adaptado ao número de classes e ao tamanho da base-alvo.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../vgg16}
+	\caption{Representação esquemática da arquitetura VGG16, composta por blocos convolucionais profundos, camadas de agrupamento máximo e camadas totalmente conectadas para classificação multiclasse.}
+	\label{fig:vgg16_architecture}
+	
+	\vspace{0.3cm}
+	\footnotesize
+	\textbf{Fonte:} Adaptado de Neurohive, ``VGG16 -- Convolutional Network for Classification and Detection'', 2018. Disponível em: \url{https://neurohive.io/en/popular-networks/vgg16/}. Acesso em: 22 set. 2025.
+\end{figure}
+
+
+
+
 \subsubsection{Vantagens e limitações}
 
 A principal vantagem da VGG16 reside em sua simplicidade estrutural e em sua forte capacidade de generalização como extrator de características. Como a arquitetura é composta por blocos homogêneos de convoluções \(3\times 3\), sua interpretação é relativamente direta, sua implementação é estável e sua utilização como \textit{baseline} tornou-se amplamente difundida. Em contextos de \textit{transfer learning}, essa propriedade é particularmente útil: seja \(\phi_{\text{VGG}}(\mathbf{X};\boldsymbol{\theta}_0)\) a base convolucional pré-treinada, pode-se congelar \(\boldsymbol{\theta}_0\) e aprender apenas uma nova cabeça classificadora
@@ -1271,6 +1285,18 @@ Quando a ResNet50 é usada em \textit{transfer learning}, substitui-se a camada 
 	f(\mathbf{X}) = h\!\left(\phi_{\text{ResNet50}}(\mathbf{X};\boldsymbol{\theta}_f);\boldsymbol{\theta}_h\right).
 \end{equation}
 Essa formulação é particularmente relevante em imagem médica, onde bases moderadas favorecem estratégias com pesos pré-treinados.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../resnet50}
+	\caption{Representação esquemática da arquitetura ResNet50, destacando o papel das conexões residuais no treinamento de redes neurais profundas em comparação com o de redes neurais convolucionais normais.}
+	\label{fig:resnet50_architecture}
+	
+	\vspace{0.3cm}
+	\footnotesize
+	\textbf{Fonte:} Adaptado de Ultralytics, ``O que é ResNet-50 e qual é a sua relevância em visão computacional?'', 2025. Disponível em: \url{https://www.ultralytics.com/pt/blog/what-is-resnet-50-and-what-is-its-relevance-in-computer-vision}. Acesso em: 22 set. 2025.
+\end{figure}
+
 
 \subsubsection{Aplicações em imagens médicas}
 

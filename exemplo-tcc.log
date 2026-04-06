@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.18)  6 APR 2026 01:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.18)  6 APR 2026 02:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1163,12 +1163,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 113--115
 
 
 ] (exemplo-tcc.lof
-Overfull \hbox (1.41573pt too wide) detected at line 14
+Overfull \hbox (1.41573pt too wide) detected at line 16
  [][]\T1/phv/m/n/12 133[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 15
+Overfull \hbox (1.41573pt too wide) detected at line 17
  [][]\T1/phv/m/n/12 134[]
  []
 
@@ -1325,7 +1325,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--30
 
 ]
 Overfull \hbox (1.41573pt too wide) detected at line 83
- [][]\T1/phv/m/n/12 104[]
+ [][]\T1/phv/m/n/12 105[]
  []
 
 
@@ -1335,7 +1335,7 @@ Overfull \hbox (1.41573pt too wide) detected at line 84
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 85
- [][]\T1/phv/m/n/12 108[]
+ [][]\T1/phv/m/n/12 109[]
  []
 
 
@@ -1350,17 +1350,17 @@ Overfull \hbox (1.41573pt too wide) detected at line 88
 
 
 Overfull \hbox (1.41573pt too wide) detected at line 89
- [][]\T1/phv/m/n/12 113[]
- []
-
-
-Overfull \hbox (1.41573pt too wide) detected at line 90
  [][]\T1/phv/m/n/12 114[]
  []
 
 
-Overfull \hbox (1.41573pt too wide) detected at line 91
+Overfull \hbox (1.41573pt too wide) detected at line 90
  [][]\T1/phv/m/n/12 115[]
+ []
+
+
+Overfull \hbox (1.41573pt too wide) detected at line 91
+ [][]\T1/phv/m/n/12 116[]
  []
 
 
@@ -2275,491 +2275,503 @@ LaTeX Font Info:    Trying to load font information for TS1+phv on input line 8
 (C:\Users\ResTIC55\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
-[54] [55] [56] [57] [58] [59] [60] [61]
+[54] [55] [56] [57] [58] [59]
+<../vgg16.jpg, id=2223, 903.375pt x 508.90125pt>
+File: ../vgg16.jpg Graphic file (type jpg)
+<use ../vgg16.jpg>
+Package pdftex.def Info: ../vgg16.jpg  used on input line 1129.
+(pdftex.def)             Requested size: 318.66948pt x 179.51584pt.
+ [60] [61 <../vgg16.jpg (PNG copy)>]
 
 Package natbib Warning: Citation `He2016' on page 62 undefined on input line 11
-51.
+65.
 
-[62]
+[62] [63]
 
-Package natbib Warning: Citation `He2016' on page 63 undefined on input line 12
-01.
+Package natbib Warning: Citation `He2016' on page 64 undefined on input line 12
+15.
 
 
-Package natbib Warning: Citation `He2016' on page 63 undefined on input line 12
-05.
+Package natbib Warning: Citation `He2016' on page 64 undefined on input line 12
+19.
 
-[63] [64]
+[64]
 
 Package natbib Warning: Citation `He2016' on page 65 undefined on input line 12
-39.
+53.
 
 
 Package natbib Warning: Citation `Ioffe2015' on page 65 undefined on input line
- 1253.
+ 1267.
 
 [65]
+<../resnet50.jpg, id=2282, 1369.115pt x 562.1pt>
+File: ../resnet50.jpg Graphic file (type jpg)
+<use ../resnet50.jpg>
+Package pdftex.def Info: ../resnet50.jpg  used on input line 1291.
+(pdftex.def)             Requested size: 318.66948pt x 130.8327pt.
+
 
 Package natbib Warning: Citation `Yamashita2018' on page 66 undefined on input 
-line 1277.
+line 1303.
 
-[66] [67]
+[66 <../resnet50.jpg>] [67]
 
 Package natbib Warning: Citation `Tan2019EfficientNet' on page 68 undefined on 
-input line 1321.
+input line 1347.
 
 
 Package natbib Warning: Citation `Sandler2018' on page 68 undefined on input li
-ne 1327.
+ne 1353.
 
 [68] [69] [70] [71] [72]
 
 Package natbib Warning: Citation `Liu2022ConvNeXt' on page 73 undefined on inpu
-t line 1501.
+t line 1527.
 
 [73]
 
 Package natbib Warning: Citation `Liu2022ConvNeXt' on page 74 undefined on inpu
-t line 1528.
+t line 1554.
 
 [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87] [88]
-[89] [90] [91] [92] [93]
+[89] [90] [91] [92] [93] [94]
 
-Package natbib Warning: Citation `Zhou2018UNetpp' on page 94 undefined on input
- line 2204.
+Package natbib Warning: Citation `Zhou2018UNetpp' on page 95 undefined on input
+ line 2230.
 
-[94] [95] [96] [97] [98] [99] [100] [101] [102] [103]
+[95] [96] [97] [98] [99] [100] [101] [102] [103] [104]
 
-Package natbib Warning: Citation `Shorten2019' on page 104 undefined on input l
-ine 2607.
+Package natbib Warning: Citation `Shorten2019' on page 105 undefined on input l
+ine 2633.
 
 
-Package natbib Warning: Citation `Yang2022AugSurvey' on page 104 undefined on i
-nput line 2607.
+Package natbib Warning: Citation `Yang2022AugSurvey' on page 105 undefined on i
+nput line 2633.
 
-[104] [105]
+[105]
 
 Package natbib Warning: Citation `Shorten2019' on page 106 undefined on input l
-ine 2683.
+ine 2709.
 
 
 Package natbib Warning: Citation `Yang2022AugSurvey' on page 106 undefined on i
-nput line 2683.
+nput line 2709.
 
 [106]
 
 Package natbib Warning: Citation `He2009' on page 107 undefined on input line 2
-708.
+734.
 
 
 Package natbib Warning: Citation `Branco2016' on page 107 undefined on input li
-ne 2708.
+ne 2734.
 
 [107] [108]
 
 Package natbib Warning: Citation `Lin2017Focal' on page 109 undefined on input 
-line 2806.
+line 2832.
 
 [109] [110]
 
 Package natbib Warning: Citation `Sudre2017GDL' on page 111 undefined on input 
-line 2894.
+line 2920.
 
 [111]
 
 Package natbib Warning: Citation `Alotaibi2023USClassification' on page 112 und
-efined on input line 2955.
-
-
-Package natbib Warning: Citation `Alotaibi2023USClassification' on page 112 und
-efined on input line 2959.
-
-
-Package natbib Warning: Citation `Ali2023MetaLearning' on page 112 undefined on
- input line 2959.
+efined on input line 2981.
 
 [112]
 
+Package natbib Warning: Citation `Alotaibi2023USClassification' on page 113 und
+efined on input line 2985.
+
+
+Package natbib Warning: Citation `Ali2023MetaLearning' on page 113 undefined on
+ input line 2985.
+
+
 Package natbib Warning: Citation `Latha2024EfficientNetXAI' on page 113 undefin
-ed on input line 2961.
-
-
-Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 113 unde
-fined on input line 2965.
-
-
-Package natbib Warning: Citation `Rayed2024SegSurvey' on page 113 undefined on 
-input line 2965.
-
-
-Package natbib Warning: Citation `Rahmani2024' on page 113 undefined on input l
-ine 2967.
+ed on input line 2987.
 
 [113]
 
 Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 114 unde
-fined on input line 2971.
+fined on input line 2991.
+
+
+Package natbib Warning: Citation `Rayed2024SegSurvey' on page 114 undefined on 
+input line 2991.
+
+
+Package natbib Warning: Citation `Rahmani2024' on page 114 undefined on input l
+ine 2993.
+
+
+Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 114 unde
+fined on input line 2997.
 
 [114]
 
 Package natbib Warning: Citation `Rayed2024SegSurvey' on page 115 undefined on 
-input line 2977.
-
-
-Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 115 unde
-fined on input line 2983.
+input line 3003.
 
 [115]
 
+Package natbib Warning: Citation `Xiao2025UltrasoundSegReview' on page 116 unde
+fined on input line 3009.
+
+
 Package natbib Warning: Citation `Rayed2024SegSurvey' on page 116 undefined on 
-input line 2987.
+input line 3013.
 
 [116] [117
 
 ]
-Overfull \hbox (130.43076pt too wide) detected at line 3014
+Overfull \hbox (130.43076pt too wide) detected at line 3040
 [][][][] \OMS/cmsy/m/n/12 ! [] ! [] ! [] ! [] ! []\OML/cmm/m/it/12 :
  []
 
 [118] [119] [120] [121] [122] [123]
 
 Package natbib Warning: Citation `turn956269search3' on page 124 undefined on i
-nput line 3084.
+nput line 3110.
 
 [124] [125] [126] [127] [128] [129] [130] [131] [132]
-Overfull \hbox (27.94081pt too wide) in paragraph at lines 3229--3229
+Overfull \hbox (27.94081pt too wide) in paragraph at lines 3255--3255
 []|\T1/phv/m/n/12 RandomBrightnessContrast| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3229--3230
+Underfull \hbox (badness 10000) in paragraph at lines 3255--3256
 []|\T1/cmtt/m/n/12 brightness_limit = 0.10\T1/phv/m/n/12 , \T1/cmtt/m/n/12 cont
 rast_limit =
  []
 
 [133]
-Overfull \hbox (27.94081pt too wide) in paragraph at lines 3257--3257
+Overfull \hbox (27.94081pt too wide) in paragraph at lines 3283--3283
 []|\T1/phv/m/n/12 RandomBrightnessContrast| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3257--3258
+Underfull \hbox (badness 10000) in paragraph at lines 3283--3284
 []|\T1/cmtt/m/n/12 brightness_limit = 0.08\T1/phv/m/n/12 , \T1/cmtt/m/n/12 cont
 rast_limit =
  []
 
 [134]
-Underfull \hbox (badness 1132) in paragraph at lines 3284--3285
+Underfull \hbox (badness 1132) in paragraph at lines 3310--3311
 []\T1/phv/m/n/12 Uma de-ci-são me-to-do-lo-gi-ca-mente im-por-tante foi o ras-t
 re-a-mento ex-plí-cito de
  []
 
 
-Underfull \hbox (badness 5787) in paragraph at lines 3288--3289
+Underfull \hbox (badness 5787) in paragraph at lines 3314--3315
 []\T1/phv/m/n/12 As ar-qui-te-tu-ras de clas-si-fi-ca-ção se-le-ci-o-na-das fo-
 ram VGG16, Res-Net50,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3300--3301
+Underfull \hbox (badness 10000) in paragraph at lines 3326--3327
 []\T1/phv/m/n/12 As ca-be-ças de clas-si-fi-ca-ção fo-ram de-fi-ni-das im-pli-c
 i-ta-mente por
  []
 
 
-Underfull \hbox (badness 1009) in paragraph at lines 3300--3301
+Underfull \hbox (badness 1009) in paragraph at lines 3326--3327
 \T1/cmtt/m/n/12 timm.create_model(..., num_classes=3)\T1/phv/m/n/12 , o que sub
 s-ti-tui a ca-mada fi-nal ori-gi-
  []
 
 [135]
-Underfull \hbox (badness 10000) in paragraph at lines 3314--3314
+Underfull \hbox (badness 10000) in paragraph at lines 3340--3340
 []|\T1/phv/b/n/12 Learning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3314--3314
+Underfull \hbox (badness 10000) in paragraph at lines 3340--3340
 []|\T1/phv/b/n/12 Batch
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3314--3314
+Underfull \hbox (badness 10000) in paragraph at lines 3340--3340
 []|\T1/phv/b/n/12 Fine-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3314--3314
+Underfull \hbox (badness 10000) in paragraph at lines 3340--3340
 \T1/phv/b/n/12 tuning
  []
 
 
-Underfull \hbox (badness 1127) in paragraph at lines 3316--3316
+Underfull \hbox (badness 1127) in paragraph at lines 3342--3342
 \T1/phv/m/n/12 clas-si-fi-ca-ção é trei-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3317--3317
+Underfull \hbox (badness 10000) in paragraph at lines 3343--3343
 []|\T1/phv/m/n/12 Cabeça e blo-cos
  []
 
 
-Underfull \hbox (badness 5245) in paragraph at lines 3317--3317
+Underfull \hbox (badness 5245) in paragraph at lines 3343--3343
 \T1/phv/m/n/12 fi-nais de-fi-ni-dos do
  []
 
 
-Underfull \hbox (badness 2894) in paragraph at lines 3317--3317
+Underfull \hbox (badness 2894) in paragraph at lines 3343--3343
 \T1/phv/m/sl/12 back-bone \T1/phv/m/n/12 são trei-
  []
 
 [136] [137]
-Underfull \hbox (badness 10000) in paragraph at lines 3348--3349
+Underfull \hbox (badness 10000) in paragraph at lines 3374--3375
 []\T1/phv/m/n/12 U-Net, U-Net++ e De-e-pLabV3+ fo-ram ins-tan-ci-a-das via
  []
 
 
-Underfull \hbox (badness 1824) in paragraph at lines 3348--3349
+Underfull \hbox (badness 1824) in paragraph at lines 3374--3375
 \T1/phv/m/n/12 por \T1/cmtt/m/n/12 get_encoder\T1/phv/m/n/12 , blo-cos \T1/cmtt
 /m/n/12 DoubleConv\T1/phv/m/n/12 , \T1/cmtt/m/n/12 AttentionGate \T1/phv/m/n/12
  nas co-ne-xões la-te-rais e
  []
 
 [138]
-Underfull \hbox (badness 1527) in paragraph at lines 3378--3378
+Underfull \hbox (badness 1527) in paragraph at lines 3404--3404
 []|$\OML/cmm/m/it/12 lr \OT1/cmr/m/n/12 = 0[]0001$\T1/phv/m/n/12 , en-trada $\O
 T1/cmr/m/n/12 256 \OMS/cmsy/m/n/12 ^^B \OT1/cmr/m/n/12 256$\T1/phv/m/n/12 , per
 da
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3378--3378
+Underfull \hbox (badness 10000) in paragraph at lines 3404--3404
 []|\T1/phv/m/n/12 Modelos con-ver-gen-tes
  []
 
 
-Underfull \hbox (badness 1152) in paragraph at lines 3378--3378
+Underfull \hbox (badness 1152) in paragraph at lines 3404--3404
 []|\T1/phv/m/n/12 U-Net, At-ten-tion U-Net, U-Net++ e De-e-
  []
 
 [139] [140]
-Underfull \hbox (badness 1577) in paragraph at lines 3418--3419
+Underfull \hbox (badness 1577) in paragraph at lines 3444--3445
 []\T1/phv/m/n/12 comparação fi-nal en-tre ar-qui-te-tu-ras no con-junto de test
 e, re-gis-trada em
  []
 
 
-Underfull \hbox (badness 1062) in paragraph at lines 3421--3422
+Underfull \hbox (badness 1062) in paragraph at lines 3447--3448
 []\T1/phv/m/n/12 Após a se-le-ção por va-li-da-ção, o pi-pe-line re-car-rega o 
 \T1/cmtt/m/n/12 best_model.pt\T1/phv/m/n/12 , exe-
  []
 
 
-Underfull \hbox (badness 3623) in paragraph at lines 3421--3422
+Underfull \hbox (badness 3623) in paragraph at lines 3447--3448
 \T1/phv/m/n/12 cuta in-fe-rên-cia no con-junto de teste e salva mé-tri-cas fi-n
 ais, cur-vas, ma-
  []
 
 
-Underfull \hbox (badness 7981) in paragraph at lines 3421--3422
+Underfull \hbox (badness 7981) in paragraph at lines 3447--3448
 \T1/phv/m/n/12 tri-zes, ga-le-rias qua-li-ta-ti-vas, \T1/phv/m/sl/12 ben-ch-mar
 ks \T1/phv/m/n/12 e ta-be-las com-pa-ra-ti-vas. Além
  []
 
 
-Underfull \hbox (badness 5592) in paragraph at lines 3421--3422
+Underfull \hbox (badness 5592) in paragraph at lines 3447--3448
 \T1/phv/m/n/12 disso, o pro-jeto de-riva me-di-das de \T1/phv/m/sl/12 trade-off
  \T1/phv/m/n/12 en-tre de-sem-pe-nho e custo
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3421--3422
+Underfull \hbox (badness 10000) in paragraph at lines 3447--3448
 \T1/phv/m/n/12 com ra-zões como $[]\OML/cmm/m/it/12 = [][]\OT1/cmr/m/n/12 ([])$
  \T1/phv/m/n/12 para clas-si-fi-ca-ção e
  []
 
 [141] [142]
-Underfull \hbox (badness 10000) in paragraph at lines 3463--3464
+Underfull \hbox (badness 10000) in paragraph at lines 3489--3490
 []|\T1/phv/m/n/12 quantificar con-fi-a-bi-li-dade das
  []
 
 [143] [144] [145] [146] [147]
-Underfull \hbox (badness 4205) in paragraph at lines 3646--3646
+Underfull \hbox (badness 4205) in paragraph at lines 3672--3672
 []|\T1/phv/m/n/12 avaliar con-cor-dân-cia es-pa-cial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3646--3646
+Underfull \hbox (badness 10000) in paragraph at lines 3672--3672
 []|\T1/phv/m/n/12 F1-score pixel-
  []
 
 [148] [149] [150] [151]
-Underfull \hbox (badness 10000) in paragraph at lines 3648--3648
+Underfull \hbox (badness 10000) in paragraph at lines 3674--3674
 []|\T1/phv/m/n/12 Tempo mé-dio por
  []
 
 
-Underfull \hbox (badness 2781) in paragraph at lines 3648--3648
+Underfull \hbox (badness 2781) in paragraph at lines 3674--3674
 []|\T1/phv/m/n/12 medir es-ta-bi-li-dade tem-po-ral
  []
 
 [152] [153] [154] [155] [156]
-Overfull \hbox (1.55367pt too wide) in paragraph at lines 3713--3713
+Overfull \hbox (1.55367pt too wide) in paragraph at lines 3739--3739
 []|\T1/cmtt/m/n/12 classification/| 
  []
 
 [157]
-Underfull \hbox (badness 1122) in paragraph at lines 3738--3738
+Underfull \hbox (badness 1122) in paragraph at lines 3764--3764
 []|\T1/phv/m/n/12 Aplicação das trans-for-ma-ções e pre-pro-ces-sa-
  []
 
 [158] [159] [160
 
 ]
-Underfull \hbox (badness 1509) in paragraph at lines 3825--3826
+Underfull \hbox (badness 1509) in paragraph at lines 3851--3852
 []|\T1/phv/m/n/12 Três di-men-sões prin-ci-pais
  []
 
 
-Underfull \hbox (badness 2197) in paragraph at lines 3829--3830
+Underfull \hbox (badness 2197) in paragraph at lines 3855--3856
 []|\T1/phv/m/n/12 Quatro ar-qui-te-tu-ras fo-ram
  []
 
 
-Underfull \hbox (badness 1655) in paragraph at lines 3829--3830
+Underfull \hbox (badness 1655) in paragraph at lines 3855--3856
 \T1/phv/m/n/12 ana-li-sa-das sob o mesmo
  []
 
 
-Underfull \hbox (badness 4531) in paragraph at lines 3833--3834
+Underfull \hbox (badness 4531) in paragraph at lines 3859--3860
 []|\T1/phv/m/n/12 Cobertura sis-te-má-tica de
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3835--3835
+Underfull \hbox (badness 10000) in paragraph at lines 3861--3861
 []|\T1/phv/m/n/12 Melhor mé-dia de
  []
 
 
-Underfull \hbox (badness 2359) in paragraph at lines 3835--3835
+Underfull \hbox (badness 2359) in paragraph at lines 3861--3861
 \T1/phv/m/n/12 macro-$\OML/cmm/m/it/12 F[]$ \T1/phv/m/n/12 em va-li-da-
  []
 
 
-Underfull \hbox (badness 6927) in paragraph at lines 3843--3844
+Underfull \hbox (badness 6927) in paragraph at lines 3869--3870
 []|\T1/phv/m/n/12 Favorece sen-si-bi-li-dade à
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3847--3848
+Underfull \hbox (badness 10000) in paragraph at lines 3873--3874
 []|\T1/phv/m/n/12 Sugere ins-ta-bi-li-dade
  []
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 3847--3848
+Underfull \hbox (badness 6364) in paragraph at lines 3873--3874
 \T1/phv/m/n/12 quando to-dos os pe-sos
  []
 
 
-Underfull \hbox (badness 4913) in paragraph at lines 3847--3848
+Underfull \hbox (badness 4913) in paragraph at lines 3873--3874
 \T1/phv/m/n/12 são ajus-ta-dos com taxa
  []
 
 
-Underfull \hbox (badness 1178) in paragraph at lines 3849--3849
+Underfull \hbox (badness 1178) in paragraph at lines 3875--3875
 []|\T1/phv/m/n/12 Melhor \T1/phv/m/sl/12 trial \T1/phv/m/n/12 da Res-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3853--3853
+Underfull \hbox (badness 10000) in paragraph at lines 3879--3879
 []|\T1/phv/m/n/12 Melhor \T1/phv/m/sl/12 trial \T1/phv/m/n/12 da
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3857--3857
+Underfull \hbox (badness 10000) in paragraph at lines 3883--3883
 []|\T1/phv/m/n/12 Melhor \T1/phv/m/sl/12 trial \T1/phv/m/n/12 da
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3859--3860
+Underfull \hbox (badness 10000) in paragraph at lines 3885--3886
 []|\T1/phv/m/n/12 Comportamento se-me-
  []
 
 
-Underfull \hbox (badness 1082) in paragraph at lines 3859--3860
+Underfull \hbox (badness 1082) in paragraph at lines 3885--3886
 \T1/phv/m/n/12 lhante ao da EfficientNet-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3863--3864
+Underfull \hbox (badness 10000) in paragraph at lines 3889--3890
 []|\T1/phv/m/n/12 Mostra pre-fe-rên-cia por
  []
 
 [161] [162] [163]
-Underfull \hbox (badness 1184) in paragraph at lines 3924--3925
+Underfull \hbox (badness 1184) in paragraph at lines 3950--3951
 []\T1/phv/m/n/12 A EfficientNet-B0 ocu-pou uma po-si-ção in-ter-me-di-á-ria em 
 de-sem-pe-nho, mas
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3934--3934
+Underfull \hbox (badness 10000) in paragraph at lines 3960--3960
 []|\T1/phv/m/n/12 EfficientNet-B0 vs.
  []
 
 [164] [165]
-Underfull \hbox (badness 1448) in paragraph at lines 3976--3976
+Underfull \hbox (badness 1448) in paragraph at lines 4002--4002
 []|\T1/phv/m/n/12 Melhor equi-lí-brio en-tre de-sem-pe-nho glo-bal,
  []
 
 
-Underfull \hbox (badness 1024) in paragraph at lines 3982--3983
+Underfull \hbox (badness 1024) in paragraph at lines 4008--4009
 \T1/phv/m/n/12 a di-nâ-mica de con-ver-gên-cia dos mo-de-los de clas-si-fi-ca-ç
 ão ao longo das épo-
  []
 
 
-Underfull \hbox (badness 2941) in paragraph at lines 3982--3983
+Underfull \hbox (badness 2941) in paragraph at lines 4008--4009
 \T1/phv/m/n/12 uti-li-za-dos na com-pa-ra-ção fi-nal fo-ram: \T1/cmtt/m/n/12 tr
 ial_11_lr_0.0001_bs_32_ft_partial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3982--3983
+Underfull \hbox (badness 10000) in paragraph at lines 4008--4009
 \T1/phv/m/n/12 para VGG16, \T1/cmtt/m/n/12 trial_03_lr_0.001_bs_16_ft_deep \T1/
 phv/m/n/12 para Res-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3982--3983
+Underfull \hbox (badness 10000) in paragraph at lines 4008--4009
 \T1/phv/m/n/12 Net50, \T1/cmtt/m/n/12 trial_05_lr_0.001_bs_32_ft_partial \T1/ph
 v/m/n/12 para EfficientNet-B0 e
  []
 
 
-Underfull \hbox (badness 3407) in paragraph at lines 3982--3983
+Underfull \hbox (badness 3407) in paragraph at lines 4008--4009
 \T1/cmtt/m/n/12 trial_05_lr_0.001_bs_32_ft_partial \T1/phv/m/n/12 para ConvNeXt
 -Large. Além disso, o
  []
 
 [166] [167] [168] [169] [170]
-Underfull \hbox (badness 3068) in paragraph at lines 4051--4052
+Underfull \hbox (badness 3068) in paragraph at lines 4077--4078
 []\T1/phv/m/n/12 As ma-tri-zes de con-fu-são per-mi-tem ob-ser-var ex-pli-ci-ta
 -mente como os er-
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 4051--4052
+Underfull \hbox (badness 2401) in paragraph at lines 4077--4078
 \T1/phv/m/n/12 ros se dis-tri-buem en-tre as clas-ses. Neste tra-ba-lho, a or-d
 em ado-tada foi
  []
 
 [171] [172] [173] [174] [175] [176]
-Underfull \hbox (badness 3179) in paragraph at lines 4205--4206
+Underfull \hbox (badness 3179) in paragraph at lines 4231--4232
 []\T1/phv/m/n/12 Entre os ca-sos cor-re-ta-mente clas-si-fi-ca-dos, destacaram-
 se ima-gens como
  []
 
 
-Underfull \hbox (badness 1616) in paragraph at lines 4205--4206
+Underfull \hbox (badness 1616) in paragraph at lines 4231--4232
 \T1/cmtt/m/n/12 benign_15\T1/phv/m/n/12 , \T1/cmtt/m/n/12 benign_33\T1/phv/m/n/
 12 , \T1/cmtt/m/n/12 benign_44\T1/phv/m/n/12 , \T1/cmtt/m/n/12 benign_152 \T1/p
 hv/m/n/12 e \T1/cmtt/m/n/12 malignant_24\T1/phv/m/n/12 , \T1/cmtt/m/n/12 malign
@@ -2772,7 +2784,7 @@ ant_29\T1/phv/m/n/12 ,
 [189] [190] [191
 
 ] [192]
-Underfull \hbox (badness 1924) in paragraph at lines 4570--4571
+Underfull \hbox (badness 1924) in paragraph at lines 4596--4597
 []\T1/phv/m/n/12 Quando se ob-serva o pa-no-rama en-tre di-fe-ren-tes exe-cu-çõ
 es con-so-li-da-das,
  []
@@ -2833,40 +2845,41 @@ Package rerunfilecheck Info: File `exemplo-tcc.out' has not changed.
 (rerunfilecheck)             Checksum: E393A62A90EAA426B139A9C02EDB52E1;57799.
  ) 
 Here is how much of TeX's memory you used:
- 36868 strings out of 467871
- 845111 string characters out of 5416924
- 1356919 words of memory out of 5000000
- 64179 multiletter control sequences out of 15000+600000
- 678341 words of font info for 99 fonts, out of 8000000 for 9000
+ 36920 strings out of 467871
+ 845924 string characters out of 5416924
+ 1357919 words of memory out of 5000000
+ 64221 multiletter control sequences out of 15000+600000
+ 686900 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,118p,10116b,618s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ResTIC55\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\e
 ctt1095.pk> <C:\Users\ResTIC55\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\ectt1200.pk><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmbx12.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/ResTIC55/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/ResTIC55/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Re
-sTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><
-C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmmi8.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmmib10.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cmextra/cmmib8.pfb><C:/Users/ResTIC55/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ResTIC55/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/ResTIC55
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/User
-s/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.
-pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmsy6.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmsy8.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/ResTIC55/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/ResTIC55/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/Users/ResTIC55/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/ResTIC5
-5/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on exemplo-tcc.pdf (208 pages, 1238640 bytes).
+/dpi600\ectt1000.pk> <C:\Users\ResTIC55\AppData\Local\MiKTeX\fonts/pk/ljfour/jk
+nappen/ec/dpi600\ectt1200.pk><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/ResTIC55/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/ResTIC55/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/ResTI
+C55/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:
+/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+mi6.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmmi8.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmmib10.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Users/ResTIC55/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ResTIC55/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users
+/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb
+><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmsy6.pfb><C:/Users/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/ResTIC55/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/ResTIC55/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/ResTIC55/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvbo8a.pfb><C:/Users/ResT
+IC55/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/User
+s/ResTIC55/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on exemplo-tcc.pdf (208 pages, 1726184 bytes).
 PDF statistics:
- 3627 PDF objects out of 4296 (max. 8388607)
- 957 named destinations out of 1000 (max. 500000)
- 2122 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3680 PDF objects out of 4296 (max. 8388607)
+ 959 named destinations out of 1000 (max. 500000)
+ 2132 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -10,9 +10,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {Figura\ 1}{\ignorespaces Representação esquemática da arquitetura VGG16, composta por blocos convolucionais profundos, camadas de agrupamento máximo e camadas totalmente conectadas para classificação multiclasse.}}{61}{figure.caption.1}%
+\contentsline {figure}{\numberline {Figura\ 2}{\ignorespaces Representação esquemática da arquitetura ResNet50, destacando o papel das conexões residuais no treinamento de redes neurais profundas em comparação com o de redes neurais convolucionais normais.}}{66}{figure.caption.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {Figura\ 1}{\ignorespaces Exemplo ilustrativo de imagem do conjunto de classificação após aplicação das transformações de aumento de dados. Substituir este \textit {placeholder} pela figura exportada do pipeline, por exemplo \texttt {augmentation\_preview.png}.}}{133}{figure.caption.2}%
-\contentsline {figure}{\numberline {Figura\ 2}{\ignorespaces Exemplo ilustrativo de imagem e máscara do conjunto de segmentação após aplicação das transformações de aumento de dados. Substituir este \textit {placeholder} pela figura exportada do pipeline, por exemplo \texttt {augmentation\_preview.png}.}}{134}{figure.caption.4}%
+\contentsline {figure}{\numberline {Figura\ 3}{\ignorespaces Exemplo ilustrativo de imagem do conjunto de classificação após aplicação das transformações de aumento de dados. Substituir este \textit {placeholder} pela figura exportada do pipeline, por exemplo \texttt {augmentation\_preview.png}.}}{133}{figure.caption.4}%
+\contentsline {figure}{\numberline {Figura\ 4}{\ignorespaces Exemplo ilustrativo de imagem e máscara do conjunto de segmentação após aplicação das transformações de aumento de dados. Substituir este \textit {placeholder} pela figura exportada do pipeline, por exemplo \texttt {augmentation\_preview.png}.}}{134}{figure.caption.6}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
