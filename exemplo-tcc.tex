@@ -6,6 +6,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
 \usepackage{booktabs}
 \usepackage{pgfplotstable}
 \pgfplotsset{compat=1.18}
@@ -78,18 +80,22 @@ Doutor em Biotecnologia pela Universidade Federal de Pelotas.
 
 %Opcional
 \begin{dedicatoria}
-  Dedico\ldots 
+  Dedico este trabalho aos meus pais, por todo o amor, apoio e incentivo que sempre me ofereceram. Por me ensinarem, desde cedo, o valor dos estudos, da dedicação e da busca constante por ser uma pessoa melhor. Tudo o que conquistei até aqui carrega um pouco dos ensinamentos, dos esforços e da confiança que sempre depositaram em mim. Esta conquista também é de vocês.\ldots 
 \end{dedicatoria}
 
 %Opcional
 \begin{agradecimentos}
-  Agradeço\ldots 
+  Agradeço, antes de tudo, aos meus pais, por todo o incentivo, apoio e dedicação ao longo da minha vida. Foram eles que, desde cedo, me ensinaram a importância de buscar sempre ser melhor, de valorizar os estudos e de enfrentar os desafios com responsabilidade e perseverança. Grande parte da maturidade que construí, assim como muitas das conquistas que alcancei até hoje, é resultado direto dos ensinamentos, dos exemplos e da confiança que sempre depositaram em mim. Sou profundamente grato por tudo o que fizeram e continuam fazendo pela minha caminhada.
+  
+  Agradeço também à minha noiva, que esteve ao meu lado durante uma parte muito importante da minha trajetória acadêmica e pessoal. Ao longo da faculdade, compartilhamos juntos momentos de esforço, ansiedade, dificuldades e também de superação. Sua presença foi essencial em cada etapa desse percurso, especialmente nos períodos mais intensos, em que o cansaço e a pressão muitas vezes pareciam maiores do que eu podia suportar. Obrigado pela paciência, pelo companheirismo e por permanecer ao meu lado até mesmo nos momentos em que nem eu mesmo conseguia me aguentar.
+  
+  Sou igualmente grato por todo o apoio, incentivo e confiança que você sempre me ofereceu, não apenas em relação aos estudos, mas também nos meus sonhos, projetos e no empreendedorismo. Ter alguém que acredita em mim, caminha ao meu lado e compartilha tanto os desafios quanto as conquistas tornou essa jornada muito mais leve e significativa. Esta conquista também tem muito de vocês, e por isso deixo aqui o meu mais sincero agradecimento.\ldots 
 \end{agradecimentos}
 
 %Opcional
 \begin{epigrafe}
-  Só sei que nada sei.\\
-  {\sc --- Sócrates}
+  Podemos ver apenas um pouco do futuro, mas o suficiente para perceber que há muito a fazer.\\
+  {\sc --- Alan Turing}
 \end{epigrafe}
 
 %Resumo em Portugues (no maximo 500 palavras)
@@ -3705,11 +3711,39 @@ Este capítulo apresenta os resultados obtidos na tarefa de classificação de i
 
 \subsection{Modelos efetivamente treinados}
 
-A etapa final de classificação contemplou quatro arquiteturas representativas de diferentes paradigmas de projeto em redes neurais convolucionais: VGG16, ResNet50, EfficientNet-B0 e ConvNeXt-Large. Essa escolha permitiu comparar, em um mesmo ambiente experimental, um modelo clássico de alta capacidade paramétrica, uma arquitetura residual profunda, uma rede explicitamente orientada à eficiência e uma CNN modernizada de grande porte. Em todos os casos, a avaliação final foi realizada sobre o mesmo conjunto de teste, o que garante comparabilidade direta entre os resultados reportados.
+A etapa final de classificação contemplou quatro arquiteturas representativas de diferentes paradigmas de projeto em redes neurais convolucionais: VGG16, ResNet50, EfficientNet-B0 e ConvNeXt-Large. Essa seleção permitiu comparar, em um mesmo ambiente experimental, um modelo clássico de alta capacidade paramétrica, uma arquitetura residual profunda, uma rede explicitamente orientada à eficiência e uma CNN modernizada de grande porte. Em todos os casos, a avaliação final foi realizada sobre o mesmo conjunto de teste, garantindo comparabilidade direta entre os resultados reportados.
 
-Os artefatos finais associam a cada arquitetura um \textit{trial} considerado ótimo dentro do espaço de busca adotado. Para a VGG16, o melhor \textit{trial} foi \texttt{trial\_11\_lr\_0.0001\_bs\_32\_ft\_partial}; para a ResNet50, \texttt{trial\_03\_lr\_0.001\_bs\_16\_ft\_deep}; para a EfficientNet-B0, \texttt{trial\_05\_lr\_0.001\_bs\_32\_ft\_partial}; e, para a ConvNeXt-Large, \texttt{trial\_05\_lr\_0.001\_bs\_32\_ft\_partial}. Esses resultados mostram que a configuração final não foi uniforme entre os modelos, o que é esperado em uma comparação justa: cada arquitetura respondeu melhor a combinações específicas de taxa de aprendizado, tamanho de lote e profundidade de ajuste fino.
+Os artefatos finais associam a cada arquitetura um \textit{trial} considerado ótimo dentro do espaço de busca adotado. Como esperado em uma comparação justa, a configuração final não foi uniforme entre os modelos, já que cada arquitetura respondeu melhor a combinações específicas de taxa de aprendizado, tamanho de lote e profundidade de ajuste fino.
 
-Em termos de capacidade arquitetural, as diferenças entre os modelos foram substanciais. A ConvNeXt-Large foi o modelo mais pesado, com 196.234.947 parâmetros totais, enquanto a EfficientNet-B0 foi, de longe, a mais compacta, com 4.011.391 parâmetros. A ResNet50 ocupou uma posição intermediária, com 23.514.179 parâmetros, ao passo que a VGG16 manteve custo paramétrico elevado, com 134.272.835 parâmetros. Essa heterogeneidade é relevante porque mostra que os resultados de desempenho absoluto precisam ser interpretados em conjunto com custo computacional, e não apenas como competição cega de métricas finais.
+\begin{table}[htbp]
+	\centering
+	\caption{Melhores \textit{trials} por arquitetura no experimento final}
+	\label{tab:best_trials_modelos}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Arquitetura} & \textbf{Melhor \textit{trial}} \\ \hline
+		VGG16 & \texttt{trial\_11\_lr\_0.0001\_bs\_32\_ft\_partial} \\ \hline
+		ResNet50 & \texttt{trial\_03\_lr\_0.001\_bs\_16\_ft\_deep} \\ \hline
+		EfficientNet-B0 & \texttt{trial\_05\_lr\_0.001\_bs\_32\_ft\_partial} \\ \hline
+		ConvNeXt-Large & \texttt{trial\_05\_lr\_0.001\_bs\_32\_ft\_partial} \\ \hline
+	\end{tabular}
+\end{table}
+
+Em termos de capacidade arquitetural, as diferenças entre os modelos foram substanciais. A ConvNeXt-Large foi o modelo mais pesado, enquanto a EfficientNet-B0 foi, de longe, a mais compacta. A ResNet50 ocupou uma posição intermediária, ao passo que a VGG16 manteve custo paramétrico elevado. Essa heterogeneidade é relevante porque mostra que os resultados de desempenho absoluto devem ser interpretados em conjunto com o custo computacional, e não apenas como uma competição isolada de métricas finais.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Número de parâmetros por arquitetura}
+	\label{tab:parametros_modelos}
+	\begin{tabular}{|l|r|}
+		\hline
+		\textbf{Arquitetura} & \textbf{Parâmetros totais} \\ \hline
+		ConvNeXt-Large & 196.234.947 \\ \hline
+		VGG16 & 134.272.835 \\ \hline
+		ResNet50 & 23.514.179 \\ \hline
+		EfficientNet-B0 & 4.011.391 \\ \hline
+	\end{tabular}
+\end{table}
 
 \subsection{Hiperparâmetros adotados}
 
@@ -3812,19 +3846,77 @@ Os valores apresentados evidenciam que as arquiteturas não se distribuem de man
 
 \subsection{Comparação entre arquiteturas}
 
-A comparação entre arquiteturas mostra um cenário tecnicamente interessante. A ResNet50 e a ConvNeXt-Large atingiram exatamente a mesma \textit{accuracy} final (\(0{,}8729\)), mas a ResNet50 apresentou vantagem em macro-\textit{precision}, macro-\(F_1\), macro-AUC, latência de inferência e custo paramétrico. Isso indica que a igualdade em acurácia esconde comportamentos bastante diferentes: enquanto a ConvNeXt-Large alcança forte capacidade de recuperação global, a ResNet50 produz melhor equilíbrio entre precisão, separabilidade e eficiência.
+A comparação entre arquiteturas revela um cenário tecnicamente relevante. Embora ResNet50 e ConvNeXt-Large tenham alcançado a mesma \textit{accuracy} final (\(0{,}8729\)), a análise conjunta das demais métricas mostra que os dois modelos apresentaram perfis bastante distintos. Em particular, a ResNet50 obteve vantagem em macro-\textit{precision}, macro-\(F_1\), macro-AUC, latência de inferência e custo paramétrico, indicando melhor equilíbrio global entre qualidade preditiva e eficiência computacional.
 
-A EfficientNet-B0 ocupou posição intermediária em desempenho, mas destacou-se fortemente em eficiência. Seu número total de parâmetros foi quase seis vezes menor que o da ResNet50 e quase cinquenta vezes menor que o da ConvNeXt-Large, com latência de inferência também baixa. Essa combinação explica por que, mesmo não sendo o melhor modelo absoluto, ela se torna uma candidata natural ao melhor compromisso entre desempenho e custo computacional. Em aplicações de apoio ao diagnóstico com restrição de recursos, essa característica pode ser mais relevante do que pequenos ganhos marginais em métrica final.
+\begin{table}[htbp]
+	\centering
+	\caption{Síntese comparativa qualitativa entre as arquiteturas}
+	\label{tab:comparacao_qualitativa_arquiteturas}
+	\begin{tabular}{|l|p{9cm}|}
+		\hline
+		\textbf{Arquitetura} & \textbf{Síntese interpretativa} \\ \hline
+		ResNet50 & Melhor equilíbrio geral entre desempenho e eficiência; igualou a maior \textit{accuracy}, mas com vantagens em macro-\textit{precision}, macro-\(F_1\), macro-AUC, latência e custo paramétrico. \\ \hline
+		ConvNeXt-Large & Alcançou a mesma \textit{accuracy} da ResNet50, mas com maior custo computacional e menor eficiência global, apesar da forte capacidade de recuperação global. \\ \hline
+		EfficientNet-B0 & Desempenho intermediário, com destaque expressivo em eficiência computacional, baixo número de parâmetros e baixa latência. \\ \hline
+		VGG16 & Apresentou o pior desempenho entre os modelos avaliados, mantendo ao mesmo tempo custo paramétrico elevado. \\ \hline
+	\end{tabular}
+\end{table}
+
+A EfficientNet-B0 ocupou uma posição intermediária em desempenho, mas destacou-se fortemente em eficiência. Seu número total de parâmetros foi quase seis vezes menor que o da ResNet50 e quase cinquenta vezes menor que o da ConvNeXt-Large, além de apresentar baixa latência de inferência. Essa combinação explica por que, mesmo sem ser o melhor modelo em desempenho absoluto, ela se torna uma candidata natural ao melhor compromisso entre desempenho e custo computacional. Em aplicações de apoio ao diagnóstico com restrição de recursos, essa característica pode ser mais relevante do que pequenos ganhos marginais em métricas finais.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Comparações relativas de eficiência computacional}
+	\label{tab:comparacao_eficiencia_relativa}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Comparação} & \textbf{Interpretação} \\ \hline
+		EfficientNet-B0 vs. ResNet50 & Quase 6 vezes menos parâmetros \\ \hline
+		EfficientNet-B0 vs. ConvNeXt-Large & Quase 50 vezes menos parâmetros \\ \hline
+		EfficientNet-B0 & Baixa latência de inferência e boa relação desempenho/custo \\ \hline
+	\end{tabular}
+\end{table}
 
 A VGG16, apesar de sua importância histórica como \textit{baseline}, apresentou o pior desempenho entre os quatro modelos avaliados. Sua \textit{accuracy} de \(0{,}8390\), macro-\(F_1\) de \(0{,}8189\) e macro-AUC de \(0{,}9519\) ficaram abaixo dos demais, ao mesmo tempo em que o modelo manteve um número muito elevado de parâmetros. Esse resultado reforça a interpretação de que, neste problema, arquiteturas mais modernas ou estruturalmente mais eficientes oferecem melhor aproveitamento da capacidade computacional disponível.
 
+\begin{table}[htbp]
+	\centering
+	\caption{Métricas destacadas da VGG16 na comparação final}
+	\label{tab:vgg16_metricas_comparacao}
+	\begin{tabular}{|l|c|}
+		\hline
+		\textbf{Métrica} & \textbf{Valor} \\ \hline
+		\textit{Accuracy} & \(0{,}8390\) \\ \hline
+		Macro-\(F_1\) & \(0{,}8189\) \\ \hline
+		Macro-AUC & \(0{,}9519\) \\ \hline
+	\end{tabular}
+\end{table}
+
 \subsection{Melhor modelo em desempenho absoluto}
 
-Considerando o conjunto completo de métricas globais, a ResNet50 foi o melhor modelo em desempenho absoluto na tarefa de classificação. O resumo consolidado da execução \texttt{artifacts} já a identifica como melhor arquitetura absoluta, com macro-\(F_1 = 0{,}8710\) e AUC = \(0{,}9744\), além de apontá-la como melhor modelo em sensibilidade para malignidade, com \textit{recall} de \(0{,}9688\). No detalhamento por modelo, a ResNet50 também alcançou \textit{accuracy} de \(0{,}8729\), macro-\textit{precision} de \(0{,}8673\) e macro-\textit{recall} de \(0{,}8840\), consolidando o melhor equilíbrio geral entre acerto, capacidade discriminativa e sensibilidade clínica.
+Considerando o conjunto completo de métricas globais, a ResNet50 foi o melhor modelo em desempenho absoluto na tarefa de classificação. O resumo consolidado da execução \texttt{artifacts} já a identifica como a melhor arquitetura absoluta, com macro-\(F_1 = 0{,}8710\) e AUC = \(0{,}9744\), além de apontá-la como o melhor modelo em sensibilidade para malignidade, com \textit{recall} de \(0{,}9688\). No detalhamento por modelo, a ResNet50 também alcançou \textit{accuracy} de \(0{,}8729\), macro-\textit{precision} de \(0{,}8673\) e macro-\textit{recall} de \(0{,}8840\), consolidando o melhor equilíbrio geral entre acerto, capacidade discriminativa e sensibilidade clínica.
 
 Um aspecto particularmente importante é que a superioridade da ResNet50 não veio acompanhada de custo computacional proibitivo. Pelo contrário, sua latência média de inferência por imagem foi a menor entre os quatro modelos avaliados (\(1{,}4551\) ms/imagem), superando inclusive a EfficientNet-B0 nesse critério específico. Assim, embora a EfficientNet-B0 permaneça mais compacta em número de parâmetros e tamanho de modelo, a ResNet50 demonstrou que é possível obter o melhor desempenho absoluto sem sacrificar de forma severa a viabilidade operacional. Esse comportamento fortalece a interpretação de que o aprendizado residual foi particularmente adequado ao problema de classificação em ultrassom mamário investigado nesta pesquisa.
 
 Do ponto de vista clínico, a escolha da ResNet50 como melhor modelo absoluto também é justificada pelo seu desempenho na classe maligna. Em problemas de apoio ao diagnóstico, erros nessa classe têm custo potencialmente mais grave do que erros em categorias menos críticas. O fato de o resumo consolidado apontar a ResNet50 como melhor arquitetura em sensibilidade para malignidade reforça sua relevância como modelo de referência dentro do experimento. Em síntese, a ResNet50 não apenas venceu na métrica agregada mais importante do estudo, mas o fez preservando forte capacidade discriminativa e desempenho operacional competitivo, o que a posiciona como a arquitetura classificatória mais robusta do conjunto avaliado.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Indicadores que sustentam a ResNet50 como melhor modelo em desempenho absoluto}
+	\label{tab:resnet50_melhor_modelo_absoluto}
+	\begin{tabular}{|l|c|}
+		\hline
+		\textbf{Indicador} & \textbf{Valor} \\ \hline
+		Macro-\(F_1\) & \(0{,}8710\) \\ \hline
+		AUC & \(0{,}9744\) \\ \hline
+		\textit{Recall} para malignidade & \(0{,}9688\) \\ \hline
+		\textit{Accuracy} & \(0{,}8729\) \\ \hline
+		Macro-\textit{precision} & \(0{,}8673\) \\ \hline
+		Macro-\textit{recall} & \(0{,}8840\) \\ \hline
+		Latência média de inferência & \(1{,}4551\) ms/imagem \\ \hline
+		Síntese interpretativa & Melhor equilíbrio entre desempenho global, sensibilidade clínica e eficiência operacional \\ \hline
+	\end{tabular}
+\end{table}
 
 \section{Curvas de treinamento}
 
@@ -4154,16 +4246,18 @@ A Tabela~\ref{tab:segmentation_results_final} resume os principais resultados qu
 	\centering
 	\caption{Resultados consolidados dos modelos de segmentação no conjunto de teste.}
 	\label{tab:segmentation_results_final}
-	\begin{tabular}{lcccccccc}
-		\hline
-		\textbf{Modelo} & \textbf{Dice} & \textbf{IoU} & \textbf{Precision} & \textbf{Recall} & \textbf{Dice benign} & \textbf{Dice malignant} & \textbf{Parâmetros} & \textbf{Inferência (ms)} \\
-		\hline
-		U-Net++         & \textbf{0.790} & \textbf{0.713} & 0.829 & 0.810 & \textbf{0.827} & \textbf{0.713} & 26.1M & 2.71 \\
-		Attention U-Net & 0.782 & 0.700 & 0.783 & \textbf{0.841} & 0.817 & 0.709 & 24.4M & 2.17 \\
-		U-Net           & 0.774 & 0.694 & \textbf{0.836} & 0.782 & 0.816 & 0.685 & 24.4M & 1.89 \\
-		DeepLabV3+      & 0.763 & 0.684 & 0.809 & 0.769 & 0.790 & 0.706 & \textbf{22.4M} & \textbf{1.82} \\
-		\hline
-	\end{tabular}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lcccccccc}
+			\hline
+			\textbf{Modelo} & \textbf{Dice} & \textbf{IoU} & \textbf{Precision} & \textbf{Recall} & \textbf{Dice benign} & \textbf{Dice malignant} & \textbf{Parâmetros} & \textbf{Inferência (ms)} \\
+			\hline
+			U-Net++         & \textbf{0.790} & \textbf{0.713} & 0.829 & 0.810 & \textbf{0.827} & \textbf{0.713} & 26.1M & 2.71 \\
+			Attention U-Net & 0.782 & 0.700 & 0.783 & \textbf{0.841} & 0.817 & 0.709 & 24.4M & 2.17 \\
+			U-Net           & 0.774 & 0.694 & \textbf{0.836} & 0.782 & 0.816 & 0.685 & 24.4M & 1.89 \\
+			DeepLabV3+      & 0.763 & 0.684 & 0.809 & 0.769 & 0.790 & 0.706 & \textbf{22.4M} & \textbf{1.82} \\
+			\hline
+		\end{tabular}%
+	}
 \end{table}
 
 Os resultados evidenciam que as diferenças entre arquiteturas foram mais estreitas do que na classificação, mas ainda assim suficientemente consistentes para sustentar uma hierarquia clara. A U-Net++ apresentou o melhor desempenho absoluto em Dice e IoU, além do melhor Dice por classe tanto em \textit{benign} quanto em \textit{malignant}. A Attention U-Net destacou-se por maior \textit{recall}, a U-Net por maior \textit{precision}, e a DeepLabV3+ por menor custo bruto e melhor latência de inferência.
@@ -4309,12 +4403,20 @@ Portanto, o aumento de dados deve ser entendido como parte integrada do regime f
 \subsection{Número de parâmetros por modelo}
 
 As arquiteturas apresentaram números de parâmetros relativamente próximos, mas ainda assim com diferenças relevantes:
-\begin{itemize}
-	\item U-Net++: \(26{,}1\) milhões;
-	\item Attention U-Net: \(24{,}4\) milhões;
-	\item U-Net: \(24{,}4\) milhões;
-	\item DeepLabV3+: \(22{,}4\) milhões.
-\end{itemize}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Número de parâmetros das arquiteturas de segmentação}
+	\label{tab:parametros_segmentacao}
+	\begin{tabular}{|l|c|}
+		\hline
+		\textbf{Arquitetura} & \textbf{Número de parâmetros} \\ \hline
+		U-Net++ & \(26{,}1\) milhões \\ \hline
+		Attention U-Net & \(24{,}4\) milhões \\ \hline
+		U-Net & \(24{,}4\) milhões \\ \hline
+		DeepLabV3+ & \(22{,}4\) milhões \\ \hline
+	\end{tabular}
+\end{table}
 
 A proximidade dessas escalas ajuda a explicar por que as diferenças de desempenho segmentador foram mais sutis do que na classificação. Ainda assim, o custo adicional da U-Net++ não foi excessivo frente ao ganho obtido em Dice e IoU.
 
@@ -4326,9 +4428,23 @@ Ainda assim, o aumento de tempo da U-Net++ mostrou-se justificável, dado que fo
 
 \subsection{Tempo médio de inferência por imagem}
 
-Na inferência, a DeepLabV3+ foi a mais rápida, com \(1{,}82\) ms por imagem. Em seguida vieram U-Net (\(1{,}89\) ms/img), Attention U-Net (\(2{,}17\) ms/img) e U-Net++ (\(2{,}71\) ms/img). Isso mostra que a U-Net++ pagou um custo operacional moderado por sua superioridade em qualidade segmentadora.
+Na etapa de inferência, a DeepLabV3+ apresentou o menor tempo médio por imagem, com \(1{,}82\) ms/img. Em seguida, posicionaram-se a U-Net, com \(1{,}89\) ms/img, a Attention U-Net, com \(2{,}17\) ms/img, e a U-Net++, com \(2{,}71\) ms/img. Esse resultado mostra que a U-Net++ incorreu em um custo operacional moderado para alcançar sua superioridade em qualidade de segmentação.
 
-A diferença, contudo, não foi extrema em termos absolutos, o que preserva a viabilidade prática da U-Net++ em muitos cenários operacionais.
+Apesar dessa diferença, a discrepância observada não foi extrema em termos absolutos. Assim, mesmo sendo a arquitetura mais lenta entre as avaliadas, a U-Net++ preserva viabilidade prática em muitos cenários operacionais, especialmente quando o ganho em qualidade segmentadora é considerado mais relevante do que pequenas diferenças no tempo de processamento.
+
+\begin{table}[htbp]
+	\centering
+	\caption{Tempo médio de inferência por imagem das arquiteturas de segmentação}
+	\label{tab:tempo_inferencia_segmentacao}
+	\begin{tabular}{|l|c|}
+		\hline
+		\textbf{Arquitetura} & \textbf{Tempo médio de inferência (ms/img)} \\ \hline
+		DeepLabV3+ & \(1{,}82\) \\ \hline
+		U-Net & \(1{,}89\) \\ \hline
+		Attention U-Net & \(2{,}17\) \\ \hline
+		U-Net++ & \(2{,}71\) \\ \hline
+	\end{tabular}
+\end{table}
 
 \subsection{Comparação entre desempenho e custo}
 
